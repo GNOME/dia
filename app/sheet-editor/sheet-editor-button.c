@@ -24,6 +24,8 @@
 
 #include <glib/gi18n-lib.h>
 
+#include <xpm-pixbuf.h>
+
 #include "sheet-editor-button.h"
 #include "widgets.h"
 #include "message.h"
@@ -77,7 +79,7 @@ get_object_pixbuf (SheetObject *so)
     if (g_str_has_prefix ((char *) so->pixmap, "res:")) {
       pixbuf = pixbuf_from_resource (((char *) so->pixmap) + 4);
     } else {
-      pixbuf = gdk_pixbuf_new_from_xpm_data ((const char **) so->pixmap);
+      pixbuf = xpm_pixbuf_load (so->pixmap);
     }
   } else {
     if (so->pixmap_file != NULL) {

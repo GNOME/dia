@@ -24,6 +24,8 @@
 
 #include <gtk/gtk.h>
 
+#include <xpm-pixbuf.h>
+
 #include "diagram.h"
 #include "display.h"
 #include "renderer/diacairo.h"
@@ -487,7 +489,7 @@ navigation_popup_new (DDisplay *ddisp)
                     "released", G_CALLBACK (on_button_navigation_popup_released),
                     NULL);
 
-  pixbuf = gdk_pixbuf_new_from_xpm_data (nav_xpm);
+  pixbuf = xpm_pixbuf_load (nav_xpm);
 
   image = gtk_image_new_from_pixbuf (pixbuf);
 

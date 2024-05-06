@@ -22,6 +22,8 @@
 
 #include <stdio.h>
 
+#include <xpm-pixbuf.h>
+
 #include "dia-colour-area.h"
 #include "attributes.h"
 #include "persistence.h"
@@ -266,8 +268,8 @@ dia_colour_area_class_init (DiaColourAreaClass *class)
 static void
 dia_colour_area_init (DiaColourArea *self)
 {
-  self->reset = gdk_pixbuf_new_from_xpm_data (default_xpm);
-  self->swap = gdk_pixbuf_new_from_xpm_data (swap_xpm);
+  self->reset = xpm_pixbuf_load (default_xpm);
+  self->swap = xpm_pixbuf_load (swap_xpm);
 
   self->active_color = 0;
 

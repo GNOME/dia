@@ -228,6 +228,7 @@ libdia_deps = [
     libzlib_dep,
     gmodule_dep,
     graphene_dep,
+    xpm_dep,
 ]
 
 libdia_inc = include_directories('.')

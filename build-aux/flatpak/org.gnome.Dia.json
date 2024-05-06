@@ -25,6 +25,16 @@
     ],
     "modules": [
         {
+            "name": "xpm-pixbuf",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/ZanderBrown/xpm-pixbuf.git"
+                }
+            ]
+        },
+        {
             "name": "dia",
             "buildsystem": "meson",
             "config-opts": [

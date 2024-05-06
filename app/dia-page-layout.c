@@ -25,6 +25,8 @@
 
 #include <glib/gi18n-lib.h>
 
+#include <xpm-pixbuf.h>
+
 #include "dia-page-layout.h"
 
 #include "pixmaps/portrait.xpm"
@@ -146,7 +148,7 @@ dia_page_layout_init (DiaPageLayout *self)
 
   self->orient_portrait = gtk_radio_button_new (NULL);
 
-  wid = gtk_image_new_from_pixbuf (gdk_pixbuf_new_from_xpm_data (portrait_xpm));
+  wid = gtk_image_new_from_pixbuf (xpm_pixbuf_load (portrait_xpm));
   gtk_container_add (GTK_CONTAINER (self->orient_portrait), wid);
   gtk_widget_show (wid);
 
@@ -155,7 +157,7 @@ dia_page_layout_init (DiaPageLayout *self)
 
   self->orient_landscape = gtk_radio_button_new (
         gtk_radio_button_get_group (GTK_RADIO_BUTTON (self->orient_portrait)));
-  wid = gtk_image_new_from_pixbuf (gdk_pixbuf_new_from_xpm_data (landscape_xpm));
+  wid = gtk_image_new_from_pixbuf (xpm_pixbuf_load (landscape_xpm));
   gtk_container_add (GTK_CONTAINER (self->orient_landscape), wid);
   gtk_widget_show (wid);
 

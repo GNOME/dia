@@ -23,6 +23,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <xpm-pixbuf.h>
+
 #define _DIA_OBJECT_BUILD 1
 #include "object.h"
 #include "diagramdata.h" /* for Layer */
@@ -1423,14 +1425,6 @@ dia_object_type_get_icon (const DiaObjectType *type)
 
   if (g_str_has_prefix ((char *) icon_data, "res:")) {
     pixbuf = pixbuf_from_resource (((char *) icon_data) + 4);
-  } else if (icon_data && strncmp ((char *) icon_data, "GdkP", 4) == 0) {
-    /* GTK3: We will remove this in Dia 2.0 but is retained to maintain
-     * compatability with 0.97.3 objects */
-    g_warning ("Object '%s' has an inline icon, this is deprecated",
-               type->name);
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    pixbuf = gdk_pixbuf_new_from_inline (-1, (guint8 *) icon_data, TRUE, NULL);
-    G_GNUC_END_IGNORE_DEPRECATIONS
   } else if (type->pixmap_file != NULL) {
     GError *error = NULL;
     pixbuf = gdk_pixbuf_new_from_file (type->pixmap_file, &error);
@@ -1439,8 +1433,7 @@ dia_object_type_get_icon (const DiaObjectType *type)
       g_clear_error (&error);
     }
   } else {
-    const char **pixmap_data = icon_data;
-    pixbuf = gdk_pixbuf_new_from_xpm_data (pixmap_data);
+    pixbuf = xpm_pixbuf_load (icon_data);
   }
 
   return pixbuf;

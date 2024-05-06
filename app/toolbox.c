@@ -21,6 +21,9 @@
 #include <glib/gi18n-lib.h>
 
 #include <gtk/gtk.h>
+
+#include <xpm-pixbuf.h>
+
 #include "gtkwrapbox.h"
 #include "gtkhwrapbox.h"
 
@@ -302,7 +305,7 @@ fill_sheet_wbox(Sheet *sheet)
       if (g_str_has_prefix ((const char *) sheet_obj->pixmap, "res:")) {
         pixbuf = pixbuf_from_resource ((const char *) sheet_obj->pixmap + 4);
       } else {
-        pixbuf = gdk_pixbuf_new_from_xpm_data (sheet_obj->pixmap);
+        pixbuf = xpm_pixbuf_load (sheet_obj->pixmap);
         if (pixbuf == NULL) {
           g_warning ("Problem loading icon for ‘%s’", sheet_obj->description);
           pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
@@ -331,7 +334,7 @@ fill_sheet_wbox(Sheet *sheet)
           pixbuf = cropped;
         }
       } else {
-        pixbuf = gdk_pixbuf_new_from_xpm_data (missing);
+        pixbuf = xpm_pixbuf_load (missing);
 
         message_warning ("failed to load icon for file\n %s\n cause=%s",
                          sheet_obj->pixmap_file,
@@ -339,8 +342,8 @@ fill_sheet_wbox(Sheet *sheet)
       }
     } else {
       DiaObjectType *type;
-      type = object_get_type(sheet_obj->object_type);
-      pixbuf = gdk_pixbuf_new_from_xpm_data (type->pixmap);
+      type = object_get_type (sheet_obj->object_type);
+      pixbuf = dia_object_type_get_icon (type);
     }
 
     if (pixbuf) {
