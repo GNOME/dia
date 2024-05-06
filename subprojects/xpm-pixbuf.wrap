@@ -1,0 +1,9 @@
+[wrap-git]
+directory = xpm-pixbuf
+url = https://gitlab.gnome.org/ZanderBrown/xpm-pixbuf.git
+push-url = ssh://git@ssh.gitlab.gnome.org:ZanderBrown/xpm-pixbuf.git
+revision = main
+depth = 1
+
+[provide]
+dependency_names = xpm-pixbuf

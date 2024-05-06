@@ -30,7 +30,8 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://gitlab.gnome.org/ZanderBrown/xpm-pixbuf.git"
+                    "url": "https://gitlab.gnome.org/ZanderBrown/xpm-pixbuf.git",
+                    "branch" : "main"
                 }
             ]
         },
