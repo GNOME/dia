@@ -2,7 +2,7 @@ option('gtk_doc',
        type: 'boolean', value: false,
        description: 'Whether to generate the API reference')
 option('doc',
-       type: 'boolean', value: true,
+       type: 'feature', deprecated: {'true': 'enabled', 'false': 'disabled'},
        description: 'Whether to generate the doc')
 option('tests',
        type: 'boolean', value: false,

@@ -63,31 +63,29 @@ html_output = [
 
 lang = 'fr'
 
-if xsltproc.found()
-    html_dir = helpdir / lang
+html_dir = helpdir / lang
 
-    custom_target(lang + '-dia_html',
-        input: [ 'html.xsl', 'dia.xml' ],
-        output: html_output,
-        command: [
-            xsltproc,
-            '--stringparam', 'graphic.default.extension', 'png',
-            '--output', '@OUTDIR@/',
-            '@INPUT@'
-        ],
-        depend_files: xml_deps,
-        install: true,
-        install_dir: html_dir,
-    )
+custom_target(lang + '-dia_html',
+    input: [ 'html.xsl', 'dia.xml' ],
+    output: html_output,
+    command: [
+        xsltproc,
+        '--stringparam', 'graphic.default.extension', 'png',
+        '--output', '@OUTDIR@/',
+        '@INPUT@'
+    ],
+    depend_files: xml_deps,
+    install: true,
+    install_dir: html_dir,
+)
 
-    install_subdir(
-        'graphics',
-        install_dir: html_dir,
-    )
+install_subdir(
+    'graphics',
+    install_dir: html_dir,
+)
 
-    install_subdir(
-        '..' / 'html',
-        install_dir: html_dir,
-        strip_directory: true,
-    )
-endif
+install_subdir(
+    '..' / 'html',
+    install_dir: html_dir,
+    strip_directory: true,
+)

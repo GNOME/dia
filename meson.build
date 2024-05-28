@@ -1,7 +1,7 @@
 project('dia',
         ['c', 'cpp'],
         version: '0.98.0',  # This is the base version, git suffix gets added using vcs_tag().
-        meson_version: '>= 0.59',
+        meson_version: '>= 1.1.0',
         default_options: [
                              'warning_level=1',
                              'buildtype=debugoptimized',
@@ -29,6 +29,22 @@ libm_dep = cc.find_library('m', required: false)
 
 # This is needed for some platforms (eg. BSD).
 libc_dep = cc.find_library('c', required: false)
+
+# This is needed for generating the man pages
+doc_feature = get_option('doc')
+xsltproc = find_program('xsltproc', required: false)
+doc_feature = doc_feature.disable_if(
+    not xsltproc.found(),
+    error_message: 'xsltproc is required for doc targets'
+)
+if xsltproc.found()
+    stylesheet = 'http://docbook.sourceforge.net/release/xsl/current/xhtml/chunk.xsl'
+    testrun = run_command(xsltproc, '--nonet', stylesheet, check: false)
+    doc_feature = doc_feature.disable_if(
+        testrun.returncode() != 0,
+        error_message: 'stylesheet for generating man pages not found. install docbook-xsl or a similar package.'
+    )
+endif
 
 # Optional deps
 libpoppler_dep = dependency('poppler', version: '> 21.03.0', required: false)
@@ -158,7 +174,7 @@ subdir('shapes')
 if get_option('tests')
     subdir('tests')
 endif
-if get_option('doc')
+if doc_feature.allowed()
     subdir('doc')
 endif
 subdir('docs')
