@@ -6,7 +6,7 @@ project('dia',
                              'warning_level=1',
                              'buildtype=debugoptimized',
                              'c_std=gnu17',
-                             'cpp_std=gnu++17',
+                             'cpp_std=gnu++20',
                          ],
 )
 
