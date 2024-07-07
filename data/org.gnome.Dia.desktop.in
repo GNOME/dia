@@ -6,6 +6,8 @@ Type=Application
 Exec=dia %F
 # Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 Icon=org.gnome.Dia
+# For Wayland until GtkApplication is used:
+StartupWMClass=dia
 Terminal=false
 Categories=GNOME;Graphics;
 StartupNotify=true
