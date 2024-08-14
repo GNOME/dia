@@ -30,9 +30,9 @@ Operators = { "2" : " new", "3" : " delete",
 			  "4" : "=", "5" : ">>", "6" : "<<", "7" : "!", "8" : "==", "9" : "!=",
 			  "C" : "->", "Z" : "-", "F" : "--", "G" : "-", "H" : "+", "D" : "*", "E" : "++",
 			  "M" : "<", "Y" : "+=", "A" : "[]", "B" : " char const *", "K" : "/" }
-rDemangle = re.compile (r"\?(?P<tor>\?[01" + "".join(list(Operators.keys())) + "])*(?P<sym>[\w@_]+?(?=@))@@")
+rDemangle = re.compile (r"\?(?P<tor>\?[01" + "".join(list(Operators.keys())) + r"])*(?P<sym>[\w@_]+?(?=@))@@")
 # still NOT handling
-'''
+r'''
 d:\Projects>undname ?ReleaseAccess@?$CWriteAccess@VCDocEx@app@@@utl@@UAEXXZ
 Microsoft (R) C++ Name Undecorator
 Copyright (C) Microsoft Corporation 1981-2001. All rights reserved.
@@ -192,7 +192,7 @@ def GetDepsWin32 (sFrom, dAll, nMaxDepth, nDepth=0) :
 		sDump = f.readlines()
 		for s in sDump :
 			# similiar regex as above, but we have three numbers
-			r2 = re.match ("^[ ]+(?:[0123456789ABCDEF]{1,5}[ ]+)(?:[0123456789ABCDEF]{1,5}[ ]+)?[0123456789ABCDEF]{8}[ ]+([\w@?$]+).*", s)
+			r2 = re.match (r"^[ ]+(?:[0123456789ABCDEF]{1,5}[ ]+)(?:[0123456789ABCDEF]{1,5}[ ]+)?[0123456789ABCDEF]{8}[ ]+([\w@?$]+).*", s)
 			if r2 :
 				arr.append (r2.group(1))
 		node.AddExports (arr, 0)
@@ -208,7 +208,7 @@ def GetDepsWin32 (sFrom, dAll, nMaxDepth, nDepth=0) :
 		delayLoad = 0
 		directDeps = []
 		for s in sDump :
-			r = re.match ("^    (.*\.dll)", s, re.IGNORECASE)
+			r = re.match (r"^    (.*\.dll)", s, re.IGNORECASE)
 			# the delay load switch is flipped once
 			if s.find ("delay load imports") > 0 :
 				delayLoad = 1
@@ -218,9 +218,9 @@ def GetDepsWin32 (sFrom, dAll, nMaxDepth, nDepth=0) :
 			else :
 				# import by name
 				# The system dlls seem to follow a diferent pattern (or is this for know-dlls? Delay load?)  thus (?:[0123456789ABCDEF]{8}[ ]+)?
-				r2 = re.match ("^[ ]+(?:[\dA-F]{8}[ ]+)?[\dA-F]{1,5}[ ]+([\w@?$]+)$", s)
+				r2 = re.match (r"^[ ]+(?:[\dA-F]{8}[ ]+)?[\dA-F]{1,5}[ ]+([\w@?$]+)$", s)
 				if not r2 :
-					r2 = re.match ("^[ ]+(?:[\dA-F]{8}[ ]+)?Ordinal[ ]+([\d]+)$", s)
+					r2 = re.match (r"^[ ]+(?:[\dA-F]{8}[ ]+)?Ordinal[ ]+([\d]+)$", s)
 				if r2 :
 					arr.append (r2.group(1))
 				elif s[:-1] == "" and name != None and len(arr) > 0 :
@@ -284,16 +284,16 @@ def GetDepsPosix (sFrom, dAll, nMaxDepth, nDepth=0) :
 				if len(si) > 1 :
 					dImports[si[:-1]] = 1
 			else :
-				mi = re.match("\s+U (\S+)", si)
+				mi = re.match(r"\s+U (\S+)", si)
 				if mi :
 					print(mi.group(1))
 					dImports[mi.group(1)] = 1
 		toRecurse = []
 		for s in sModules :
 			if os.sys.platform in ['darwin'] :
-				r = re.match ("\s+(?P<path>\S+).*", s)
+				r = re.match (r"\s+(?P<path>\S+).*", s)
 			else :
-				r = re.match ("\s+(?P<name>\S+) => (?P<path>\S+).*", s)
+				r = re.match (r"\s+(?P<name>\S+) => (?P<path>\S+).*", s)
 			if r :
 				# print r.group("name"), r.group("path")
 				# now find symbols between sFrom and any of the SOs
@@ -305,7 +305,7 @@ def GetDepsPosix (sFrom, dAll, nMaxDepth, nDepth=0) :
 					fExports = os.popen ('nm --extern-only --dynamic --defined-only ' + r.group("path"))
 				sExports = fExports.readlines()
 				for se in sExports :
-					me = re.match ("\w+ T (\S+)", se)
+					me = re.match (r"\w+ T (\S+)", se)
 					if me :
 						symbol = me.group(1)
 						# print symbol
