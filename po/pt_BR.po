@@ -20,10 +20,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dia\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
-"POT-Creation-Date: 2024-03-08 02:41+0000\n"
+"POT-Creation-Date: 2024-09-23 13:30+0000\n"
 "PO-Revision-Date: 2024-09-23 10:28-0300\n"
 "Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
-"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>>\n"
+"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -605,11 +605,11 @@ msgstr "Nome"
 msgid "Diagram Tree"
 msgstr "Árvore de diagramas"
 
-#: app/dia-colour-area.c:180 app/dia-colour-area.c:188
+#: app/dia-colour-area.c:182 app/dia-colour-area.c:190
 msgid "Select foreground color"
 msgstr "Selecionar cor do primeiro plano"
 
-#: app/dia-colour-area.c:180 app/dia-colour-area.c:188
+#: app/dia-colour-area.c:182 app/dia-colour-area.c:190
 msgid "Select background color"
 msgstr "Selecionar cor de segundo plano"
 
@@ -681,7 +681,7 @@ msgid "Add New Guide"
 msgstr "Adicionar nova guia"
 
 #. orientation
-#: app/dia-guide-dialog.c:171 app/dia-page-layout.c:137
+#: app/dia-guide-dialog.c:171 app/dia-page-layout.c:139
 msgid "Orientation"
 msgstr "Orientação"
 
@@ -718,54 +718,54 @@ msgid "Line width:"
 msgstr "Largura da linha:"
 
 #. paper size
-#: app/dia-page-layout.c:105
+#: app/dia-page-layout.c:107
 msgid "Paper Size"
 msgstr "Tamanho do papel"
 
 #. margins
-#: app/dia-page-layout.c:166
+#: app/dia-page-layout.c:168
 msgid "Margins"
 msgstr "Margens"
 
-#: app/dia-page-layout.c:177
+#: app/dia-page-layout.c:179
 msgid "Top:"
 msgstr "Superior:"
 
-#: app/dia-page-layout.c:191
+#: app/dia-page-layout.c:193
 msgid "Bottom:"
 msgstr "Inferior:"
 
-#: app/dia-page-layout.c:205
+#: app/dia-page-layout.c:207
 msgid "Left:"
 msgstr "Esquerda:"
 
-#: app/dia-page-layout.c:219
+#: app/dia-page-layout.c:221
 msgid "Right:"
 msgstr "Direita:"
 
 #. Scaling
-#: app/dia-page-layout.c:234
+#: app/dia-page-layout.c:236
 msgid "Scaling"
 msgstr "Tamanho"
 
-#: app/dia-page-layout.c:244
+#: app/dia-page-layout.c:246
 msgid "Scale:"
 msgstr "Escala:"
 
-#: app/dia-page-layout.c:258
+#: app/dia-page-layout.c:260
 msgid "Fit to:"
 msgstr "Ajustar para:"
 
-#: app/dia-page-layout.c:271
+#: app/dia-page-layout.c:273
 msgid "by"
 msgstr "por"
 
-#: app/dia-page-layout.c:802
+#: app/dia-page-layout.c:804
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: app/dia-page-layout.c:906 app/pagesetup.c:77
+#: app/dia-page-layout.c:908 app/pagesetup.c:77
 msgid "Page Setup"
 msgstr "Configurar página"
 
@@ -813,7 +813,7 @@ msgstr "Seleção"
 msgid "Input _Methods"
 msgstr "_Métodos de entrada"
 
-#: app/disp_callbacks.c:1306
+#: app/disp_callbacks.c:1317
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -1098,7 +1098,7 @@ msgid "You must specify a file, not a directory."
 msgstr "Você deve especificar um arquivo, não um diretório."
 
 #: app/load_save.c:425 plug-ins/dxf/dxf-import.c:1327
-#: plug-ins/wpg/wpg-import.c:519 plug-ins/xfig/xfig-import.c:1320
+#: plug-ins/wpg/wpg-import.c:519 plug-ins/xfig/xfig-import.c:1322
 #: plug-ins/xslt/xslt.c:101
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -1164,8 +1164,8 @@ msgid "Not allowed to write temporary files in %s\n"
 msgstr "Não é permitido gravar arquivos temporários em %s\n"
 
 #: app/load_save.c:1237 plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
-#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1362
-#: plug-ins/pstricks/render_pstricks.c:977 plug-ins/vdx/vdx-export.c:1781
+#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1384
+#: plug-ins/pstricks/render_pstricks.c:999 plug-ins/vdx/vdx-export.c:1781
 #: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
 #: plug-ins/xfig/xfig-export.c:1272
 #, c-format
@@ -1184,11 +1184,11 @@ msgstr "Erro interno %d ao gravar arquivo %s\n"
 msgid "Can't rename %s to final output file %s"
 msgstr "Não foi possível renomear %s para o arquivo de saída final %s"
 
-#: app/load_save.c:1384 app/load_save.c:1395
+#: app/load_save.c:1386 app/load_save.c:1397
 msgid "Auto save"
 msgstr "Salvar automaticamente"
 
-#: app/load_save.c:1419 app/load_save.c:1424
+#: app/load_save.c:1421 app/load_save.c:1426
 msgid "Dia Diagram File"
 msgstr "Arquivo de diagrama do Dia"
 
@@ -1969,12 +1969,12 @@ msgstr "Usuário"
 msgid "Widget not found: %s"
 msgstr "Widget não localizado: %s"
 
-#: app/sheet-editor/sheet-editor-button.c:114
+#: app/sheet-editor/sheet-editor-button.c:116
 #, c-format
 msgid "No icon for “%s”"
 msgstr "Nenhum ícone para “%s”"
 
-#: app/sheet-editor/sheet-editor-button.c:186
+#: app/sheet-editor/sheet-editor-button.c:188
 #: app/sheet-editor/sheets_dialog_callbacks.c:945
 #: data/ui/sheets-new-dialog.ui:142
 msgid "Line Break"
@@ -2082,7 +2082,7 @@ msgstr "Carregando …"
 msgid "Dia v%s"
 msgstr "Dia v%s"
 
-#: app/toolbox.c:104
+#: app/toolbox.c:107
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
@@ -2090,7 +2090,7 @@ msgstr ""
 "Modificar objeto(s)\n"
 "Use <Espaço> para alternar entre esta e outras ferramentas"
 
-#: app/toolbox.c:110
+#: app/toolbox.c:113
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
@@ -2099,17 +2099,17 @@ msgstr ""
 "Use <Esc> para deixar esta ferramenta"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/toolbox.c:116 objects/FS/function.c:1042
+#: app/toolbox.c:119 objects/FS/function.c:1042
 msgid "Magnify"
 msgstr "Aproximar"
 
-#: app/toolbox.c:122
+#: app/toolbox.c:125
 msgid "Scroll around the diagram"
 msgstr "Muda o enquadramento do diagrama na janela"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: app/toolbox.c:128 lib/properties.c:96 lib/properties.h:697
+#: app/toolbox.c:131 lib/properties.c:96 lib/properties.h:697
 #: objects/AADL/aadlbox.c:165 objects/custom/custom_object.c:244
 #: objects/Jackson/requirement.c:126 objects/network/basestation.c:132
 #: objects/network/radiocell.c:129 objects/UML/activity.c:127
@@ -2121,78 +2121,78 @@ msgstr "Muda o enquadramento do diagrama na janela"
 msgid "Text"
 msgstr "Texto"
 
-#: app/toolbox.c:134
+#: app/toolbox.c:137
 msgid "Box"
 msgstr "Caixa"
 
-#: app/toolbox.c:140
+#: app/toolbox.c:143
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: app/toolbox.c:146
+#: app/toolbox.c:149
 msgid "Polygon"
 msgstr "Polígono"
 
-#: app/toolbox.c:152
+#: app/toolbox.c:155
 msgid "Beziergon"
 msgstr "Curva de Bézier fechada"
 
-#: app/toolbox.c:158 objects/standard/line.c:337
+#: app/toolbox.c:161 objects/standard/line.c:337
 msgid "Line"
 msgstr "Linha"
 
-#: app/toolbox.c:164
+#: app/toolbox.c:167
 msgid "Arc"
 msgstr "Arco"
 
-#: app/toolbox.c:170
+#: app/toolbox.c:173
 msgid "Zigzagline"
 msgstr "Linha em zigue-zague"
 
-#: app/toolbox.c:176
+#: app/toolbox.c:179
 msgid "Polyline"
 msgstr "Polilinha"
 
-#: app/toolbox.c:182
+#: app/toolbox.c:185
 msgid "Bezierline"
 msgstr "Curva de Bézier"
 
-#: app/toolbox.c:188
+#: app/toolbox.c:191
 msgid "Image"
 msgstr "Imagem"
 
-#: app/toolbox.c:194
+#: app/toolbox.c:197
 msgid "Outline"
 msgstr "Contorno"
 
-#: app/toolbox.c:493
+#: app/toolbox.c:496
 #, c-format
 msgid "No sheet named %s"
 msgstr "Não há nenhuma folha denominada %s"
 
 #. Author: Alan Horkan, 2002, mailto:horkana@tcd.ie
 #. Please talk to me before making any changes to this sheet
-#: app/toolbox.c:617 sheets/Assorted.sheet:5
+#: app/toolbox.c:620 sheets/Assorted.sheet:5
 msgid "Assorted"
 msgstr "Variados"
 
-#: app/toolbox.c:624 app/toolbox.c:760 sheets/Flowchart.sheet:3
+#: app/toolbox.c:627 app/toolbox.c:763 sheets/Flowchart.sheet:3
 msgid "Flowchart"
 msgstr "Fluxograma"
 
-#: app/toolbox.c:631 sheets/UML.sheet:3
+#: app/toolbox.c:634 sheets/UML.sheet:3
 msgid "UML"
 msgstr "UML"
 
-#: app/toolbox.c:661
+#: app/toolbox.c:664
 msgid "All Sheets"
 msgstr "Todas as folhas"
 
-#: app/toolbox.c:676 lib/dia-colour-selector.c:349 lib/dia-font-selector.c:483
+#: app/toolbox.c:679 lib/dia-colour-selector.c:349 lib/dia-font-selector.c:483
 msgid "Reset Menu"
 msgstr "Restaurar menu"
 
-#: app/toolbox.c:799
+#: app/toolbox.c:802
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double-click to change "
@@ -2202,7 +2202,7 @@ msgstr ""
 "preto e branco restauram as cores. As setas pequenas trocam as cores. Clique "
 "duplo para mudar as cores."
 
-#: app/toolbox.c:813
+#: app/toolbox.c:816
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -2211,7 +2211,7 @@ msgstr ""
 "padrão para novos objetos. Clique duplo para definir a largura de linha de "
 "formar mais precisa."
 
-#: app/toolbox.c:861
+#: app/toolbox.c:864
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details…"
@@ -2219,7 +2219,7 @@ msgstr ""
 "Estilo de seta no início de novas linhas. Clique para escolher um seta ou "
 "defina os parâmetros de estilo de seta através da opção Detalhes…"
 
-#: app/toolbox.c:866
+#: app/toolbox.c:869
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details…"
@@ -2227,7 +2227,7 @@ msgstr ""
 "Estilo de linha para novas linhas. Clique para escolher um estilo de linha "
 "ou defina os parâmetros de estilo de linha através da opção Detalhes…"
 
-#: app/toolbox.c:882
+#: app/toolbox.c:885
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details…"
@@ -2297,7 +2297,7 @@ msgstr "Editor de diagramas"
 msgid "Edit your Diagrams"
 msgstr "Edite os seus diagramas"
 
-#: data/org.gnome.Dia.desktop.in:14
+#: data/org.gnome.Dia.desktop.in:16
 msgid "graphic;diagram;vector;layout;"
 msgstr "gráfico;diagrama;vetor;leiaute;"
 
@@ -2886,12 +2886,12 @@ msgstr "Erro no arquivo, string não iniciada com #"
 msgid "Taking font value of non-font node."
 msgstr "Obtendo valor de fonte de um nó que não é de fonte."
 
-#: lib/filter.c:181
+#: lib/filter.c:184
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "Múltiplos filtros de exportação com um único nome %s"
 
-#: lib/filter.c:199
+#: lib/filter.c:202
 #, c-format
 msgid "Multiple import filters with unique name %s"
 msgstr "Há vários filtros de importação com um único nome %s"
@@ -6492,7 +6492,7 @@ msgid "TeX Metapost export filter"
 msgstr "Filtro de exportação para TeX Metapost"
 
 #: plug-ins/metapost/render_metapost.c:909
-#: plug-ins/pstricks/render_pstricks.c:879 plug-ins/wpg/wpg.c:920
+#: plug-ins/pstricks/render_pstricks.c:901 plug-ins/wpg/wpg.c:920
 msgid "Not enough memory for image drawing."
 msgstr "Memória insuficiente para desenhar imagem."
 
@@ -6534,7 +6534,7 @@ msgstr "Filtro de exportação para LaTeX PGF"
 msgid "Not valid UTF-8"
 msgstr "Codificação UTF8 inválida"
 
-#: plug-ins/pgf/render_pgf.c:1422
+#: plug-ins/pgf/render_pgf.c:1444
 msgid "LaTeX PGF macros"
 msgstr "Macros LaTeX PGF"
 
@@ -6575,7 +6575,7 @@ msgstr "Exportar/importar imagens baseadas no gdk-pixbuf"
 msgid "TeX PSTricks export filter"
 msgstr "Filtro de exportação para TeX Pstricks"
 
-#: plug-ins/pstricks/render_pstricks.c:1047
+#: plug-ins/pstricks/render_pstricks.c:1069
 msgid "TeX PSTricks macros"
 msgstr "Macros TeX PSTricks"
 
@@ -6820,7 +6820,7 @@ msgstr "Não é possível exportar ícone PNG sem um plug-in de exportação!"
 msgid "Dia Shape File"
 msgstr "Arquivo de formas do Dia"
 
-#: plug-ins/svg/render_svg.c:701 plug-ins/svg/svg-import.c:2277
+#: plug-ins/svg/render_svg.c:701 plug-ins/svg/svg-import.c:2281
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -6842,16 +6842,16 @@ msgstr ""
 "Dados de caminho inválidos.\n"
 "Dados svg:path devem começar com moveto."
 
-#: plug-ins/svg/svg-import.c:2043
+#: plug-ins/svg/svg-import.c:2047
 msgid "'Shape Design' shapes missing."
 msgstr "Está faltando a forma “Desenho da forma”"
 
-#: plug-ins/svg/svg-import.c:2077
+#: plug-ins/svg/svg-import.c:2081
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Falha ao criar objeto “%s”"
 
-#: plug-ins/svg/svg-import.c:2106
+#: plug-ins/svg/svg-import.c:2110
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6860,7 +6860,7 @@ msgstr ""
 "Erro de análise em bloco de memória.\n"
 "%s"
 
-#: plug-ins/svg/svg-import.c:2124
+#: plug-ins/svg/svg-import.c:2128
 #, c-format
 msgid ""
 "SVG parser error for %s\n"
@@ -6870,7 +6870,7 @@ msgstr ""
 "%s"
 
 #. just a warning
-#: plug-ins/svg/svg-import.c:2130
+#: plug-ins/svg/svg-import.c:2134
 #, c-format
 msgid ""
 "SVG parser warning for %s\n"
@@ -6879,11 +6879,11 @@ msgstr ""
 "Aviso de análise SVG para  %s\n"
 "%s"
 
-#: plug-ins/svg/svg-import.c:2163
+#: plug-ins/svg/svg-import.c:2167
 msgid "Expected SVG name-space not found in file"
 msgstr "O espaço de nome SVG esperado não foi encontrado no arquivo"
 
-#: plug-ins/svg/svg-import.c:2183
+#: plug-ins/svg/svg-import.c:2187
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "o elemento raiz era “%s” -- esperava-se “svg”."
@@ -6911,29 +6911,29 @@ msgstr "Não foi possível ler a cor: %s"
 msgid "Couldn't find shape %d"
 msgstr "Não foi possível localizar a forma %d"
 
-#: plug-ins/vdx/vdx-import.c:1071
+#: plug-ins/vdx/vdx-import.c:1072
 #, c-format
 msgid "Unexpected Ellipse object: %s"
 msgstr "Objeto de elipse inesperado: %s"
 
-#: plug-ins/vdx/vdx-import.c:1085
+#: plug-ins/vdx/vdx-import.c:1086
 msgid "Can't rotate ellipse"
 msgstr "Não é possível girar a elipse"
 
-#: plug-ins/vdx/vdx-import.c:1416
+#: plug-ins/vdx/vdx-import.c:1417
 msgid "MoveTo not at start of Bezier"
 msgstr "MoveTo não está no início do Bezier"
 
-#: plug-ins/vdx/vdx-import.c:1766
+#: plug-ins/vdx/vdx-import.c:1767
 msgid "Invalid NURBS formula"
 msgstr "Fórmula NURBS inválida"
 
-#: plug-ins/vdx/vdx-import.c:2025
+#: plug-ins/vdx/vdx-import.c:2027
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Não foi possível manipular o objeto externo %s"
 
-#: plug-ins/vdx/vdx-import.c:2960
+#: plug-ins/vdx/vdx-import.c:2963
 #, c-format
 msgid ""
 "VDX parser error for %s\n"
@@ -6942,16 +6942,16 @@ msgstr ""
 "Erro de análise VDX para %s\n"
 "%s"
 
-#: plug-ins/vdx/vdx-import.c:2972
+#: plug-ins/vdx/vdx-import.c:2975
 msgid "Nothing in document!"
 msgstr "Nada no documento!"
 
-#: plug-ins/vdx/vdx-import.c:2977
+#: plug-ins/vdx/vdx-import.c:2980
 #, c-format
 msgid "Expecting VisioDocument, got %s"
 msgstr "Era esperado “VisioDocument”, obteve-se %s"
 
-#: plug-ins/vdx/vdx-import.c:3061
+#: plug-ins/vdx/vdx-import.c:3064
 msgid "Visio XML File Format"
 msgstr "Formato de arquivo XML do Visio"
 
@@ -7109,131 +7109,131 @@ msgstr "Raio do canto negativo; rejeitando"
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Subtipo de polilinha desconhecido: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:749 plug-ins/xfig/xfig-import.c:781
+#: plug-ins/xfig/xfig-import.c:750 plug-ins/xfig/xfig-import.c:782
 msgid "Couldn't read spline info."
 msgstr "Não foi possível ler as informações do spline."
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:768 plug-ins/xfig/xfig-import.c:785
+#: plug-ins/xfig/xfig-import.c:769 plug-ins/xfig/xfig-import.c:786
 msgid "Cannot convert approximated spline yet."
 msgstr "Ainda não é possível converter um spline aproximado."
 
-#: plug-ins/xfig/xfig-import.c:823
+#: plug-ins/xfig/xfig-import.c:825
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Subtipo de spline desconhecido: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:888
+#: plug-ins/xfig/xfig-import.c:890
 msgid "Couldn't read arc info."
 msgstr "Não foi possível ler as informações do arco."
 
 #. set new fill property on arc?
-#: plug-ins/xfig/xfig-import.c:916
+#: plug-ins/xfig/xfig-import.c:918
 msgid "Filled arc treated as unfilled"
 msgstr "Arco preenchido tratado como não preenchido"
 
-#: plug-ins/xfig/xfig-import.c:920
+#: plug-ins/xfig/xfig-import.c:922
 #, c-format
 msgid "Unknown polyline arc: %d\n"
 msgstr "Arco de polilinha desconhecido: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:985
+#: plug-ins/xfig/xfig-import.c:987
 msgid "Couldn't read text info."
 msgstr "Não foi possível ler as informações do texto."
 
-#: plug-ins/xfig/xfig-import.c:1013
+#: plug-ins/xfig/xfig-import.c:1015
 #, c-format
 msgid "Can't find LaTeX font nr. %d, using sans"
 msgstr "Não foi possível localizar a fonte LaTeX nr. %d, usando sans"
 
-#: plug-ins/xfig/xfig-import.c:1021
+#: plug-ins/xfig/xfig-import.c:1023
 #, c-format
 msgid "Can't find PostScript font nr. %d, using sans"
 msgstr "Não foi possível localizar a fonte nr. %d, usando sans"
 
-#: plug-ins/xfig/xfig-import.c:1050
+#: plug-ins/xfig/xfig-import.c:1052
 msgid "Couldn't identify Fig object."
 msgstr "Não foi possível identificar o objeto Fig."
 
-#: plug-ins/xfig/xfig-import.c:1058
+#: plug-ins/xfig/xfig-import.c:1060
 msgid "Compound end outside compound\n"
 msgstr "Objeto composto finalizou fora da área normal\n"
 
-#: plug-ins/xfig/xfig-import.c:1080
+#: plug-ins/xfig/xfig-import.c:1082
 msgid "Couldn't read color\n"
 msgstr "Não foi possível ler a cor\n"
 
-#: plug-ins/xfig/xfig-import.c:1085
+#: plug-ins/xfig/xfig-import.c:1087
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "A cor número %d está fora da faixa 0..%d. Descartando a cor.\n"
 
-#: plug-ins/xfig/xfig-import.c:1132
+#: plug-ins/xfig/xfig-import.c:1134
 msgid "Couldn't read group extent."
 msgstr "Não foi possível ler a extensão de grupo."
 
-#: plug-ins/xfig/xfig-import.c:1143
+#: plug-ins/xfig/xfig-import.c:1145
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Tipo de objeto desconhecido: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1170
+#: plug-ins/xfig/xfig-import.c:1172
 #, c-format
 msgid "“%s” is not one of “%s” or “%s”\n"
 msgstr "“%s” não é um do “%s” ou “%s”\n"
 
-#: plug-ins/xfig/xfig-import.c:1185
+#: plug-ins/xfig/xfig-import.c:1187
 msgid "Error reading paper size."
 msgstr "Erro ao ler tamanho do papel."
 
-#: plug-ins/xfig/xfig-import.c:1197
+#: plug-ins/xfig/xfig-import.c:1199
 #, c-format
 msgid "Unknown paper size “%s”, using default\n"
 msgstr "Tamanho de papel “%s” desconhecido, usando o padrão\n"
 
-#: plug-ins/xfig/xfig-import.c:1213
+#: plug-ins/xfig/xfig-import.c:1215
 msgid "Error reading paper orientation."
 msgstr "Erro ao ler orientação do papel."
 
-#: plug-ins/xfig/xfig-import.c:1223
+#: plug-ins/xfig/xfig-import.c:1225
 msgid "Error reading justification."
 msgstr "Erro ao ler justificação."
 
-#: plug-ins/xfig/xfig-import.c:1233
+#: plug-ins/xfig/xfig-import.c:1235
 msgid "Error reading units."
 msgstr "Erro ao ler unidades."
 
-#: plug-ins/xfig/xfig-import.c:1249
+#: plug-ins/xfig/xfig-import.c:1251
 msgid "Error reading magnification."
 msgstr "Erro ao ler ampliação."
 
-#: plug-ins/xfig/xfig-import.c:1262
+#: plug-ins/xfig/xfig-import.c:1264
 msgid "Error reading multipage indicator."
 msgstr "Erro ao ler indicador multipáginas."
 
-#: plug-ins/xfig/xfig-import.c:1273
+#: plug-ins/xfig/xfig-import.c:1275
 msgid "Error reading transparent color."
 msgstr "Erro ao ler cor de transparência."
 
-#: plug-ins/xfig/xfig-import.c:1282 plug-ins/xfig/xfig-import.c:1343
-#: plug-ins/xfig/xfig-import.c:1363
+#: plug-ins/xfig/xfig-import.c:1284 plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:1365
 msgid "Error reading Fig file."
 msgstr "Erro ao ler arquivo Fig."
 
-#: plug-ins/xfig/xfig-import.c:1284
+#: plug-ins/xfig/xfig-import.c:1286
 msgid "Premature end of Fig file\n"
 msgstr "Fim prematuro de arquivo Fig\n"
 
-#: plug-ins/xfig/xfig-import.c:1293
+#: plug-ins/xfig/xfig-import.c:1295
 msgid "Error reading resolution."
 msgstr "Erro ao ler resolução."
 
-#: plug-ins/xfig/xfig-import.c:1329
+#: plug-ins/xfig/xfig-import.c:1331
 msgid "Doesn't look like a Fig file"
 msgstr "Não parece ser um arquivo Fig"
 
-#: plug-ins/xfig/xfig-import.c:1335
+#: plug-ins/xfig/xfig-import.c:1337
 #, c-format
 msgid ""
 "This is a Fig version %d.%d file.\n"
@@ -7242,11 +7242,11 @@ msgstr ""
 "Esse arquivo Fig é da versão %d.%d.\n"
 ", Este pode não ser importado."
 
-#: plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:1347
 msgid "Premature end of Fig file"
 msgstr "Fim prematuro de arquivo Fig"
 
-#: plug-ins/xfig/xfig-import.c:1390
+#: plug-ins/xfig/xfig-import.c:1392
 msgid "Xfig File Format"
 msgstr "Formato de arquivo XFig"
 
