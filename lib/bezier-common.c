@@ -62,7 +62,7 @@ bezier_calc_corner_types (BezierCommon *bezier)
     else if (distance_line_point (start, end, 0, major) > tolerance)
       bezier->corner_types[i+1] = BEZ_CORNER_CUSP;
     else if (fabs (   distance_point_point (start, major)
-		   -  distance_point_point (end, major) > tolerance))
+                   -  distance_point_point (end, major)) > tolerance)
       bezier->corner_types[i+1] = BEZ_CORNER_SMOOTH;
     else
       bezier->corner_types[i+1] = BEZ_CORNER_SYMMETRIC;
