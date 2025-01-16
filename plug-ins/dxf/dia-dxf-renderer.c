@@ -1,4 +1,3 @@
-/* -*- Mode: C; c-basic-offset: 4 -*- */
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
@@ -39,84 +38,52 @@
 #include "dia-layer.h"
 #include "font.h"
 
+#include "dia-dxf-renderer.h"
+
 /* used to be 10 and inconsistent with import and even here */
 #define MAGIC_THICKNESS_FACTOR (1.0)
-
-#define DXF_TYPE_RENDERER           (dxf_renderer_get_type ())
-#define DXF_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DXF_TYPE_RENDERER, DxfRenderer))
-#define DXF_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DXF_TYPE_RENDERER, DxfRendererClass))
-#define DXF_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DXF_TYPE_RENDERER))
-#define DXF_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DXF_TYPE_RENDERER, DxfRendererClass))
-
-enum {
-  PROP_0,
-  PROP_FONT,
-  PROP_FONT_HEIGHT,
-  LAST_PROP
-};
-
-
-GType dxf_renderer_get_type (void) G_GNUC_CONST;
-
-typedef struct _DxfRenderer DxfRenderer;
-typedef struct _DxfRendererClass DxfRendererClass;
-
-struct _DxfRendererClass
-{
-  DiaRendererClass parent_class;
-};
 
 #define IS_ODD(n) (n & 0x01)
 
 /* --- dxf line attributes --- */
-typedef struct _LineAttrdxf
-{
-    int         cap;
-    int         join;
-    char    	*style;
-    real        width;
-    Color       color;
-
+typedef struct _LineAttrdxf {
+  int         cap;
+  int         join;
+  char       *style;
+  double      width;
+  Color       color;
 } LineAttrdxf;
 
 /* --- dxf File/Edge attributes --- */
-typedef struct _FillEdgeAttrdxf
-{
+typedef struct _FillEdgeAttrdxf {
+  int          fill_style;          /* Fill style */
+  Color        fill_color;          /* Fill color */
 
-   int          fill_style;          /* Fill style */
-   Color        fill_color;          /* Fill color */
-
-   int          edgevis;             /* Edge visibility */
-   int          cap;                 /* Edge cap */
-   int          join;                /* Edge join */
-   char         *style;               /* Edge style */
-   real         width;               /* Edge width */
-   Color        color;               /* Edge color */
-
+  int          edgevis;             /* Edge visibility */
+  int          cap;                 /* Edge cap */
+  int          join;                /* Edge join */
+  char         *style;               /* Edge style */
+  double       width;               /* Edge width */
+  Color        color;               /* Edge color */
 } FillEdgeAttrdxf;
 
 
 /* --- dxf Text attributes --- */
-typedef struct _TextAttrdxf
-{
-   int          font_num;
-   real         font_height;
-   Color        color;
-
+typedef struct _TextAttrdxf {
+  int          font_num;
+  double       font_height;
+  Color        color;
 } TextAttrdxf;
 
 
-/* --- the renderer --- */
-
-struct _DxfRenderer
-{
+struct _DiaDxfRenderer {
   DiaRenderer parent_instance;
 
   FILE *file;
 
   DiaFont *font;
 
-  real y0, y1;
+  double y0, y1;
 
   LineAttrdxf  lcurrent, linfile;
 
@@ -127,64 +94,42 @@ struct _DxfRenderer
   const char *layername;
 };
 
-static void dxf_renderer_class_init (DxfRendererClass *klass);
 
-static gpointer parent_class = NULL;
+G_DEFINE_FINAL_TYPE (DiaDxfRenderer, dia_dxf_renderer, DIA_TYPE_RENDERER)
 
-GType
-dxf_renderer_get_type (void)
+
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
+
+
+static inline void
+set_font (DiaDxfRenderer *self, DiaFont *font, real height)
 {
-  static GType object_type = 0;
-
-  if (!object_type)
-    {
-      static const GTypeInfo object_info =
-      {
-        sizeof (DxfRendererClass),
-        (GBaseInitFunc) NULL,
-        (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) dxf_renderer_class_init,
-        NULL,           /* class_finalize */
-        NULL,           /* class_data */
-        sizeof (DxfRenderer),
-        0,              /* n_preallocs */
-	NULL            /* init */
-      };
-
-      object_type = g_type_register_static (DIA_TYPE_RENDERER,
-                                            "DxfRenderer",
-                                            &object_info, 0);
-    }
-
-  return object_type;
+  g_set_object (&self->font, font);
+  self->tcurrent.font_height = height;
 }
 
-static void
-set_font (DiaRenderer *self, DiaFont *font, real height)
-{
-  DxfRenderer *renderer = DXF_RENDERER (self);
-
-  g_clear_object (&renderer->font);
-  renderer->font = g_object_ref (font);
-  renderer->tcurrent.font_height = height;
-}
 
 static void
-dxf_renderer_set_property (GObject      *object,
-                           guint         property_id,
-                           const GValue *value,
-                           GParamSpec   *pspec)
+dia_dxf_renderer_set_property (GObject      *object,
+                               guint         property_id,
+                               const GValue *value,
+                               GParamSpec   *pspec)
 {
-  DxfRenderer *self = DXF_RENDERER (object);
+  DiaDxfRenderer *self = DIA_DXF_RENDERER (object);
 
   switch (property_id) {
     case PROP_FONT:
-      set_font (DIA_RENDERER (self),
+      set_font (self,
                 DIA_FONT (g_value_get_object (value)),
                 self->tcurrent.font_height);
       break;
     case PROP_FONT_HEIGHT:
-      set_font (DIA_RENDERER (self),
+      set_font (self,
                 self->font,
                 g_value_get_double (value));
       break;
@@ -194,13 +139,14 @@ dxf_renderer_set_property (GObject      *object,
   }
 }
 
+
 static void
-dxf_renderer_get_property (GObject    *object,
-                           guint       property_id,
-                           GValue     *value,
-                           GParamSpec *pspec)
+dia_dxf_renderer_get_property (GObject    *object,
+                               guint       property_id,
+                               GValue     *value,
+                               GParamSpec *pspec)
 {
-  DxfRenderer *self = DXF_RENDERER (object);
+  DiaDxfRenderer *self = DIA_DXF_RENDERER (object);
 
   switch (property_id) {
     case PROP_FONT:
@@ -215,62 +161,62 @@ dxf_renderer_get_property (GObject    *object,
   }
 }
 
+
 static void
-dxf_renderer_finalize (GObject *object)
+dia_dxf_renderer_dispose (GObject *object)
 {
-  DxfRenderer *self = DXF_RENDERER (object);
+  DiaDxfRenderer *self = DIA_DXF_RENDERER (object);
 
   g_clear_object (&self->font);
 
-  G_OBJECT_CLASS (parent_class)->finalize (object);
-}
-
-static void
-init_attributes( DxfRenderer *renderer )
-{
-    renderer->lcurrent.style = renderer->fcurrent.style = "CONTINUOUS";
-}
-
-static void
-begin_render(DiaRenderer *self, const DiaRectangle *update)
-{
-}
-
-static void
-end_render(DiaRenderer *self)
-{
-    DxfRenderer *renderer = DXF_RENDERER(self);
-
-    fprintf(renderer->file, "  0\nENDSEC\n  0\nEOF\n");
-    fclose(renderer->file);
-}
-
-static void
-set_linewidth(DiaRenderer *self, real linewidth)
-{
-    DxfRenderer *renderer = DXF_RENDERER(self);
-
-        /* update current line and edge width */
-    renderer->lcurrent.width = renderer->fcurrent.width = linewidth;
+  G_OBJECT_CLASS (dia_dxf_renderer_parent_class)->dispose (object);
 }
 
 
 static void
-set_linecaps (DiaRenderer *self, DiaLineCaps mode)
+dia_dxf_renderer_begin_render (DiaRenderer *self, const DiaRectangle *update)
 {
 }
 
 
 static void
-set_linejoin (DiaRenderer *self, DiaLineJoin mode)
+dia_dxf_renderer_end_render(DiaRenderer *self)
+{
+  DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
+
+  fprintf (renderer->file, "  0\nENDSEC\n  0\nEOF\n");
+  fclose (renderer->file);
+}
+
+
+static void
+dia_dxf_renderer_set_linewidth (DiaRenderer *self, double linewidth)
+{
+  DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
+
+  /* update current line and edge width */
+  renderer->lcurrent.width = renderer->fcurrent.width = linewidth;
+}
+
+
+static void
+dia_dxf_renderer_set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
 }
 
 
 static void
-set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
+dia_dxf_renderer_set_linejoin (DiaRenderer *self, DiaLineJoin mode)
 {
-  DxfRenderer *renderer = DXF_RENDERER (self);
+}
+
+
+static void
+dia_dxf_renderer_set_linestyle (DiaRenderer  *self,
+                                DiaLineStyle  mode,
+                                double        dash_length)
+{
+  DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
   char *style;
 
   switch (mode) {
@@ -297,12 +243,12 @@ set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 
 
 static void
-set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
+dia_dxf_renderer_set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 {
 }
 
 
-static int
+static inline int
 dxf_color (const Color *color)
 {
     /* Fixed colors
@@ -321,13 +267,15 @@ dxf_color (const Color *color)
     return pal_get_index (rgb);
 }
 
+
 static void
-draw_line(DiaRenderer *self,
-	  Point *start, Point *end,
-	  Color *line_colour)
+dia_dxf_renderer_draw_line (DiaRenderer *self,
+                            Point       *start,
+                            Point       *end,
+                            Color       *line_colour)
 {
-    DxfRenderer *renderer = DXF_RENDERER(self);
-    gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
+  char buf[G_ASCII_DTOSTR_BUF_SIZE];
 
     fprintf(renderer->file, "  0\nLINE\n");
     fprintf(renderer->file, "  8\n%s\n", renderer->layername);
@@ -344,15 +292,17 @@ draw_line(DiaRenderer *self,
 #endif
 }
 
+
 static void
-draw_polyline(DiaRenderer *self,
-              Point *points, int num_points,
-              Color *color)
+dia_dxf_renderer_draw_polyline (DiaRenderer *self,
+                                Point       *points,
+                                int          num_points,
+                                Color       *color)
 {
-    DxfRenderer *renderer = DXF_RENDERER(self);
-    int i;
-    gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
-    gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
+  int i;
+  char buf[G_ASCII_DTOSTR_BUF_SIZE];
+  char buf2[G_ASCII_DTOSTR_BUF_SIZE];
 
     fprintf(renderer->file, "  0\nPOLYLINE\n");
     fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
@@ -372,13 +322,16 @@ draw_polyline(DiaRenderer *self,
     fprintf(renderer->file, "  0\nSEQEND\n");
 }
 
+
 static void
-draw_polygon (DiaRenderer *self,
-              Point *points, int num_points,
-              Color *fill, Color *stroke)
+dia_dxf_renderer_draw_polygon (DiaRenderer *self,
+                               Point       *points,
+                               int          num_points,
+                               Color       *fill,
+                               Color       *stroke)
 {
   Color *color = fill ? fill : stroke;
-  DxfRenderer *renderer = DXF_RENDERER(self);
+  DiaDxfRenderer *renderer = DIA_DXF_RENDERER(self);
   /* We could emulate all polygons with multiple SOLID but it might not be
    * worth the effort. Following the easy part of polygons with 3 or 4 points.
    */
@@ -388,8 +341,8 @@ draw_polygon (DiaRenderer *self,
   int idx4[4] = {0, 1, 3, 2}; /* SOLID point order differs from Dia's */
   int *idx;
   int i;
-  gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
-  gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
+  char buf[G_ASCII_DTOSTR_BUF_SIZE];
+  char buf2[G_ASCII_DTOSTR_BUF_SIZE];
 
   g_return_if_fail (color != NULL);
 
@@ -408,15 +361,19 @@ draw_polygon (DiaRenderer *self,
 	    20+i, g_ascii_formatd (buf2, sizeof(buf2), "%g", -points[idx[i]].y));
 }
 
+
 static void
-draw_arc(DiaRenderer *self,
-	 Point *center,
-	 real width, real height,
-	 real angle1, real angle2,
-	 Color *colour)
+dia_dxf_renderer_draw_arc (DiaRenderer *self,
+                           Point       *center,
+                           double       width,
+                           double       height,
+                           double       angle1,
+                           double       angle2,
+                           Color       *colour)
 {
-    DxfRenderer *renderer = DXF_RENDERER(self);
-    gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
+  char buf[G_ASCII_DTOSTR_BUF_SIZE];
+
     /* DXF arcs are preferably counter-clockwise, so we might need to swap angles
      * According to my reading of the specs header section group code 70 might allow
      * clockwise arcs with $ANGDIR = 1 but it's not supported on the single arc level
@@ -442,25 +399,31 @@ draw_arc(DiaRenderer *self,
     fprintf(renderer->file, " 62\n%d\n", dxf_color (colour));
 }
 
-static void
-fill_arc(DiaRenderer *self,
-	 Point *center,
-	 real width, real height,
-	 real angle1, real angle2,
-	 Color *colour)
-{
-    /* emulate by SOLID? */
-}
 
 static void
-draw_ellipse(DiaRenderer *self,
-	     Point *center,
-	     real width, real height,
-	     Color *fill, Color *stroke)
+dia_dxf_renderer_fill_arc (DiaRenderer *self,
+                           Point       *center,
+                           double       width,
+                           double       height,
+                           double       angle1,
+                           double       angle2,
+                           Color       *colour)
 {
-    DxfRenderer *renderer = DXF_RENDERER(self);
-    gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
-    Color *color = fill ? fill : stroke; /* emulate fill by SOLID? */
+  /* emulate by SOLID? */
+}
+
+
+static void
+dia_dxf_renderer_draw_ellipse (DiaRenderer *self,
+                               Point       *center,
+                               double       width,
+                               double       height,
+                               Color       *fill,
+                               Color       *stroke)
+{
+  DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
+  char buf[G_ASCII_DTOSTR_BUF_SIZE];
+  Color *color = fill ? fill : stroke; /* emulate fill by SOLID? */
 
     /* draw a circle instead of an ellipse, if it's one */
     if(width == height){
@@ -489,13 +452,13 @@ draw_ellipse(DiaRenderer *self,
 
 
 static void
-draw_string (DiaRenderer  *self,
-             const char   *text,
-             Point        *pos,
-             DiaAlignment  alignment,
-             Color        *colour)
+dia_dxf_renderer_draw_string (DiaRenderer  *self,
+                              const char   *text,
+                              Point        *pos,
+                              DiaAlignment  alignment,
+                              Color        *colour)
 {
-  DxfRenderer *renderer = DXF_RENDERER (self);
+  DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
   char buf[G_ASCII_DTOSTR_BUF_SIZE];
 
   fprintf (renderer->file, "  0\nTEXT\n");
@@ -544,126 +507,124 @@ draw_string (DiaRenderer  *self,
 
 
 static void
-draw_image (DiaRenderer *self,
-            Point       *point,
-            double       width,
-            double       height,
-            DiaImage    *image)
+dia_dxf_renderer_draw_image (DiaRenderer *self,
+                             Point       *point,
+                             double       width,
+                             double       height,
+                             DiaImage    *image)
 {
+  /* TODO: Is it really okay that we just silently do nothing here? */
 }
 
 
 static void
-dxf_renderer_class_init (DxfRendererClass *klass)
+dia_dxf_renderer_class_init (DiaDxfRendererClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
-  parent_class = g_type_class_peek_parent (klass);
+  object_class->set_property = dia_dxf_renderer_set_property;
+  object_class->get_property = dia_dxf_renderer_get_property;
+  object_class->dispose = dia_dxf_renderer_dispose;
 
-  object_class->set_property = dxf_renderer_set_property;
-  object_class->get_property = dxf_renderer_get_property;
-  object_class->finalize = dxf_renderer_finalize;
+  renderer_class->begin_render = dia_dxf_renderer_begin_render;
+  renderer_class->end_render = dia_dxf_renderer_end_render;
 
-  renderer_class->begin_render = begin_render;
-  renderer_class->end_render = end_render;
+  renderer_class->set_linewidth = dia_dxf_renderer_set_linewidth;
+  renderer_class->set_linecaps = dia_dxf_renderer_set_linecaps;
+  renderer_class->set_linejoin = dia_dxf_renderer_set_linejoin;
+  renderer_class->set_linestyle = dia_dxf_renderer_set_linestyle;
+  renderer_class->set_fillstyle = dia_dxf_renderer_set_fillstyle;
 
-  renderer_class->set_linewidth = set_linewidth;
-  renderer_class->set_linecaps = set_linecaps;
-  renderer_class->set_linejoin = set_linejoin;
-  renderer_class->set_linestyle = set_linestyle;
-  renderer_class->set_fillstyle = set_fillstyle;
+  renderer_class->draw_line = dia_dxf_renderer_draw_line;
+  renderer_class->draw_polyline = dia_dxf_renderer_draw_polyline;
+  renderer_class->draw_polygon = dia_dxf_renderer_draw_polygon;
 
-  renderer_class->draw_line = draw_line;
-  renderer_class->draw_polygon = draw_polygon;
-  renderer_class->draw_polyline = draw_polyline;
+  renderer_class->draw_arc = dia_dxf_renderer_draw_arc;
+  renderer_class->fill_arc = dia_dxf_renderer_fill_arc;
 
-  renderer_class->draw_arc = draw_arc;
-  renderer_class->fill_arc = fill_arc;
+  renderer_class->draw_ellipse = dia_dxf_renderer_draw_ellipse;
 
-  renderer_class->draw_ellipse = draw_ellipse;
+  renderer_class->draw_string = dia_dxf_renderer_draw_string;
 
-  renderer_class->draw_string = draw_string;
-
-  renderer_class->draw_image = draw_image;
+  renderer_class->draw_image = dia_dxf_renderer_draw_image;
 
   g_object_class_override_property (object_class, PROP_FONT, "font");
   g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
 
-static gboolean
-export_dxf (DiagramData *data,
-            DiaContext  *ctx,
-            const char  *filename,
-            const char  *diafilename,
-            void        *user_data)
+static void
+dia_dxf_renderer_init (DiaDxfRenderer *self)
 {
-  DxfRenderer *renderer;
-  FILE *file;
-  gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
-  gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
 
-  file = g_fopen(filename, "w");
-
-    if (file == NULL) {
-	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
-					    dia_context_get_filename(ctx));
-	return FALSE;
-    }
-
-    renderer = g_object_new(DXF_TYPE_RENDERER, NULL);
-
-    renderer->file = file;
-
-    /* drawing limits */
-    fprintf(file, "  0\nSECTION\n  2\nHEADER\n");
-    fprintf(file, "  9\n$EXTMIN\n 10\n%s\n 20\n%s\n",
-      g_ascii_formatd (buf, sizeof(buf), "%g", data->extents.left),
-      g_ascii_formatd (buf2, sizeof(buf2), "%g", -data->extents.bottom));
-    fprintf(file, "  9\n$EXTMAX\n 10\n%s\n 20\n%s\n",
-      g_ascii_formatd (buf, sizeof(buf), "%g", data->extents.right),
-      g_ascii_formatd (buf2, sizeof(buf2), "%g", -data->extents.top));
-    fprintf(file, "  0\nENDSEC\n");
-
-    /* write layer description */
-    fprintf (file,"  0\nSECTION\n  2\nTABLES\n  0\nTABLE\n");
-    /* some dummy entry to make it work for more DXF viewers */
-    fprintf (file,"  2\nLAYER\n 70\n255\n");
-
-  DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
-    fprintf (file,"  0\nLAYER\n  2\n%s\n", dia_layer_get_name (layer));
-    if (dia_layer_is_visible (layer)) {
-      fprintf (file, " 62\n%d\n", i + 1);
-    } else {
-      fprintf (file, " 62\n%d\n", (-1) * (i + 1));
-    }
-  });
-  fprintf (file, "  0\nENDTAB\n  0\nENDSEC\n");
-
-    /* write graphics */
-    fprintf(file,"  0\nSECTION\n  2\nENTITIES\n");
-
-    init_attributes(renderer);
-
-    dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
-
-  DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
-    renderer->layername = dia_layer_get_name (layer);
-    dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
-  });
-
-  dia_renderer_end_render (DIA_RENDERER (renderer));
-
-  g_clear_object (&renderer);
-
-  return TRUE;
 }
 
 
-static const gchar *extensions[] = { "dxf", NULL };
-DiaExportFilter dxf_export_filter = {
-    N_("Drawing Interchange File"),
-    extensions,
-    export_dxf
-};
+static inline void
+init_attributes (DiaDxfRenderer *renderer)
+{
+  renderer->lcurrent.style = renderer->fcurrent.style = "CONTINUOUS";
+}
+
+
+gboolean
+dia_dxf_renderer_export (DiaDxfRenderer *self,
+                         DiaContext     *ctx,
+                         DiagramData    *data,
+                         const char     *filename)
+{
+  char buf[G_ASCII_DTOSTR_BUF_SIZE];
+  char buf2[G_ASCII_DTOSTR_BUF_SIZE];
+
+  g_return_val_if_fail (DIA_DXF_IS_RENDERER (self), FALSE);
+
+  self->file = g_fopen (filename, "w");
+
+  if (self->file == NULL) {
+    dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
+                                        dia_context_get_filename(ctx));
+    return FALSE;
+  }
+
+  /* drawing limits */
+  fprintf (self->file, "  0\nSECTION\n  2\nHEADER\n");
+  fprintf (self->file, "  9\n$EXTMIN\n 10\n%s\n 20\n%s\n",
+  g_ascii_formatd (buf, sizeof(buf), "%g", data->extents.left),
+  g_ascii_formatd (buf2, sizeof(buf2), "%g", -data->extents.bottom));
+  fprintf (self->file, "  9\n$EXTMAX\n 10\n%s\n 20\n%s\n",
+  g_ascii_formatd (buf, sizeof(buf), "%g", data->extents.right),
+  g_ascii_formatd (buf2, sizeof(buf2), "%g", -data->extents.top));
+  fprintf (self->file, "  0\nENDSEC\n");
+
+  /* write layer description */
+  fprintf (self->file,"  0\nSECTION\n  2\nTABLES\n  0\nTABLE\n");
+  /* some dummy entry to make it work for more DXF viewers */
+  fprintf (self->file,"  2\nLAYER\n 70\n255\n");
+
+  DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
+    fprintf (self->file,"  0\nLAYER\n  2\n%s\n", dia_layer_get_name (layer));
+    if (dia_layer_is_visible (layer)) {
+      fprintf (self->file, " 62\n%d\n", i + 1);
+    } else {
+      fprintf (self->file, " 62\n%d\n", (-1) * (i + 1));
+    }
+  });
+  fprintf (self->file, "  0\nENDTAB\n  0\nENDSEC\n");
+
+  /* write graphics */
+  fprintf (self->file,"  0\nSECTION\n  2\nENTITIES\n");
+
+  init_attributes (self);
+
+  dia_renderer_begin_render (DIA_RENDERER (self), NULL);
+
+  DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
+    self->layername = dia_layer_get_name (layer);
+    dia_layer_render (layer, DIA_RENDERER (self), NULL, NULL, data, 0);
+  });
+
+  dia_renderer_end_render (DIA_RENDERER (self));
+
+  return TRUE;
+}
