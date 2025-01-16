@@ -72,15 +72,26 @@ public :
   bool useDrawChar() { return FALSE; }
   //! Type 3 font support?
   bool interpretType3Chars() { return FALSE; }
+
+
   //! Overwrite for single page support??
-  bool checkPageSlice (Page *page, double hDPI, double vDPI,
-			int rotate, bool useMediaBox, bool crop,
-			int sliceX, int sliceY, int sliceW, int sliceH,
-			bool printing,
-			bool (* abortCheckCbk)(void *data),
-			void * abortCheckCbkData,
-			bool (*annotDisplayDecideCbk)(Annot *annot, void *user_data),
-			void *annotDisplayDecideCbkData)
+  bool
+  checkPageSlice (Page   *page,
+                  double  hDPI                        G_GNUC_UNUSED,
+                  double  vDPI                        G_GNUC_UNUSED,
+                  int     rotate                      G_GNUC_UNUSED,
+                  bool    useMediaBox                 G_GNUC_UNUSED,
+                  bool    crop                        G_GNUC_UNUSED,
+                  int     sliceX                      G_GNUC_UNUSED,
+                  int     sliceY                      G_GNUC_UNUSED,
+                  int     sliceW                      G_GNUC_UNUSED,
+                  int     sliceH                      G_GNUC_UNUSED,
+                  bool    printing                    G_GNUC_UNUSED,
+                  bool (* abortCheckCbk) (void *data) G_GNUC_UNUSED,
+                  void   *abortCheckCbkData           G_GNUC_UNUSED,
+                  bool (* annotDisplayDecideCbk)
+                      (Annot *annot, void *user_data) G_GNUC_UNUSED,
+                  void   *annotDisplayDecideCbkData   G_GNUC_UNUSED)
   {
     const PDFRectangle *mediaBox = page->getMediaBox();
     const PDFRectangle *clipBox = page->getCropBox ();
@@ -241,7 +252,11 @@ public :
   bool useShadedFills(int type) { return type < 4; }
   bool useFillColorStop() { return TRUE; }
   //! follow the CairoOutputDev pattern once more
-  bool axialShadedSupportExtend(GfxState *state, GfxAxialShading *shading)
+
+
+  bool
+  axialShadedSupportExtend (GfxState        *state   G_GNUC_UNUSED,
+                            GfxAxialShading *shading)
   {
     return (shading->getExtend0() == shading->getExtend1());
   }
@@ -259,7 +274,13 @@ public :
     g_return_if_fail (this->pattern != NULL);
     dia_pattern_add_color (this->pattern, offset, &fill);
   }
-  bool axialShadedFill(GfxState *state, GfxAxialShading *shading, double tMin, double tMax)
+
+
+  bool
+  axialShadedFill (GfxState        *state   G_GNUC_UNUSED,
+                   GfxAxialShading *shading,
+                   double           tMin,
+                   double           tMax)
   {
     double x0, y0, x1, y1;
     double dx, dy;
@@ -281,11 +302,21 @@ public :
     // although wasteful, because Poppler samples these to 256 entries
     return FALSE;
   }
-  bool radialShadedSupportExtend(GfxState *state, GfxRadialShading *shading)
+
+
+  bool
+  radialShadedSupportExtend (GfxState         *state   G_GNUC_UNUSED,
+                             GfxRadialShading *shading)
   {
     return (shading->getExtend0() == shading->getExtend1());
   }
-  bool radialShadedFill(GfxState *state, GfxRadialShading *shading, double sMin, double sMax)
+
+
+  bool
+  radialShadedFill (GfxState         *state    G_GNUC_UNUSED,
+                    GfxRadialShading *shading,
+                    double            sMin,
+                    double            sMax)
   {
     double x0, y0, r0, x1, y1, r1;
     double dx, dy, dr;
@@ -374,7 +405,11 @@ public :
     g_hash_table_insert (this->font_map, f, font);
     g_free (family);
   }
-  void updateTextShift(GfxState *state, double shift)
+
+
+  void
+  updateTextShift (GfxState *state G_GNUC_UNUSED,
+                   double    shift G_GNUC_UNUSED)
   {
     // Return the writing mode (0=horizontal, 1=vertical)
     // state->getFont()->getWMode()
@@ -385,11 +420,16 @@ public :
       this->alignment = DIA_ALIGN_CENTRE;
 #endif
   }
-  void saveState(GfxState *state)
+
+
+  void
+  saveState (GfxState *state G_GNUC_UNUSED)
   {
     // just rember the matrix for now
     this->matrices.push_back (this->matrix);
   }
+
+
   //! Change back to the old state
   void restoreState(GfxState *state)
   {
@@ -419,10 +459,13 @@ public :
 		 bool interpolate, int *maskColors, bool inlineImg);
 
   //! everything on a single page it put into a Dia Group
-  void startPage(int pageNum, GfxState *state)
+  void
+  startPage (int pageNum, GfxState *state G_GNUC_UNUSED)
   {
     this->pageNum = pageNum;
   }
+
+
   //! push the current list of objects to Dia
   void endPage()
   {
@@ -531,11 +574,12 @@ DiaOutputDev::~DiaOutputDev ()
 {
   g_print ("Fontmap hits=%d, misses=%d\n", font_map_hits, g_hash_table_size (font_map));
   g_hash_table_destroy (font_map);
-  if (pattern)
-    g_object_unref (pattern);
+  g_clear_object (&pattern);
   g_hash_table_destroy (image_cache);
 }
-static void
+
+
+static inline void
 _path_moveto (GArray *path, const Point *pt)
 {
   BezPoint bp;
@@ -543,7 +587,9 @@ _path_moveto (GArray *path, const Point *pt)
   bp.p1 = *pt;
   g_array_append_val (path, bp);
 }
-static void
+
+
+static inline void
 _path_lineto (GArray *path, const Point *pt)
 {
   BezPoint bp;
@@ -552,8 +598,12 @@ _path_lineto (GArray *path, const Point *pt)
   g_array_append_val (path, bp);
 }
 
+
 bool
-DiaOutputDev::doPath (GArray *points, const GfxState *state, const GfxPath *path, bool &haveClose)
+DiaOutputDev::doPath (GArray         *points,
+                      const GfxState *state     G_GNUC_UNUSED,
+                      const GfxPath  *path,
+                      bool           &haveClose)
 {
   int i, j;
   Point start;
@@ -662,10 +712,11 @@ DiaOutputDev::stroke (GfxState *state)
   if (obj)
     addObject (obj);
 }
-/*!
- */
+
+
 void
-DiaOutputDev::_fill (GfxState *state, bool winding)
+DiaOutputDev::_fill (GfxState *state,
+                     bool      winding G_GNUC_UNUSED)
 {
   GArray *points = g_array_new (FALSE, FALSE, sizeof(BezPoint));
   DiaObject *obj = NULL;
@@ -804,14 +855,21 @@ DiaOutputDev::drawString(GfxState *state, GooString *s)
   addObject (obj);
 }
 
+
 /*!
  * \brief Draw an image to Dia's _Image
  * \todo use maskColors to have some alpha support
  */
 void
-DiaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str,
-			int width, int height, GfxImageColorMap *colorMap,
-			bool interpolate, int *maskColors, bool inlineImg)
+DiaOutputDev::drawImage (GfxState         *state,
+                         Object           *ref         G_GNUC_UNUSED,
+                         Stream           *str,
+                         int               width,
+                         int               height,
+                         GfxImageColorMap *colorMap,
+                         bool              interpolate G_GNUC_UNUSED,
+                         int              *maskColors,
+                         bool              inlineImg   G_GNUC_UNUSED)
 {
   DiaObject *obj;
   GdkPixbuf *pixbuf;
@@ -894,7 +952,10 @@ DiaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str,
 
 extern "C"
 gboolean
-import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
+import_pdf (const char  *filename,
+            DiagramData *dia,
+            DiaContext  *ctx,
+            void        *user_data G_GNUC_UNUSED)
 {
   GooString *fileName = new GooString(filename);
   // no passwords yet
