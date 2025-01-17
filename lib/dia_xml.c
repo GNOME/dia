@@ -39,6 +39,7 @@
 #endif
 
 #include "dia_xml.h"
+#include "dia-locale.h"
 #include "message.h"
 
 
@@ -809,6 +810,7 @@ data_add_enum(AttributeNode attr, int data, DiaContext *ctx)
   xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
 }
 
+
 /*!
  * \brief Add real-typed data to an attribute node.
  * @param attr The attribute node.
@@ -817,16 +819,22 @@ data_add_enum(AttributeNode attr, int data, DiaContext *ctx)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_real(AttributeNode attr, real data, DiaContext *ctx)
+data_add_real (AttributeNode attr, double data, DiaContext *ctx)
 {
+  DiaLocaleContext l_ctx;
   DataNode data_node;
-  char buffer[G_ASCII_DTOSTR_BUF_SIZE]; /* Large enought */
+  char *buffer;
 
-  g_ascii_dtostr(buffer, G_ASCII_DTOSTR_BUF_SIZE, data);
+  dia_locale_push_numeric (&l_ctx);
+  buffer = g_strdup_printf ("%.17g", data);
+  dia_locale_pop (&l_ctx);
 
-  data_node = xmlNewChild(attr, NULL, (const xmlChar *)"real", NULL);
-  xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
+  data_node = xmlNewChild (attr, NULL, (const xmlChar *) "real", NULL);
+  xmlSetProp (data_node, (const xmlChar *) "val", (xmlChar *) buffer);
+
+  g_clear_pointer (&buffer, g_free);
 }
+
 
 /*!
  * \brief Add boolean data to an attribute node.
@@ -897,19 +905,20 @@ data_add_color(AttributeNode attr, const Color *col, DiaContext *ctx)
   xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
 }
 
-static gchar *
+
+static inline char *
 _str_point (const Point *point)
 {
-  gchar *buffer;
-  gchar px_buf[G_ASCII_DTOSTR_BUF_SIZE];
-  gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaLocaleContext ctx;
+  char *buffer;
 
-  g_ascii_formatd(px_buf, sizeof(px_buf), "%g", point->x);
-  g_ascii_formatd(py_buf, sizeof(py_buf), "%g", point->y);
-  buffer = g_strconcat(px_buf, ",", py_buf, NULL);
+  dia_locale_push_numeric (&ctx);
+  buffer = g_strdup_printf ("%g,%g", point->x, point->y);
+  dia_locale_pop (&ctx);
 
   return buffer;
 }
+
 
 /*!
  * \brief Add point data to an attribute node.
@@ -967,6 +976,7 @@ data_add_bezpoint(AttributeNode attr, const BezPoint *point, DiaContext *ctx)
   }
 }
 
+
 /*!
  * \brief Add rectangle data to an attribute node.
  * @param attr The attribute node.
@@ -975,27 +985,26 @@ data_add_bezpoint(AttributeNode attr, const BezPoint *point, DiaContext *ctx)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_rectangle(AttributeNode attr, const DiaRectangle *rect, DiaContext *ctx)
+data_add_rectangle (AttributeNode       attr,
+                    const DiaRectangle *rect,
+                    DiaContext         *ctx)
 {
+  DiaLocaleContext l_ctx;
   DataNode data_node;
-  gchar *buffer;
-  gchar rl_buf[G_ASCII_DTOSTR_BUF_SIZE];
-  gchar rr_buf[G_ASCII_DTOSTR_BUF_SIZE];
-  gchar rt_buf[G_ASCII_DTOSTR_BUF_SIZE];
-  gchar rb_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  char *buffer;
 
-  g_ascii_formatd(rl_buf, sizeof(rl_buf), "%g", rect->left);
-  g_ascii_formatd(rr_buf, sizeof(rr_buf), "%g", rect->right);
-  g_ascii_formatd(rt_buf, sizeof(rt_buf), "%g", rect->top);
-  g_ascii_formatd(rb_buf, sizeof(rb_buf), "%g", rect->bottom);
+  dia_locale_push_numeric (&l_ctx);
+  buffer = g_strdup_printf ("%g,%g,%g,%g",
+                            rect->left, rect->top,
+                            rect->right, rect->bottom);
+  dia_locale_pop (&l_ctx);
 
-  buffer = g_strconcat(rl_buf, ",", rt_buf, ";", rr_buf, ",", rb_buf, NULL);
-
-  data_node = xmlNewChild(attr, NULL, (const xmlChar *)"rectangle", NULL);
-  xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
+  data_node = xmlNewChild (attr, NULL, (const xmlChar *) "rectangle", NULL);
+  xmlSetProp (data_node, (const xmlChar *) "val", (xmlChar *) buffer);
 
   g_clear_pointer (&buffer, g_free);
 }
+
 
 /*!
  * \brief Add string data to an attribute node.
