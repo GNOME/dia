@@ -181,6 +181,8 @@ libdia_sources = stdprop_sources + [
     'dia-line-style-selector.h',
     'dia-line-preview.c',
     'dia-line-preview.h',
+    'dia-locale.c',
+    'dia-locale.h',
     'dia-simple-list.c',
     'dia-simple-list.h',
     'dia-size-selector.c',
