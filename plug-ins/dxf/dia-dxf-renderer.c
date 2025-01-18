@@ -32,11 +32,12 @@
 
 #include "autocad_pal.h"
 
-#include "geometry.h"
+#include "dia-layer.h"
+#include "dia-locale.h"
 #include "diarenderer.h"
 #include "filter.h"
-#include "dia-layer.h"
 #include "font.h"
+#include "geometry.h"
 
 #include "dia-dxf-renderer.h"
 
@@ -275,20 +276,22 @@ dia_dxf_renderer_draw_line (DiaRenderer *self,
                             Color       *line_colour)
 {
   DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
-  char buf[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaLocaleContext ctx;
 
-    fprintf(renderer->file, "  0\nLINE\n");
-    fprintf(renderer->file, "  8\n%s\n", renderer->layername);
-    fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-    fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", start->x));
-    fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*start->y));
-    fprintf(renderer->file, " 11\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", end->x));
-    fprintf(renderer->file, " 21\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*end->y));
-    fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
-    fprintf(renderer->file, " 62\n%d\n", dxf_color (line_colour));
+  dia_locale_push_numeric (&ctx);
+  fprintf(renderer->file, "  0\nLINE\n");
+  fprintf(renderer->file, "  8\n%s\n", renderer->layername);
+  fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
+  fprintf(renderer->file, " 10\n%g\n", start->x);
+  fprintf(renderer->file, " 20\n%g\n", (-1) * start->y);
+  fprintf(renderer->file, " 11\n%g\n", end->x);
+  fprintf(renderer->file, " 21\n%g\n", (-1) * end->y);
+  fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
+  fprintf(renderer->file, " 62\n%d\n", dxf_color (line_colour));
+  dia_locale_pop (&ctx);
 #if 0 /* approximately right effect, but only with one out of three DXF viewers */
-    /* Lineweight given in 100th of mm */
-    fprintf(renderer->file, "370\n%d\n", (int)(renderer->lcurrent.width * 1000.0));
+  /* Lineweight given in 100th of mm */
+  fprintf (renderer->file, "370\n%d\n", (int) (renderer->lcurrent.width * 1000.0));
 #endif
 }
 
@@ -300,26 +303,26 @@ dia_dxf_renderer_draw_polyline (DiaRenderer *self,
                                 Color       *color)
 {
   DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
-  int i;
-  char buf[G_ASCII_DTOSTR_BUF_SIZE];
-  char buf2[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaLocaleContext ctx;
 
-    fprintf(renderer->file, "  0\nPOLYLINE\n");
-    fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-    fprintf(renderer->file, "  8\n%s\n", renderer->layername);
-    /* start and end width are the same */
-    fprintf(renderer->file, " 41\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", renderer->lcurrent.width));
-    fprintf(renderer->file, " 42\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", renderer->lcurrent.width));
-    fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
-    /* vertices-follow flag */
-    fprintf(renderer->file, " 66\n1\n");
+  dia_locale_push_numeric (&ctx);
+  fprintf (renderer->file, "  0\nPOLYLINE\n");
+  fprintf (renderer->file, "  6\n%s\n", renderer->lcurrent.style);
+  fprintf (renderer->file, "  8\n%s\n", renderer->layername);
+  /* start and end width are the same */
+  fprintf (renderer->file, " 41\n%g\n", renderer->lcurrent.width);
+  fprintf (renderer->file, " 42\n%g\n", renderer->lcurrent.width);
+  fprintf (renderer->file, " 62\n%d\n", dxf_color (color));
+  /* vertices-follow flag */
+  fprintf (renderer->file, " 66\n1\n");
 
-    for (i = 0; i < num_points; ++i)
-        fprintf(renderer->file, "  0\nVERTEX\n 10\n%s\n 20\n%s\n",
-	        g_ascii_formatd (buf, sizeof(buf), "%g", points[i].x),
-		g_ascii_formatd (buf2, sizeof(buf2), "%g", -points[i].y));
+  for (size_t i = 0; i < num_points; ++i) {
+    fprintf (renderer->file, "  0\nVERTEX\n 10\n%g\n 20\n%g\n",
+             points[i].x, -points[i].y);
+  }
 
-    fprintf(renderer->file, "  0\nSEQEND\n");
+  fprintf(renderer->file, "  0\nSEQEND\n");
+  dia_locale_pop (&ctx);
 }
 
 
@@ -331,7 +334,8 @@ dia_dxf_renderer_draw_polygon (DiaRenderer *self,
                                Color       *stroke)
 {
   Color *color = fill ? fill : stroke;
-  DiaDxfRenderer *renderer = DIA_DXF_RENDERER(self);
+  DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
+  DiaLocaleContext ctx;
   /* We could emulate all polygons with multiple SOLID but it might not be
    * worth the effort. Following the easy part of polygons with 3 or 4 points.
    */
@@ -340,25 +344,27 @@ dia_dxf_renderer_draw_polygon (DiaRenderer *self,
 				    limited importers */
   int idx4[4] = {0, 1, 3, 2}; /* SOLID point order differs from Dia's */
   int *idx;
-  int i;
-  char buf[G_ASCII_DTOSTR_BUF_SIZE];
-  char buf2[G_ASCII_DTOSTR_BUF_SIZE];
 
   g_return_if_fail (color != NULL);
 
-  if (num_points == 3)
+  if (num_points == 3) {
     idx = idx3;
-  else if (num_points == 4)
+  } else if (num_points == 4) {
     idx = idx4;
-  else
+  } else {
     return; /* dont even try */
-  fprintf(renderer->file, "  0\nSOLID\n");
-  fprintf(renderer->file, "  8\n%s\n", renderer->layername);
-  fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
-  for (i = 0; i < 4; ++i)
-    fprintf(renderer->file, " %d\n%s\n %d\n%s\n",
-            10+i, g_ascii_formatd (buf, sizeof(buf), "%g", points[idx[i]].x),
-	    20+i, g_ascii_formatd (buf2, sizeof(buf2), "%g", -points[idx[i]].y));
+  }
+
+  dia_locale_push_numeric (&ctx);
+  fprintf (renderer->file, "  0\nSOLID\n");
+  fprintf (renderer->file, "  8\n%s\n", renderer->layername);
+  fprintf (renderer->file, " 62\n%d\n", dxf_color (color));
+  for (int i = 0; i < 4; ++i) {
+    fprintf (renderer->file, " %d\n%g\n %d\n%g\n",
+             10 + i, points[idx[i]].x,
+             20 + i, -points[idx[i]].y);
+  }
+  dia_locale_pop (&ctx);
 }
 
 
@@ -372,31 +378,35 @@ dia_dxf_renderer_draw_arc (DiaRenderer *self,
                            Color       *colour)
 {
   DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
-  char buf[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaLocaleContext ctx;
 
-    /* DXF arcs are preferably counter-clockwise, so we might need to swap angles
-     * According to my reading of the specs header section group code 70 might allow
-     * clockwise arcs with $ANGDIR = 1 but it's not supported on the single arc level
-     */
-    if (angle2 < angle1) {
-	real tmp = angle1;
-	angle1 = angle2;
-	angle2 = tmp;
-    }
-    if(width != 0.0){
-	fprintf(renderer->file, "  0\nARC\n");
-	fprintf(renderer->file, "  8\n%s\n", renderer->layername);
-	fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-	fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", center->x));
-	fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*center->y));
-	fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", width/2)); /* radius */
-	fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
-	/* From specification: "output in degrees to DXF files". */
-	fprintf(renderer->file, " 100\nAcDbArc\n");
-	fprintf(renderer->file, " 50\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle1 ))); /* start angle */
-	fprintf(renderer->file, " 51\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle2 ))); /* end angle */
-    }
-    fprintf(renderer->file, " 62\n%d\n", dxf_color (colour));
+  /* DXF arcs are preferably counter-clockwise, so we might need to swap angles
+    * According to my reading of the specs header section group code 70 might allow
+    * clockwise arcs with $ANGDIR = 1 but it's not supported on the single arc level
+    */
+  if (angle2 < angle1) {
+    double tmp = angle1;
+    angle1 = angle2;
+    angle2 = tmp;
+  }
+
+  if (width != 0.0) {
+    dia_locale_push_numeric (&ctx);
+    fprintf (renderer->file, "  0\nARC\n");
+    fprintf (renderer->file, "  8\n%s\n", renderer->layername);
+    fprintf (renderer->file, "  6\n%s\n", renderer->lcurrent.style);
+    fprintf (renderer->file, " 10\n%g\n", center->x);
+    fprintf (renderer->file, " 20\n%g\n", (-1) * center->y);
+    fprintf (renderer->file, " 40\n%g\n", width / 2); /* radius */
+    fprintf (renderer->file, " 39\n%d\n", (int) (MAGIC_THICKNESS_FACTOR * renderer->lcurrent.width)); /* Thickness */
+    /* From specification: "output in degrees to DXF files". */
+    fprintf (renderer->file, " 100\nAcDbArc\n");
+    fprintf (renderer->file, " 50\n%g\n", angle1); /* start angle */
+    fprintf (renderer->file, " 51\n%g\n", angle2); /* end angle */
+    dia_locale_pop (&ctx);
+  }
+
+  fprintf (renderer->file, " 62\n%d\n", dxf_color (colour));
 }
 
 
@@ -422,32 +432,33 @@ dia_dxf_renderer_draw_ellipse (DiaRenderer *self,
                                Color       *stroke)
 {
   DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
-  char buf[G_ASCII_DTOSTR_BUF_SIZE];
   Color *color = fill ? fill : stroke; /* emulate fill by SOLID? */
+  DiaLocaleContext ctx;
 
-    /* draw a circle instead of an ellipse, if it's one */
-    if(width == height){
-        fprintf(renderer->file, "  0\nCIRCLE\n");
-        fprintf(renderer->file, "  8\n%s\n", renderer->layername);
-        fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-        fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", center->x));
-        fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*center->y));
-        fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", height/2));
-        fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
-    }
-    else if(height != 0.0){
-        fprintf(renderer->file, "  0\nELLIPSE\n");
-        fprintf(renderer->file, "  8\n%s\n", renderer->layername);
-        fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-        fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", center->x));
-        fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*center->y));
-        fprintf(renderer->file, " 11\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", width/2)); /* Endpoint major axis relative to center X*/
-        fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", height/width)); /*Ratio major/minor axis*/
-        fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
-        fprintf(renderer->file, " 41\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 0.0)); /*Start Parameter full ellipse */
-        fprintf(renderer->file, " 42\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 2.0*3.14)); /* End Parameter full ellipse */
-    }
-    fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
+  /* draw a circle instead of an ellipse, if it's one */
+  dia_locale_push_numeric (&ctx);
+  if (width == height) {
+    fprintf (renderer->file, "  0\nCIRCLE\n");
+    fprintf (renderer->file, "  8\n%s\n", renderer->layername);
+    fprintf (renderer->file, "  6\n%s\n", renderer->lcurrent.style);
+    fprintf (renderer->file, " 10\n%g\n", center->x);
+    fprintf (renderer->file, " 20\n%g\n", (-1) * center->y);
+    fprintf (renderer->file, " 40\n%g\n", height / 2);
+    fprintf (renderer->file, " 39\n%d\n", (int) (MAGIC_THICKNESS_FACTOR * renderer->lcurrent.width)); /* Thickness */
+  } else if (height != 0.0) {
+    fprintf (renderer->file, "  0\nELLIPSE\n");
+    fprintf (renderer->file, "  8\n%s\n", renderer->layername);
+    fprintf (renderer->file, "  6\n%s\n", renderer->lcurrent.style);
+    fprintf (renderer->file, " 10\n%g\n", center->x);
+    fprintf (renderer->file, " 20\n%g\n", (-1) * center->y);
+    fprintf (renderer->file, " 11\n%g\n", width / 2); /* Endpoint major axis relative to center X*/
+    fprintf (renderer->file, " 40\n%g\n", height / width); /*Ratio major/minor axis*/
+    fprintf (renderer->file, " 39\n%d\n", (int) (MAGIC_THICKNESS_FACTOR * renderer->lcurrent.width)); /* Thickness */
+    fprintf (renderer->file, " 41\n%g\n", 0.0); /*Start Parameter full ellipse */
+    fprintf (renderer->file, " 42\n%g\n", 2. * 3.14); /* End Parameter full ellipse */
+  }
+  fprintf (renderer->file, " 62\n%d\n", dxf_color (color));
+  dia_locale_pop (&ctx);
 }
 
 
@@ -459,31 +470,17 @@ dia_dxf_renderer_draw_string (DiaRenderer  *self,
                               Color        *colour)
 {
   DiaDxfRenderer *renderer = DIA_DXF_RENDERER (self);
-  char buf[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaLocaleContext ctx;
 
+  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file, "  0\nTEXT\n");
   fprintf (renderer->file, "  8\n%s\n", renderer->layername);
   fprintf (renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-  fprintf (renderer->file,
-           " 10\n%s\n",
-           g_ascii_formatd (buf, sizeof(buf),
-           "%g",
-           pos->x));
-  fprintf (renderer->file,
-           " 20\n%s\n",
-           g_ascii_formatd (buf, sizeof(buf),
-           "%g",
-           (-1)*pos->y));
-  fprintf (renderer->file,
-           " 40\n%s\n",
-           g_ascii_formatd (buf, sizeof(buf),
-           "%g",
-           renderer->tcurrent.font_height)); /* Text height */
-  fprintf (renderer->file,
-           " 50\n%s\n",
-           g_ascii_formatd (buf, sizeof(buf),
-           "%g",
-           0.0)); /* Text rotation */
+  fprintf (renderer->file, " 10\n%g\n", pos->x);
+  fprintf (renderer->file, " 20\n%g\n", (-1) * pos->y);
+  fprintf (renderer->file, " 40\n%g\n",
+           renderer->tcurrent.font_height); /* Text height */
+  fprintf (renderer->file, " 50\n%g\n", 0.0); /* Text rotation */
   switch (alignment) {
     case DIA_ALIGN_LEFT:
       fprintf (renderer->file, " 72\n%d\n", 0);
@@ -503,6 +500,7 @@ dia_dxf_renderer_draw_string (DiaRenderer  *self,
            " 39\n%d\n",
            (int) (MAGIC_THICKNESS_FACTOR * renderer->lcurrent.width)); /* Thickness */
   fprintf (renderer->file, " 62\n%d\n", dxf_color(colour));
+  dia_locale_pop (&ctx);
 }
 
 
@@ -574,8 +572,7 @@ dia_dxf_renderer_export (DiaDxfRenderer *self,
                          DiagramData    *data,
                          const char     *filename)
 {
-  char buf[G_ASCII_DTOSTR_BUF_SIZE];
-  char buf2[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaLocaleContext l_ctx;
 
   g_return_val_if_fail (DIA_DXF_IS_RENDERER (self), FALSE);
 
@@ -588,14 +585,14 @@ dia_dxf_renderer_export (DiaDxfRenderer *self,
   }
 
   /* drawing limits */
+  dia_locale_push_numeric (&l_ctx);
   fprintf (self->file, "  0\nSECTION\n  2\nHEADER\n");
-  fprintf (self->file, "  9\n$EXTMIN\n 10\n%s\n 20\n%s\n",
-  g_ascii_formatd (buf, sizeof(buf), "%g", data->extents.left),
-  g_ascii_formatd (buf2, sizeof(buf2), "%g", -data->extents.bottom));
-  fprintf (self->file, "  9\n$EXTMAX\n 10\n%s\n 20\n%s\n",
-  g_ascii_formatd (buf, sizeof(buf), "%g", data->extents.right),
-  g_ascii_formatd (buf2, sizeof(buf2), "%g", -data->extents.top));
+  fprintf (self->file, "  9\n$EXTMIN\n 10\n%g\n 20\n%g\n",
+           data->extents.left, -data->extents.bottom);
+  fprintf (self->file, "  9\n$EXTMAX\n 10\n%g\n 20\n%g\n",
+           data->extents.right, -data->extents.top);
   fprintf (self->file, "  0\nENDSEC\n");
+  dia_locale_pop (&l_ctx);
 
   /* write layer description */
   fprintf (self->file,"  0\nSECTION\n  2\nTABLES\n  0\nTABLE\n");
