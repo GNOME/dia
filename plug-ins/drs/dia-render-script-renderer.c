@@ -28,19 +28,18 @@
 #include <glib/gi18n-lib.h>
 
 #include <glib.h>
-
-#include "diarenderer.h"
-
-#include "object.h" /* object->type->name */
-#include "dia_image.h" /* dia_image_filename */
-#include "properties.h" /* object_save_props */
-
 #include <pango/pango.h>
+
+#include "dia_image.h" /* dia_image_filename */
+#include "dia-locale.h"
+#include "diarenderer.h"
+#include "diatransformrenderer.h"
+#include "group.h"
+#include "object.h" /* object->type->name */
+#include "properties.h" /* object_save_props */
 
 #include "dia-render-script-renderer.h"
 
-#include "diatransformrenderer.h"
-#include "group.h"
 
 G_DEFINE_TYPE (DrsRenderer, drs_renderer, DIA_TYPE_RENDERER);
 
@@ -53,12 +52,18 @@ enum {
 
 
 static void
-_node_set_real (xmlNodePtr node, const char *name, real v)
+_node_set_real (xmlNodePtr node, const char *name, double v)
 {
-  gchar value[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaLocaleContext ctx;
+  char *buffer;
 
-  g_ascii_formatd (value, sizeof (value), "%g", v);
-  xmlSetProp (node, (const xmlChar *) name, (xmlChar *) value);
+  dia_locale_push_numeric (&ctx);
+  buffer = g_strdup_printf ("%g", v);
+  dia_locale_pop (&ctx);
+
+  xmlSetProp (node, (const xmlChar *) name, (xmlChar *) buffer);
+
+  g_clear_pointer (&buffer, g_free);
 }
 
 
@@ -288,19 +293,22 @@ _node_set_color (xmlNodePtr node, const char *name, const Color *color)
   g_clear_pointer (&value, g_free);
 }
 
+
 static void
 _string_append_point (GString *str, Point *pt, gboolean first)
 {
-  gchar value[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaLocaleContext ctx;
 
-  if (!first)
+  if (!first) {
     g_string_append (str, " ");
-  g_ascii_formatd (value, sizeof(value), "%g", pt->x);
-  g_string_append (str, value);
-  g_string_append (str, ",");
-  g_ascii_formatd (value, sizeof(value), "%g", pt->y);
-  g_string_append (str, value);
+  }
+
+  dia_locale_push_numeric (&ctx);
+  g_string_printf (str, "%g,%g", pt->x, pt->y);
+  dia_locale_pop (&ctx);
 }
+
+
 static void
 _node_set_point (xmlNodePtr node, const char *name, Point *point)
 {
