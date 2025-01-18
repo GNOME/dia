@@ -13,6 +13,8 @@ dia_sources = [
     'dia-builder.h',
     'dia-canvas.c',
     'dia-canvas.h',
+    'dia-ruler.c',
+    'dia-ruler.h',
 
     'layer-editor/dia-layer-list.c',
     'layer-editor/dia-layer-list.h',
@@ -50,7 +52,6 @@ dia_sources = [
     'magnify.c',
     'menus.c',
     'cut_n_paste.c',
-    'ruler.c',
     'tool.c',
     'dia-page-layout.c',
     'pagesetup.c',

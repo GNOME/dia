@@ -42,7 +42,7 @@
 #include "persistence.h"
 #include "widgets.h"
 #include "message.h"
-#include "ruler.h"
+#include "dia-ruler.h"
 #include "diainteractiverenderer.h"
 #include "dia-version-info.h"
 
@@ -823,12 +823,12 @@ ddisplay_update_rulers (DDisplay           *ddisp,
                         const DiaRectangle *extents,
                         const DiaRectangle *visible)
 {
-  dia_ruler_set_range (ddisp->hrule,
+  dia_ruler_set_range (DIA_RULER (ddisp->hrule),
                        visible->left,
                        visible->right,
                        0.0f /* position*/,
                        MAX (extents->right, visible->right)/* max_size*/);
-  dia_ruler_set_range (ddisp->vrule,
+  dia_ruler_set_range (DIA_RULER (ddisp->vrule),
                        visible->top,
                        visible->bottom,
                        0.0f /*        position*/,

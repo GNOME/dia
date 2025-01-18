@@ -28,17 +28,13 @@
  * easily with already existing application specific logic.
  */
 
-#include "ruler.h"
 #include "grid.h"
 #include "display.h"
 
-typedef struct _DiaRulerClass
-{
-  GtkDrawingAreaClass parent_class;
-} DiaRulerClass;
+#include "dia-ruler.h"
 
-typedef struct _DiaRuler
-{
+
+struct _DiaRuler {
   GtkDrawingArea parent;
 
   DDisplay *ddisp;
@@ -48,13 +44,10 @@ typedef struct _DiaRuler
   gdouble upper;
   gdouble position;
   gdouble max_size;
-} DiaRuler;
+};
 
-GType dia_ruler_get_type (void);
-#define DIA_TYPE_RULER (dia_ruler_get_type ())
-#define DIA_RULER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_RULER, DiaRuler))
 
-G_DEFINE_TYPE (DiaRuler, dia_ruler, GTK_TYPE_DRAWING_AREA)
+G_DEFINE_FINAL_TYPE (DiaRuler, dia_ruler, GTK_TYPE_DRAWING_AREA)
 
 
 static gboolean
@@ -106,10 +99,9 @@ dia_ruler_draw (GtkWidget *widget,
 
         /* label */
       if (is_major) {
-        gchar text[G_ASCII_DTOSTR_BUF_SIZE*2];
+        char *markup = g_strdup_printf ("<small>%g</small>", pos);
 
-        g_snprintf (text, sizeof(text)-1, "<small>%g</small>", pos);
-        pango_layout_set_markup (layout, text, -1);
+        pango_layout_set_markup (layout, markup, -1);
         pango_layout_context_changed (layout);
         cairo_save (cr);
         if (ruler->orientation == GTK_ORIENTATION_VERTICAL) {
@@ -121,6 +113,8 @@ dia_ruler_draw (GtkWidget *widget,
         }
         pango_cairo_show_layout (cr, layout);
         cairo_restore (cr);
+
+        g_clear_pointer (&markup, g_free);
       }
     }
 
@@ -204,6 +198,7 @@ dia_ruler_motion_notify (GtkWidget      *widget,
   return FALSE;
 }
 
+
 static void
 dia_ruler_class_init (DiaRulerClass *klass)
 {
@@ -219,6 +214,7 @@ static void
 dia_ruler_init (DiaRuler *rule)
 {
 }
+
 
 GtkWidget *
 dia_ruler_new (GtkOrientation orientation, GtkWidget *shell, DDisplay *ddisp)
@@ -243,23 +239,23 @@ dia_ruler_new (GtkOrientation orientation, GtkWidget *shell, DDisplay *ddisp)
   return rule;
 }
 
+
 void
-dia_ruler_set_range (GtkWidget *self,
-                     gdouble    lower,
-                     gdouble    upper,
-                     gdouble    position,
-                     gdouble    max_size)
+dia_ruler_set_range (DiaRuler *self,
+                     double    lower,
+                     double    upper,
+                     double    position,
+                     double    max_size)
 {
-  DiaRuler *ruler = DIA_RULER(self);
+  g_return_if_fail (DIA_IS_RULER (self));
 
-  ruler->lower = lower;
-  ruler->upper = upper;
-  ruler->position = position;
-  ruler->max_size = max_size;
+  self->lower = lower;
+  self->upper = upper;
+  self->position = position;
+  self->max_size = max_size;
 
-  if (gtk_widget_is_drawable (GTK_WIDGET (ruler)))
-    {
-      gtk_widget_queue_draw (GTK_WIDGET (ruler));
-      /* XXX: draw arrow at mouse position */
-    }
+  if (gtk_widget_is_drawable (GTK_WIDGET (self))) {
+    gtk_widget_queue_draw (GTK_WIDGET (self));
+    /* XXX: draw arrow at mouse position */
+  }
 }
