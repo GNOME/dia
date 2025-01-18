@@ -53,9 +53,9 @@ struct _NewDiagramData {
   gchar *unit, *font_unit;
 };
 
-GType diagram_data_get_type (void) G_GNUC_CONST;
+GType dia_diagram_data_get_type (void);
 
-#define DIA_TYPE_DIAGRAM_DATA           (diagram_data_get_type ())
+#define DIA_TYPE_DIAGRAM_DATA           (dia_diagram_data_get_type ())
 #define DIA_DIAGRAM_DATA(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_DIAGRAM_DATA, DiagramData))
 #define DIA_DIAGRAM_DATA_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_DIAGRAM_DATA, DiagramDataClass))
 #define DIA_IS_DIAGRAM_DATA(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_DIAGRAM_DATA))

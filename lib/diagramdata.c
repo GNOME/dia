@@ -39,11 +39,11 @@
 #include "dynamic_obj.h"
 #include "diamarshal.h"
 
+G_DEFINE_TYPE (DiagramData, dia_diagram_data, G_TYPE_OBJECT)
+
 
 static const DiaRectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 
-static void dia_diagram_data_class_init (DiagramDataClass *klass);
-static void diagram_data_init (DiagramData *object);
 
 typedef struct {
   DiaObject *obj;
@@ -68,36 +68,6 @@ enum {
 };
 static guint signals[LAST_SIGNAL] = { 0, };
 
-static gpointer parent_class = NULL;
-
-
-GType
-diagram_data_get_type(void)
-{
-  static GType object_type = 0;
-
-  if (!object_type)
-    {
-      static const GTypeInfo object_info =
-      {
-        sizeof (DiagramDataClass),
-        (GBaseInitFunc) NULL,
-        (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) dia_diagram_data_class_init,
-        NULL,           /* class_finalize */
-        NULL,           /* class_data */
-        sizeof (DiagramData),
-        0,              /* n_preallocs */
-	(GInstanceInitFunc)diagram_data_init /* init */
-      };
-
-      object_type = g_type_register_static (G_TYPE_OBJECT,
-                                            "DiagramData",
-                                            &object_info, 0);
-    }
-
-  return object_type;
-}
 
 /* signal default handlers */
 static void
@@ -121,7 +91,7 @@ _diagram_data_selection_changed (DiagramData* dia, int n)
 
 
 static void
-diagram_data_init(DiagramData *data)
+dia_diagram_data_init (DiagramData *data)
 {
   Color* color = persistence_register_color ("new_diagram_bgcolour", &color_white);
   gboolean compress = persistence_register_boolean ("compress_save", TRUE);
@@ -186,7 +156,7 @@ diagram_data_finalize (GObject *object)
   data->selected = NULL; /* for safety */
   data->selected_count_private = 0;
 
-  G_OBJECT_CLASS (parent_class)->finalize (object);
+  G_OBJECT_CLASS (dia_diagram_data_parent_class)->finalize (object);
 }
 
 
@@ -318,8 +288,6 @@ dia_diagram_data_class_init (DiagramDataClass *klass)
   klass->object_add = _diagram_data_object_add;
   klass->object_remove = _diagram_data_object_remove;
   klass->selection_changed = _diagram_data_selection_changed;
-
-  parent_class = g_type_class_peek_parent (klass);
 
   /**
    * DiagramData:active-layer:
