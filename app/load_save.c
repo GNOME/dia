@@ -405,6 +405,7 @@ diagram_data_load (const char  *filename,
   xmlNsPtr namespace;
   Diagram *diagram = DIA_IS_DIAGRAM (data) ? DIA_DIAGRAM (data) : NULL;
   DiaLayer *active_layer = NULL;
+  DiaLayer *initial_layer = NULL;
   GHashTable* unknown_objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
   int num_layers_added = 0;
 
@@ -439,9 +440,11 @@ diagram_data_load (const char  *filename,
     return FALSE;
   }
 
-  /* Destroy the default layer: */
-  if (dia_layer_object_count (dia_diagram_data_get_active_layer (data)) == 0) {
-    data_remove_layer (data, dia_diagram_data_get_active_layer (data));
+  /* Cache the initial layer to remove later */
+  g_set_object (&initial_layer, dia_diagram_data_get_active_layer (data));
+  if (initial_layer && dia_layer_object_count (initial_layer) != 0) {
+    /* If it already contains objects, we'll keep it after all */
+    g_clear_object (&initial_layer);
   }
 
   diagramdata =
@@ -745,12 +748,20 @@ diagram_data_load (const char  *filename,
     }
   }
 
+  /* Destroy the initial layer: */
+  g_object_freeze_notify (G_OBJECT (data));
+  if (initial_layer) {
+    data_remove_layer (data, initial_layer);
+  }
+
   if (!active_layer) {
     data_set_active_layer (data, data_layer_get_nth (data, 0));
   } else {
     data_set_active_layer (data, active_layer);
   }
+  g_object_thaw_notify (G_OBJECT (data));
 
+  g_clear_object (&initial_layer);
   g_clear_object (&active_layer);
   xmlFreeDoc (doc);
 

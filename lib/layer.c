@@ -74,16 +74,11 @@ static GParamSpec *pspecs[LAST_PROP] = { NULL, };
  */
 
 
-static int count = 0;
-
 static void
 dia_layer_finalize (GObject *object)
 {
   DiaLayer *self = DIA_LAYER (object);
   DiaLayerPrivate *priv = dia_layer_get_instance_private (self);
-
-  count--;
-  g_message ("RIP Layer %p %p (%i)", self, priv->parent_diagram, count);
 
   g_clear_pointer (&priv->name, g_free);
   destroy_object_list (priv->objects);
@@ -227,9 +222,6 @@ dia_layer_init (DiaLayer *self)
   priv->extents.right = 10.0;
   priv->extents.top = 0.0;
   priv->extents.bottom = 10.0;
-
-  g_message ("NEW Layer %p %p (%i)", self, priv->parent_diagram, count);
-  count++;
 }
 
 
