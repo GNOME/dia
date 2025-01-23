@@ -531,8 +531,10 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
 
   grid = gtk_grid_new ();
-  gtk_box_pack_start (GTK_BOX (vbox),
-		      grid, FALSE, TRUE, 0);
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
+  gtk_box_pack_start (GTK_BOX (vbox), grid, FALSE, TRUE, 0);
+
   /* should probably be refactored too. */
   label = gtk_label_new (_("Line Width"));
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
@@ -543,7 +545,7 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (line_width), TRUE);
   prop_dialog->line_width = GTK_SPIN_BUTTON (line_width);
   gtk_grid_attach (GTK_GRID (grid), line_width, 1, 0, 1, 1);
-  gtk_widget_set_hexpand(line_width, TRUE);
+  gtk_widget_set_hexpand(line_width, FALSE);
 
   label = gtk_label_new (_("Text Color"));
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
@@ -554,7 +556,7 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (text_color), &umlclass->text_color);
   prop_dialog->text_color = DIA_COLOUR_SELECTOR (text_color);
   gtk_grid_attach (GTK_GRID (grid), text_color, 1, 1, 1, 1);
-  gtk_widget_set_hexpand (text_color, TRUE);
+  gtk_widget_set_hexpand (text_color, FALSE);
 
   label = gtk_label_new(_("Foreground Color"));
   gtk_misc_set_alignment (GTK_MISC(label), 0.0, 0.5);
@@ -565,7 +567,7 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (line_color), &umlclass->line_color);
   prop_dialog->line_color = DIA_COLOUR_SELECTOR (line_color);
   gtk_grid_attach (GTK_GRID (grid), line_color, 1, 2, 1, 1);
-  gtk_widget_set_hexpand (line_color, TRUE);
+  gtk_widget_set_hexpand (line_color, FALSE);
 
   label = gtk_label_new(_("Background Color"));
   gtk_misc_set_alignment (GTK_MISC(label), 0.0, 0.5);
@@ -575,7 +577,7 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (fill_color), &umlclass->fill_color);
   prop_dialog->fill_color = DIA_COLOUR_SELECTOR (fill_color);
   gtk_grid_attach (GTK_GRID (grid), fill_color, 1, 3, 1, 1);
-  gtk_widget_set_hexpand (fill_color, TRUE);
+  gtk_widget_set_hexpand (fill_color, FALSE);
 
   gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);
