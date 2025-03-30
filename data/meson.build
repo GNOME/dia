@@ -19,21 +19,28 @@ if desktop_file_validate.found()
   )
 endif
 
-appdata_file = i18n.merge_file (
-  input: 'org.gnome.Dia.appdata.xml.in',
+appstream_file = i18n.merge_file(
+  input: 'org.gnome.Dia.metainfo.xml.in',
   output: '@BASENAME@',
   po_dir: po_dir,
   install: true,
-  install_dir: datadir / 'metainfo'
+  install_dir: datadir / 'metainfo',
 )
 # Validate Appdata
-appstream_util = find_program('appstream-util', required: false)
-if appstream_util.found()
+appstreamcli = find_program(
+  'appstreamcli',
+  required: get_option('tests'),
+)
+if appstreamcli.found()
   test(
-    'validate-appdata', appstream_util,
+    'validate-appstream',
+    appstreamcli,
     args: [
-      'validate', '--nonet', appdata_file.full_path()
-    ]
+      'validate',
+      '--no-net',
+      '--explain',
+      appstream_file,
+    ],
   )
 endif
 

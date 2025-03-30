@@ -7,11 +7,16 @@
   <name>Dia</name>
   <summary>Dia is a program for drawing diagrams</summary>
   <description>
-    <p>Dia is a GTK+ based diagram creation program for GNU/Linux, MacOS X, Unix, and Windows, and is released under the GPL license.</p>
-
-    <p>Dia is roughly inspired by the commercial Windows program 'Visio,' though more geared towards informal diagrams for casual use. It can be used to draw many different kinds of diagrams. It currently has special objects to help draw entity relationship diagrams, UML diagrams, flowcharts, network diagrams, and many other diagrams. It is also possible to add support for new shapes by writing simple XML files, using a subset of SVG to draw the shape.</p>
-
-    <p>It can load and save diagrams to a custom XML format (gzipped by default, to save space), can export diagrams to a number of formats, including EPS, SVG, XFIG, WMF and PNG, and can print diagrams (including ones that span multiple pages). </p>
+    <p>Dia is a GTK+ based diagram creation program for GNU/Linux, MacOS X, Unix, and Windows, and
+      is released under the GPL license.</p>
+    <p>Dia is roughly inspired by the commercial Windows program 'Visio,' though more geared towards
+      informal diagrams for casual use. It can be used to draw many different kinds of diagrams. It
+      currently has special objects to help draw entity relationship diagrams, UML diagrams,
+      flowcharts, network diagrams, and many other diagrams. It is also possible to add support for
+      new shapes by writing simple XML files, using a subset of SVG to draw the shape.</p>
+    <p>It can load and save diagrams to a custom XML format (gzipped by default, to save space), can
+      export diagrams to a number of formats, including EPS, SVG, XFIG, WMF and PNG, and can print
+      diagrams (including ones that span multiple pages). </p>
   </description>
   <screenshots>
     <screenshot type="default">
@@ -19,9 +24,9 @@
       <caption>Main Window</caption>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://wiki.gnome.org/Apps/Dia</url>
+  <url type="homepage">https://gitlab.gnome.org/GNOME/dia/</url>
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/dia/issues</url>
-  <url type="donation">http://www.gnome.org/friends/</url>
+  <url type="donation">https://www.gnome.org/donate/</url>
   <url type="translate">https://l10n.gnome.org/module/dia/</url>
   <content_rating type="oars-1.0" />
   <provides>
@@ -42,10 +47,11 @@
     <kudo>HiDpiIcon</kudo>
   </kudos>
   <developer_name>The GNOME Project</developer_name>
+  <developer id="org.gnome">
+    <name>The GNOME Project</name>
+  </developer>
   <project_group>GNOME</project_group>
   <update_contact>zbrown@gnome.org</update_contact>
   <translation type="gettext">dia</translation>
   <launchable type="desktop-id">org.gnome.Dia.desktop</launchable>
 </component>
-
-
