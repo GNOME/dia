@@ -85,7 +85,6 @@ dia_py_plugin_unload (PluginInfo *info)
 PluginInitResult
 dia_plugin_init (PluginInfo *info)
 {
-  wchar_t name[] = L"dia\0";
   char *python_argv[] = { "dia-python", NULL };
   char *startup_file;
   FILE *fp;
@@ -109,8 +108,11 @@ dia_plugin_init (PluginInfo *info)
   PyImport_AppendInittab ("dia", &PyInit_dia);
 
   PyConfig_InitPythonConfig (&config);
-  config.program_name = malloc (sizeof (name));
-  memcpy (config.program_name, &name, sizeof (name));
+
+  status = PyConfig_SetString(&config, &config.program_name, L"dia");
+  if (PyStatus_Exception (status)) {
+      goto failed;
+  }
 
   status = PyConfig_SetBytesArgv (&config, 1, python_argv);
   if (PyStatus_Exception (status)) {
