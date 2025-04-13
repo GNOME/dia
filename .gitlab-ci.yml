@@ -1,4 +1,6 @@
-include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
+include:
+  - project: 'gnome/citemplates'
+    file: 'flatpak/flatpak_ci_initiative.yml'
 
 .cache-paths: &cache-paths
   paths:
@@ -6,15 +8,19 @@ include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_
 
 variables:
     GIT_SUBMODULE_STRATEGY: recursive
+    MANIFEST_PATH: "build-aux/flatpak/org.gnome.Dia.json"
+    FLATPAK_MODULE: "dia"
+    RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
+    APP_ID: "org.gnome.Dia"
+    BUNDLE: "dia-dev.flatpak"
 
 flatpak:
-    variables:
-        MANIFEST_PATH: "build-aux/flatpak/org.gnome.Dia.json"
-        FLATPAK_MODULE: "dia"
-        RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
-        APP_ID: "org.gnome.Dia"
-        BUNDLE: "dia-dev.flatpak"
-    extends: .flatpak
+  stage: build
+  extends: .flatpak
+
+flatpak-aarch64:
+  stage: build
+  extends: ".flatpak@aarch64"
 
 nightly:
   extends: '.publish_nightly'
