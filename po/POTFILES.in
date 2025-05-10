@@ -40,8 +40,8 @@ app/sheet-editor/sheets_dialog_callbacks.c
 app/splash.c
 app/toolbox.c
 app/winmain.c
-data/org.gnome.Dia.appdata.xml.in
 data/org.gnome.Dia.desktop.in
+data/org.gnome.Dia.metainfo.xml.in
 data/ui/preferences-dialog.ui
 data/ui/sheets-edit-dialog.ui
 data/ui/sheets-main-dialog.ui
