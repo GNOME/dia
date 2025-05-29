@@ -24,9 +24,10 @@
 
 #include <xpm-pixbuf.h>
 
-#include "dia-colour-area.h"
 #include "attributes.h"
 #include "persistence.h"
+
+#include "dia-colour-area.h"
 
 
 enum area {
@@ -40,7 +41,39 @@ enum area {
 #define BACKGROUND 1
 
 
+struct _DiaColourArea {
+  GtkEventBox parent;
+  int active_color;
+
+  GdkPixbuf *reset;
+  GdkPixbuf *swap;
+
+  GtkWidget *color_select;
+  int edit_color;
+  Color stored_foreground;
+  Color stored_background;
+};
+
+
 G_DEFINE_TYPE (DiaColourArea, dia_colour_area, GTK_TYPE_EVENT_BOX)
+
+
+static void
+dia_colour_area_dispose (GObject *object)
+{
+  DiaColourArea *self = DIA_COLOUR_AREA (object);
+
+  if (self->color_select) {
+    gtk_widget_destroy (self->color_select);
+  }
+
+  g_clear_weak_pointer (&self->color_select);
+
+  g_clear_object (&self->reset);
+  g_clear_object (&self->swap);
+
+  G_OBJECT_CLASS (dia_colour_area_parent_class)->dispose (object);
+}
 
 
 /*  Local functions  */
@@ -146,20 +179,19 @@ dia_colour_area_response (GtkDialog     *chooser,
   }
 
   gtk_widget_hide (self->color_select);
-  self->color_select_active = 0;
 
   /* Trigger redraw */
   gtk_widget_queue_draw (GTK_WIDGET (self));
 }
 
+
 static void
 dia_colour_area_edit (DiaColourArea *self)
 {
-  GtkWidget *window;
   GdkRGBA gdk_color;
   Color color;
 
-  if (!self->color_select_active) {
+  if (!self->color_select || !gtk_widget_is_visible (self->color_select)) {
     self->stored_foreground = attributes_get_foreground ();
     self->stored_background = attributes_get_background ();
   }
@@ -174,33 +206,27 @@ dia_colour_area_edit (DiaColourArea *self)
     self->edit_color = BACKGROUND;
   }
 
-  if (self->color_select) {
-    window = self->color_select;
+  if (!self->color_select) {
+    GtkWidget *window = gtk_color_chooser_dialog_new (NULL, NULL);
 
-    gtk_window_set_title (GTK_WINDOW (self->color_select),
-                          self->edit_color == FOREGROUND ?
-                            _("Select foreground color") : _("Select background color"));
-
-    if (!self->color_select_active) {
-      gtk_widget_show (self->color_select);
-    }
-  } else {
-    window = self->color_select =
-      gtk_color_chooser_dialog_new (self->edit_color == FOREGROUND ?
-                                    _("Select foreground color") : _("Select background color"),
-                                    GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (self))));
-
-    self->color_select_active = 1;
     gtk_color_chooser_set_use_alpha (GTK_COLOR_CHOOSER (window), TRUE);
 
-    g_signal_connect (G_OBJECT (window), "response",
-                      G_CALLBACK (dia_colour_area_response), self);
+    g_signal_connect (G_OBJECT (window),
+                      "response", G_CALLBACK (dia_colour_area_response),
+                      self);
 
-    /* Make sure window is shown before setting its colors: */
-    gtk_widget_show (self->color_select);
+    g_set_weak_pointer (&self->color_select, window);
   }
 
+  gtk_window_set_transient_for (GTK_WINDOW (self->color_select),
+                                GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (self))));
+  gtk_window_set_title (GTK_WINDOW (self->color_select),
+                        self->edit_color == FOREGROUND ?
+                        _("Select foreground color") : _("Select background color"));
+
   gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (self->color_select), &gdk_color);
+
+  gtk_window_present (GTK_WINDOW (self->color_select));
 }
 
 
@@ -253,7 +279,10 @@ dia_colour_area_button_press_event (GtkWidget      *widget,
 static void
 dia_colour_area_class_init (DiaColourAreaClass *class)
 {
+  GObjectClass *object_class = G_OBJECT_CLASS (class);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+
+  object_class->dispose = dia_colour_area_dispose;
 
   widget_class->draw = dia_colour_area_draw;
   widget_class->button_press_event = dia_colour_area_button_press_event;
@@ -270,11 +299,6 @@ dia_colour_area_init (DiaColourArea *self)
 {
   self->reset = xpm_pixbuf_load (default_xpm);
   self->swap = xpm_pixbuf_load (swap_xpm);
-
-  self->active_color = 0;
-
-  self->color_select = NULL;
-  self->color_select_active = 0;
 
   gtk_widget_set_events (GTK_WIDGET (self), GDK_BUTTON_PRESS_MASK);
 }
