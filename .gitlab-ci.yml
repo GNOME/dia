@@ -26,18 +26,23 @@ nightly:
   extends: '.publish_nightly'
 
 
-.mingw-defaults: &mingw-defaults
-    tags:
-        - win32-ps
-    script:
-        - C:\msys64\usr\bin\pacman --noconfirm -Syyuu
-        - C:\msys64\usr\bin\bash -lc "bash -x ./.gitlab-ci/msys.sh"
-    cache:
-        key: "${env:CI_JOB_NAME}"
-        <<: *cache-paths
+.mingw-defaults:
+  stage: build
+  tags:
+    - win32-ps
+  script:
+    - C:\msys64\usr\bin\pacman --noconfirm -Syyuu
+    - C:\msys64\usr\bin\bash -lc "bash -x ./.gitlab-ci/msys.sh"
+  cache:
+    key: "$CI_JOB_NAME"
+    paths:
+      - _ccache/
+      - subprojects/xpm-pixbuf/
 
-msys2-mingw32:
-    variables:
-        MSYSTEM: "MINGW32"
-        CHERE_INVOKING: "yes"
-    <<: *mingw-defaults
+
+msys2-ucrt64:
+  extends: .mingw-defaults
+  needs: []
+  variables:
+    MSYSTEM: "UCRT64"
+    CHERE_INVOKING: "yes"
