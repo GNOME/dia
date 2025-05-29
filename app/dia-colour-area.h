@@ -20,7 +20,6 @@
 
 #include <gtk/gtk.h>
 
-#include "color.h"
 
 G_BEGIN_DECLS
 
@@ -28,20 +27,6 @@ G_BEGIN_DECLS
 #define DIA_TYPE_COLOUR_AREA (dia_colour_area_get_type ())
 G_DECLARE_FINAL_TYPE (DiaColourArea, dia_colour_area, DIA, COLOUR_AREA, GtkEventBox)
 
-struct _DiaColourArea
-{
-  GtkEventBox parent;
-  int active_color;
-
-  GdkPixbuf *reset;
-  GdkPixbuf *swap;
-
-  GtkWidget *color_select;
-  int color_select_active;
-  int edit_color;
-  Color stored_foreground;
-  Color stored_background;
-};
 
 GtkWidget *dia_colour_area_new (int width, int height);
 
