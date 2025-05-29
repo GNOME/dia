@@ -124,8 +124,7 @@ dia_cairo_renderer_begin_render (DiaRenderer *self, const DiaRectangle *update)
       cairo_translate (renderer->cr, -renderer->dia->extents.left + onedu, -renderer->dia->extents.top + onedu);
     }
   }
-  /* no more blurred UML diagrams */
-  cairo_set_antialias (renderer->cr, CAIRO_ANTIALIAS_NONE);
+  cairo_set_antialias (renderer->cr, CAIRO_ANTIALIAS_BEST);
 
   /* clear background */
   if (renderer->dia) {
