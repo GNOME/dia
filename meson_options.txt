@@ -5,5 +5,5 @@ option('doc',
        type: 'feature', deprecated: {'true': 'enabled', 'false': 'disabled'},
        description: 'Whether to generate the doc')
 option('tests',
-       type: 'boolean', value: false,
+       type: 'boolean', value: true,
        description: 'Whether to compile unit tests')

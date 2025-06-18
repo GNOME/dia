@@ -15,6 +15,7 @@ conf = configuration_data()
 conf.set_quoted('DIA_APPLICATION_PATH', '/org/gnome/Dia/')
 
 libglib_dep = dependency('glib-2.0',   version: '>= 2.76')
+gio_dep = dependency('gio-2.0',   version: '>= 2.76')
 libgtk_dep  = dependency('gtk+-3.0',   version: '>= 3.24')
 libxml_dep  = dependency('libxml-2.0', version: '>= 2.9.4')
 #TODO: what are the minimum versions?
