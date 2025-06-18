@@ -133,29 +133,35 @@ textblock_destroy (Block *block)
 static BlockOps text_block_ops = {
   textblock_get_boundingbox,
   textblock_draw,
-  textblock_destroy};
+  textblock_destroy,
+};
 
-static Block *textblock_create(const gchar **str)
+
+static Block *
+textblock_create (const char **str)
 {
-  const gchar *p = *str;
+  const char *p = *str;
   Block *block;
 
   while (**str) {
-    gunichar c;
-    gchar *p1;
-    c = g_utf8_get_char(*str);
-    p1 = g_utf8_next_char(*str);
-    if (isspecial(c)) break;
+    gunichar c = g_utf8_get_char (*str);
+    const char *p1 = g_utf8_next_char (*str);
+
+    if (isspecial (c)) {
+      break;
+    }
+
     *str = p1;
   }
 
-  block = g_new0(Block,1);
+  block = g_new0 (Block,1);
   block->type = BLOCK_TEXT;
   block->ops = &text_block_ops;
-  block->d.text = g_strndup(p,*str-p);
+  block->d.text = g_strndup (p, *str-p);
 
   return block;
 }
+
 
 /* Operator block */
 static const gchar xor_symbol[] = { 226, 138, 149, 0 }; /* 0x2295 */
@@ -516,26 +522,27 @@ compoundblock_destroy(Block *block)
   g_clear_pointer (&block, g_free);
 }
 
+
 static BlockOps compound_block_ops = {
   compoundblock_get_boundingbox,
   compoundblock_draw,
-  compoundblock_destroy};
+  compoundblock_destroy,
+};
+
 
 static Block *
-compoundblock_create(const gchar **str)
+compoundblock_create (const char **str)
 {
   Block *block, *inblk;
 
-  block = g_new0(Block,1);
+  block = g_new0 (Block,1);
   block->type = BLOCK_COMPOUND;
   block->ops = &compound_block_ops;
   block->d.contained = NULL;
 
   while (*str && **str) {
-    gunichar c;
-    gchar *p;
-    c = g_utf8_get_char(*str);
-    p = g_utf8_next_char(*str);
+    gunichar c = g_utf8_get_char (*str);
+    const char *p = g_utf8_next_char (*str);
 
     inblk = NULL;
     switch (c) {
@@ -558,13 +565,13 @@ compoundblock_create(const gchar **str)
       break;
     case '!':
       *str = p;
-      c = g_utf8_get_char(*str);
-      p = g_utf8_next_char(*str);
+      c = g_utf8_get_char (*str);
+      p = g_utf8_next_char (*str);
       if (c == '(') {
-	*str = p;
-	inblk = overlineblock_create(compoundblock_create(str));
+        *str = p;
+        inblk = overlineblock_create (compoundblock_create (str));
       } else { /* single identifier "not" */
-	inblk = overlineblock_create(textblock_create(str));
+        inblk = overlineblock_create (textblock_create (str));
       }
       break;
     case ')': /* Whooops ! outta here ! */
