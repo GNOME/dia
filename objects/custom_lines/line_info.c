@@ -26,19 +26,18 @@
 
 #include <glib/gi18n-lib.h>
 
-#include <stdlib.h>
-#include <libxml/tree.h>
-#include <libxml/parser.h>
-#include <libxml/xmlmemory.h>
-#include <float.h>
-#include <string.h>
-#include "dia_xml_libxml.h"
-
-
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <float.h>
 
-#include "dia-enums.h"
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+#include <libxml/xmlmemory.h>
+
 #include "arrows.h"
+#include "dia-enums.h"
+#include "dia-io.h"
 
 #include "line_info.h"
 
@@ -327,24 +326,35 @@ LineInfo* line_info_clone(LineInfo* info)
   return( res );
 }
 
-LineInfo*
-line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo* info)
+
+LineInfo *
+line_info_load_and_apply_from_xmlfile (const char *filename, LineInfo *info)
 {
-  const xmlError *error_xml = NULL;
-  xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
+  DiaContext *ctx = dia_context_new (_("Load Custom Line"));
+  xmlDocPtr doc = dia_io_load_document (filename, ctx, NULL);
+  LineInfo *result = NULL;
   xmlNodePtr node, root;
   xmlChar *tmp;
 
+  dia_context_set_filename (ctx, filename);
+
   if (!doc) {
-    g_warning("Custom Line parser error for %s\n%s", filename,
-	      error_xml ? error_xml->message : "");
-    return NULL;
+    dia_context_add_message (ctx,
+                             _("Loading Custom Line from %s failed"),
+                             filename);
+
+    goto out;
   }
+
   /* skip (emacs) comments */
   root = doc->xmlRootNode;
-  while (root && (root->type != XML_ELEMENT_NODE)) root = root->next;
-  if (!root) return NULL;
-  if (xmlIsBlankNode(root)) return NULL;
+  while (root && (root->type != XML_ELEMENT_NODE)) {
+    root = root->next;
+  }
+
+  if (!root || xmlIsBlankNode(root)) {
+    goto out;
+  }
 
   for (node = root->xmlChildrenNode; node != NULL; node = node->next) {
     if (xmlIsBlankNode(node))
@@ -379,9 +389,10 @@ line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo* info)
     }
   }
 
-  return( info );
+  result = info;
+
+out:
+  g_clear_pointer (&ctx, dia_context_release);
+
+  return result;
 }
-
-
-
-
