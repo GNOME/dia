@@ -34,15 +34,17 @@
 
 #include <glib/gstdio.h>
 
+#include <libxml/tree.h>
+#include <libxslt/transform.h>
+#include <libxslt/xslt.h>
+#include <libxslt/xsltInternals.h>
+#include <libxslt/xsltutils.h>
+
 #include "filter.h"
 #include "message.h"
 #include "dia_dirs.h"
-#include <libxslt/xslt.h>
-#include <libxslt/xsltInternals.h>
-#include <libxslt/transform.h>
-#include <libxslt/xsltutils.h>
-#include <libxml/tree.h>
-#include "dia_xml_libxml.h"
+#include "dia-io.h"
+
 #include "xslt.h"
 
 
@@ -77,107 +79,116 @@ export_xslt (DiagramData *data,
   return TRUE;
 }
 
+
 void
 xslt_ok (void)
 {
-  FILE *file, *out;
+  DiaContext *ctx = dia_context_new (_("XLST"));
+  FILE *out = NULL;
   int err;
-  gchar *stylefname;
+  char *stylefname = NULL;
   char *params[] = { "directory", NULL, NULL };
-  xsltStylesheetPtr style, codestyle;
-  xmlDocPtr doc, res;
-  const xmlError *error_xml = NULL;
-  gchar *directory = g_path_get_dirname (filename);
-  gchar *uri = g_filename_to_uri (directory, NULL, NULL);
+  xsltStylesheetPtr style = NULL, codestyle = NULL;
+  xmlDocPtr doc = NULL, res = NULL;
+  char *directory = g_path_get_dirname (filename);
+  char *uri = g_filename_to_uri (directory, NULL, NULL);
   g_clear_pointer (&directory, g_free);
+
+  dia_context_set_filename (ctx, diafilename);
 
   /* strange: requires an uri, but the last char is platform specifc?! */
   params[1] = g_strconcat ("'", uri, G_DIR_SEPARATOR_S, "'", NULL);
   g_clear_pointer (&uri, g_free);
 
-  file = g_fopen (diafilename, "r");
-
-  if (file == NULL) {
-    message_error (_("Couldn't open: '%s' for reading.\n"),
-    dia_message_filename (diafilename));
-    return;
-  }
-
   out = g_fopen (filename, "w+");
-
   if (out == NULL) {
-    message_error (_("Can't open output file %s: %s\n"),
-    dia_message_filename (filename), strerror (errno));
-    return;
+    dia_context_add_message (ctx,
+                             _("Can't open output file %s: %s"),
+                             dia_message_filename (filename),
+                             strerror (errno));
+    goto out;
   }
 
   xmlSubstituteEntitiesDefault (0);
-  doc = xmlDoParseFile (diafilename, &error_xml);
-
+  doc = dia_io_load_document (diafilename, ctx, NULL);
   if (doc == NULL) {
-    message_error (_("Error while parsing %s\n%s"),
-                   dia_message_filename (diafilename),
-                   error_xml ? error_xml->message : "");
-    return;
+    dia_context_add_message (ctx,
+                             _("Error while parsing: %s"),
+                             dia_message_filename (diafilename));
+
+    goto out;
   }
 
   stylefname = xsl_from->xsl;
 
   style = xsltParseStylesheetFile ((const xmlChar *) stylefname);
-  if(style == NULL) {
-    message_error (_("Error while parsing stylesheet %s\n"),
-                   dia_message_filename (stylefname));
-    return;
+  if (style == NULL) {
+    dia_context_add_message (ctx,
+                             _("Error while parsing stylesheet: %s"),
+                             dia_message_filename (stylefname));
+
+    goto out;
   }
 
   res = xsltApplyStylesheet (style, doc, NULL);
-  if(res == NULL) {
-   message_error (_("Error while applying stylesheet %s\n"),
-                  dia_message_filename (stylefname));
-    return;
+  if (res == NULL) {
+    dia_context_add_message (ctx,
+                             _("Error while applying stylesheet: %s"),
+                             dia_message_filename (stylefname));
+
+    goto out;
   }
 
   stylefname = xsl_to->xsl;
 
   codestyle = xsltParseStylesheetFile ((const xmlChar *) stylefname);
-  if(codestyle == NULL) {
-    message_error (_("Error while parsing stylesheet: %s\n"),
-                   dia_message_filename (stylefname));
-    return;
+  if (codestyle == NULL) {
+    dia_context_add_message (ctx,
+                             _("Error while parsing stylesheet: %s"),
+                             dia_message_filename (stylefname));
+
+    goto out;
   }
 
-  xmlFreeDoc (doc);
+  g_clear_pointer (&doc, xmlFreeDoc);
 
   doc = xsltApplyStylesheet (codestyle, res, (const char **) params);
-  if(doc == NULL) {
-    message_error (_("Error while applying stylesheet: %s\n"),
-                   dia_message_filename (stylefname));
-    return;
+  if (doc == NULL) {
+    dia_context_add_message (ctx,
+                             _("Error while applying stylesheet: %s"),
+                             dia_message_filename (stylefname));
+
+    goto out;
   }
 
   /* Returns the number of byte written or -1 in case of failure. */
   err = xsltSaveResultToFile (out, doc, codestyle);
   if(err < 0) {
-    message_error (_("Error while saving result: %s\n"),
-                   dia_message_filename (filename));
-    return;
+    dia_context_add_message (ctx,
+                             _("Error while saving result: %s"),
+                             dia_message_filename (filename));
+
+    goto out;
   }
 
   fprintf (out, "From:\t%s\n", diafilename);
   fprintf (out, "With:\t%s\n", stylefname);
   fprintf (out, "To:\t%s=%s\n", params[0], params[1]);
 
-  fclose (out);
-  fclose (file);
+out:
+  g_clear_pointer (&out, fclose);
 
-  xsltFreeStylesheet (codestyle);
-  xsltFreeStylesheet (style);
-  xmlFreeDoc (res);
-  xmlFreeDoc (doc);
+  g_clear_pointer (&codestyle, xsltFreeStylesheet);
+  g_clear_pointer (&style, xsltFreeStylesheet);
+  g_clear_pointer (&res, xmlFreeDoc);
+  g_clear_pointer (&doc, xmlFreeDoc);
+  g_clear_pointer (&ctx, dia_context_release);
+
   xsltCleanupGlobals ();
 
   xslt_clear ();
 }
+
 
 static toxsl_t *
 read_implementations (xmlNodePtr cur, gchar *path)
@@ -228,30 +239,39 @@ read_implementations (xmlNodePtr cur, gchar *path)
   return first;
 }
 
+
 static PluginInitResult
-read_configuration(const char *config)
+read_configuration (const char *config)
 {
-  xmlDocPtr doc;
+  DiaContext *ctx = dia_context_new (_("Initalise XSLT"));
+  xmlDocPtr doc = NULL;
   xmlNodePtr cur;
-  const xmlError *error_xml = NULL;
   /* Primary xsl */
-  gchar *path = NULL;
+  char *path = NULL;
+  PluginInitResult result = DIA_PLUGIN_INIT_ERROR;
 
-  if (!g_file_test (config, G_FILE_TEST_EXISTS))
-    return DIA_PLUGIN_INIT_ERROR;
+  dia_context_set_filename (ctx, config);
 
-  doc = xmlDoParseFile (config, &error_xml);
+  if (!g_file_test (config, G_FILE_TEST_EXISTS)) {
+    goto out;
+  }
 
+  doc = dia_io_load_document (config, ctx, NULL);
   if (doc == NULL) {
-    g_critical ("Couldn't parse XSLT plugin's configuration file %s\n%s",
-                config, error_xml ? error_xml->message : "");
-    return DIA_PLUGIN_INIT_ERROR;
+    dia_context_add_message (ctx,
+                             _("Couldn't parse XSLT plugin's configuration file %s"),
+                             config);
+
+    goto out;
   }
 
   cur = xmlDocGetRootElement(doc);
   if (cur == NULL) {
-    g_critical ("XSLT plugin's configuration file %s is empty", config);
-    return DIA_PLUGIN_INIT_ERROR;
+    dia_context_add_message (ctx,
+                             _("XSLT plugin's configuration file %s is empty"),
+                             config);
+
+    goto out;
   }
 
   path = g_path_get_dirname(config);
@@ -265,21 +285,23 @@ read_configuration(const char *config)
       cur = cur->next;
       continue;
     } else if (!xmlStrcmp (cur->name, (const xmlChar *) "language")) {
-      fromxsl_t *new_from = g_new (fromxsl_t, 1);
+      fromxsl_t *new_from = g_new0 (fromxsl_t, 1);
 
-      new_from->name = (gchar *)xmlGetProp (cur, (const xmlChar *) "name");
-      new_from->xsl = (gchar *)xmlGetProp (cur, (const xmlChar *) "stylesheet");
+      new_from->name = (char *) xmlGetProp (cur, (const xmlChar *) "name");
+      new_from->xsl = (char *) xmlGetProp (cur, (const xmlChar *) "stylesheet");
 
       if (!(new_from->name && new_from->xsl)) {
-        g_warning ("'name' and 'stylesheet' attributes are required for the language element %s in XSLT plugin configuration file", cur->name);
+        dia_context_add_message (ctx,
+                                 _("'name' and 'stylesheet' attributes are required for the language element %s in XSLT plugin configuration file"),
+                                 cur->name);
+
         g_clear_pointer (&new_from, g_free);
       } else {
         /* make filename absolute */
-        {
-          gchar *fname = g_strconcat (path, G_DIR_SEPARATOR_S, new_from->xsl, NULL);
-          xmlFree (new_from->xsl);
-          new_from->xsl = fname;
-        }
+        char *fname = g_strconcat (path, G_DIR_SEPARATOR_S, new_from->xsl, NULL);
+
+        xmlFree (new_from->xsl);
+        new_from->xsl = fname;
 
         new_from->xsls = read_implementations (cur, path);
         if (new_from->xsls == NULL) {
@@ -298,11 +320,16 @@ read_configuration(const char *config)
     g_warning ("No stylesheets configured in %s for XSLT plugin", config);
   }
 
+  result = DIA_PLUGIN_INIT_OK;
+
+out:
   g_clear_pointer (&path, g_free);
-  xmlFreeDoc (doc);
+  g_clear_pointer (&doc, xmlFreeDoc);
+  g_clear_pointer (&ctx, dia_context_release);
+
   xmlCleanupParser ();
 
-  return DIA_PLUGIN_INIT_OK;
+  return result;
 }
 
 
