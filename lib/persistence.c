@@ -31,10 +31,10 @@
 
 #include "persistence.h"
 #include "dia_dirs.h"
-#include "dia_xml_libxml.h"
 #include "dia_xml.h"
 #include "message.h" /* only for dia_log_message() */
 #include "diacontext.h"
+#include "dia-io.h"
 
 
 /**
@@ -335,7 +335,7 @@ persistence_load (void)
   }
   ctx = dia_context_new (_("Persistence"));
   dia_context_set_filename (ctx, filename);
-  doc = diaXmlParseFile (filename, ctx, FALSE);
+  doc = dia_io_load_document (filename, ctx, NULL);
   if (doc != NULL) {
     if (doc->xmlRootNode != NULL) {
       xmlNsPtr namespace = xmlSearchNs (doc, doc->xmlRootNode, (const xmlChar *) "dia");
@@ -498,7 +498,7 @@ persistence_save (void)
   xmlDocPtr doc;
   xmlNs *name_space;
   DiaContext *ctx;
-  gchar *filename = dia_config_filename ("persistence");
+  char *filename = dia_config_filename ("persistence");
 
   ctx = dia_context_new ("Persistence");
   doc = xmlNewDoc ((const xmlChar *) "1.0");
@@ -507,7 +507,7 @@ persistence_save (void)
 
   name_space = xmlNewNs (doc->xmlRootNode,
                          (const xmlChar *) DIA_XML_NAME_SPACE_BASE,
-                         (const xmlChar *)"dia");
+                         (const xmlChar *) "dia");
   xmlSetNs (doc->xmlRootNode, name_space);
 
   persistence_save_type (doc, ctx, persistent_windows, persistence_save_window);
@@ -519,10 +519,11 @@ persistence_save (void)
   persistence_save_type (doc, ctx, persistent_strings, persistence_save_string);
   persistence_save_type (doc, ctx, persistent_colors, persistence_save_color);
 
-  xmlDiaSaveFile (filename, doc);
+  dia_io_save_document (filename, doc, FALSE, ctx);
+
   g_clear_pointer (&filename, g_free);
-  xmlFreeDoc (doc);
-  dia_context_release (ctx);
+  g_clear_pointer (&doc, xmlFreeDoc);
+  g_clear_pointer (&ctx, dia_context_release);
 }
 
 /* *********************** USAGE FUNCTIONS *********************** */

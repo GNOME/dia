@@ -38,9 +38,9 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
-#include "dia_xml_libxml.h"
 #include "dia_xml.h"
 #include "message.h" /* only for dia_log_message() */
+#include "dia-io.h"
 
 #include "plug-ins.h"
 #include "dia_dirs.h"
@@ -424,10 +424,11 @@ ensure_pluginrc(void)
   ctx = dia_context_new (_("Plugin Configuration"));
   filename = dia_config_filename("pluginrc");
   dia_context_set_filename (ctx, filename);
-  if (g_file_test (filename,  G_FILE_TEST_IS_REGULAR))
-    pluginrc = diaXmlParseFile(filename, ctx, FALSE);
-  else
+  if (g_file_test (filename,  G_FILE_TEST_IS_REGULAR)) {
+    pluginrc = dia_io_load_document (filename, ctx, NULL);
+  } else {
     pluginrc = NULL;
+  }
 
   g_clear_pointer (&filename, g_free);
 
@@ -539,10 +540,11 @@ info_fill_from_pluginrc(PluginInfo *info)
   }
 }
 
+
 void
-dia_pluginrc_write(void)
+dia_pluginrc_write (void)
 {
-  gchar *filename;
+  char *filename;
   GList *tmp;
 
   ensure_pluginrc();
@@ -591,9 +593,15 @@ dia_pluginrc_write(void)
     xmlSetProp(pluginnode, (const xmlChar *)"filename", (xmlChar *)info->filename);
   }
 
-  filename = dia_config_filename("pluginrc");
+  {
+    DiaContext *ctx = dia_context_new (_("Plugin Configuration"));
+    filename = dia_config_filename ("pluginrc");
+    dia_context_set_filename (ctx, filename);
 
-  xmlDiaSaveFile(filename, pluginrc);
+    dia_io_save_document (filename, pluginrc, FALSE, ctx);
+
+    g_clear_pointer (&ctx, dia_context_release);
+  }
 
   g_clear_pointer (&filename, g_free);
   free_pluginrc();
