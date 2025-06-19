@@ -50,7 +50,6 @@
 #include "gtkwrapbox.h"
 
 #include "dia_dirs.h"
-#include "dia_xml_libxml.h"
 #include "plug-ins.h"
 #include "object.h"
 
@@ -60,6 +59,7 @@
 #include "sheets_dialog_callbacks.h"
 #include "sheets_dialog.h"
 #include "sheet-editor-button.h"
+#include "dia-io.h"
 #include "dia-version-info.h"
 
 
@@ -1430,7 +1430,7 @@ copy_file (gchar *src, gchar *dst)
 static gboolean
 write_user_sheet (Sheet *sheet)
 {
-  FILE *file;
+  DiaContext *ctx = dia_context_new (_("Write Sheet"));
   xmlDocPtr doc;
   xmlNodePtr root;
   xmlNodePtr node;
@@ -1463,15 +1463,6 @@ write_user_sheet (Sheet *sheet)
                                 G_DIR_SEPARATOR_S, basename);
     g_clear_pointer (&basename, g_free);
   }
-  file = g_fopen (filename, "w");
-
-  if (file == NULL) {
-    message_error (_("Couldn't open: '%s' for writing"),
-                   dia_message_filename(filename));
-    g_clear_pointer (&filename, g_free);
-    return FALSE;
-  }
-  fclose (file);
 
   time_now = time (NULL);
   username = g_filename_to_utf8 (g_get_real_name (), -1, NULL, NULL, &error);
@@ -1600,11 +1591,12 @@ write_user_sheet (Sheet *sheet)
     }
   }
 
-  xmlSetDocCompressMode (doc, 0);
-  xmlDiaSaveFile (filename, doc);
-  xmlFreeDoc (doc);
+  dia_context_set_filename (ctx, filename);
+  dia_io_save_document (filename, doc, FALSE, ctx);
 
+  g_clear_pointer (&doc, xmlFreeDoc);
   g_clear_pointer (&username, g_free);
+  g_clear_pointer (&ctx, dia_context_release);
   g_clear_error (&error);
 
   return TRUE;
