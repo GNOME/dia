@@ -27,16 +27,7 @@
 
 #include <glib/gi18n-lib.h>
 
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 #include <math.h>
-#include <errno.h>
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-
-#include <glib/gstdio.h>
 
 /* the dots per centimetre to render this diagram at */
 /* this matches the setting `100%' setting in dia. */
@@ -50,12 +41,13 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h> /* xmlStrdup */
 #include "dia_xml.h"
-#include "dia_xml_libxml.h"
 #include "geometry.h"
 #include "diasvgrenderer.h"
 #include "filter.h"
 #include "diagramdata.h"
 #include "object.h"
+#include "dia-io.h"
+
 
 G_BEGIN_DECLS
 
@@ -296,24 +288,24 @@ draw_object(DiaRenderer *self,
   }
 }
 
-/*!
- * \brief Save the shape file
- * \memberof _ShapeRenderer
- */
+
 static void
-end_render(DiaRenderer *self)
+end_render (DiaRenderer *self)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
+  DiaContext *ctx = dia_context_new (_("Shape Export"));
 
   g_clear_pointer (&renderer->linestyle, g_free);
   renderer->linestyle = NULL;
 
-  xmlSetDocCompressMode(renderer->doc, 0);
-  xmlDiaSaveFile(renderer->filename, renderer->doc);
+  dia_context_set_filename (ctx, renderer->filename);
+  dia_io_save_document (renderer->filename, renderer->doc, FALSE, ctx);
+
   g_clear_pointer (&renderer->filename, g_free);
-  renderer->filename = NULL;
-  xmlFreeDoc(renderer->doc);
+  g_clear_pointer (&renderer->doc, xmlFreeDoc);
+  g_clear_pointer (&ctx, dia_context_release);
 }
+
 
 /*!
  * \brief Add a connection point to the shape
