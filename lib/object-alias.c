@@ -47,7 +47,6 @@
 #include <glib.h>
 
 #include <libxml/tree.h>
-#include "dia_xml_libxml.h"
 #include "dia_xml.h"
 #include "object.h"
 #include "message.h"

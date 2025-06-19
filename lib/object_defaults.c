@@ -32,12 +32,12 @@
 #include <glib.h>
 
 #include <libxml/tree.h>
-#include "dia_xml_libxml.h"
 #include "dia_xml.h"
 #include "object.h"
 #include "diacontext.h"
 #include "dia_dirs.h"
 #include "propinternals.h"
+#include "dia-io.h"
 
 static GHashTable *defaults_hash = NULL;
 static gboolean object_default_create_lazy = FALSE;
@@ -117,14 +117,14 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy, DiaContex
 
     dia_context_set_filename (ctx, default_filename);
     if (g_file_test (default_filename, G_FILE_TEST_EXISTS)) {
-      doc = diaXmlParseFile (default_filename, ctx, FALSE);
+      doc = dia_io_load_document (default_filename, ctx, NULL);
     } else {
       doc = NULL;
     }
     g_clear_pointer (&default_filename, g_free);
   } else {
     dia_context_set_filename (ctx, filename);
-    doc = diaXmlParseFile (filename, ctx, FALSE);
+    doc = dia_io_load_document (filename, ctx, NULL);
   }
 
   if (!doc) {
@@ -368,6 +368,7 @@ _obj_store (gpointer key,
   li->pos.y += (obj->bounding_box.bottom - obj->bounding_box.top + 1.0);
 }
 
+
 /**
  * dia_object_defaults_save:
  *
@@ -376,26 +377,27 @@ _obj_store (gpointer key,
  * separate invisible layers.
  */
 gboolean
-dia_object_defaults_save (const gchar *filename, DiaContext *ctx)
+dia_object_defaults_save (const char *filename, DiaContext *ctx)
 {
   MyRootInfo ni;
   xmlDocPtr doc;
   gboolean ret;
-  gchar *real_filename;
+  char *real_filename;
 
-  if (!filename)
-    real_filename = dia_config_filename("defaults.dia");
-  else
+  if (!filename) {
+    real_filename = dia_config_filename ("defaults.dia");
+  } else {
     real_filename = g_strdup (filename);
+  }
 
-  doc = xmlNewDoc((const xmlChar *)"1.0");
-  doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
-  doc->xmlRootNode = xmlNewDocNode(doc, NULL, (const xmlChar *)"diagram", NULL);
+  doc = xmlNewDoc ((const xmlChar *) "1.0");
+  doc->encoding = xmlStrdup ((const xmlChar *) "UTF-8");
+  doc->xmlRootNode = xmlNewDocNode (doc, NULL, (const xmlChar *) "diagram", NULL);
 
-  ni.name_space = xmlNewNs(doc->xmlRootNode,
-                           (const xmlChar *)DIA_XML_NAME_SPACE_BASE,
-			   (const xmlChar *)"dia");
-  xmlSetNs(doc->xmlRootNode, ni.name_space);
+  ni.name_space = xmlNewNs (doc->xmlRootNode,
+                            (const xmlChar *) DIA_XML_NAME_SPACE_BASE,
+                            (const xmlChar *) "dia");
+  xmlSetNs (doc->xmlRootNode, ni.name_space);
 
   ni.obj_nr = 0;
   ni.node = doc->xmlRootNode;
@@ -406,9 +408,10 @@ dia_object_defaults_save (const gchar *filename, DiaContext *ctx)
 
   g_hash_table_foreach (defaults_hash, _obj_store, &ni);
 
-  ret = xmlDiaSaveFile (real_filename, doc);
+  ret = dia_io_save_document (real_filename, doc, FALSE, ctx);
+
   g_clear_pointer (&real_filename, g_free);
-  xmlFreeDoc (doc);
+  g_clear_pointer (&doc, xmlFreeDoc);
 
   g_hash_table_destroy (ni.layer_hash);
 
