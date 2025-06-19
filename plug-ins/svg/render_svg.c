@@ -43,7 +43,6 @@
 #include "diasvgrenderer.h"
 #include "filter.h"
 #include "diagramdata.h"
-#include "dia_xml_libxml.h"
 #include "object.h"
 #include "group.h"
 #include "textline.h"
