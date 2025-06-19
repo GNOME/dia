@@ -852,10 +852,6 @@ EXPORTS
  dia_io_load_document
  dia_io_save_document
 
- diaXmlParseFile
- xmlDiaSaveFile
- xmlDoParseFile
-
  prop_get_data_from_widgets
  prop_dialog_from_widget
  find_prop_by_name

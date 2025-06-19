@@ -1,6 +1,6 @@
 /* Dia -- an diagram creation/manipulation program
  *
- * Prototypes which went in the way when trying to compile files without 
+ * Prototypes which went in the way when trying to compile files without
  * pulling in the whole libxml includes.
  * Copyright (C) 2001, C. Chepelov <chepelov@calixo.net>
  *
@@ -23,9 +23,6 @@
 
 #include <libxml/tree.h>
 #include <libxml/parser.h>
-
-/* use this one instead of xmlParseFile */
-xmlDocPtr xmlDoParseFile(const char *filename, const xmlError **error);
 
 /* use this instead of xmlSaveFile/xmlSaveFileEnc. Set the encoding to
    UTF-8 at the very beginning ! */
