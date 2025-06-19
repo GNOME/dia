@@ -34,7 +34,6 @@
 #include <libxml/xmlmemory.h>
 #include <float.h>
 #include <string.h>
-#include "dia_xml_libxml.h"
 #include "shape_info.h"
 #include "custom_util.h"
 #include "custom_object.h"
@@ -43,6 +42,7 @@
 #include "message.h"
 #include "prefs.h"
 #include "boundingbox.h"
+#include "dia-io.h"
 
 #include "units.h"
 
@@ -84,7 +84,8 @@ shape_info_get(ObjectNode obj_node)
     info = g_hash_table_lookup(name_to_info, (gchar *) str);
     if (!info->loaded)
       load_shape_info (info->filename, info);
-    xmlFree(str);
+
+    dia_clear_xml_string (&str);
   }
   return info;
 }
@@ -215,7 +216,7 @@ is_subshape(xmlNode* node)
     if (!strcmp((const char*)value, "true"))
       res = TRUE;
 
-    xmlFree(value);
+    dia_clear_xml_string (&value);
   }
 
   return res;
@@ -712,42 +713,56 @@ update_bounds (ShapeInfo *info)
  * ShapeInfo loaded by shape_typeinfo_load()
  */
 static ShapeInfo *
-load_shape_info (const gchar *filename, ShapeInfo *preload)
+load_shape_info (const char *filename, ShapeInfo *preload)
 {
-  const xmlError *error_xml = NULL;
-  xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
+  DiaContext *ctx = dia_context_new (_("Load Custom Shape"));
+  xmlDocPtr doc = dia_io_load_document (filename, ctx, NULL);
   xmlNsPtr shape_ns, svg_ns;
   xmlNodePtr node, root, ext_node = NULL;
-  ShapeInfo *info;
-  gchar *tmp;
+  ShapeInfo *info = NULL;
+  char *tmp = NULL;
   int i;
 
+  dia_context_set_filename (ctx, filename);
+
   if (!doc) {
-    g_warning("Custom shape parser error for %s\n%s", filename,
-	      error_xml ? error_xml->message : "");
-    return NULL;
+    dia_context_add_message (ctx,
+                             _("Loading Custom Shape from %s failed"),
+                             filename);
+
+    goto out;
   }
+
   /* skip (emacs) comments */
   root = doc->xmlRootNode;
   while (root && (root->type != XML_ELEMENT_NODE)) root = root->next;
-  if (!root) return NULL;
-  if (xmlIsBlankNode(root)) return NULL;
+  if (!root || xmlIsBlankNode(root)) {
+    goto out;
+  }
 
-  if (!(shape_ns = xmlSearchNsByHref(doc, root,
-		(const xmlChar *)"http://www.daa.com.au/~james/dia-shape-ns"))) {
-    xmlFreeDoc(doc);
-    g_warning("could not find shape namespace");
-    return NULL;
+  if (!(shape_ns = xmlSearchNsByHref (doc,
+                                      root,
+                                      (const xmlChar *) "http://www.daa.com.au/~james/dia-shape-ns"))) {
+    dia_context_add_message (ctx, _("could not find shape namespace"));
+
+    goto out;
   }
-  if (!(svg_ns = xmlSearchNsByHref(doc, root, (const xmlChar *)"http://www.w3.org/2000/svg"))) {
-    xmlFreeDoc(doc);
-    g_warning("could not find svg namespace");
-    return NULL;
+
+  if (!(svg_ns = xmlSearchNsByHref (doc,
+                                    root,
+                                    (const xmlChar *) "http://www.w3.org/2000/svg"))) {
+    dia_context_add_message (ctx, _("could not find svg namespace"));
+
+    goto out;
   }
-  if (root->ns != shape_ns || xmlStrcmp(root->name, (const xmlChar *)"shape")) {
-    g_warning("root element was %s -- expecting shape", root->name);
-    xmlFreeDoc(doc);
-    return NULL;
+
+  if (root->ns != shape_ns ||
+      xmlStrcmp (root->name, (const xmlChar *) "shape")) {
+    dia_context_add_message (ctx,
+                             _("root element was %s — expecting shape"),
+                             root->name);
+
+    goto out;
   }
 
   if (preload)
@@ -777,9 +792,9 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
         /* the key name is already used as key in name_to_info */
       } else {
         g_clear_pointer (&info->name, g_free);
-        info->name = g_strdup(tmp);
+        info->name = g_strdup (tmp);
       }
-      xmlFree(tmp);
+      dia_clear_xml_string (&tmp);
     } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"icon")) {
       tmp = (char *) xmlNodeGetContent(node);
       if (preload) {
@@ -788,9 +803,9 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
         /* the key name is already used as key in name_to_info */
       } else {
         g_clear_pointer (&info->icon, g_free);
-        info->icon = custom_get_relative_filename(filename, tmp);
+        info->icon = custom_get_relative_filename (filename, tmp);
       }
-      xmlFree(tmp);
+      dia_clear_xml_string (&tmp);
     } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"connections")) {
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(Point));
       xmlNodePtr pt_node;
@@ -806,17 +821,20 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
           Point pt = { 0.0, 0.0 };
           xmlChar *str;
 
-          str = xmlGetProp(pt_node, (const xmlChar *) "x");
+          str = xmlGetProp (pt_node, (const xmlChar *) "x");
           if (str) {
             pt.x = g_ascii_strtod ((char *) str, NULL);
-            xmlFree(str);
+            dia_clear_xml_string (&str);
           }
+
           str = xmlGetProp (pt_node, (const xmlChar *) "y");
           if (str) {
             pt.y = g_ascii_strtod ((char *) str, NULL);
-            xmlFree(str);
+            dia_clear_xml_string (&str);
           }
+
           g_array_append_val (arr, pt);
+
           str = xmlGetProp (pt_node, (const xmlChar *) "main");
           if (str && str[0] != '\0') {
             if (info->main_cp != -1) {
@@ -825,8 +843,8 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
             } else {
               info->main_cp = i;
             }
-            xmlFree (str);
           }
+          dia_clear_xml_string (&str);
         }
         i++;
       }
@@ -838,28 +856,32 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
     } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"textbox")) {
       xmlChar *str;
 
-      str = xmlGetProp(node, (const xmlChar *)"x1");
+      str = xmlGetProp (node, (const xmlChar *) "x1");
       if (str) {
-	info->text_bounds.left = g_ascii_strtod((gchar *) str, NULL);
-	xmlFree(str);
+        info->text_bounds.left = g_ascii_strtod ((char *) str, NULL);
+        dia_clear_xml_string (&str);
       }
-      str = xmlGetProp(node, (const xmlChar *)"y1");
+
+      str = xmlGetProp (node, (const xmlChar *) "y1");
       if (str) {
-	info->text_bounds.top = g_ascii_strtod((gchar *) str, NULL);
-	xmlFree(str);
+        info->text_bounds.top = g_ascii_strtod ((char *) str, NULL);
+        dia_clear_xml_string (&str);
       }
-      str = xmlGetProp(node, (const xmlChar *)"x2");
+
+      str = xmlGetProp (node, (const xmlChar *) "x2");
       if (str) {
-	info->text_bounds.right = g_ascii_strtod((gchar *) str, NULL);
-	xmlFree(str);
+        info->text_bounds.right = g_ascii_strtod ((char *) str, NULL);
+        dia_clear_xml_string (&str);
       }
-      str = xmlGetProp(node, (const xmlChar *)"y2");
+
+      str = xmlGetProp (node, (const xmlChar *) "y2");
       if (str) {
-	info->text_bounds.bottom = g_ascii_strtod((gchar *) str, NULL);
-	xmlFree(str);
+        info->text_bounds.bottom = g_ascii_strtod ((char *) str, NULL);
+        dia_clear_xml_string (&str);
       }
+
       info->resize_with_text = TRUE;
-      str = xmlGetProp(node, (const xmlChar *)"resize");
+      str = xmlGetProp (node, (const xmlChar *) "resize");
       if (str) {
         info->resize_with_text = TRUE;
         if (!xmlStrcmp (str, (const xmlChar *) "no")) {
@@ -881,33 +903,37 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
     } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"aspectratio")) {
       tmp = (gchar *) xmlGetProp(node, (const xmlChar *)"type");
       if (tmp) {
-	if (!strcmp(tmp, "free"))
-	  info->aspect_type = SHAPE_ASPECT_FREE;
-	else if (!strcmp(tmp, "fixed"))
-	  info->aspect_type = SHAPE_ASPECT_FIXED;
-	else if (!strcmp(tmp, "range")) {
-	  xmlChar *str;
+        if (!strcmp (tmp, "free")) {
+          info->aspect_type = SHAPE_ASPECT_FREE;
+        } else if (!strcmp (tmp, "fixed")) {
+          info->aspect_type = SHAPE_ASPECT_FIXED;
+        } else if (!strcmp (tmp, "range")) {
+          xmlChar *str;
 
-	  info->aspect_type = SHAPE_ASPECT_RANGE;
-	  info->aspect_min = 0.0;
-	  info->aspect_max = G_MAXFLOAT;
-	  str = xmlGetProp(node, (const xmlChar *)"min");
-	  if (str) {
-	    info->aspect_min = g_ascii_strtod((gchar *) str, NULL);
-	    xmlFree(str);
-	  }
-	  str = xmlGetProp(node, (const xmlChar *)"max");
-	  if (str) {
-	    info->aspect_max = g_ascii_strtod((gchar *) str, NULL);
-	    xmlFree(str);
-	  }
-	  if (info->aspect_max < info->aspect_min) {
-	    real asp = info->aspect_max;
-	    info->aspect_max = info->aspect_min;
-	    info->aspect_min = asp;
-	  }
-	}
-	xmlFree(tmp);
+          info->aspect_type = SHAPE_ASPECT_RANGE;
+          info->aspect_min = 0.0;
+          info->aspect_max = G_MAXFLOAT;
+
+          str = xmlGetProp (node, (const xmlChar *) "min");
+          if (str) {
+            info->aspect_min = g_ascii_strtod ((char *) str, NULL);
+            dia_clear_xml_string (&str);
+          }
+
+          str = xmlGetProp (node, (const xmlChar *) "max");
+          if (str) {
+            info->aspect_max = g_ascii_strtod ((char *) str, NULL);
+            dia_clear_xml_string (&str);
+          }
+
+          if (info->aspect_max < info->aspect_min) {
+            double asp = info->aspect_max;
+            info->aspect_max = info->aspect_min;
+            info->aspect_min = asp;
+          }
+        }
+
+        dia_clear_xml_string (&tmp);
       }
     } else if (node->ns == shape_ns && (!xmlStrcmp(node->name, (const xmlChar *)"default-width") || !xmlStrcmp(node->name, (const xmlChar *) "default-height"))) {
       double val = 0.0;
@@ -935,7 +961,7 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
         info->default_height = val;
       }
 
-      xmlFree (tmp);
+      dia_clear_xml_string (&tmp);
     } else if (node->ns == svg_ns && !xmlStrcmp(node->name, (const xmlChar *)"svg")) {
       DiaSvgStyle s = {
         1.0,
@@ -958,7 +984,11 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
   }
   /*MC 11/03 parse ext attributes if any & prepare prop tables */
   custom_setup_properties (info, ext_node);
-  xmlFreeDoc(doc);
+
+out:
+  g_clear_pointer (&doc, xmlFreeDoc);
+  g_clear_pointer (&ctx, dia_context_release);
+
   return info;
 }
 
