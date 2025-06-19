@@ -1,6 +1,9 @@
 /* not really a test but only an interactive check */
 
 #include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include <stdio.h>
 
 #include "object.h"

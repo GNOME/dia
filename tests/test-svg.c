@@ -18,13 +18,11 @@
 
 #include <config.h>
 
+#include <glib/gi18n-lib.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-
-#undef G_DISABLE_ASSERT
-#undef G_LOG_DOMAIN
-#define G_LOG_DOMAIN "Dia"
 
 #include <glib.h>
 #include <glib-object.h>
