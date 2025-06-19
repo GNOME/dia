@@ -25,7 +25,6 @@
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
-#include "dia_xml_libxml.h"
 
 #include "intl.h"
 #include "sheet.h"
@@ -33,6 +32,7 @@
 #include "object.h"
 #include "object-alias.h"
 #include "dia_dirs.h"
+#include "dia-io.h"
 
 static GSList *sheets = NULL;
 
@@ -209,8 +209,8 @@ load_register_sheet (const char *dirname,
                      const char *filename,
                      SheetScope  scope)
 {
-  const xmlError *error_xml = NULL;
-  xmlDocPtr doc;
+  DiaContext *ctx = dia_context_new (_("Load Sheet"));
+  xmlDocPtr doc = NULL;
   xmlNsPtr ns;
   xmlNodePtr node, contents,subnode,root;
   xmlChar *tmp;
@@ -227,13 +227,15 @@ load_register_sheet (const char *dirname,
 
   /* the XML fun begins here. */
 
-  doc = xmlDoParseFile (filename, &error_xml);
-  if (error_xml) {
-    g_warning ("Sheet parser error %s", error_xml->message);
-  }
+  dia_context_set_filename (ctx, filename);
 
+  doc = dia_io_load_document (filename, ctx, NULL);
   if (!doc) {
-    return;
+    dia_context_add_message (ctx,
+                             _("Loading Sheet from %s failed"),
+                             filename);
+
+    goto out;
   }
   root = doc->xmlRootNode;
 
@@ -241,26 +243,23 @@ load_register_sheet (const char *dirname,
     root = root->next;
   }
 
-  if (!root) {
-    return;
-  }
-
-  if (xmlIsBlankNode (root)) {
-    return;
+  if (!root || xmlIsBlankNode (root)) {
+    goto out;
   }
 
   if (!(ns = xmlSearchNsByHref (doc, root, (const xmlChar *)
                                 DIA_XML_NAME_SPACE_BASE "dia-sheet-ns"))) {
-    g_warning ("could not find sheet namespace");
-    xmlFreeDoc (doc);
-    return;
+    dia_context_add_message (ctx, _("Could not find sheet namespace"));
+
+    goto out;
   }
 
   if ((root->ns != ns) || (xmlStrcmp (root->name, (const xmlChar *) "sheet"))) {
-    g_warning ("root element was %s -- expecting sheet",
-               doc->xmlRootNode->name);
-    xmlFreeDoc (doc);
-    return;
+    dia_context_add_message (ctx,
+                             _("root element was %s — expecting sheet"),
+                             doc->xmlRootNode->name);
+
+    goto out;
   }
 
   contents = NULL;
@@ -294,9 +293,7 @@ load_register_sheet (const char *dirname,
 
       if (name_score < 0 || score < name_score) {
         name_score = score;
-        if (name) {
-          xmlFree (name);
-        }
+        dia_clear_xml_string (&name);
         name = (char *) xmlNodeGetContent (node);
       }
     } else if (node->ns == ns && !xmlStrcmp (node->name, (const xmlChar *) "description")) {
@@ -310,15 +307,11 @@ load_register_sheet (const char *dirname,
         tmp = xmlGetProp (node, (const xmlChar *) "lang");
       }
       score = intl_score_locale ((char *) tmp);
-      if (tmp) {
-        xmlFree (tmp);
-      }
+      dia_clear_xml_string (&tmp);
 
       if (descr_score < 0 || score < descr_score) {
         descr_score = score;
-        if (description) {
-          xmlFree (description);
-        }
+        dia_clear_xml_string (&description);
         description = (char *) xmlNodeGetContent (node);
       }
     } else if (node->ns == ns && !xmlStrcmp (node->name, (const xmlChar *) "contents")) {
@@ -327,15 +320,11 @@ load_register_sheet (const char *dirname,
   }
 
   if (!name || !contents) {
-    g_warning ("No <name> and/or <contents> in sheet %s--skipping", filename);
-    xmlFreeDoc (doc);
-    if (name) {
-      xmlFree (name);
-    }
-    if (description) {
-      xmlFree (description);
-    }
-    return;
+    dia_context_add_message (ctx,
+                             _("No <name> and/or <contents> in sheet %s — skipping"),
+                             filename);
+
+    goto out;
   }
 
   /* Notify the user when we load a sheet that appears to be an updated
@@ -363,7 +352,7 @@ load_register_sheet (const char *dirname,
                           " sheet\n"
                           "or remove '%s', using the 'Sheets and Objects' dialog."),
                           name, tmp2, tmp2, tmp2);
-        xmlFree (name);
+        dia_clear_xml_string (&name);
         name = tmp2;
         name_is_gmalloced = TRUE;
         shadowing = sheetp->data;  /* This copy-of-system sheet shadows
@@ -386,9 +375,9 @@ load_register_sheet (const char *dirname,
   if (name_is_gmalloced == TRUE) {
     g_clear_pointer (&name, g_free);
   } else {
-    xmlFree (name);
+    dia_clear_xml_string (&name);
   }
-  xmlFree (description);
+  dia_clear_xml_string (&description);
 
   sheetdir = dia_get_data_directory ("sheets");
 
@@ -437,7 +426,7 @@ load_register_sheet (const char *dirname,
       char *p;
       intdata = (int) strtol ((char *) tmp, &p, 0);
       if (*p != 0) intdata = 0;
-      xmlFree (tmp);
+      dia_clear_xml_string (&tmp);
       has_intdata = TRUE;
     }
 
@@ -462,15 +451,11 @@ load_register_sheet (const char *dirname,
           tmp = xmlGetProp (subnode, (xmlChar *) "lang");
         }
         score = intl_score_locale ((char *) tmp);
-        if (tmp) {
-          xmlFree (tmp);
-        }
+        dia_clear_xml_string (&tmp);
 
         if (subdesc_score < 0 || score < subdesc_score) {
           subdesc_score = score;
-          if (objdesc) {
-            xmlFree (objdesc);
-          }
+          dia_clear_xml_string (&objdesc);
           objdesc = xmlNodeGetContent (subnode);
         }
       } else if (subnode->ns == ns && !xmlStrcmp (subnode->name, (const xmlChar *) "icon")) {
@@ -486,9 +471,7 @@ load_register_sheet (const char *dirname,
           }
         }
         has_icon_on_sheet = TRUE;
-        if (tmp) {
-          xmlFree (tmp);
-        }
+        dia_clear_xml_string (&tmp);
       } else if (subnode->ns == ns && !xmlStrcmp (subnode->name, (const xmlChar *) "alias")) {
         if (ot_name) {
           object_register_alias_type (object_get_type ((char *) ot_name), subnode);
@@ -499,8 +482,8 @@ load_register_sheet (const char *dirname,
     sheet_obj = g_new (SheetObject, 1);
     sheet_obj->object_type = g_strdup ((char *) ot_name);
     sheet_obj->description = g_strdup ((char *) objdesc);
-    xmlFree (objdesc);
-    objdesc = NULL;
+
+    dia_clear_xml_string (&objdesc);
 
     sheet_obj->user_data = GINT_TO_POINTER (intdata); /* XXX modify user_data type ? */
     sheet_obj->user_data_type = has_intdata ? USER_DATA_IS_INTDATA /* sure,   */
@@ -525,7 +508,7 @@ load_register_sheet (const char *dirname,
       g_clear_pointer (&sheet_obj->object_type, g_free);
       g_clear_pointer (&sheet_obj, g_free);
       if (tmp) {
-        xmlFree (ot_name);
+        dia_clear_xml_string (&ot_name);
       }
       continue;
     }
@@ -542,9 +525,7 @@ load_register_sheet (const char *dirname,
       sheet_obj->user_data = otype->default_user_data;
     }
 
-    if (ot_name) {
-      xmlFree (ot_name);
-    }
+    dia_clear_xml_string (&ot_name);
 
     /* we don't need to fix up the icon and descriptions for simple objects,
        since they don't have their own description, and their icon is
@@ -552,12 +533,19 @@ load_register_sheet (const char *dirname,
     sheet_append_sheet_obj (sheet, sheet_obj);
   }
 
-  g_clear_pointer (&sheetdir, g_free);
-
   if (!shadowing_sheet) {
     register_sheet (sheet);
   }
 
-  xmlFreeDoc (doc);
-}
+out:
+  if (name_is_gmalloced) {
+    g_clear_pointer (&name, g_free);
+  } else {
+    dia_clear_xml_string (&name);
+  }
+  dia_clear_xml_string (&description);
 
+  g_clear_pointer (&sheetdir, g_free);
+  g_clear_pointer (&doc, xmlFreeDoc);
+  g_clear_pointer (&ctx, dia_context_release);
+}
