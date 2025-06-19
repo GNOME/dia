@@ -39,7 +39,6 @@
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
-#include "dia_xml_libxml.h"
 #include "dia_xml.h"
 
 #include "load_save.h"
@@ -51,6 +50,7 @@
 #include "dia-page-layout.h"
 #include "autosave.h"
 #include "display.h"
+#include "dia-io.h"
 #include "dia-layer.h"
 
 #ifdef G_OS_WIN32
@@ -394,7 +394,6 @@ diagram_data_load (const char  *filename,
                    void        *user_data)
 {
   GHashTable *objects_hash;
-  int fd;
   GList *list;
   xmlDocPtr doc;
   xmlNodePtr root;
@@ -404,7 +403,6 @@ diagram_data_load (const char  *filename,
   AttributeNode attr;
   DiaLayer *layer;
   xmlNsPtr namespace;
-  gchar firstchar;
   Diagram *diagram = DIA_IS_DIAGRAM (data) ? DIA_DIAGRAM (data) : NULL;
   DiaLayer *active_layer = NULL;
   GHashTable* unknown_objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
@@ -412,32 +410,7 @@ diagram_data_load (const char  *filename,
 
   g_return_val_if_fail (data != NULL, FALSE);
 
-  if (g_file_test (filename, G_FILE_TEST_IS_DIR)) {
-    dia_context_add_message (ctx,
-                             _("You must specify a file, not a directory."));
-    return FALSE;
-  }
-
-  fd = g_open (filename, O_RDONLY, 0);
-
-  if (fd==-1) {
-    dia_context_add_message (ctx,
-                             _("Couldn't open: '%s' for reading.\n"),
-                             filename);
-    return FALSE;
-  }
-
-  if (read (fd, &firstchar, 1)) {
-    data->is_compressed = (firstchar != '<');
-  } else {
-    /* Couldn't read a single char?  Set to default. */
-    data->is_compressed = prefs.new_diagram.compress_save;
-  }
-
-  /* Note that this closing and opening means we can't read from a pipe */
-  close (fd);
-
-  doc = diaXmlParseFile (filename, ctx, TRUE);
+  doc = dia_io_load_document (filename, ctx, &data->is_compressed);
 
   if (doc == NULL){
     /* this was talking about unknown file type but it could as well be broken XML */
@@ -1130,12 +1103,6 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
 
   g_hash_table_destroy (objects_hash);
 
-  if (data->is_compressed) {
-    xmlSetDocCompressMode (doc, 9);
-  } else {
-    xmlSetDocCompressMode (doc, 0);
-  }
-
   return doc;
 }
 
@@ -1143,19 +1110,22 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
 /** This tries to save the diagram into a file, without any backup
  * Returns >= 0 on success.
  * Only for internal use. */
-static int
-diagram_data_raw_save(DiagramData *data, const char *filename, DiaContext *ctx)
+static gboolean
+diagram_data_raw_save (DiagramData *data,
+                       const char  *filename,
+                       DiaContext  *ctx)
 {
   xmlDocPtr doc;
-  int ret;
+  gboolean ret;
 
-  doc = diagram_data_write_doc(data, filename, ctx);
+  doc = diagram_data_write_doc (data, filename, ctx);
+  ret = dia_io_save_document (filename, doc, data->is_compressed, ctx);
 
-  ret = xmlDiaSaveFile (filename, doc);
-  xmlFreeDoc(doc);
+  g_clear_pointer (&doc, xmlFreeDoc);
 
   return ret;
 }
+
 
 /** This saves the diagram, using a backup in case of failure.
  * @param data
@@ -1164,115 +1134,27 @@ diagram_data_raw_save(DiagramData *data, const char *filename, DiaContext *ctx)
  * indicated, an error message will already have been given to the user.
  */
 static gboolean
-diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
+diagram_data_save (DiagramData *data,
+                   DiaContext  *ctx,
+                   const char  *user_filename)
 {
-  FILE *file;
-  char *bakname=NULL,*tmpname=NULL,*dirname=NULL,*p;
-  char *filename = (char *)user_filename;
-  int mode,_umask;
-  int fildes;
-  int ret = 0;
+  gboolean ret = diagram_data_raw_save (data, user_filename, ctx);
 
-  /* Once we depend on GTK 2.8+, we can use these tests. */
-#if !defined G_OS_WIN32
-  /* Check that we're allowed to write to the target file at all. */
-  /* not going to work with 'My Documents' - read-only but still useable, see bug #504469 */
-  if (   g_file_test(filename, G_FILE_TEST_EXISTS)
-      && g_access(filename, W_OK) != 0) {
-    dia_context_add_message (ctx, _("Not allowed to write to output file %s\n"),
-			     dia_context_get_filename(ctx));
-    goto CLEANUP;
-  }
-#endif
-
-  if (g_file_test(user_filename, G_FILE_TEST_IS_SYMLINK)) {
-    GError *error = NULL;
-    filename = g_file_read_link(user_filename, &error);
-    if (!filename) {
-      dia_context_add_message (ctx, "%s", error->message);
-      g_clear_error (&error);
-      goto CLEANUP;
-    }
-  }
-
-  /* build the temporary and backup file names */
-  dirname = g_strdup(filename);
-  p = strrchr((char *)dirname,G_DIR_SEPARATOR);
-  if (p) {
-    *(p+1) = 0;
-  } else {
-    g_clear_pointer (&dirname, g_free);
-    dirname = g_strdup("." G_DIR_SEPARATOR_S);
-  }
-  tmpname = g_strconcat(dirname,"__diaXXXXXX",NULL);
-  bakname = g_strconcat(filename,"~",NULL);
-
-#if !defined G_OS_WIN32
-  /* Check that we can create the other files */
-  if (   g_file_test(dirname, G_FILE_TEST_EXISTS)
-      && g_access(dirname, W_OK) != 0) {
-    dia_context_add_message (ctx, _("Not allowed to write temporary files in %s\n"),
-			    dia_message_filename(dirname));
-    goto CLEANUP;
-  }
-#endif
-
-  /* open a temporary name, and fix the modes to match what fopen() would have
-     done (mkstemp() is (rightly so) a bit paranoid for what we do).  */
-  fildes = g_mkstemp(tmpname);
-  /* should not be necessary anymore on *NIXas well, because we are using g_mkstemp ? */
-  _umask = umask(0); umask(_umask);
-  mode = 0666 & ~_umask;
-#ifndef G_OS_WIN32
-  ret = fchmod(fildes,mode);
-#else
-  ret = 0; /* less paranoia on windoze */
-#endif
-  file = fdopen(fildes,"wb");
-
-  /* Now write the data in the temporary file name. */
-
-  if (file==NULL) {
-    dia_context_add_message_with_errno (ctx, errno,
-					_("Can't open output file %s"),
-					dia_message_filename(tmpname));
-    goto CLEANUP;
-  }
-  fclose(file);
-
-  ret = diagram_data_raw_save(data, tmpname, ctx);
-
-  if (ret < 0) {
+  if (!ret) {
     /* Save failed; we clean our stuff up, without touching the file named
        "filename" if it existed. */
-    dia_context_add_message(ctx, _("Internal error %d writing file %s\n"),
-			    ret, dia_message_filename(tmpname));
-    g_unlink(tmpname);
-    goto CLEANUP;
+    dia_context_add_message (ctx,
+                             _("Internal error %d writing file %s\n"),
+                             ret,
+                             dia_message_filename (user_filename));
   }
-  /* save succeeded. We kill the old backup file, move the old file into
-     backup, and the temp file into the new saved file. */
-  g_unlink(bakname);
-  g_rename(filename,bakname);
-  ret = g_rename(tmpname,filename);
-  if (ret < 0) {
-    dia_context_add_message_with_errno(ctx, errno, _("Can't rename %s to final output file %s"),
-				       dia_message_filename(tmpname),
-				       dia_context_get_filename(ctx));
-  }
-  else /* remove backup file if new file is in place */
-    g_unlink(bakname);
-CLEANUP:
-  if (filename != user_filename)
-    g_clear_pointer (&filename, g_free);
-  g_clear_pointer (&tmpname, g_free);
-  g_clear_pointer (&dirname, g_free);
-  g_clear_pointer (&bakname, g_free);
-  return (ret?FALSE:TRUE);
+
+  return ret;
 }
 
+
 int
-diagram_save(Diagram *dia, const char *filename, DiaContext *ctx)
+diagram_save (Diagram *dia, const char *filename, DiaContext *ctx)
 {
   gboolean res = FALSE;
 
