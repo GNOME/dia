@@ -52,22 +52,16 @@
 
 #include <glib/gi18n-lib.h>
 
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
-
-#include <glib.h>
-#include <glib/gstdio.h>
-
 #include "filter.h"
 #include "plug-ins.h"
 #include "diagramdata.h"
-#include "dia_xml_libxml.h"
+#include "dia-io.h"
 #include "dia-layer.h"
+#include "dia-render-script-renderer.h"
 #include "dia-version-info.h"
 
 #include "dia-render-script.h"
-#include "dia-render-script-renderer.h"
+
 
 static void
 drs_render_layer (DiaRenderer *self, DiaLayer *layer, gboolean active)
@@ -119,27 +113,18 @@ drs_data_render (DiagramData *data, DiaRenderer *renderer)
 
 /* dia export funtion */
 static gboolean
-export_data(DiagramData *data, DiaContext *ctx,
-	    const gchar *filename, const gchar *diafilename,
-	    void* user_data)
+export_data (DiagramData *data,
+             DiaContext  *ctx,
+             const char  *filename,
+             const char  *diafilename,
+             void        *user_data)
 {
   DrsRenderer *renderer;
-  gchar *dtd_name;
+  char *dtd_name;
   xmlDtdPtr dtd;
   xmlDocPtr doc;
 
-  /* write check - almost same code in every renderer */
-  {
-    FILE *file = g_fopen(filename, "w");
-
-    if (!file) {
-      dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s."),
-					  dia_context_get_filename(ctx));
-      return FALSE;
-    }
-    fclose(file);
-  }
-  renderer = DRS_RENDERER (g_object_new(DRS_TYPE_RENDERER, NULL));
+  renderer = DRS_RENDERER (g_object_new (DRS_TYPE_RENDERER, NULL));
   /* store also object properties */
   renderer->save_props = (user_data == NULL);
   /* remember context for object_save_props */
@@ -148,29 +133,30 @@ export_data(DiagramData *data, DiaContext *ctx,
   dtd_name = g_strdup_printf ("-//DIA//DTD DRS %s//EN", dia_version_string ());
 
   /* set up the root node */
-  doc = xmlNewDoc((const xmlChar *)"1.0");
-  doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
+  doc = xmlNewDoc ((const xmlChar *) "1.0");
+  doc->encoding = xmlStrdup ((const xmlChar *) "UTF-8");
   doc->standalone = FALSE;
-  dtd = xmlCreateIntSubset(doc, (const xmlChar *)"drs",
-		     (const xmlChar *) dtd_name,
-		     (const xmlChar *)"http://projects.gnome.org/dia/dia-render-script.dtd");
-  xmlAddChild((xmlNodePtr) doc, (xmlNodePtr) dtd);
-  renderer->root = xmlNewDocNode(doc, NULL, (const xmlChar *)"drs", NULL);
-  xmlAddSibling(doc->children, (xmlNodePtr) renderer->root);
+  dtd = xmlCreateIntSubset (doc,
+                            (const xmlChar *) "drs",
+                            (const xmlChar *) dtd_name,
+                            (const xmlChar *) "http://projects.gnome.org/dia/dia-render-script.dtd");
+  xmlAddChild ((xmlNodePtr) doc, (xmlNodePtr) dtd);
+  renderer->root = xmlNewDocNode (doc, NULL, (const xmlChar *) "drs", NULL);
+  xmlAddSibling (doc->children, (xmlNodePtr) renderer->root);
 
-  drs_data_render(data, DIA_RENDERER(renderer));
+  drs_data_render (data, DIA_RENDERER (renderer));
 
-  xmlSetDocCompressMode (doc, 1);
-  xmlDiaSaveFile (filename, doc);
-  xmlFreeDoc (doc);
+  dia_io_save_document (filename, doc, FALSE, ctx);
 
+  g_clear_pointer (&doc, xmlFreeDoc);
   g_clear_pointer (&dtd_name, g_free);
   g_clear_object (&renderer);
 
   return TRUE;
 }
 
-static const gchar *extensions[] = { "drs", NULL };
+
+static const char *extensions[] = { "drs", NULL };
 static DiaExportFilter export_filter = {
   N_("DiaRenderScript"),
   extensions,
@@ -181,6 +167,7 @@ static DiaImportFilter import_filter = {
   extensions,
   import_drs
 };
+
 
 static gboolean
 _plugin_can_unload (PluginInfo *info)

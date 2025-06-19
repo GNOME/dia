@@ -32,6 +32,7 @@
 #include "diagramdata.h"
 #include "group.h"
 #include "diaimportrenderer.h"
+#include "dia-io.h"
 #include "dia-layer.h"
 
 #include <libxml/tree.h>
@@ -502,7 +503,7 @@ gboolean
 import_drs (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
   GList *item, *items;
-  xmlDocPtr doc = xmlParseFile(filename);
+  xmlDocPtr doc = dia_io_load_document (filename, ctx, NULL);
   xmlNodePtr root = NULL, node;
   DiaLayer *active_layer = NULL;
 
