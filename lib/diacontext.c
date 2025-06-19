@@ -38,7 +38,7 @@ struct _DiaContext {
   /*< private >*/
   char  *desc;
   char  *filename;
-  GList *messages;
+  GStrvBuilder *messages;
 };
 
 
@@ -50,10 +50,9 @@ dia_context_finalize (GObject *object)
 {
   DiaContext *context = DIA_CONTEXT (object);
 
-  g_list_foreach (context->messages, (GFunc) g_free, NULL);
-  g_list_free (context->messages);
   g_clear_pointer (&context->desc, g_free);
   g_clear_pointer (&context->filename, g_free);
+  g_clear_pointer (&context->messages, g_strv_builder_unref);
 
   G_OBJECT_CLASS (dia_context_parent_class)->finalize (object);
 }
@@ -71,7 +70,7 @@ dia_context_class_init (DiaContextClass *klass)
 static void
 dia_context_init (DiaContext *self)
 {
-  /* zero initialization should be right */
+  self->messages = g_strv_builder_new ();
 }
 
 
@@ -89,9 +88,19 @@ dia_context_release (DiaContext *context)
 {
   /* FIXME: this should vanish */
   if (context->messages) {
-    message_warning ("%s:\n%s",
-                     context->desc ? context->desc : "<no context>",
-                     (char *) context->messages->data);
+    GStrv messages = g_strv_builder_end (context->messages);
+
+    if (messages && g_strv_length (messages) > 0) {
+      char *combined = g_strjoinv ("\n", messages);
+
+      message_warning ("%s:\n%s",
+                        context->desc ? context->desc : "<no context>",
+                        combined);
+
+      g_clear_pointer (&combined, g_free);
+    }
+
+    g_clear_pointer (&messages, g_strfreev);
   }
 
   g_object_unref (context);
@@ -104,12 +113,11 @@ dia_context_release (DiaContext *context)
 void
 dia_context_reset (DiaContext *context)
 {
-  g_list_foreach (context->messages, (GFunc) g_free, NULL);
-  g_list_free (context->messages);
-  context->messages = NULL;
+  g_strfreev (g_strv_builder_end (context->messages));
   g_clear_pointer (&context->desc, g_free);
   g_clear_pointer (&context->filename, g_free);
 }
+
 
 void
 dia_context_set_filename (DiaContext *context,
@@ -155,7 +163,7 @@ dia_context_add_message (DiaContext *context,
   va_end (args);
   /* ToDo: dont repeat the same message over and over again, except ... */
 
-  context->messages = g_list_prepend (context->messages, msg);
+  g_strv_builder_add (context->messages, msg);
 }
 
 void
@@ -182,6 +190,7 @@ dia_context_add_message_with_errno (DiaContext *context, int nr,
   }
   /* ToDo: dont repeat the same message over and over again, except ... */
 
-  context->messages = g_list_prepend (context->messages, msg);
+  g_strv_builder_add (context->messages, msg);
+
   g_clear_pointer (&errstr, g_free);
 }
