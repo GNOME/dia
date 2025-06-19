@@ -36,6 +36,17 @@
             ]
         },
         {
+            "name": "libxml2",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libxml2.git",
+                    "branch" : "2.14"
+                }
+            ]
+        },
+        {
             "name": "dia",
             "buildsystem": "meson",
             "config-opts": [
