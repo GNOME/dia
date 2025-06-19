@@ -42,15 +42,15 @@
 #include "object.h"
 #include "properties.h"
 #include "propinternals.h"
-#include "dia_xml_libxml.h"
 #include "dia_svg.h"
 #include "create.h"
 #include "group.h"
 #include "font.h"
 #include "attributes.h"
 #include "pattern.h"
-#include "dia-layer.h"
 #include "dia-graphene.h"
+#include "dia-io.h"
+#include "dia-layer.h"
 
 /**
  * SECTION:svg-import
@@ -2113,34 +2113,33 @@ import_memory_svg (const guchar *p, guint size, DiagramData *dia,
   return import_svg (doc, dia, ctx, user_data);
 }
 
+
 /*!
  * \brief Imports the SVG file given by file name
  * @return TRUE if successful
  * \ingroup SvgImport
  */
 static gboolean
-import_file_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
+import_file_svg (const char  *filename,
+                 DiagramData *dia,
+                 DiaContext  *ctx,
+                 void        *user_data)
 {
-  const xmlError *error_xml = NULL;
-  xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
+  xmlDocPtr doc = dia_io_load_document (filename, ctx, NULL);
 
   if (!doc) {
-    dia_context_add_message(ctx, _("SVG parser error for %s\n%s"),
-			    dia_context_get_filename (ctx),
-			    error_xml ? error_xml->message : "");
     return FALSE;
-  } else if (error_xml) {
-    /* just a warning */
-    dia_context_add_message(ctx, _("SVG parser warning for %s\n%s"),
-			    dia_context_get_filename (ctx),
-			    error_xml ? error_xml->message : "");
   }
+
   return import_svg (doc, dia, ctx, user_data);
 }
 
+
 static gboolean
-import_svg (xmlDocPtr doc, DiagramData *dia,
-	    DiaContext *ctx, void *user_data)
+import_svg (xmlDocPtr    doc,
+            DiagramData *dia,
+            DiaContext  *ctx,
+            void        *user_data)
 {
   xmlNsPtr svg_ns;
   xmlNodePtr root;

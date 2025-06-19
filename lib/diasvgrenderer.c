@@ -43,7 +43,6 @@
 #include <libxml/xmlmemory.h>
 
 #include "geometry.h"
-#include "dia_xml_libxml.h"
 #include "dia_image.h"
 #include "dia_dirs.h"
 
@@ -51,6 +50,8 @@
 #include "textline.h"
 #include "prop_pixbuf.h" /* pixbuf_encode_base64() */
 #include "pattern.h"
+#include "dia-io.h"
+
 
 /**
  * DiaSvgRenderer:
@@ -184,31 +185,34 @@ _gradient_do (gpointer key,
   }
 }
 
-/*!
- * \brief Flush all pending information to file
- * \memberof _DiaSvgRenderer
- */
+
 static void
-end_render(DiaRenderer *self)
+end_render (DiaRenderer *self)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
+  DiaContext *ctx = dia_context_new (_("SVG Export"));
+
   g_clear_pointer (&renderer->linestyle, g_free);
 
   /* handle potential patterns */
   if (renderer->patterns) {
     xmlNodePtr root = xmlDocGetRootElement (renderer->doc);
-    xmlNodePtr defs = xmlNewNode (renderer->svg_name_space, (const xmlChar *)"defs");
+    xmlNodePtr defs = xmlNewNode (renderer->svg_name_space, (const xmlChar *) "defs");
     GradientData gd = { renderer, defs };
     g_hash_table_foreach (renderer->patterns, _gradient_do, &gd);
     xmlAddPrevSibling (root->children, defs);
     g_hash_table_destroy (renderer->patterns);
     renderer->patterns = NULL;
   }
-  xmlSetDocCompressMode(renderer->doc, 0);
-  xmlDiaSaveFile(renderer->filename, renderer->doc);
+
+  dia_context_set_filename (ctx, renderer->filename);
+  dia_io_save_document (renderer->filename, renderer->doc, FALSE, ctx);
+
   g_clear_pointer (&renderer->filename, g_free);
-  xmlFreeDoc(renderer->doc);
+  g_clear_pointer (&renderer->doc, xmlFreeDoc);
+  g_clear_pointer (&ctx, dia_context_release);
 }
+
 
 /*!
  * \brief Only basic capabilities for the base class
