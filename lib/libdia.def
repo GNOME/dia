@@ -849,6 +849,9 @@ EXPORTS
  dia_check_version
  dia_version_string
 
+ dia_io_load_document
+ dia_io_save_document
+
  diaXmlParseFile
  xmlDiaSaveFile
  xmlDoParseFile
