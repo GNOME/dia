@@ -20,7 +20,6 @@ libgtk_dep  = dependency('gtk+-3.0',   version: '>= 3.24')
 libxml_dep  = dependency('libxml-2.0', version: '>= 2.14.0')
 #TODO: what are the minimum versions?
 gmodule_dep = dependency('gmodule-2.0')
-libzlib_dep = dependency('zlib')
 libcairo_dep = dependency('cairo')
 graphene_dep = dependency('graphene-1.0', version: '>= 1.10')
 xpm_dep = dependency('xpm-pixbuf')

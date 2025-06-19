@@ -227,7 +227,6 @@ libdia_deps = [
     libglib_dep,
     libxml_dep,
     libm_dep,
-    libzlib_dep,
     gmodule_dep,
     graphene_dep,
     xpm_dep,
