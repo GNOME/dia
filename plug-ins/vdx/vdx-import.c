@@ -42,7 +42,6 @@
 #include "object.h"
 #include "properties.h"
 #include "propinternals.h"
-#include "dia_xml_libxml.h"
 #include "create.h"
 #include "group.h"
 #include "font.h"
@@ -50,6 +49,7 @@
 #include "visio-types.h"
 #include "bezier_conn.h"
 #include "connection.h"
+#include "dia-io.h"
 #include "dia-layer.h"
 
 void static vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx);
@@ -2947,25 +2947,29 @@ vdx_free(VDXDocument *theDoc)
  * @returns TRUE if successful, FALSE otherwise
  */
 static gboolean
-import_vdx (const char *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
+import_vdx (const char  *filename,
+            DiagramData *dia,
+            DiaContext  *ctx,
+            void        *user_data)
 {
-    const xmlError *error_xml = NULL;
-    xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
-    xmlNodePtr root, cur;
-    struct VDXDocument *theDoc;
-    const char *s;
-    int visio_version = 0;
-    const char *debug = 0;
-    unsigned int debug_shapes = 0;
-    char* old_locale;
+  xmlDocPtr doc = dia_io_load_document (filename, ctx, NULL);
+  xmlNodePtr root, cur;
+  struct VDXDocument *theDoc;
+  const char *s;
+  int visio_version = 0;
+  const char *debug = 0;
+  unsigned int debug_shapes = 0;
+  char *old_locale;
 
-    if (!doc) {
-        dia_context_add_message(ctx, _("VDX parser error for %s\n%s"),
-				error_xml ? error_xml->message : "",
-				dia_context_get_filename(ctx));
-        return FALSE;
-    }
-    /* skip comments */
+  if (!doc) {
+    dia_context_add_message (ctx,
+                             _("VDX parser error for %s"),
+                             dia_context_get_filename (ctx));
+
+    return FALSE;
+  }
+
+  /* skip comments */
     for (root = doc->xmlRootNode; root; root = root->next)
     {
         if (root->type == XML_ELEMENT_NODE) { break; }

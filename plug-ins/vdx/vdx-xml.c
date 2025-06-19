@@ -34,7 +34,6 @@
 #include "object.h"
 #include "properties.h"
 #include "propinternals.h"
-#include "dia_xml_libxml.h"
 #include "create.h"
 #include "group.h"
 #include "font.h"
