@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="DiaXsltDialogue" parent="GtkDialog">
+    <property name="title" translatable="yes">Export through XSLT</property>
+    <property name="border-width">6</property>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">_From</property>
+            <property name="use-underline">True</property>
+            <property name="mnemonic-widget">from</property>
+            <property name="xalign">0</property>
+            <accessibility>
+              <relation type="label-for" target="from" />
+            </accessibility>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="from">
+            <property name="visible">True</property>
+            <signal name="changed" handler="from_changed" />
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">_To</property>
+            <property name="use-underline">True</property>
+            <property name="mnemonic-widget">to</property>
+            <property name="xalign">0</property>
+            <accessibility>
+              <relation type="label-for" target="to" />
+            </accessibility>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxText" id="to">
+            <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <child type="action">
+      <object class="GtkButton" id="button_cancel">
+        <property name="visible">True</property>
+        <property name="use-underline">True</property>
+        <property name="label">_Cancel</property>
+      </object>
+    </child>
+    <child type="action">
+      <object class="GtkButton" id="button_ok">
+        <property name="visible">True</property>
+        <property name="can-default">True</property>
+        <property name="use-underline">True</property>
+        <property name="label">_OK</property>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="cancel">button_cancel</action-widget>
+      <action-widget response="ok" default="true">button_ok</action-widget>
+    </action-widgets>
+  </template>
+</interface>

@@ -268,8 +268,8 @@ plug-ins/wpg/wpg-import.c
 plug-ins/xfig/xfig.c
 plug-ins/xfig/xfig-export.c
 plug-ins/xfig/xfig-import.c
-plug-ins/xslt/xslt.c
-plug-ins/xslt/xsltdialog.c
+plug-ins/xslt/dia-xslt-dialogue.ui
+plug-ins/xslt/dia-xslt.c
 sheets/AADL.sheet
 sheets/Assorted.sheet
 sheets/BPMN.sheet

@@ -212,6 +212,7 @@ diamarshal = gnome.genmarshal(
     'diamarshal',
     prefix: 'dia_marshal',
     sources: 'diamarshal.list',
+    valist_marshallers: true,
 )
 
 # TODO: This is used in app/, should we install / do anything else with it?

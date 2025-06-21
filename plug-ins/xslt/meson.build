@@ -1,7 +1,13 @@
 sources = files(
-    'xslt.c',
-    'xsltdialog.c'
+    'dia-xslt-dialogue.c',
+    'dia-xslt-dialogue.h',
+    'dia-xslt.c',
+    'dia-xslt.h',
 )
+
+sources += gnome.compile_resources('dia-xslt-resources', 'dia-xslt.gresource.xml',
+                                    source_dir : '.',
+                                    c_name : 'dia_xslt')
 
 xsls = files(
     'dia-uml.xsl',

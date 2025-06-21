@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Dia/xslt/">
+    <file preprocess="xml-stripblanks" compressed="true">dia-xslt-dialogue.ui</file>
+  </gresource>
+</gresources>
