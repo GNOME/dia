@@ -4,13 +4,13 @@
 #
 # Yuri Syrota <rasta@renome.rovno.ua>, 1999.
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2004.
-# Yuri Chornoivan <yurchor@ukr.net>, 2007, 2011, 2014, 2020, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2007, 2011, 2014, 2020, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: uk\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
-"POT-Creation-Date: 2024-03-08 02:41+0000\n"
-"PO-Revision-Date: 2024-03-08 09:52+0200\n"
+"POT-Creation-Date: 2025-06-23 00:42+0000\n"
+"PO-Revision-Date: 2025-06-23 11:03+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #. This is not an errror
 #: app/app_procs.c:164
@@ -257,7 +257,6 @@ msgstr "Вийти з Діа"
 #: app/layer-editor/dia-layer-properties.c:246 data/ui/sheets-edit-dialog.ui:23
 #: data/ui/sheets-new-dialog.ui:22 data/ui/sheets-remove-dialog.ui:22
 #: lib/dia-arrow-chooser.c:177 lib/dia-line-chooser.c:172
-#: plug-ins/xslt/xsltdialog.c:87
 msgid "_Cancel"
 msgstr "_Скасувати"
 
@@ -514,7 +513,6 @@ msgstr "З_астосувати"
 #: data/ui/sheets-edit-dialog.ui:38 data/ui/sheets-new-dialog.ui:37
 #: data/ui/sheets-remove-dialog.ui:37 lib/dia-arrow-chooser.c:178
 #: lib/dia-line-chooser.c:173 objects/AADL/edit_port_declaration.c:176
-#: plug-ins/xslt/xsltdialog.c:88
 msgid "_OK"
 msgstr "_Гаразд"
 
@@ -539,7 +537,7 @@ msgstr "Спроба групування без позначених об’є�
 msgid "Diagram"
 msgstr "Діаграма"
 
-#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:522
+#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:523
 msgid "Layer"
 msgstr "Шар"
 
@@ -604,11 +602,11 @@ msgstr "Назва"
 msgid "Diagram Tree"
 msgstr "Дерево діаграми"
 
-#: app/dia-colour-area.c:180 app/dia-colour-area.c:188
+#: app/dia-colour-area.c:225
 msgid "Select foreground color"
 msgstr "Вибір кольору переднього плану"
 
-#: app/dia-colour-area.c:180 app/dia-colour-area.c:188
+#: app/dia-colour-area.c:225
 msgid "Select background color"
 msgstr "Вибір кольору тла"
 
@@ -655,7 +653,7 @@ msgstr "Розміри гексагональної сітки"
 msgid "Grid"
 msgstr "Сітка"
 
-#: app/dia-diagram-properties-dialog.ui:310 lib/diagramdata.c:149
+#: app/dia-diagram-properties-dialog.ui:310 lib/diagramdata.c:119
 msgid "Background"
 msgstr "Тло"
 
@@ -680,7 +678,7 @@ msgid "Add New Guide"
 msgstr "Додати нову напрямну"
 
 #. orientation
-#: app/dia-guide-dialog.c:171 app/dia-page-layout.c:137
+#: app/dia-guide-dialog.c:171 app/dia-page-layout.c:139
 msgid "Orientation"
 msgstr "Орієнтація"
 
@@ -717,54 +715,54 @@ msgid "Line width:"
 msgstr "Ширина лінії:"
 
 #. paper size
-#: app/dia-page-layout.c:105
+#: app/dia-page-layout.c:107
 msgid "Paper Size"
 msgstr "Розмір аркуша"
 
 #. margins
-#: app/dia-page-layout.c:166
+#: app/dia-page-layout.c:168
 msgid "Margins"
 msgstr "Відступи"
 
-#: app/dia-page-layout.c:177
+#: app/dia-page-layout.c:179
 msgid "Top:"
 msgstr "Верхній:"
 
-#: app/dia-page-layout.c:191
+#: app/dia-page-layout.c:193
 msgid "Bottom:"
 msgstr "Нижній:"
 
-#: app/dia-page-layout.c:205
+#: app/dia-page-layout.c:207
 msgid "Left:"
 msgstr "Лівий:"
 
-#: app/dia-page-layout.c:219
+#: app/dia-page-layout.c:221
 msgid "Right:"
 msgstr "Правий:"
 
 #. Scaling
-#: app/dia-page-layout.c:234
+#: app/dia-page-layout.c:236
 msgid "Scaling"
 msgstr "Масштабування"
 
-#: app/dia-page-layout.c:244
+#: app/dia-page-layout.c:246
 msgid "Scale:"
 msgstr "Масштаб:"
 
-#: app/dia-page-layout.c:258
+#: app/dia-page-layout.c:260
 msgid "Fit to:"
 msgstr "Заповнити до:"
 
-#: app/dia-page-layout.c:271
+#: app/dia-page-layout.c:273
 msgid "by"
 msgstr " "
 
-#: app/dia-page-layout.c:802
+#: app/dia-page-layout.c:804
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gсм x %0.3gсм"
 
-#: app/dia-page-layout.c:906 app/pagesetup.c:77
+#: app/dia-page-layout.c:908 app/pagesetup.c:77
 msgid "Page Setup"
 msgstr "Параметри сторінки"
 
@@ -813,7 +811,7 @@ msgstr "Позначене"
 msgid "Input _Methods"
 msgstr "Способи _введення"
 
-#: app/disp_callbacks.c:1306
+#: app/disp_callbacks.c:1317
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -1095,24 +1093,13 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "Не вдалося знайти батьківський об'єкт %s об'єкта %s\n"
 
-#: app/load_save.c:417
-msgid "You must specify a file, not a directory."
-msgstr "Вам слід вказати файл, а не каталог."
-
-#: app/load_save.c:425 plug-ins/dxf/dxf-import.c:1327
-#: plug-ins/wpg/wpg-import.c:519 plug-ins/xfig/xfig-import.c:1320
-#: plug-ins/xslt/xslt.c:101
-#, c-format
-msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Не вдалося відкрити: «%s» для зчитування.\n"
-
 #. this was talking about unknown file type but it could as well be broken XML
-#: app/load_save.c:444
+#: app/load_save.c:418
 #, c-format
 msgid "Error loading diagram %s."
 msgstr "Помилка під час спроби завантаження діаграми %s."
 
-#: app/load_save.c:455
+#: app/load_save.c:429
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1121,7 +1108,7 @@ msgstr ""
 "Помилка завантаження діаграми %s.\n"
 "Невідомий тип файла."
 
-#: app/load_save.c:463
+#: app/load_save.c:437
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1130,11 +1117,11 @@ msgstr ""
 "Помилка завантаження діаграми %s.\n"
 "Це не файл Діа."
 
-#: app/load_save.c:766
+#: app/load_save.c:742
 msgid "Error reading connections"
 msgstr "Помилка під час читання з’єднань"
 
-#: app/load_save.c:789
+#: app/load_save.c:773
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1145,52 +1132,26 @@ msgstr ""
 "%s.\n"
 "Коректний файл Dia визначає принаймні один шар."
 
-#: app/load_save.c:1116
+#: app/load_save.c:1100
 #, c-format
 msgid "Error saving connections to layer '%s'"
 msgstr "Помилка під час збереження з’єднань до шару «%s»"
 
-#: app/load_save.c:1125
+#: app/load_save.c:1109
 #, c-format
 msgid "Connection saving is incomplete for layer '%s'"
 msgstr "Збереження з’єднань для шару «%s» є неповним"
 
-#: app/load_save.c:1182
-#, c-format
-msgid "Not allowed to write to output file %s\n"
-msgstr "Запис у файл виведення даних %s заборонено\n"
-
-#: app/load_save.c:1214
-#, c-format
-msgid "Not allowed to write temporary files in %s\n"
-msgstr "Запис тимчасових файлів до %s заборонено\n"
-
-#: app/load_save.c:1237 plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
-#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1362
-#: plug-ins/pstricks/render_pstricks.c:977 plug-ins/vdx/vdx-export.c:1781
-#: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
-#: plug-ins/xfig/xfig-export.c:1272
-#, c-format
-msgid "Can't open output file %s"
-msgstr "Не вдалося відкрити файл результатів %s"
-
-#. Save failed; we clean our stuff up, without touching the file named
-#. "filename" if it existed.
-#: app/load_save.c:1248
+#: app/load_save.c:1158
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Внутрішня помилка %d під час запису до файла %s\n"
 
-#: app/load_save.c:1259
-#, c-format
-msgid "Can't rename %s to final output file %s"
-msgstr "Не вдалося перейменувати %s у кінцевий вихідний файл %s"
-
-#: app/load_save.c:1384 app/load_save.c:1395
+#: app/load_save.c:1279 app/load_save.c:1290
 msgid "Auto save"
 msgstr "Автозбереження"
 
-#: app/load_save.c:1419 app/load_save.c:1424
+#: app/load_save.c:1314 app/load_save.c:1319
 msgid "Dia Diagram File"
 msgstr "Файл діаграми Діа"
 
@@ -1987,12 +1948,12 @@ msgstr "Користувач"
 msgid "Widget not found: %s"
 msgstr "Віджет не знайдено: %s"
 
-#: app/sheet-editor/sheet-editor-button.c:114
+#: app/sheet-editor/sheet-editor-button.c:116
 #, c-format
 msgid "No icon for “%s”"
 msgstr "Немає піктограми для «%s»"
 
-#: app/sheet-editor/sheet-editor-button.c:186
+#: app/sheet-editor/sheet-editor-button.c:188
 #: app/sheet-editor/sheets_dialog_callbacks.c:945
 #: data/ui/sheets-new-dialog.ui:142
 msgid "Line Break"
@@ -2063,31 +2024,31 @@ msgstr "Категорія повинна мати назву"
 msgid "Couldn't open '%s': %s"
 msgstr "Не вдалося відкрити: «%s»: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1469
-#, c-format
-msgid "Couldn't open: '%s' for writing"
-msgstr "Не вдалося відкрити: «%s» для записування"
+#: app/sheet-editor/sheets_dialog_callbacks.c:1433
+#| msgid "Sheet"
+msgid "Write Sheet"
+msgstr "Записати аркуш"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1479
+#: app/sheet-editor/sheets_dialog_callbacks.c:1470
 msgid "a user"
 msgstr "користувач"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1494
+#: app/sheet-editor/sheets_dialog_callbacks.c:1485
 #, c-format
 msgid "File: %s"
 msgstr "Файл: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1497
+#: app/sheet-editor/sheets_dialog_callbacks.c:1488
 #, c-format
 msgid "Date: %s"
 msgstr "Дата: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1501
+#: app/sheet-editor/sheets_dialog_callbacks.c:1492
 #, c-format
 msgid "For: %s"
 msgstr "Для: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1518
+#: app/sheet-editor/sheets_dialog_callbacks.c:1509
 msgid "add shapes here"
 msgstr "додати форми тут"
 
@@ -2100,7 +2061,7 @@ msgstr "Завантаження…"
 msgid "Dia v%s"
 msgstr "Dia версії %s"
 
-#: app/toolbox.c:104
+#: app/toolbox.c:107
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
@@ -2108,7 +2069,7 @@ msgstr ""
 "Змінити об'єкт(и)\n"
 "Використовуйте <Пробіл> для перемикання між цим та іншими інструментами"
 
-#: app/toolbox.c:110
+#: app/toolbox.c:113
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
@@ -2117,17 +2078,17 @@ msgstr ""
 "Натисніть <Esc>, щоб завершити роботу цього інструмента"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/toolbox.c:116 objects/FS/function.c:1042
+#: app/toolbox.c:119 objects/FS/function.c:1042
 msgid "Magnify"
 msgstr "Збільшити"
 
-#: app/toolbox.c:122
+#: app/toolbox.c:125
 msgid "Scroll around the diagram"
 msgstr "Пересування вікном діаграми"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: app/toolbox.c:128 lib/properties.c:96 lib/properties.h:697
+#: app/toolbox.c:131 lib/properties.c:96 lib/properties.h:697
 #: objects/AADL/aadlbox.c:165 objects/custom/custom_object.c:244
 #: objects/Jackson/requirement.c:126 objects/network/basestation.c:132
 #: objects/network/radiocell.c:129 objects/UML/activity.c:127
@@ -2139,78 +2100,78 @@ msgstr "Пересування вікном діаграми"
 msgid "Text"
 msgstr "Текст"
 
-#: app/toolbox.c:134
+#: app/toolbox.c:137
 msgid "Box"
 msgstr "Прямокутник"
 
-#: app/toolbox.c:140
+#: app/toolbox.c:143
 msgid "Ellipse"
 msgstr "Еліпс"
 
-#: app/toolbox.c:146
+#: app/toolbox.c:149
 msgid "Polygon"
 msgstr "Багатокутник"
 
-#: app/toolbox.c:152
+#: app/toolbox.c:155
 msgid "Beziergon"
 msgstr "Безьєкутник"
 
-#: app/toolbox.c:158 objects/standard/line.c:337
+#: app/toolbox.c:161 objects/standard/line.c:337
 msgid "Line"
 msgstr "Лінія"
 
-#: app/toolbox.c:164
+#: app/toolbox.c:167
 msgid "Arc"
 msgstr "Дуга"
 
-#: app/toolbox.c:170
+#: app/toolbox.c:173
 msgid "Zigzagline"
 msgstr "Зиґзаґ"
 
-#: app/toolbox.c:176
+#: app/toolbox.c:179
 msgid "Polyline"
 msgstr "Ламана"
 
-#: app/toolbox.c:182
+#: app/toolbox.c:185
 msgid "Bezierline"
 msgstr "Крива Безьє"
 
-#: app/toolbox.c:188
+#: app/toolbox.c:191
 msgid "Image"
 msgstr "Зображення"
 
-#: app/toolbox.c:194
+#: app/toolbox.c:197
 msgid "Outline"
 msgstr "Контур"
 
-#: app/toolbox.c:493
+#: app/toolbox.c:496
 #, c-format
 msgid "No sheet named %s"
 msgstr "Сторінки елементів %s не існує"
 
 #. Author: Alan Horkan, 2002, mailto:horkana@tcd.ie
 #. Please talk to me before making any changes to this sheet
-#: app/toolbox.c:617 sheets/Assorted.sheet:5
+#: app/toolbox.c:620 sheets/Assorted.sheet:5
 msgid "Assorted"
 msgstr "Некласифіковане"
 
-#: app/toolbox.c:624 app/toolbox.c:760 sheets/Flowchart.sheet:3
+#: app/toolbox.c:627 app/toolbox.c:763 sheets/Flowchart.sheet:3
 msgid "Flowchart"
 msgstr "Блок-схема"
 
-#: app/toolbox.c:631 sheets/UML.sheet:3
+#: app/toolbox.c:634 sheets/UML.sheet:3
 msgid "UML"
 msgstr "UML"
 
-#: app/toolbox.c:661
+#: app/toolbox.c:664
 msgid "All Sheets"
 msgstr "Усі аркуші"
 
-#: app/toolbox.c:676 lib/dia-colour-selector.c:349 lib/dia-font-selector.c:483
+#: app/toolbox.c:679 lib/dia-colour-selector.c:349 lib/dia-font-selector.c:483
 msgid "Reset Menu"
 msgstr "Скинути меню"
 
-#: app/toolbox.c:799
+#: app/toolbox.c:802
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double-click to change "
@@ -2220,7 +2181,7 @@ msgstr ""
 "кольори. Маленька стрілка міняє їх місцями. Подвійне клацання кнопкою миші "
 "надає змогу вибрати колір."
 
-#: app/toolbox.c:813
+#: app/toolbox.c:816
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -2229,7 +2190,7 @@ msgstr ""
 "нових об'єктів. Подвійне натиснення дозволяє встановити товщину лінії більш "
 "точно."
 
-#: app/toolbox.c:861
+#: app/toolbox.c:864
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details…"
@@ -2237,7 +2198,7 @@ msgstr ""
 "Стиль стрілки на початку нових ліній. Натисніть для вибору стрілки або "
 "встановіть властивості за допомогою кнопки «Параметри…»"
 
-#: app/toolbox.c:866
+#: app/toolbox.c:869
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details…"
@@ -2245,7 +2206,7 @@ msgstr ""
 "Стиль лінії на початку нових ліній. Натисніть для вибору лінії або "
 "встановіть властивості за допомогою кнопки «Параметри…»"
 
-#: app/toolbox.c:882
+#: app/toolbox.c:885
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details…"
@@ -2253,15 +2214,27 @@ msgstr ""
 "Стиль стрілки в кінці нових ліній. Натисніть для вибору стрілки або "
 "встановіть властивості за допомогою кнопки «Параметри…»"
 
-#: data/org.gnome.Dia.appdata.xml.in:7 data/org.gnome.Dia.desktop.in:3
+#: data/org.gnome.Dia.desktop.in:3 data/org.gnome.Dia.metainfo.xml.in:7
 msgid "Dia"
 msgstr "Діа"
 
-#: data/org.gnome.Dia.appdata.xml.in:8
+#: data/org.gnome.Dia.desktop.in:4
+msgid "Diagram Editor"
+msgstr "Редактор діаграм"
+
+#: data/org.gnome.Dia.desktop.in:5
+msgid "Edit your Diagrams"
+msgstr "Редагування Ваших діаграм"
+
+#: data/org.gnome.Dia.desktop.in:16
+msgid "graphic;diagram;vector;layout;"
+msgstr "graphic;diagram;vector;layout;графіка;діаграма;вектор;компонування;"
+
+#: data/org.gnome.Dia.metainfo.xml.in:8
 msgid "Dia is a program for drawing diagrams"
 msgstr "Dia — програма для малювання діаграм."
 
-#: data/org.gnome.Dia.appdata.xml.in:10
+#: data/org.gnome.Dia.metainfo.xml.in:10
 msgid ""
 "Dia is a GTK+ based diagram creation program for GNU/Linux, MacOS X, Unix, "
 "and Windows, and is released under the GPL license."
@@ -2269,7 +2242,7 @@ msgstr ""
 "Dia — програма на основі GTK+ для створення діаграм для GNU/Linux, MacOS X, "
 "Unix та Windows. Програму випущено за умов дотримання GPL."
 
-#: data/org.gnome.Dia.appdata.xml.in:12
+#: data/org.gnome.Dia.metainfo.xml.in:12
 msgid ""
 "Dia is roughly inspired by the commercial Windows program 'Visio,' though "
 "more geared towards informal diagrams for casual use. It can be used to draw "
@@ -2288,7 +2261,7 @@ msgstr ""
 "нових форма за допомогою написання простих файлів XML, у яких для малювання "
 "форми використовується підмножина команд SVG."
 
-#: data/org.gnome.Dia.appdata.xml.in:14
+#: data/org.gnome.Dia.metainfo.xml.in:17
 msgid ""
 "It can load and save diagrams to a custom XML format (gzipped by default, to "
 "save space), can export diagrams to a number of formats, including EPS, SVG, "
@@ -2301,25 +2274,13 @@ msgstr ""
 "та PNG, і може друкувати діаграми (включно із тими, які займають декілька "
 "сторінок)."
 
-#: data/org.gnome.Dia.appdata.xml.in:19
+#: data/org.gnome.Dia.metainfo.xml.in:24
 msgid "Main Window"
 msgstr "Головне вікно"
 
-#: data/org.gnome.Dia.appdata.xml.in:44
+#: data/org.gnome.Dia.metainfo.xml.in:49
 msgid "The GNOME Project"
 msgstr "Проєкт GNOME"
-
-#: data/org.gnome.Dia.desktop.in:4
-msgid "Diagram Editor"
-msgstr "Редактор діаграм"
-
-#: data/org.gnome.Dia.desktop.in:5
-msgid "Edit your Diagrams"
-msgstr "Редагування Ваших діаграм"
-
-#: data/org.gnome.Dia.desktop.in:14
-msgid "graphic;diagram;vector;layout;"
-msgstr "graphic;diagram;vector;layout;графіка;діаграма;вектор;компонування;"
 
 #: data/ui/preferences-dialog.ui:157
 msgid "_Reset tools after create"
@@ -2827,89 +2788,80 @@ msgstr "Діагонально"
 msgid "Radial"
 msgstr "Радіально"
 
-#: lib/dia_xml.c:206
-#, c-format
-msgid ""
-"The file %s has no encoding specification;\n"
-"assuming it is encoded in %s"
-msgstr ""
-"Файл %s не містить вказування кодування;\n"
-"вважатиметься, що це %s"
-
-#: lib/dia_xml.c:512
+#: lib/dia_xml.c:221
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Невідомий тип DataNode «%s»"
 
-#: lib/dia_xml.c:531
+#: lib/dia_xml.c:240
 msgid "Taking int value of non-int node."
 msgstr "Взяття цілого значення з вузла, для якого не визначено ціле значення."
 
-#: lib/dia_xml.c:707
+#: lib/dia_xml.c:416
 msgid "Taking point value of non-point node."
 msgstr "Взяти значення точки безточкового вузла."
 
-#: lib/dia_xml.c:718
+#: lib/dia_xml.c:427
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Неправильне значення точки x «%s» %f; відкидається."
 
-#: lib/dia_xml.c:725
+#: lib/dia_xml.c:434
 msgid "Error parsing point."
 msgstr "Помилка при аналізі точки."
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:733
+#: lib/dia_xml.c:442
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Неправильне значення точки y «%s» %f; відкидається."
 
-#: lib/dia_xml.c:753
+#: lib/dia_xml.c:462
 msgid "Taking bezpoint value of non-point node."
 msgstr "Визначення значення точки Безьє для вузла, який не є точкою."
 
-#: lib/dia_xml.c:771
+#: lib/dia_xml.c:480
 msgid "Error parsing bezpoint p1."
 msgstr "Помилка під час обробки точки Безьє p1."
 
-#: lib/dia_xml.c:785
+#: lib/dia_xml.c:494
 msgid "Error parsing bezpoint p2."
 msgstr "Помилка під час обробки точки Безьє p2."
 
-#: lib/dia_xml.c:799
+#: lib/dia_xml.c:508
 msgid "Error parsing bezpoint p3."
 msgstr "Помилка під час обробки точки Безьє p3."
 
-#: lib/dia_xml.c:826
+#: lib/dia_xml.c:535
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Взяття прямокутника з вузла, для якого не визначено прямокутника."
 
-#: lib/dia_xml.c:838 lib/dia_xml.c:849 lib/dia_xml.c:860
+#: lib/dia_xml.c:547 lib/dia_xml.c:558 lib/dia_xml.c:569
 msgid "Error parsing rectangle."
 msgstr "Помилка під час обробки прямокутника."
 
-#: lib/dia_xml.c:888
+#: lib/dia_xml.c:597
 msgid "Taking string value of non-string node."
 msgstr "Взяття рядкового значення з вузла, де немає рядкових даних."
 
-#: lib/dia_xml.c:916
+#: lib/dia_xml.c:625
 msgid "Error in string tag."
 msgstr "Помилка у рядковому тезі."
 
-#: lib/dia_xml.c:934
+#: lib/dia_xml.c:643
 msgid "Error in file, string not starting with #"
 msgstr "Помилка у файлі, рядок не починається з #"
 
-#: lib/dia_xml.c:1000
+#: lib/dia_xml.c:709
 msgid "Taking font value of non-font node."
 msgstr "Взяття значення шрифту з вузла, для якого не визначено шрифт."
 
-#: lib/filter.c:181
+#: lib/filter.c:184
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "Декілька фільтрів експортування з унікальною назвою %s"
 
-#: lib/filter.c:199
+#: lib/filter.c:202
 #, c-format
 msgid "Multiple import filters with unique name %s"
 msgstr "Декілька фільтрів імпортування з унікальною назвою %s"
@@ -2990,7 +2942,7 @@ msgstr "Відсутній символ 'dia_plugin_init'"
 msgid "dia_plugin_init() call failed"
 msgstr "помилка у функції dia_plugin_init()"
 
-#: lib/plug-ins.c:424
+#: lib/plug-ins.c:424 lib/plug-ins.c:597
 msgid "Plugin Configuration"
 msgstr "Налаштування додатків"
 
@@ -3208,7 +3160,34 @@ msgstr ""
 "Об’єкт Dia «%s», потрібний на аркуші «%s», не знайдено.\n"
 "Ви не зможете ним скористатися."
 
-#: lib/sheet.c:358
+#: lib/sheet.c:212
+#| msgid "Sheet"
+msgid "Load Sheet"
+msgstr "Завантажити аркуш"
+
+#: lib/sheet.c:235
+#, c-format
+#| msgid "Saving file '%s' failed."
+msgid "Loading Sheet from %s failed"
+msgstr "Не вдалося завантажити аркуш з %s"
+
+#: lib/sheet.c:252
+#| msgid "Couldn't find shape %d"
+msgid "Could not find sheet namespace"
+msgstr "Не вдалося знайти простір назв аркуша"
+
+#: lib/sheet.c:259
+#, c-format
+#| msgid "root element was '%s' -- expecting 'svg'."
+msgid "root element was %s — expecting sheet"
+msgstr "кореневий елемент був «%s», мало бути — «sheet»"
+
+#: lib/sheet.c:324
+#, c-format
+msgid "No <name> and/or <contents> in sheet %s — skipping"
+msgstr "На аркуші %s немає <name> і/або <contents> — пропускаємо"
+
+#: lib/sheet.c:347
 #, c-format
 msgid ""
 "The system sheet '%s' appears to be more recent than your custom\n"
@@ -3223,7 +3202,7 @@ msgstr ""
 "Пересуньте нові об’єкти (якщо такі є) з «%s» до вашого списку\n"
 "або вилучіть «%s» за допомогою діалогового вікна «Категорії і об’єкти»."
 
-#: lib/sheet.c:425
+#: lib/sheet.c:414
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: тепер вам слід використовувати теґи об’єктів, а не теґи форм"
@@ -3325,8 +3304,7 @@ msgstr "Вказівник масштабування"
 msgid "Visible rect pointer"
 msgstr "Видимий вказівник прямокутника"
 
-#: lib/renderer/diacairo.c:96 plug-ins/drs/dia-render-script.c:136
-#: plug-ins/hpgl/hpgl.c:743
+#: lib/renderer/diacairo.c:96 plug-ins/hpgl/hpgl.c:743
 #, c-format
 msgid "Can't open output file %s."
 msgstr "Не вдалося відкрити файл результатів %s."
@@ -3550,7 +3528,7 @@ msgstr "Завантажувач нетипових рядків XML"
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr "ВНУТРІШНЄ: Нетипові лінії: некоректний тип лінії у об’єкті LineInfo."
 
-#: objects/custom/shape_info.c:174
+#: objects/custom/shape_info.c:175
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
@@ -3558,6 +3536,32 @@ msgid ""
 msgstr ""
 "Файл «%s» містить некоректні дані про контур.\n"
 "svg:path data мають починатися з moveto."
+
+#: objects/custom/shape_info.c:718
+#| msgid "Load at Startup"
+msgid "Load Custom Shape"
+msgstr "Завантажити нетипову форму"
+
+#: objects/custom/shape_info.c:730
+#, c-format
+msgid "Loading Custom Shape from %s failed"
+msgstr "Не вдалося завантажити нетипову форму з %s"
+
+#: objects/custom/shape_info.c:746
+#| msgid "Couldn't find shape %d"
+msgid "could not find shape namespace"
+msgstr "не вдалося знайти простір назв форми"
+
+#: objects/custom/shape_info.c:754
+#| msgid "Couldn't find shape %d"
+msgid "could not find svg namespace"
+msgstr "не вдалося знайти простір назв svg"
+
+#: objects/custom/shape_info.c:762
+#, c-format
+#| msgid "root element was '%s' -- expecting 'svg'."
+msgid "root element was %s — expecting shape"
+msgstr "кореневий елемент був «%s», мало бути — «shape»"
 
 #: objects/Database/compound.c:211
 msgid "Number of arms"
@@ -5987,19 +5991,19 @@ msgid "Abstract Class"
 msgstr "Абстрактний клас"
 
 #. should probably be refactored too.
-#: objects/UML/class_dialog.c:537
+#: objects/UML/class_dialog.c:539
 msgid "Line Width"
 msgstr "Товщина лінії"
 
-#: objects/UML/class_dialog.c:548
+#: objects/UML/class_dialog.c:550
 msgid "Text Color"
 msgstr "Колір тексту"
 
-#: objects/UML/class_dialog.c:559
+#: objects/UML/class_dialog.c:561
 msgid "Foreground Color"
 msgstr "Колір переднього плану"
 
-#: objects/UML/class_dialog.c:570
+#: objects/UML/class_dialog.c:572
 msgid "Background Color"
 msgstr "Колір тла"
 
@@ -6384,6 +6388,15 @@ msgstr ""
 "Довжина рядка зображення перевищує максимальну кількість комірок масиву.\n"
 "Зображення не експортовано в CGM."
 
+#: plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
+#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1384
+#: plug-ins/pstricks/render_pstricks.c:999 plug-ins/vdx/vdx-export.c:1781
+#: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
+#: plug-ins/xfig/xfig-export.c:1272
+#, c-format
+msgid "Can't open output file %s"
+msgstr "Не вдалося відкрити файл результатів %s"
+
 #: plug-ins/cgm/cgm.c:1362
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
@@ -6392,15 +6405,15 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Фільтр експорту в Computer Graphics Metafile"
 
-#: plug-ins/drs/dia-render-script.c:175 plug-ins/drs/dia-render-script.c:180
+#: plug-ins/drs/dia-render-script.c:161 plug-ins/drs/dia-render-script.c:166
 msgid "DiaRenderScript"
 msgstr "Скрипт показу Діа"
 
-#: plug-ins/drs/dia-render-script.c:204
+#: plug-ins/drs/dia-render-script.c:191
 msgid "DiaRenderScript filter"
 msgstr "Фільтрування скрипту показу Діа"
 
-#: plug-ins/drs/dia-render-script-import.c:514
+#: plug-ins/drs/dia-render-script-import.c:515
 msgid "Broken file?"
 msgstr "Файл пошкоджено?"
 
@@ -6411,6 +6424,12 @@ msgstr "Фільтр експорту/імпорту DIF (Drawing Interchange Fi
 #: plug-ins/dxf/dxf-export.c:666 plug-ins/dxf/dxf-import.c:1429
 msgid "Drawing Interchange File"
 msgstr "DIF (формат файла обміну зображеннями)"
+
+#: plug-ins/dxf/dxf-import.c:1327 plug-ins/wpg/wpg-import.c:519
+#: plug-ins/xfig/xfig-import.c:1322
+#, c-format
+msgid "Couldn't open: '%s' for reading.\n"
+msgstr "Не вдалося відкрити: «%s» для зчитування.\n"
 
 #: plug-ins/dxf/dxf-import.c:1338
 #, c-format
@@ -6505,7 +6524,7 @@ msgid "TeX Metapost export filter"
 msgstr "Фільтр експорту файлів TeX Metapost"
 
 #: plug-ins/metapost/render_metapost.c:909
-#: plug-ins/pstricks/render_pstricks.c:879 plug-ins/wpg/wpg.c:920
+#: plug-ins/pstricks/render_pstricks.c:901 plug-ins/wpg/wpg.c:920
 msgid "Not enough memory for image drawing."
 msgstr "Недостатньо пам’яті для малювання зображення."
 
@@ -6525,12 +6544,12 @@ msgstr "Переносний формат документів (PDF)"
 msgid "PDF import filter"
 msgstr "фільтр імпортування PDF"
 
-#: plug-ins/pdf/pdf-import.cpp:436
+#: plug-ins/pdf/pdf-import.cpp:479
 #, c-format
 msgid "Page %d"
 msgstr "Сторінка %d"
 
-#: plug-ins/pdf/pdf-import.cpp:915
+#: plug-ins/pdf/pdf-import.cpp:976
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6547,7 +6566,7 @@ msgstr "Фільтр експорту файлів LaTeX PGF"
 msgid "Not valid UTF-8"
 msgstr "Некоректні дані UTF-8"
 
-#: plug-ins/pgf/render_pgf.c:1422
+#: plug-ins/pgf/render_pgf.c:1444
 msgid "LaTeX PGF macros"
 msgstr "Макроси LaTeX PGF"
 
@@ -6587,7 +6606,7 @@ msgstr "растровий імпорт/експорт оснований на g
 msgid "TeX PSTricks export filter"
 msgstr "Фільтр експорту файлів TeX PSTricks"
 
-#: plug-ins/pstricks/render_pstricks.c:1047
+#: plug-ins/pstricks/render_pstricks.c:1069
 msgid "TeX PSTricks macros"
 msgstr "Макроси TeX PSTricks"
 
@@ -6596,7 +6615,7 @@ msgstr "Макроси TeX PSTricks"
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Не вдалося відкрити «%s» для запису.\n"
 
-#: plug-ins/python/python.c:103
+#: plug-ins/python/python.c:102
 msgid "Python scripting support"
 msgstr "Підтримка скриптів Python"
 
@@ -6809,21 +6828,26 @@ msgstr "Однолінійні зображення"
 msgid "Dia shape export filter"
 msgstr "Фільтр експорту файлів форми Діа"
 
-#: plug-ins/shape/shape-export.c:624
+#: plug-ins/shape/shape-export.c:296
+#| msgid "Export"
+msgid "Shape Export"
+msgstr "Експортування форми"
+
+#: plug-ins/shape/shape-export.c:616
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
 "Назви файлів форм мають завершуватися суфіксом .shape, інакше форми не можна "
 "буде завантажити у Діа"
 
-#: plug-ins/shape/shape-export.c:634
+#: plug-ins/shape/shape-export.c:626
 msgid "Can't export PNG icon without export plugin!"
 msgstr "Експорт до PNG неможливий без додатка експортування!"
 
-#: plug-ins/shape/shape-export.c:667
+#: plug-ins/shape/shape-export.c:659
 msgid "Dia Shape File"
 msgstr "Файл форми Діа"
 
-#: plug-ins/svg/render_svg.c:701 plug-ins/svg/svg-import.c:2277
+#: plug-ins/svg/render_svg.c:700 plug-ins/svg/svg-import.c:2280
 msgid "Scalable Vector Graphics"
 msgstr "SVG (векторна графіка)"
 
@@ -6844,16 +6868,16 @@ msgstr ""
 "Некоректні дані про контур.\n"
 "svg:path data мають починатися з moveto."
 
-#: plug-ins/svg/svg-import.c:2043
+#: plug-ins/svg/svg-import.c:2047
 msgid "'Shape Design' shapes missing."
 msgstr "Не вистачає форм набору «Дизайн форми»."
 
-#: plug-ins/svg/svg-import.c:2077
+#: plug-ins/svg/svg-import.c:2081
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Не вдалося створити об’єкт «%s»"
 
-#: plug-ins/svg/svg-import.c:2106
+#: plug-ins/svg/svg-import.c:2110
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6862,30 +6886,11 @@ msgstr ""
 "Помилка обробника на блоці пам’яті.\n"
 "%s"
 
-#: plug-ins/svg/svg-import.c:2124
-#, c-format
-msgid ""
-"SVG parser error for %s\n"
-"%s"
-msgstr ""
-"Помилка обробника SVG на %s\n"
-"%s"
-
-#. just a warning
-#: plug-ins/svg/svg-import.c:2130
-#, c-format
-msgid ""
-"SVG parser warning for %s\n"
-"%s"
-msgstr ""
-"Попередження обробника SVG щодо %s\n"
-"%s"
-
-#: plug-ins/svg/svg-import.c:2163
+#: plug-ins/svg/svg-import.c:2166
 msgid "Expected SVG name-space not found in file"
 msgstr "У файлі не знайдено очікуваного простору назв SVG"
 
-#: plug-ins/svg/svg-import.c:2183
+#: plug-ins/svg/svg-import.c:2186
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "кореневий елемент був «%s», мало бути — «svg»."
@@ -6913,51 +6918,50 @@ msgstr "Не вдалося прочитати колір: %s"
 msgid "Couldn't find shape %d"
 msgstr "Не вдалося знайти форму %d"
 
-#: plug-ins/vdx/vdx-import.c:1071
+#: plug-ins/vdx/vdx-import.c:1072
 #, c-format
 msgid "Unexpected Ellipse object: %s"
 msgstr "Неочікуваний об'єкт Еліпс: %s"
 
-#: plug-ins/vdx/vdx-import.c:1085
+#: plug-ins/vdx/vdx-import.c:1086
 msgid "Can't rotate ellipse"
 msgstr "Не вдалося повернути еліпс"
 
-#: plug-ins/vdx/vdx-import.c:1416
+#: plug-ins/vdx/vdx-import.c:1417
 msgid "MoveTo not at start of Bezier"
 msgstr "MoveTo не є початком кривої Безьє"
 
-#: plug-ins/vdx/vdx-import.c:1766
+#: plug-ins/vdx/vdx-import.c:1767
 msgid "Invalid NURBS formula"
 msgstr "Некоректна формула NURBS"
 
-#: plug-ins/vdx/vdx-import.c:2025
+#: plug-ins/vdx/vdx-import.c:2027
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Не вдалося керувати стороннім типом об'єктів %s"
 
-#: plug-ins/vdx/vdx-import.c:2960
+#: plug-ins/vdx/vdx-import.c:2966
 #, c-format
-msgid ""
-"VDX parser error for %s\n"
-"%s"
-msgstr ""
-"Помилка обробника VDX на %s\n"
-"%s"
+#| msgid ""
+#| "VDX parser error for %s\n"
+#| "%s"
+msgid "VDX parser error for %s"
+msgstr "Помилка обробника VDX на %s"
 
-#: plug-ins/vdx/vdx-import.c:2972
+#: plug-ins/vdx/vdx-import.c:2979
 msgid "Nothing in document!"
 msgstr "У документі нічого немає!"
 
-#: plug-ins/vdx/vdx-import.c:2977
+#: plug-ins/vdx/vdx-import.c:2984
 #, c-format
 msgid "Expecting VisioDocument, got %s"
 msgstr "Мало бути VisioDocument, отримано %s"
 
-#: plug-ins/vdx/vdx-import.c:3061
+#: plug-ins/vdx/vdx-import.c:3068
 msgid "Visio XML File Format"
 msgstr "Формат файлів Visio XML"
 
-#: plug-ins/vdx/vdx-xml.c:3345
+#: plug-ins/vdx/vdx-xml.c:3344
 #, c-format
 msgid "Can't decode object %s"
 msgstr "Не вдалося декодувати об'єкт %s"
@@ -7113,133 +7117,133 @@ msgstr "Від'ємний радіус кута, змінюємо знак"
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Невідомий підтип ламаної: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:749 plug-ins/xfig/xfig-import.c:781
+#: plug-ins/xfig/xfig-import.c:750 plug-ins/xfig/xfig-import.c:782
 msgid "Couldn't read spline info."
 msgstr "Не вдалося прочитати дані щодо сплайна."
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:768 plug-ins/xfig/xfig-import.c:785
+#: plug-ins/xfig/xfig-import.c:769 plug-ins/xfig/xfig-import.c:786
 msgid "Cannot convert approximated spline yet."
 msgstr "Перетворення апроксимованого сплайна поки що неможливе."
 
-#: plug-ins/xfig/xfig-import.c:823
+#: plug-ins/xfig/xfig-import.c:825
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Невідомий підтип сплайну: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:888
+#: plug-ins/xfig/xfig-import.c:890
 msgid "Couldn't read arc info."
 msgstr "Не вдалося прочитати дані щодо дуги."
 
 #. set new fill property on arc?
-#: plug-ins/xfig/xfig-import.c:916
+#: plug-ins/xfig/xfig-import.c:918
 msgid "Filled arc treated as unfilled"
 msgstr "Обробка заповненої дуги як незаповненої"
 
-#: plug-ins/xfig/xfig-import.c:920
+#: plug-ins/xfig/xfig-import.c:922
 #, c-format
 msgid "Unknown polyline arc: %d\n"
 msgstr "Невідом дуга ламаної: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:985
+#: plug-ins/xfig/xfig-import.c:987
 msgid "Couldn't read text info."
 msgstr "Не вдалося прочитати дані тексту."
 
-#: plug-ins/xfig/xfig-import.c:1013
+#: plug-ins/xfig/xfig-import.c:1015
 #, c-format
 msgid "Can't find LaTeX font nr. %d, using sans"
 msgstr "Не вдалося знайти шрифт LaTeX номер %d, використовуємо sans"
 
-#: plug-ins/xfig/xfig-import.c:1021
+#: plug-ins/xfig/xfig-import.c:1023
 #, c-format
 msgid "Can't find PostScript font nr. %d, using sans"
 msgstr "Не вдалося знайти шрифт PostScript номер %d, використовуємо sans"
 
-#: plug-ins/xfig/xfig-import.c:1050
+#: plug-ins/xfig/xfig-import.c:1052
 msgid "Couldn't identify Fig object."
 msgstr "Не вдалося ідентифікувати об’єкт Fig."
 
-#: plug-ins/xfig/xfig-import.c:1058
+#: plug-ins/xfig/xfig-import.c:1060
 msgid "Compound end outside compound\n"
 msgstr "Кінець з'єднання за межами з'єднання\n"
 
-#: plug-ins/xfig/xfig-import.c:1080
+#: plug-ins/xfig/xfig-import.c:1082
 msgid "Couldn't read color\n"
 msgstr "Не вдалося прочитати колір\n"
 
-#: plug-ins/xfig/xfig-import.c:1085
+#: plug-ins/xfig/xfig-import.c:1087
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr ""
 "Номер кольору %d перебуває за межами діапазону від 0 до %d. Колір "
 "відкинуто.\n"
 
-#: plug-ins/xfig/xfig-import.c:1132
+#: plug-ins/xfig/xfig-import.c:1134
 msgid "Couldn't read group extent."
 msgstr "Не вдалося прочитати розширювач груп."
 
-#: plug-ins/xfig/xfig-import.c:1143
+#: plug-ins/xfig/xfig-import.c:1145
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Невідомий тип об'єкта %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1170
+#: plug-ins/xfig/xfig-import.c:1172
 #, c-format
 msgid "“%s” is not one of “%s” or “%s”\n"
 msgstr "«%s» не є одним з «%s» чи «%s»\n"
 
-#: plug-ins/xfig/xfig-import.c:1185
+#: plug-ins/xfig/xfig-import.c:1187
 msgid "Error reading paper size."
 msgstr "Помилка під час читання розміру паперу."
 
-#: plug-ins/xfig/xfig-import.c:1197
+#: plug-ins/xfig/xfig-import.c:1199
 #, c-format
 msgid "Unknown paper size “%s”, using default\n"
 msgstr "Невідомий розмір паперу «%s», використовуємо типовий\n"
 
-#: plug-ins/xfig/xfig-import.c:1213
+#: plug-ins/xfig/xfig-import.c:1215
 msgid "Error reading paper orientation."
 msgstr "Помилка під час читання даних щодо орієнтації паперу."
 
-#: plug-ins/xfig/xfig-import.c:1223
+#: plug-ins/xfig/xfig-import.c:1225
 msgid "Error reading justification."
 msgstr "Помилка під час зчитування вирівнювання."
 
-#: plug-ins/xfig/xfig-import.c:1233
+#: plug-ins/xfig/xfig-import.c:1235
 msgid "Error reading units."
 msgstr "Помилка під час читання одиниць."
 
-#: plug-ins/xfig/xfig-import.c:1249
+#: plug-ins/xfig/xfig-import.c:1251
 msgid "Error reading magnification."
 msgstr "Помилка під час читання даних щодо збільшення."
 
-#: plug-ins/xfig/xfig-import.c:1262
+#: plug-ins/xfig/xfig-import.c:1264
 msgid "Error reading multipage indicator."
 msgstr "Помилка під час читання багатосторінкового індикатора."
 
-#: plug-ins/xfig/xfig-import.c:1273
+#: plug-ins/xfig/xfig-import.c:1275
 msgid "Error reading transparent color."
 msgstr "Помилка під час читання прозорого кольору."
 
-#: plug-ins/xfig/xfig-import.c:1282 plug-ins/xfig/xfig-import.c:1343
-#: plug-ins/xfig/xfig-import.c:1363
+#: plug-ins/xfig/xfig-import.c:1284 plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:1365
 msgid "Error reading Fig file."
 msgstr "Помилка під час читання файла Fig."
 
-#: plug-ins/xfig/xfig-import.c:1284
+#: plug-ins/xfig/xfig-import.c:1286
 msgid "Premature end of Fig file\n"
 msgstr "Передчасне завершення Fig-файла\n"
 
-#: plug-ins/xfig/xfig-import.c:1293
+#: plug-ins/xfig/xfig-import.c:1295
 msgid "Error reading resolution."
 msgstr "Помилка під ча читання даних щодо роздільної здатності."
 
-#: plug-ins/xfig/xfig-import.c:1329
+#: plug-ins/xfig/xfig-import.c:1331
 msgid "Doesn't look like a Fig file"
 msgstr "Не схоже на файл Fig"
 
-#: plug-ins/xfig/xfig-import.c:1335
+#: plug-ins/xfig/xfig-import.c:1337
 #, c-format
 msgid ""
 "This is a Fig version %d.%d file.\n"
@@ -7248,74 +7252,126 @@ msgstr ""
 "Це файл Fig версії %d.%d.\n"
 " Можливо, його не вдасться обробити."
 
-#: plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:1347
 msgid "Premature end of Fig file"
 msgstr "Передчасне завершення файла Fig"
 
-#: plug-ins/xfig/xfig-import.c:1390
+#: plug-ins/xfig/xfig-import.c:1392
 msgid "Xfig File Format"
 msgstr "Формат файла Xfig"
 
-#: plug-ins/xslt/xslt.c:109
-#, c-format
-msgid "Can't open output file %s: %s\n"
-msgstr "Не вдалося відкрити файл виводу %s: %s\n"
+#: plug-ins/xslt/dia-xslt-dialogue.ui:4
+msgid "Export through XSLT"
+msgstr "Експорт через XSLT"
 
-#: plug-ins/xslt/xslt.c:118
+#: plug-ins/xslt/dia-xslt-dialogue.ui:14
+#| msgid "From:"
+msgid "_From"
+msgstr "_Від"
+
+#: plug-ins/xslt/dia-xslt-dialogue.ui:42
+#| msgid "_Top"
+msgid "_To"
+msgstr "_До"
+
+#: plug-ins/xslt/dia-xslt.c:214 plug-ins/xslt/dia-xslt.c:225
 #, c-format
 msgid ""
-"Error while parsing %s\n"
-"%s"
+"Name and stylesheet attributes are required for the implementation element "
+"%s in XSLT plugin configuration file"
 msgstr ""
-"Помилка під час обробки %s\n"
-"%s"
+"Має бути вказано назву та таблицю стилів для елемента реалізації %s у файлі"
+" налаштувань додатка XSLT"
 
-#: plug-ins/xslt/xslt.c:128
+#: plug-ins/xslt/dia-xslt.c:260
 #, c-format
-msgid "Error while parsing stylesheet %s\n"
-msgstr "Помилка при аналізі стильової таблиці %s\n"
+#| msgid "Could not create per-user Dia configuration directory"
+msgid "Couldn't parse XSLT plugin's configuration file %s"
+msgstr "Не вдалося обробити файл налаштувань додатка XSLT %s"
 
-#: plug-ins/xslt/xslt.c:135
+#: plug-ins/xslt/dia-xslt.c:269
 #, c-format
-msgid "Error while applying stylesheet %s\n"
-msgstr "Помилка при застосуванні стильової таблиці %s\n"
+msgid "XSLT plugin's configuration file %s is empty"
+msgstr "Файл налаштувань додатка XSLT %s є порожнім"
 
-#: plug-ins/xslt/xslt.c:144
+#: plug-ins/xslt/dia-xslt.c:290 plug-ins/xslt/dia-xslt.c:301
 #, c-format
-msgid "Error while parsing stylesheet: %s\n"
-msgstr "Помилка при аналізі стильової таблиці: %s\n"
+msgid ""
+"'name' and 'stylesheet' attributes are required for the language element %s "
+"in XSLT plugin configuration file"
+msgstr ""
+"Потрібні атрибути «name» і «stylesheet» для елемента мови %s у файлі"
+" налаштувань додатка XSLT"
 
-#: plug-ins/xslt/xslt.c:153
+#: plug-ins/xslt/dia-xslt.c:318
 #, c-format
-msgid "Error while applying stylesheet: %s\n"
-msgstr "Помилка при застосуванні стильової таблиці: %s\n"
+msgid ""
+"No implementation stylesheet for language %s in XSLT plugin configuration "
+"file"
+msgstr ""
+"Немає таблиці стилів реалізації для мови %s у файлі налаштувань додатка XSLT"
 
-#: plug-ins/xslt/xslt.c:161
+#: plug-ins/xslt/dia-xslt.c:330
 #, c-format
-msgid "Error while saving result: %s\n"
-msgstr "Помилка під час спроби збереження результату: %s\n"
+msgid ""
+"Wrong node name %s in XSLT plugin configuration file, 'language' expected"
+msgstr ""
+"Помилкова назва вузла %s у файлі налаштувань додатка XSLT, мало бути вказано"
+" «language»"
 
-#: plug-ins/xslt/xslt.c:332
-msgid "XSL Transformation filter"
-msgstr "Фільтр перетворення XSL"
-
-#: plug-ins/xslt/xslt.c:357
+#: plug-ins/xslt/dia-xslt.c:375
 msgid "No valid configuration files found for the XSLT plugin; not loading."
 msgstr ""
 "Не знайдено коректного конфігураційного файла для додаткового модуля XSLT, "
 "він не буде завантажений."
 
-#: plug-ins/xslt/xsltdialog.c:85
-msgid "Export through XSLT"
-msgstr "Експорт через XSLT"
+#: plug-ins/xslt/dia-xslt.c:422 plug-ins/xslt/dia-xslt.c:568
+#: plug-ins/xslt/dia-xslt.c:578
+#, c-format
+#| msgid "Error while saving result: %s\n"
+msgid "Error while saving %s: %s"
+msgstr "Помилка під час спроби зберегти %s: %s"
 
-#: plug-ins/xslt/xsltdialog.c:99
-msgid "From:"
-msgstr "Від:"
+#: plug-ins/xslt/dia-xslt.c:472
+#, c-format
+#| msgid "Can't open output file %s: %s\n"
+msgid "Can't open output file %s: %s"
+msgstr "Не вдалося відкрити файл виведення %s: %s"
 
-#: plug-ins/xslt/xsltdialog.c:129
-msgid "To:"
-msgstr "До:"
+#: plug-ins/xslt/dia-xslt.c:487
+#, c-format
+#| msgid ""
+#| "Error while parsing %s\n"
+#| "%s"
+msgid "Error while parsing: %s"
+msgstr "Помилка під час обробки %s"
+
+#: plug-ins/xslt/dia-xslt.c:500 plug-ins/xslt/dia-xslt.c:520
+#, c-format
+#| msgid "Error while parsing stylesheet: %s\n"
+msgid "Error while parsing stylesheet: %s"
+msgstr "Помилка при аналізі стильової таблиці: %s"
+
+#: plug-ins/xslt/dia-xslt.c:509 plug-ins/xslt/dia-xslt.c:531
+#, c-format
+#| msgid "Error while applying stylesheet: %s\n"
+msgid "Error while applying stylesheet: %s"
+msgstr "Помилка при застосуванні стильової таблиці: %s"
+
+#: plug-ins/xslt/dia-xslt.c:542 plug-ins/xslt/dia-xslt.c:550
+#, c-format
+#| msgid "Error while saving result: %s\n"
+msgid "Error while saving result: %s"
+msgstr "Помилка під час спроби збереження результату: %s"
+
+#: plug-ins/xslt/dia-xslt.c:669
+#| msgid "Plugins"
+msgid "XSLT Plugin"
+msgstr "Додаток XSLT"
+
+#: plug-ins/xslt/dia-xslt.c:676
+msgid "XSL Transformation filter"
+msgstr "Фільтр перетворення XSL"
 
 #: sheets/AADL.sheet:3
 msgid "AADL"
@@ -11202,6 +11258,60 @@ msgstr "Активність"
 #: sheets/UML.sheet:96
 msgid "Fork/Union"
 msgstr "Розгалуження/Об'єднанняy"
+
+#~ msgid "You must specify a file, not a directory."
+#~ msgstr "Вам слід вказати файл, а не каталог."
+
+#, c-format
+#~ msgid "Not allowed to write to output file %s\n"
+#~ msgstr "Запис у файл виведення даних %s заборонено\n"
+
+#, c-format
+#~ msgid "Not allowed to write temporary files in %s\n"
+#~ msgstr "Запис тимчасових файлів до %s заборонено\n"
+
+#, c-format
+#~ msgid "Can't rename %s to final output file %s"
+#~ msgstr "Не вдалося перейменувати %s у кінцевий вихідний файл %s"
+
+#, c-format
+#~ msgid "Couldn't open: '%s' for writing"
+#~ msgstr "Не вдалося відкрити: «%s» для записування"
+
+#, c-format
+#~ msgid ""
+#~ "The file %s has no encoding specification;\n"
+#~ "assuming it is encoded in %s"
+#~ msgstr ""
+#~ "Файл %s не містить вказування кодування;\n"
+#~ "вважатиметься, що це %s"
+
+#, c-format
+#~ msgid ""
+#~ "SVG parser error for %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Помилка обробника SVG на %s\n"
+#~ "%s"
+
+#, c-format
+#~ msgid ""
+#~ "SVG parser warning for %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Попередження обробника SVG щодо %s\n"
+#~ "%s"
+
+#, c-format
+#~ msgid "Error while parsing stylesheet %s\n"
+#~ msgstr "Помилка при аналізі стильової таблиці %s\n"
+
+#, c-format
+#~ msgid "Error while applying stylesheet %s\n"
+#~ msgstr "Помилка при застосуванні стильової таблиці %s\n"
+
+#~ msgid "To:"
+#~ msgstr "До:"
 
 #~ msgid "Select Printer"
 #~ msgstr "Вибір принтера"
