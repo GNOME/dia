@@ -9,18 +9,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
-"POT-Creation-Date: 2024-03-08 02:41+0000\n"
-"PO-Revision-Date: 2024-03-09 13:38+0100\n"
+"POT-Creation-Date: 2025-06-23 00:42+0000\n"
+"PO-Revision-Date: 2025-06-23 10:21+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. This is not an errror
 #: app/app_procs.c:164
@@ -255,7 +255,6 @@ msgstr "Izhod"
 #: app/layer-editor/dia-layer-properties.c:246 data/ui/sheets-edit-dialog.ui:23
 #: data/ui/sheets-new-dialog.ui:22 data/ui/sheets-remove-dialog.ui:22
 #: lib/dia-arrow-chooser.c:177 lib/dia-line-chooser.c:172
-#: plug-ins/xslt/xsltdialog.c:87
 msgid "_Cancel"
 msgstr "Pre_kliči"
 
@@ -502,7 +501,6 @@ msgstr "_Uveljavi"
 #: data/ui/sheets-edit-dialog.ui:38 data/ui/sheets-new-dialog.ui:37
 #: data/ui/sheets-remove-dialog.ui:37 lib/dia-arrow-chooser.c:178
 #: lib/dia-line-chooser.c:173 objects/AADL/edit_port_declaration.c:176
-#: plug-ins/xslt/xsltdialog.c:88
 msgid "_OK"
 msgstr "V _redu"
 
@@ -527,7 +525,7 @@ msgstr "Poskušate združevati v skupino brez izbranih predmetov."
 msgid "Diagram"
 msgstr "Diagram"
 
-#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:522
+#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:523
 msgid "Layer"
 msgstr "Plast"
 
@@ -592,11 +590,11 @@ msgstr "Ime"
 msgid "Diagram Tree"
 msgstr "Drevo diagrama"
 
-#: app/dia-colour-area.c:180 app/dia-colour-area.c:188
+#: app/dia-colour-area.c:225
 msgid "Select foreground color"
 msgstr "Izberite barvo ospredja"
 
-#: app/dia-colour-area.c:180 app/dia-colour-area.c:188
+#: app/dia-colour-area.c:225
 msgid "Select background color"
 msgstr "Izberite barvo ozadja"
 
@@ -643,7 +641,7 @@ msgstr "Velikost šestnajstiške mreže"
 msgid "Grid"
 msgstr "Mreža"
 
-#: app/dia-diagram-properties-dialog.ui:310 lib/diagramdata.c:149
+#: app/dia-diagram-properties-dialog.ui:310 lib/diagramdata.c:119
 msgid "Background"
 msgstr "Ozadje"
 
@@ -668,7 +666,7 @@ msgid "Add New Guide"
 msgstr "Dodaj novo vodilo"
 
 #. orientation
-#: app/dia-guide-dialog.c:171 app/dia-page-layout.c:137
+#: app/dia-guide-dialog.c:171 app/dia-page-layout.c:139
 msgid "Orientation"
 msgstr "Usmerjenost"
 
@@ -705,54 +703,54 @@ msgid "Line width:"
 msgstr "Debelina črte:"
 
 #. paper size
-#: app/dia-page-layout.c:105
+#: app/dia-page-layout.c:107
 msgid "Paper Size"
 msgstr "Velikost papirja"
 
 #. margins
-#: app/dia-page-layout.c:166
+#: app/dia-page-layout.c:168
 msgid "Margins"
 msgstr "Robovi"
 
-#: app/dia-page-layout.c:177
+#: app/dia-page-layout.c:179
 msgid "Top:"
 msgstr "Zgoraj:"
 
-#: app/dia-page-layout.c:191
+#: app/dia-page-layout.c:193
 msgid "Bottom:"
 msgstr "Spodaj:"
 
-#: app/dia-page-layout.c:205
+#: app/dia-page-layout.c:207
 msgid "Left:"
 msgstr "Levo:"
 
-#: app/dia-page-layout.c:219
+#: app/dia-page-layout.c:221
 msgid "Right:"
 msgstr "Desno:"
 
 #. Scaling
-#: app/dia-page-layout.c:234
+#: app/dia-page-layout.c:236
 msgid "Scaling"
 msgstr "Prilagajanje velikosti"
 
-#: app/dia-page-layout.c:244
+#: app/dia-page-layout.c:246
 msgid "Scale:"
 msgstr "Merilo:"
 
-#: app/dia-page-layout.c:258
+#: app/dia-page-layout.c:260
 msgid "Fit to:"
 msgstr "Prilagodi na:"
 
-#: app/dia-page-layout.c:271
+#: app/dia-page-layout.c:273
 msgid "by"
 msgstr "od"
 
-#: app/dia-page-layout.c:802
+#: app/dia-page-layout.c:804
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: app/dia-page-layout.c:906 app/pagesetup.c:77
+#: app/dia-page-layout.c:908 app/pagesetup.c:77
 msgid "Page Setup"
 msgstr "Nastavitev strani"
 
@@ -800,7 +798,7 @@ msgstr "Izbor"
 msgid "Input _Methods"
 msgstr "_Metode vnosa"
 
-#: app/disp_callbacks.c:1306
+#: app/disp_callbacks.c:1317
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -1090,24 +1088,13 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "Ni mogoče najti nadrejenega %s predmeta %s\n"
 
-#: app/load_save.c:417
-msgid "You must specify a file, not a directory."
-msgstr "Navesti morate datoteko, ne mape."
-
-#: app/load_save.c:425 plug-ins/dxf/dxf-import.c:1327
-#: plug-ins/wpg/wpg-import.c:519 plug-ins/xfig/xfig-import.c:1320
-#: plug-ins/xslt/xslt.c:101
-#, c-format
-msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Ni mogoče odpreti: »%s« za branje.\n"
-
 #. this was talking about unknown file type but it could as well be broken XML
-#: app/load_save.c:444
+#: app/load_save.c:418
 #, c-format
 msgid "Error loading diagram %s."
 msgstr "Napaka ob nalaganju diagrama %s."
 
-#: app/load_save.c:455
+#: app/load_save.c:429
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1116,7 +1103,7 @@ msgstr ""
 "Napaka ob nalaganju diagrama %s.\n"
 "Neznana vrsta datoteke."
 
-#: app/load_save.c:463
+#: app/load_save.c:437
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1125,11 +1112,11 @@ msgstr ""
 "Napaka ob nalaganju diagrama %s.\n"
 "To ni datoteka Dia."
 
-#: app/load_save.c:766
+#: app/load_save.c:742
 msgid "Error reading connections"
 msgstr "Napaka pri branju povezav"
 
-#: app/load_save.c:789
+#: app/load_save.c:773
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1140,52 +1127,26 @@ msgstr ""
 "%s.\n"
 "Veljavna datoteka Dia vsebuje vsaj en sloj."
 
-#: app/load_save.c:1116
+#: app/load_save.c:1100
 #, c-format
 msgid "Error saving connections to layer '%s'"
 msgstr "Napaka pri shranjevanju povezav s slojem »%s«"
 
-#: app/load_save.c:1125
+#: app/load_save.c:1109
 #, c-format
 msgid "Connection saving is incomplete for layer '%s'"
 msgstr "Shranjevanje povezav je nepopolno za plast »%s«"
 
-#: app/load_save.c:1182
-#, c-format
-msgid "Not allowed to write to output file %s\n"
-msgstr "Pisanje v izhodno datoteko %s ni dovoljeno\n"
-
-#: app/load_save.c:1214
-#, c-format
-msgid "Not allowed to write temporary files in %s\n"
-msgstr "Pisanje v začasne datoteke v %s ni dovoljeno\n"
-
-#: app/load_save.c:1237 plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
-#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1362
-#: plug-ins/pstricks/render_pstricks.c:977 plug-ins/vdx/vdx-export.c:1781
-#: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
-#: plug-ins/xfig/xfig-export.c:1272
-#, c-format
-msgid "Can't open output file %s"
-msgstr "Ni mogoče odpreti izhodne datoteke %s"
-
-#. Save failed; we clean our stuff up, without touching the file named
-#. "filename" if it existed.
-#: app/load_save.c:1248
+#: app/load_save.c:1158
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Notranja napaka %d pri pisanju v datoteko %s\n"
 
-#: app/load_save.c:1259
-#, c-format
-msgid "Can't rename %s to final output file %s"
-msgstr "Ni mogoče preimenovati %s v končno izhodno datoteko %s"
-
-#: app/load_save.c:1384 app/load_save.c:1395
+#: app/load_save.c:1279 app/load_save.c:1290
 msgid "Auto save"
 msgstr "Samodejno shrani"
 
-#: app/load_save.c:1419 app/load_save.c:1424
+#: app/load_save.c:1314 app/load_save.c:1319
 msgid "Dia Diagram File"
 msgstr "Datoteka diagrama Dia"
 
@@ -1975,12 +1936,12 @@ msgstr "Uporabnik"
 msgid "Widget not found: %s"
 msgstr "Gradnik ni bil najden: %s"
 
-#: app/sheet-editor/sheet-editor-button.c:114
+#: app/sheet-editor/sheet-editor-button.c:116
 #, c-format
 msgid "No icon for “%s”"
 msgstr "Ni ikone za »%s«"
 
-#: app/sheet-editor/sheet-editor-button.c:186
+#: app/sheet-editor/sheet-editor-button.c:188
 #: app/sheet-editor/sheets_dialog_callbacks.c:945
 #: data/ui/sheets-new-dialog.ui:142
 msgid "Line Break"
@@ -2051,31 +2012,30 @@ msgstr "List mora imeti ime"
 msgid "Couldn't open '%s': %s"
 msgstr "Ni mogoče odpreti »%s«: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1469
-#, c-format
-msgid "Couldn't open: '%s' for writing"
-msgstr "Ni mogoče odpreti: »%s« za pisanje"
+#: app/sheet-editor/sheets_dialog_callbacks.c:1433
+msgid "Write Sheet"
+msgstr "Zapiši list"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1479
+#: app/sheet-editor/sheets_dialog_callbacks.c:1470
 msgid "a user"
 msgstr "uporabnik"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1494
+#: app/sheet-editor/sheets_dialog_callbacks.c:1485
 #, c-format
 msgid "File: %s"
 msgstr "Datoteka: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1497
+#: app/sheet-editor/sheets_dialog_callbacks.c:1488
 #, c-format
 msgid "Date: %s"
 msgstr "Datum: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1501
+#: app/sheet-editor/sheets_dialog_callbacks.c:1492
 #, c-format
 msgid "For: %s"
 msgstr "Za: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1518
+#: app/sheet-editor/sheets_dialog_callbacks.c:1509
 msgid "add shapes here"
 msgstr "tu dodajte like"
 
@@ -2088,7 +2048,7 @@ msgstr "Nalaganje …"
 msgid "Dia v%s"
 msgstr "Dia v%s"
 
-#: app/toolbox.c:104
+#: app/toolbox.c:107
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
@@ -2096,7 +2056,7 @@ msgstr ""
 "Spremeni predmet(e)\n"
 "Uporabite <preslednico> za preklop med tem in drugimi orodji"
 
-#: app/toolbox.c:110
+#: app/toolbox.c:113
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
@@ -2105,17 +2065,17 @@ msgstr ""
 "Uporabite tipko <Esc> (ubežnico) za izhod iz orodja."
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/toolbox.c:116 objects/FS/function.c:1042
+#: app/toolbox.c:119 objects/FS/function.c:1042
 msgid "Magnify"
 msgstr "Povečaj"
 
-#: app/toolbox.c:122
+#: app/toolbox.c:125
 msgid "Scroll around the diagram"
 msgstr "Drsi po diagramu"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: app/toolbox.c:128 lib/properties.c:96 lib/properties.h:697
+#: app/toolbox.c:131 lib/properties.c:96 lib/properties.h:697
 #: objects/AADL/aadlbox.c:165 objects/custom/custom_object.c:244
 #: objects/Jackson/requirement.c:126 objects/network/basestation.c:132
 #: objects/network/radiocell.c:129 objects/UML/activity.c:127
@@ -2127,78 +2087,78 @@ msgstr "Drsi po diagramu"
 msgid "Text"
 msgstr "Besedilo"
 
-#: app/toolbox.c:134
+#: app/toolbox.c:137
 msgid "Box"
 msgstr "Škatla"
 
-#: app/toolbox.c:140
+#: app/toolbox.c:143
 msgid "Ellipse"
 msgstr "Elipsa"
 
-#: app/toolbox.c:146
+#: app/toolbox.c:149
 msgid "Polygon"
 msgstr "Mnogokotnik"
 
-#: app/toolbox.c:152
+#: app/toolbox.c:155
 msgid "Beziergon"
 msgstr "Bezierjev mnogokotnik"
 
-#: app/toolbox.c:158 objects/standard/line.c:337
+#: app/toolbox.c:161 objects/standard/line.c:337
 msgid "Line"
 msgstr "Črta"
 
-#: app/toolbox.c:164
+#: app/toolbox.c:167
 msgid "Arc"
 msgstr "Lok"
 
-#: app/toolbox.c:170
+#: app/toolbox.c:173
 msgid "Zigzagline"
 msgstr "Črta cik-cak"
 
-#: app/toolbox.c:176
+#: app/toolbox.c:179
 msgid "Polyline"
 msgstr "Lomljena črta"
 
-#: app/toolbox.c:182
+#: app/toolbox.c:185
 msgid "Bezierline"
 msgstr "Bezierjeva krivulja"
 
-#: app/toolbox.c:188
+#: app/toolbox.c:191
 msgid "Image"
 msgstr "Slika"
 
-#: app/toolbox.c:194
+#: app/toolbox.c:197
 msgid "Outline"
 msgstr "Oris"
 
-#: app/toolbox.c:493
+#: app/toolbox.c:496
 #, c-format
 msgid "No sheet named %s"
 msgstr "Ni lista z imenom %s"
 
 #. Author: Alan Horkan, 2002, mailto:horkana@tcd.ie
 #. Please talk to me before making any changes to this sheet
-#: app/toolbox.c:617 sheets/Assorted.sheet:5
+#: app/toolbox.c:620 sheets/Assorted.sheet:5
 msgid "Assorted"
 msgstr "Izbrano"
 
-#: app/toolbox.c:624 app/toolbox.c:760 sheets/Flowchart.sheet:3
+#: app/toolbox.c:627 app/toolbox.c:763 sheets/Flowchart.sheet:3
 msgid "Flowchart"
 msgstr "Diagram poteka"
 
-#: app/toolbox.c:631 sheets/UML.sheet:3
+#: app/toolbox.c:634 sheets/UML.sheet:3
 msgid "UML"
 msgstr "UML"
 
-#: app/toolbox.c:661
+#: app/toolbox.c:664
 msgid "All Sheets"
 msgstr "Vsi listi"
 
-#: app/toolbox.c:676 lib/dia-colour-selector.c:349 lib/dia-font-selector.c:483
+#: app/toolbox.c:679 lib/dia-colour-selector.c:349 lib/dia-font-selector.c:483
 msgid "Reset Menu"
 msgstr "Ponastavi meni"
 
-#: app/toolbox.c:799
+#: app/toolbox.c:802
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double-click to change "
@@ -2208,7 +2168,7 @@ msgstr ""
 "ponastavijo barve. Majhne puščice zamenjajo barve. Dvojni kilk pa spremeni "
 "barve."
 
-#: app/toolbox.c:813
+#: app/toolbox.c:816
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -2216,7 +2176,7 @@ msgstr ""
 "Širine črt.  Kliknite črto, da nastavite širino črt za nove predmete.  "
 "Dvokliknite za natančnejšo nastavitev širine črte."
 
-#: app/toolbox.c:861
+#: app/toolbox.c:864
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details…"
@@ -2224,7 +2184,7 @@ msgstr ""
 "Slog puščic na začetku novih črt.  Kliknite za izbor puščice ali nastavite "
 "parametre puščic s Podrobnostmi …"
 
-#: app/toolbox.c:866
+#: app/toolbox.c:869
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details…"
@@ -2232,7 +2192,7 @@ msgstr ""
 "Slog črte za nove črte.  Kliknite za izbor sloga črt ali nastavite parametre "
 "sloga črt s Podrobnostmi …"
 
-#: app/toolbox.c:882
+#: app/toolbox.c:885
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details…"
@@ -2240,15 +2200,27 @@ msgstr ""
 "Slog puščic na koncu novih črt.  Kliknite za izbor puščice ali nastavite "
 "parametre puščic s Podrobnostmi …"
 
-#: data/org.gnome.Dia.appdata.xml.in:7 data/org.gnome.Dia.desktop.in:3
+#: data/org.gnome.Dia.desktop.in:3 data/org.gnome.Dia.metainfo.xml.in:7
 msgid "Dia"
 msgstr "Dia"
 
-#: data/org.gnome.Dia.appdata.xml.in:8
+#: data/org.gnome.Dia.desktop.in:4
+msgid "Diagram Editor"
+msgstr "Urejevalnik diagrama"
+
+#: data/org.gnome.Dia.desktop.in:5
+msgid "Edit your Diagrams"
+msgstr "Urejajte svoje diagrame"
+
+#: data/org.gnome.Dia.desktop.in:16
+msgid "graphic;diagram;vector;layout;"
+msgstr "grafika;diagram;vektor;postavitev;"
+
+#: data/org.gnome.Dia.metainfo.xml.in:8
 msgid "Dia is a program for drawing diagrams"
 msgstr "Dia je program za risanje diagramov"
 
-#: data/org.gnome.Dia.appdata.xml.in:10
+#: data/org.gnome.Dia.metainfo.xml.in:10
 msgid ""
 "Dia is a GTK+ based diagram creation program for GNU/Linux, MacOS X, Unix, "
 "and Windows, and is released under the GPL license."
@@ -2256,7 +2228,7 @@ msgstr ""
 "Dia je na GTK+ temelječi program za ustvarjanja diagramov za sisteme GNU/"
 "Linux, MacOS X, Unix in Windows, in je izdan pod dovoljenjem GPL."
 
-#: data/org.gnome.Dia.appdata.xml.in:12
+#: data/org.gnome.Dia.metainfo.xml.in:12
 msgid ""
 "Dia is roughly inspired by the commercial Windows program 'Visio,' though "
 "more geared towards informal diagrams for casual use. It can be used to draw "
@@ -2274,7 +2246,7 @@ msgstr ""
 "tudi dodati podporo za nove like s pisanjem enostavnih datotek XML, tako da "
 "s podnaborom SVG izrišejo želeni lik."
 
-#: data/org.gnome.Dia.appdata.xml.in:14
+#: data/org.gnome.Dia.metainfo.xml.in:17
 msgid ""
 "It can load and save diagrams to a custom XML format (gzipped by default, to "
 "save space), can export diagrams to a number of formats, including EPS, SVG, "
@@ -2286,25 +2258,13 @@ msgstr ""
 "so EPS, SVG, XFIG, WMF in PNG, ter natisne (tudi tiste, ki se raztezajo čez "
 "več strani)."
 
-#: data/org.gnome.Dia.appdata.xml.in:19
+#: data/org.gnome.Dia.metainfo.xml.in:24
 msgid "Main Window"
 msgstr "Glavno okno"
 
-#: data/org.gnome.Dia.appdata.xml.in:44
+#: data/org.gnome.Dia.metainfo.xml.in:49
 msgid "The GNOME Project"
 msgstr "Projekt GNOME"
-
-#: data/org.gnome.Dia.desktop.in:4
-msgid "Diagram Editor"
-msgstr "Urejevalnik diagrama"
-
-#: data/org.gnome.Dia.desktop.in:5
-msgid "Edit your Diagrams"
-msgstr "Urejajte svoje diagrame"
-
-#: data/org.gnome.Dia.desktop.in:14
-msgid "graphic;diagram;vector;layout;"
-msgstr "grafika;diagram;vektor;postavitev;"
 
 #: data/ui/preferences-dialog.ui:157
 msgid "_Reset tools after create"
@@ -2812,89 +2772,80 @@ msgstr "Diagonalno"
 msgid "Radial"
 msgstr "Krožno"
 
-#: lib/dia_xml.c:206
-#, c-format
-msgid ""
-"The file %s has no encoding specification;\n"
-"assuming it is encoded in %s"
-msgstr ""
-"Datoteka %s nima navedene kodne strani;\n"
-"predpostavljeno je kodiranje %s"
-
-#: lib/dia_xml.c:512
+#: lib/dia_xml.c:221
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Neznana vrsta podatkovnega vozlišča DataNode »%s«"
 
-#: lib/dia_xml.c:531
+#: lib/dia_xml.c:240
 msgid "Taking int value of non-int node."
 msgstr "Jemanje celoštevilske vrednosti z neceloštevilskega vozlišča."
 
-#: lib/dia_xml.c:707
+#: lib/dia_xml.c:416
 msgid "Taking point value of non-point node."
 msgstr "Jemanje vrednosti točke netočkovnega vozlišča."
 
-#: lib/dia_xml.c:718
+#: lib/dia_xml.c:427
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Nepravilna vrednost x točke »%s« %f; ne bo upoštevana."
 
-#: lib/dia_xml.c:725
+#: lib/dia_xml.c:434
 msgid "Error parsing point."
 msgstr "Napaka ob razčlenjevanju točke."
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:733
+#: lib/dia_xml.c:442
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Nepravilna vrednost y točke »%s« %f; ne bo upoštevana."
 
-#: lib/dia_xml.c:753
+#: lib/dia_xml.c:462
 msgid "Taking bezpoint value of non-point node."
 msgstr "Prevzemanje vrednosti točke z netočkovnega vozlišča."
 
-#: lib/dia_xml.c:771
+#: lib/dia_xml.c:480
 msgid "Error parsing bezpoint p1."
 msgstr "Napaka ob razčlenjevanju točke p1."
 
-#: lib/dia_xml.c:785
+#: lib/dia_xml.c:494
 msgid "Error parsing bezpoint p2."
 msgstr "Napaka ob razčlenjevanju točke p2."
 
-#: lib/dia_xml.c:799
+#: lib/dia_xml.c:508
 msgid "Error parsing bezpoint p3."
 msgstr "Napaka ob razčlenjevanju točke p3."
 
-#: lib/dia_xml.c:826
+#: lib/dia_xml.c:535
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Jemanje vrednosti pravokotnika z nepravokotnega vozlišča."
 
-#: lib/dia_xml.c:838 lib/dia_xml.c:849 lib/dia_xml.c:860
+#: lib/dia_xml.c:547 lib/dia_xml.c:558 lib/dia_xml.c:569
 msgid "Error parsing rectangle."
 msgstr "Napaka ob razčlenjevanju pravokotnika."
 
-#: lib/dia_xml.c:888
+#: lib/dia_xml.c:597
 msgid "Taking string value of non-string node."
 msgstr "Jemanje vrednosti niza z neniznega vozlišča."
 
-#: lib/dia_xml.c:916
+#: lib/dia_xml.c:625
 msgid "Error in string tag."
 msgstr "Napaka v oznaki niza."
 
-#: lib/dia_xml.c:934
+#: lib/dia_xml.c:643
 msgid "Error in file, string not starting with #"
 msgstr "Napaka v datoteki, niz se ne začenja z #"
 
-#: lib/dia_xml.c:1000
+#: lib/dia_xml.c:709
 msgid "Taking font value of non-font node."
 msgstr "Jemanje vrednosti pisave nepisavnega vozlišča."
 
-#: lib/filter.c:181
+#: lib/filter.c:184
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "Obstaja več izvoznih filtrov z istim imenom %s"
 
-#: lib/filter.c:199
+#: lib/filter.c:202
 #, c-format
 msgid "Multiple import filters with unique name %s"
 msgstr "Obstaja več izvoznih filtrov z istim imenom %s"
@@ -2975,7 +2926,7 @@ msgstr "Manjkajoč simbol »dia_plugin_init«"
 msgid "dia_plugin_init() call failed"
 msgstr "Klic dia_plugin_init() ni uspel"
 
-#: lib/plug-ins.c:424
+#: lib/plug-ins.c:424 lib/plug-ins.c:597
 msgid "Plugin Configuration"
 msgstr "Prilagoditev vtičnika"
 
@@ -3191,7 +3142,30 @@ msgstr ""
 "Predmeta Dia »%s«, pričakovanega na listu »%s«, ni mogoče najti.\n"
 "Ne bo na voljo za uporabo."
 
-#: lib/sheet.c:358
+#: lib/sheet.c:212
+msgid "Load Sheet"
+msgstr "Naloži list"
+
+#: lib/sheet.c:235
+#, c-format
+msgid "Loading Sheet from %s failed"
+msgstr "Nalaganje lista iz %s ni uspelo"
+
+#: lib/sheet.c:252
+msgid "Could not find sheet namespace"
+msgstr "Ni mogoče najti imenskega prostora lista"
+
+#: lib/sheet.c:259
+#, c-format
+msgid "root element was %s — expecting sheet"
+msgstr "korenski element je »%s« - pričakovan je list"
+
+#: lib/sheet.c:324
+#, c-format
+msgid "No <name> and/or <contents> in sheet %s — skipping"
+msgstr "Brez <name> in/ali <contents> na listu %s – preskakovanje"
+
+#: lib/sheet.c:347
 #, c-format
 msgid ""
 "The system sheet '%s' appears to be more recent than your custom\n"
@@ -3206,7 +3180,7 @@ msgstr ""
 "Premaknite nove predmete (če obstajajo) z »%s« na svoj list po meri\n"
 "ali odstranite »%s« z uporabo pogovornega okna »Listi in predmeti«."
 
-#: lib/sheet.c:425
+#: lib/sheet.c:414
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: zdaj bi morali uporabljati značke predmetov in ne značke likov"
@@ -3308,8 +3282,7 @@ msgstr "Povečaj kazalec"
 msgid "Visible rect pointer"
 msgstr "Viden pravokoten kazalec"
 
-#: lib/renderer/diacairo.c:96 plug-ins/drs/dia-render-script.c:136
-#: plug-ins/hpgl/hpgl.c:743
+#: lib/renderer/diacairo.c:96 plug-ins/hpgl/hpgl.c:743
 #, c-format
 msgid "Can't open output file %s."
 msgstr "Ni mogoče odpreti izhodne datoteke %s."
@@ -3534,7 +3507,7 @@ msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr ""
 "NOTRANJA NAPAKA: Črte po meri: neveljavna vrsta črte v predmetu LineInfo."
 
-#: objects/custom/shape_info.c:174
+#: objects/custom/shape_info.c:175
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
@@ -3542,6 +3515,28 @@ msgid ""
 msgstr ""
 "Datoteka »%s« nima veljavne poti.\n"
 "Podatki svg:path se morajo pričeti z moveto."
+
+#: objects/custom/shape_info.c:718
+msgid "Load Custom Shape"
+msgstr "Naloži lik po meri"
+
+#: objects/custom/shape_info.c:730
+#, c-format
+msgid "Loading Custom Shape from %s failed"
+msgstr "Nalaganje lika po meri iz %s ni uspelo"
+
+#: objects/custom/shape_info.c:746
+msgid "could not find shape namespace"
+msgstr "ni bilo mogoče najti imenskega prostora lika"
+
+#: objects/custom/shape_info.c:754
+msgid "could not find svg namespace"
+msgstr "ni bilo mogoče najti imenskega prostora SVG"
+
+#: objects/custom/shape_info.c:762
+#, c-format
+msgid "root element was %s — expecting shape"
+msgstr "korenski element je »%s« - pričakovan je lik"
 
 #: objects/Database/compound.c:211
 msgid "Number of arms"
@@ -5973,19 +5968,19 @@ msgid "Abstract Class"
 msgstr "Abstraktni razred"
 
 #. should probably be refactored too.
-#: objects/UML/class_dialog.c:537
+#: objects/UML/class_dialog.c:539
 msgid "Line Width"
 msgstr "Debelina črte"
 
-#: objects/UML/class_dialog.c:548
+#: objects/UML/class_dialog.c:550
 msgid "Text Color"
 msgstr "Barva besedila"
 
-#: objects/UML/class_dialog.c:559
+#: objects/UML/class_dialog.c:561
 msgid "Foreground Color"
 msgstr "Barva ospredja"
 
-#: objects/UML/class_dialog.c:570
+#: objects/UML/class_dialog.c:572
 msgid "Background Color"
 msgstr "Barva ozadja"
 
@@ -6370,6 +6365,15 @@ msgstr ""
 "Širina slike je večja kot največja dolžina celičnega seznama.\n"
 "Slika ni bila izvožena v CGM."
 
+#: plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
+#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1384
+#: plug-ins/pstricks/render_pstricks.c:999 plug-ins/vdx/vdx-export.c:1781
+#: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
+#: plug-ins/xfig/xfig-export.c:1272
+#, c-format
+msgid "Can't open output file %s"
+msgstr "Ni mogoče odpreti izhodne datoteke %s"
+
 #: plug-ins/cgm/cgm.c:1362
 msgid "Computer Graphics Metafile"
 msgstr "CGM (metadatoteka računalniške grafike)"
@@ -6378,15 +6382,15 @@ msgstr "CGM (metadatoteka računalniške grafike)"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Izvozni filter za CGM (metadatoteko računalniške grafike)"
 
-#: plug-ins/drs/dia-render-script.c:175 plug-ins/drs/dia-render-script.c:180
+#: plug-ins/drs/dia-render-script.c:161 plug-ins/drs/dia-render-script.c:166
 msgid "DiaRenderScript"
 msgstr "DRS (DiaRenderScript)"
 
-#: plug-ins/drs/dia-render-script.c:204
+#: plug-ins/drs/dia-render-script.c:191
 msgid "DiaRenderScript filter"
 msgstr "Filter za upodobitveni skript Dia (DRS)"
 
-#: plug-ins/drs/dia-render-script-import.c:514
+#: plug-ins/drs/dia-render-script-import.c:515
 msgid "Broken file?"
 msgstr "Je datoteka okvarjena?"
 
@@ -6397,6 +6401,12 @@ msgstr "Uvozni in izvozni filtri za datoteke za izmenjavo risb (DIF) "
 #: plug-ins/dxf/dxf-export.c:666 plug-ins/dxf/dxf-import.c:1429
 msgid "Drawing Interchange File"
 msgstr "Datoteka za izmenjavo risb (DIF)"
+
+#: plug-ins/dxf/dxf-import.c:1327 plug-ins/wpg/wpg-import.c:519
+#: plug-ins/xfig/xfig-import.c:1322
+#, c-format
+msgid "Couldn't open: '%s' for reading.\n"
+msgstr "Ni mogoče odpreti: »%s« za branje.\n"
 
 #: plug-ins/dxf/dxf-import.c:1338
 #, c-format
@@ -6491,7 +6501,7 @@ msgid "TeX Metapost export filter"
 msgstr "Izvozni filter za TeX Metapost"
 
 #: plug-ins/metapost/render_metapost.c:909
-#: plug-ins/pstricks/render_pstricks.c:879 plug-ins/wpg/wpg.c:920
+#: plug-ins/pstricks/render_pstricks.c:901 plug-ins/wpg/wpg.c:920
 msgid "Not enough memory for image drawing."
 msgstr "Premalo pomnilnika risanje slik."
 
@@ -6511,12 +6521,12 @@ msgstr "Prenosna datoteka dokumenta"
 msgid "PDF import filter"
 msgstr "Filter uvoza datotek PDF"
 
-#: plug-ins/pdf/pdf-import.cpp:436
+#: plug-ins/pdf/pdf-import.cpp:479
 #, c-format
 msgid "Page %d"
 msgstr "Stran %d"
 
-#: plug-ins/pdf/pdf-import.cpp:915
+#: plug-ins/pdf/pdf-import.cpp:976
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6533,7 +6543,7 @@ msgstr "Izvozni filter za LaTeX PGF"
 msgid "Not valid UTF-8"
 msgstr "Neveljavni UTF-8"
 
-#: plug-ins/pgf/render_pgf.c:1422
+#: plug-ins/pgf/render_pgf.c:1444
 msgid "LaTeX PGF macros"
 msgstr "Makri LaTeX PGF"
 
@@ -6573,7 +6583,7 @@ msgstr "Uvoz/izvoz bitne slike na osnovi gdk-pixbuf"
 msgid "TeX PSTricks export filter"
 msgstr "Izvozni filter za TeX PSTricks"
 
-#: plug-ins/pstricks/render_pstricks.c:1047
+#: plug-ins/pstricks/render_pstricks.c:1069
 msgid "TeX PSTricks macros"
 msgstr "Makri TeX PSTricks"
 
@@ -6582,7 +6592,7 @@ msgstr "Makri TeX PSTricks"
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Ni mogoče odpreti »%s« za pisanje.\n"
 
-#: plug-ins/python/python.c:103
+#: plug-ins/python/python.c:102
 msgid "Python scripting support"
 msgstr "Podpora skriptam Python"
 
@@ -6795,20 +6805,24 @@ msgstr "Ne vdelane slike"
 msgid "Dia shape export filter"
 msgstr "Izvozni filter likov Dia"
 
-#: plug-ins/shape/shape-export.c:624
+#: plug-ins/shape/shape-export.c:296
+msgid "Shape Export"
+msgstr "Izvozi lik"
+
+#: plug-ins/shape/shape-export.c:616
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
 "Datoteke likov morajo imeti končnico .shape, sicer jih Dia ne more naložiti"
 
-#: plug-ins/shape/shape-export.c:634
+#: plug-ins/shape/shape-export.c:626
 msgid "Can't export PNG icon without export plugin!"
 msgstr "Ikone PNG brez izvoznega vtičnika ni mogoče izvoziti!"
 
-#: plug-ins/shape/shape-export.c:667
+#: plug-ins/shape/shape-export.c:659
 msgid "Dia Shape File"
 msgstr "Datoteka z likom Dia"
 
-#: plug-ins/svg/render_svg.c:701 plug-ins/svg/svg-import.c:2277
+#: plug-ins/svg/render_svg.c:700 plug-ins/svg/svg-import.c:2280
 msgid "Scalable Vector Graphics"
 msgstr "SVG (Scalable Vector Graphics)"
 
@@ -6829,16 +6843,16 @@ msgstr ""
 "Neveljavna pot.\n"
 "Podatek svg:path se mora pričeti z moveto."
 
-#: plug-ins/svg/svg-import.c:2043
+#: plug-ins/svg/svg-import.c:2047
 msgid "'Shape Design' shapes missing."
 msgstr "Manjkajo liki »Oblikovanje lika«"
 
-#: plug-ins/svg/svg-import.c:2077
+#: plug-ins/svg/svg-import.c:2081
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Ustvarjanje predmeta »%s« ni uspelo"
 
-#: plug-ins/svg/svg-import.c:2106
+#: plug-ins/svg/svg-import.c:2110
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6847,30 +6861,11 @@ msgstr ""
 "Napaka razčlenjevanja pomnilniškega bloka.\n"
 "%s"
 
-#: plug-ins/svg/svg-import.c:2124
-#, c-format
-msgid ""
-"SVG parser error for %s\n"
-"%s"
-msgstr ""
-"Napaka razčlenjevalnika SVG za %s\n"
-"%s"
-
-#. just a warning
-#: plug-ins/svg/svg-import.c:2130
-#, c-format
-msgid ""
-"SVG parser warning for %s\n"
-"%s"
-msgstr ""
-"Opozorilo razčlenjevalnika SVG za %s\n"
-"%s"
-
-#: plug-ins/svg/svg-import.c:2163
+#: plug-ins/svg/svg-import.c:2166
 msgid "Expected SVG name-space not found in file"
 msgstr "Pričakovane imenskega prostora SVG ni zapisanega v datoteki"
 
-#: plug-ins/svg/svg-import.c:2183
+#: plug-ins/svg/svg-import.c:2186
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "korenski element je bil »%s« -- pričakovan je bil »svg«."
@@ -6898,51 +6893,47 @@ msgstr "Ni mogoče prebrati barve: %s"
 msgid "Couldn't find shape %d"
 msgstr "Ni mogoče najti lika %d"
 
-#: plug-ins/vdx/vdx-import.c:1071
+#: plug-ins/vdx/vdx-import.c:1072
 #, c-format
 msgid "Unexpected Ellipse object: %s"
 msgstr "Nepričakovan predmet elipse: %s"
 
-#: plug-ins/vdx/vdx-import.c:1085
+#: plug-ins/vdx/vdx-import.c:1086
 msgid "Can't rotate ellipse"
 msgstr "Elipse ni mogoče sukati"
 
-#: plug-ins/vdx/vdx-import.c:1416
+#: plug-ins/vdx/vdx-import.c:1417
 msgid "MoveTo not at start of Bezier"
 msgstr "MoveTo ni začetek Bezierjeve krivulje"
 
-#: plug-ins/vdx/vdx-import.c:1766
+#: plug-ins/vdx/vdx-import.c:1767
 msgid "Invalid NURBS formula"
 msgstr "Neveljavna formula NURBS"
 
-#: plug-ins/vdx/vdx-import.c:2025
+#: plug-ins/vdx/vdx-import.c:2027
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Ni mogoče ravnati s tujo vrsto predmeta %s"
 
-#: plug-ins/vdx/vdx-import.c:2960
+#: plug-ins/vdx/vdx-import.c:2966
 #, c-format
-msgid ""
-"VDX parser error for %s\n"
-"%s"
-msgstr ""
-"Napaka razčlenjevalnika VDX za %s\n"
-"%s"
+msgid "VDX parser error for %s"
+msgstr "Napaka razčlenjevalnika VDX za %s"
 
-#: plug-ins/vdx/vdx-import.c:2972
+#: plug-ins/vdx/vdx-import.c:2979
 msgid "Nothing in document!"
 msgstr "Nič ni v dokumentu!"
 
-#: plug-ins/vdx/vdx-import.c:2977
+#: plug-ins/vdx/vdx-import.c:2984
 #, c-format
 msgid "Expecting VisioDocument, got %s"
 msgstr "Pričakovan je bil dokument Visio, prejet pa %s"
 
-#: plug-ins/vdx/vdx-import.c:3061
+#: plug-ins/vdx/vdx-import.c:3068
 msgid "Visio XML File Format"
 msgstr "Vrsta datotek Visio XML"
 
-#: plug-ins/vdx/vdx-xml.c:3345
+#: plug-ins/vdx/vdx-xml.c:3344
 #, c-format
 msgid "Can't decode object %s"
 msgstr "Ni mogoče odkodirati predmeta %s"
@@ -7096,131 +7087,131 @@ msgstr "Negativna velikost kota, negirano"
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Neznana podvrsta mnogokotne črte: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:749 plug-ins/xfig/xfig-import.c:781
+#: plug-ins/xfig/xfig-import.c:750 plug-ins/xfig/xfig-import.c:782
 msgid "Couldn't read spline info."
 msgstr "Podatkov o zlepku ni mogoče prebrati."
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:768 plug-ins/xfig/xfig-import.c:785
+#: plug-ins/xfig/xfig-import.c:769 plug-ins/xfig/xfig-import.c:786
 msgid "Cannot convert approximated spline yet."
 msgstr "Zaenkrat še ni mogoče pretvoriti približka zlepka."
 
-#: plug-ins/xfig/xfig-import.c:823
+#: plug-ins/xfig/xfig-import.c:825
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Neznana podvrsta zlepka: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:888
+#: plug-ins/xfig/xfig-import.c:890
 msgid "Couldn't read arc info."
 msgstr "Ni mogoče prebrati podatkov o loku."
 
 #. set new fill property on arc?
-#: plug-ins/xfig/xfig-import.c:916
+#: plug-ins/xfig/xfig-import.c:918
 msgid "Filled arc treated as unfilled"
 msgstr "Zapolnjen lok, obravnavan kot nezapolnjen"
 
-#: plug-ins/xfig/xfig-import.c:920
+#: plug-ins/xfig/xfig-import.c:922
 #, c-format
 msgid "Unknown polyline arc: %d\n"
 msgstr "Neznan lok mnogokotne črte: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:985
+#: plug-ins/xfig/xfig-import.c:987
 msgid "Couldn't read text info."
 msgstr "Ni mogoče prebrati podatkov o besedilu."
 
-#: plug-ins/xfig/xfig-import.c:1013
+#: plug-ins/xfig/xfig-import.c:1015
 #, c-format
 msgid "Can't find LaTeX font nr. %d, using sans"
 msgstr "Pisave LaTeX št. %d ni mogoče najti, uporabljanje pisave sans"
 
-#: plug-ins/xfig/xfig-import.c:1021
+#: plug-ins/xfig/xfig-import.c:1023
 #, c-format
 msgid "Can't find PostScript font nr. %d, using sans"
 msgstr "Pisave PostScript št. %d ni mogoče najti, uporabljanje pisave sans"
 
-#: plug-ins/xfig/xfig-import.c:1050
+#: plug-ins/xfig/xfig-import.c:1052
 msgid "Couldn't identify Fig object."
 msgstr "Predmeta Fig ni mogoče prepoznati."
 
-#: plug-ins/xfig/xfig-import.c:1058
+#: plug-ins/xfig/xfig-import.c:1060
 msgid "Compound end outside compound\n"
 msgstr "Konec komponente zunaj komponente\n"
 
-#: plug-ins/xfig/xfig-import.c:1080
+#: plug-ins/xfig/xfig-import.c:1082
 msgid "Couldn't read color\n"
 msgstr "Ni mogoče prebrati barve\n"
 
-#: plug-ins/xfig/xfig-import.c:1085
+#: plug-ins/xfig/xfig-import.c:1087
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "Številka barve %d je zunaj obsega 0..%d.  Barva ne bo upoštevana.\n"
 
-#: plug-ins/xfig/xfig-import.c:1132
+#: plug-ins/xfig/xfig-import.c:1134
 msgid "Couldn't read group extent."
 msgstr "Ni mogoče odpreti podaljška skupine."
 
-#: plug-ins/xfig/xfig-import.c:1143
+#: plug-ins/xfig/xfig-import.c:1145
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Neznana vrsta predmeta: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1170
+#: plug-ins/xfig/xfig-import.c:1172
 #, c-format
 msgid "“%s” is not one of “%s” or “%s”\n"
 msgstr "»%s« ni eden od »%s« ali »%s«\n"
 
-#: plug-ins/xfig/xfig-import.c:1185
+#: plug-ins/xfig/xfig-import.c:1187
 msgid "Error reading paper size."
 msgstr "Napaka pri branju velikosti papirja."
 
-#: plug-ins/xfig/xfig-import.c:1197
+#: plug-ins/xfig/xfig-import.c:1199
 #, c-format
 msgid "Unknown paper size “%s”, using default\n"
 msgstr "Neznana velikost papirja »%s«, uporabljena bo privzeta\n"
 
-#: plug-ins/xfig/xfig-import.c:1213
+#: plug-ins/xfig/xfig-import.c:1215
 msgid "Error reading paper orientation."
 msgstr "Napaka pri branju postavitve papirja."
 
-#: plug-ins/xfig/xfig-import.c:1223
+#: plug-ins/xfig/xfig-import.c:1225
 msgid "Error reading justification."
 msgstr "Napaka pri branju poravnave."
 
-#: plug-ins/xfig/xfig-import.c:1233
+#: plug-ins/xfig/xfig-import.c:1235
 msgid "Error reading units."
 msgstr "Napaka pri branju enot."
 
-#: plug-ins/xfig/xfig-import.c:1249
+#: plug-ins/xfig/xfig-import.c:1251
 msgid "Error reading magnification."
 msgstr "Napaka pri branju povečave."
 
-#: plug-ins/xfig/xfig-import.c:1262
+#: plug-ins/xfig/xfig-import.c:1264
 msgid "Error reading multipage indicator."
 msgstr "Napaka pri branju indikatorja več strani."
 
-#: plug-ins/xfig/xfig-import.c:1273
+#: plug-ins/xfig/xfig-import.c:1275
 msgid "Error reading transparent color."
 msgstr "Napaka pri branju prosojne barve."
 
-#: plug-ins/xfig/xfig-import.c:1282 plug-ins/xfig/xfig-import.c:1343
-#: plug-ins/xfig/xfig-import.c:1363
+#: plug-ins/xfig/xfig-import.c:1284 plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:1365
 msgid "Error reading Fig file."
 msgstr "Napaka pri branju datoteke Fig."
 
-#: plug-ins/xfig/xfig-import.c:1284
+#: plug-ins/xfig/xfig-import.c:1286
 msgid "Premature end of Fig file\n"
 msgstr "Predčasen konec datoteke Fig\n"
 
-#: plug-ins/xfig/xfig-import.c:1293
+#: plug-ins/xfig/xfig-import.c:1295
 msgid "Error reading resolution."
 msgstr "Napaka pri branju ločljivosti."
 
-#: plug-ins/xfig/xfig-import.c:1329
+#: plug-ins/xfig/xfig-import.c:1331
 msgid "Doesn't look like a Fig file"
 msgstr "Ni videti kot datoteka Fig"
 
-#: plug-ins/xfig/xfig-import.c:1335
+#: plug-ins/xfig/xfig-import.c:1337
 #, c-format
 msgid ""
 "This is a Fig version %d.%d file.\n"
@@ -7229,74 +7220,115 @@ msgstr ""
 "To je datoteka Fig različice %d.%d.\n"
 " Morda je ne bo mogoče uvoziti."
 
-#: plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:1347
 msgid "Premature end of Fig file"
 msgstr "Predčasen konec datoteke Fig"
 
-#: plug-ins/xfig/xfig-import.c:1390
+#: plug-ins/xfig/xfig-import.c:1392
 msgid "Xfig File Format"
 msgstr "Vrsta datotek Xfig"
 
-#: plug-ins/xslt/xslt.c:109
-#, c-format
-msgid "Can't open output file %s: %s\n"
-msgstr "Ni mogoče odpreti izhodne datoteke %s: %s\n"
+#: plug-ins/xslt/dia-xslt-dialogue.ui:4
+msgid "Export through XSLT"
+msgstr "Izvozi prek XSLT"
 
-#: plug-ins/xslt/xslt.c:118
+#: plug-ins/xslt/dia-xslt-dialogue.ui:14
+msgid "_From"
+msgstr "_Od"
+
+#: plug-ins/xslt/dia-xslt-dialogue.ui:42
+msgid "_To"
+msgstr "_Za"
+
+#: plug-ins/xslt/dia-xslt.c:214 plug-ins/xslt/dia-xslt.c:225
 #, c-format
 msgid ""
-"Error while parsing %s\n"
-"%s"
+"Name and stylesheet attributes are required for the implementation element "
+"%s in XSLT plugin configuration file"
 msgstr ""
-"Napaka pri razčlenjevanju %s\n"
-"%s"
+"Atributi imena in slogovne predloge so potrebni za element implementacije %s "
+"v prilagoditveni datoteki vstavka XSLT"
 
-#: plug-ins/xslt/xslt.c:128
+#: plug-ins/xslt/dia-xslt.c:260
 #, c-format
-msgid "Error while parsing stylesheet %s\n"
-msgstr "Napaka pri razčlenjevanju slogovne predloge %s\n"
+msgid "Couldn't parse XSLT plugin's configuration file %s"
+msgstr "Prilagoditvene datoteke %s vstavka XSLT ni možno razčleniti"
 
-#: plug-ins/xslt/xslt.c:135
+#: plug-ins/xslt/dia-xslt.c:269
 #, c-format
-msgid "Error while applying stylesheet %s\n"
-msgstr "Napaka ob uporabi slogovne predloge %s\n"
+msgid "XSLT plugin's configuration file %s is empty"
+msgstr "Prilagoditvena datoteka vstavka XSLT %s je prazna"
 
-#: plug-ins/xslt/xslt.c:144
+#: plug-ins/xslt/dia-xslt.c:290 plug-ins/xslt/dia-xslt.c:301
 #, c-format
-msgid "Error while parsing stylesheet: %s\n"
-msgstr "Napaka pri razčlenjevanju slogovne predloge: %s\n"
+msgid ""
+"'name' and 'stylesheet' attributes are required for the language element %s "
+"in XSLT plugin configuration file"
+msgstr ""
+"Atributa »name« in »stylesheet« sta obvezna za jezikovni element %s v "
+"prilagoditveni datoteki vstavka XSLT"
 
-#: plug-ins/xslt/xslt.c:153
+#: plug-ins/xslt/dia-xslt.c:318
 #, c-format
-msgid "Error while applying stylesheet: %s\n"
-msgstr "Napaka pri uporabi slogovne predloge: %s\n"
+msgid ""
+"No implementation stylesheet for language %s in XSLT plugin configuration "
+"file"
+msgstr ""
+"Ni izvedbene slogovne predloge za %s jezik v prilagoditveni datoteki vstavka "
+"XSLT"
 
-#: plug-ins/xslt/xslt.c:161
+#: plug-ins/xslt/dia-xslt.c:330
 #, c-format
-msgid "Error while saving result: %s\n"
-msgstr "Napaka pri shranjevanju rezultata: %s\n"
+msgid ""
+"Wrong node name %s in XSLT plugin configuration file, 'language' expected"
+msgstr ""
+"Napačno ime vozlišča %s v prilagoditveni datoteki vstavka XSLT, pričakovano "
+"je »language«"
 
-#: plug-ins/xslt/xslt.c:332
-msgid "XSL Transformation filter"
-msgstr "Filter transformacije XSL"
-
-#: plug-ins/xslt/xslt.c:357
+#: plug-ins/xslt/dia-xslt.c:375
 msgid "No valid configuration files found for the XSLT plugin; not loading."
 msgstr ""
 "Za vtičnik XSLT ni najdenih veljavnih nastavitvenih datotek, zato ne bodo "
 "naložene."
 
-#: plug-ins/xslt/xsltdialog.c:85
-msgid "Export through XSLT"
-msgstr "Izvozi prek XSLT"
+#: plug-ins/xslt/dia-xslt.c:422 plug-ins/xslt/dia-xslt.c:568
+#: plug-ins/xslt/dia-xslt.c:578
+#, c-format
+msgid "Error while saving %s: %s"
+msgstr "Napaka pri shranjevanju %s: %s"
 
-#: plug-ins/xslt/xsltdialog.c:99
-msgid "From:"
-msgstr "Od:"
+#: plug-ins/xslt/dia-xslt.c:472
+#, c-format
+msgid "Can't open output file %s: %s"
+msgstr "Ni mogoče odpreti izhodne datoteke %s: %s"
 
-#: plug-ins/xslt/xsltdialog.c:129
-msgid "To:"
-msgstr "Za:"
+#: plug-ins/xslt/dia-xslt.c:487
+#, c-format
+msgid "Error while parsing: %s"
+msgstr "Napaka pri razčlenjevanju %s"
+
+#: plug-ins/xslt/dia-xslt.c:500 plug-ins/xslt/dia-xslt.c:520
+#, c-format
+msgid "Error while parsing stylesheet: %s"
+msgstr "Napaka pri razčlenjevanju slogovne predloge: %s"
+
+#: plug-ins/xslt/dia-xslt.c:509 plug-ins/xslt/dia-xslt.c:531
+#, c-format
+msgid "Error while applying stylesheet: %s"
+msgstr "Napaka pri uveljavljanju slogovne predloge: %s"
+
+#: plug-ins/xslt/dia-xslt.c:542 plug-ins/xslt/dia-xslt.c:550
+#, c-format
+msgid "Error while saving result: %s"
+msgstr "Napaka pri shranjevanju rezultata: %s"
+
+#: plug-ins/xslt/dia-xslt.c:669
+msgid "XSLT Plugin"
+msgstr "Vstavek XSLT"
+
+#: plug-ins/xslt/dia-xslt.c:676
+msgid "XSL Transformation filter"
+msgstr "Filter transformacije XSL"
 
 #: sheets/AADL.sheet:3
 msgid "AADL"
