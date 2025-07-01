@@ -10,14 +10,14 @@
 # 玉堂白鹤 <yjwork@qq.com>, 2013
 # hahawang <hahwang@yandex.com>, 2021
 # Dingzhong Chen <wsxy162@gmail.com>, 2021.
-# lumingzh <lumingzh@qq.com>, 2024.
+# lumingzh <lumingzh@qq.com>, 2024-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.96.1\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
-"POT-Creation-Date: 2024-03-08 02:41+0000\n"
-"PO-Revision-Date: 2024-09-22 07:44+0800\n"
+"POT-Creation-Date: 2025-06-23 00:42+0000\n"
+"PO-Revision-Date: 2025-07-01 08:14+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 46.1\n"
+"X-Generator: Gtranslator 48.0\n"
 
 #. This is not an errror
 #: app/app_procs.c:164
@@ -253,7 +253,6 @@ msgstr "退出 Dia"
 #: app/layer-editor/dia-layer-properties.c:246 data/ui/sheets-edit-dialog.ui:23
 #: data/ui/sheets-new-dialog.ui:22 data/ui/sheets-remove-dialog.ui:22
 #: lib/dia-arrow-chooser.c:177 lib/dia-line-chooser.c:172
-#: plug-ins/xslt/xsltdialog.c:87
 msgid "_Cancel"
 msgstr "取消(_C)"
 
@@ -399,7 +398,7 @@ msgstr ""
 "玉堂白鹤 <yjwork@qq.com>, 2013,2020\n"
 "hahawang <hahwang@yandex.com>, 2021\n"
 "Dingzhong Chen <wsxy162@gmail.com>, 2021\n"
-"lumingzh <lumingzh@qq.com>, 2024"
+"lumingzh <lumingzh@qq.com>, 2024-2025"
 
 #: app/commands.c:1124
 msgid ""
@@ -493,7 +492,6 @@ msgstr "应用(_A)"
 #: data/ui/sheets-edit-dialog.ui:38 data/ui/sheets-new-dialog.ui:37
 #: data/ui/sheets-remove-dialog.ui:37 lib/dia-arrow-chooser.c:178
 #: lib/dia-line-chooser.c:173 objects/AADL/edit_port_declaration.c:176
-#: plug-ins/xslt/xsltdialog.c:88
 msgid "_OK"
 msgstr "确定(_O)"
 
@@ -518,7 +516,7 @@ msgstr "没有选中任何对象以供组合。"
 msgid "Diagram"
 msgstr "图表"
 
-#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:522
+#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:523
 msgid "Layer"
 msgstr "图层"
 
@@ -579,11 +577,11 @@ msgstr "名称"
 msgid "Diagram Tree"
 msgstr "图表树"
 
-#: app/dia-colour-area.c:180 app/dia-colour-area.c:188
+#: app/dia-colour-area.c:225
 msgid "Select foreground color"
 msgstr "选择前景色"
 
-#: app/dia-colour-area.c:180 app/dia-colour-area.c:188
+#: app/dia-colour-area.c:225
 msgid "Select background color"
 msgstr "选择背景色"
 
@@ -630,7 +628,7 @@ msgstr "六角网格大小"
 msgid "Grid"
 msgstr "网格"
 
-#: app/dia-diagram-properties-dialog.ui:310 lib/diagramdata.c:149
+#: app/dia-diagram-properties-dialog.ui:310 lib/diagramdata.c:119
 msgid "Background"
 msgstr "背景"
 
@@ -655,7 +653,7 @@ msgid "Add New Guide"
 msgstr "新增向导"
 
 #. orientation
-#: app/dia-guide-dialog.c:171 app/dia-page-layout.c:137
+#: app/dia-guide-dialog.c:171 app/dia-page-layout.c:139
 msgid "Orientation"
 msgstr "方向"
 
@@ -692,54 +690,54 @@ msgid "Line width:"
 msgstr "线宽："
 
 #. paper size
-#: app/dia-page-layout.c:105
+#: app/dia-page-layout.c:107
 msgid "Paper Size"
 msgstr "纸张尺寸"
 
 #. margins
-#: app/dia-page-layout.c:166
+#: app/dia-page-layout.c:168
 msgid "Margins"
 msgstr "边距"
 
-#: app/dia-page-layout.c:177
+#: app/dia-page-layout.c:179
 msgid "Top:"
 msgstr "顶部："
 
-#: app/dia-page-layout.c:191
+#: app/dia-page-layout.c:193
 msgid "Bottom:"
 msgstr "底部："
 
-#: app/dia-page-layout.c:205
+#: app/dia-page-layout.c:207
 msgid "Left:"
 msgstr "左边："
 
-#: app/dia-page-layout.c:219
+#: app/dia-page-layout.c:221
 msgid "Right:"
 msgstr "右边："
 
 #. Scaling
-#: app/dia-page-layout.c:234
+#: app/dia-page-layout.c:236
 msgid "Scaling"
 msgstr "缩放"
 
-#: app/dia-page-layout.c:244
+#: app/dia-page-layout.c:246
 msgid "Scale:"
 msgstr "比例："
 
-#: app/dia-page-layout.c:258
+#: app/dia-page-layout.c:260
 msgid "Fit to:"
 msgstr "适合于："
 
-#: app/dia-page-layout.c:271
+#: app/dia-page-layout.c:273
 msgid "by"
 msgstr "由"
 
-#: app/dia-page-layout.c:802
+#: app/dia-page-layout.c:804
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3g厘米 x %0.3g厘米"
 
-#: app/dia-page-layout.c:906 app/pagesetup.c:77
+#: app/dia-page-layout.c:908 app/pagesetup.c:77
 msgid "Page Setup"
 msgstr "页面设置"
 
@@ -790,7 +788,7 @@ msgstr "选择"
 msgid "Input _Methods"
 msgstr "输入法(_M)"
 
-#: app/disp_callbacks.c:1306
+#: app/disp_callbacks.c:1317
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -1065,24 +1063,13 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "找不到 %2$s 对象的父对象 %1$s\n"
 
-#: app/load_save.c:417
-msgid "You must specify a file, not a directory."
-msgstr "您必须指定一个文件，而不是目录。"
-
-#: app/load_save.c:425 plug-ins/dxf/dxf-import.c:1327
-#: plug-ins/wpg/wpg-import.c:519 plug-ins/xfig/xfig-import.c:1320
-#: plug-ins/xslt/xslt.c:101
-#, c-format
-msgid "Couldn't open: '%s' for reading.\n"
-msgstr "无法打开“%s”进行读取。\n"
-
 #. this was talking about unknown file type but it could as well be broken XML
-#: app/load_save.c:444
+#: app/load_save.c:418
 #, c-format
 msgid "Error loading diagram %s."
 msgstr "载入图表 %s 时发生错误。"
 
-#: app/load_save.c:455
+#: app/load_save.c:429
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1091,7 +1078,7 @@ msgstr ""
 "载入图表 %s 时发生错误。\n"
 "未知的文件类型。"
 
-#: app/load_save.c:463
+#: app/load_save.c:437
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1100,11 +1087,11 @@ msgstr ""
 "载入图表 %s 时发生错误。\n"
 "不是 Dia 文件。"
 
-#: app/load_save.c:766
+#: app/load_save.c:742
 msgid "Error reading connections"
 msgstr "读取连接时出错"
 
-#: app/load_save.c:789
+#: app/load_save.c:773
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1115,52 +1102,26 @@ msgstr ""
 "%s。\n"
 "合法的 Dia 文件至少定义了一个层。"
 
-#: app/load_save.c:1116
+#: app/load_save.c:1100
 #, c-format
 msgid "Error saving connections to layer '%s'"
 msgstr "保存连接到图层“%s”时出错"
 
-#: app/load_save.c:1125
+#: app/load_save.c:1109
 #, c-format
 msgid "Connection saving is incomplete for layer '%s'"
 msgstr "图层“%s”的连接保存不完整"
 
-#: app/load_save.c:1182
-#, c-format
-msgid "Not allowed to write to output file %s\n"
-msgstr "不允许写入输出文件 %s\n"
-
-#: app/load_save.c:1214
-#, c-format
-msgid "Not allowed to write temporary files in %s\n"
-msgstr "不允许在 %s 中写入临时文件\n"
-
-#: app/load_save.c:1237 plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
-#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1362
-#: plug-ins/pstricks/render_pstricks.c:977 plug-ins/vdx/vdx-export.c:1781
-#: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
-#: plug-ins/xfig/xfig-export.c:1272
-#, c-format
-msgid "Can't open output file %s"
-msgstr "无法打开输出文件 %s"
-
-#. Save failed; we clean our stuff up, without touching the file named
-#. "filename" if it existed.
-#: app/load_save.c:1248
+#: app/load_save.c:1158
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "写入文件 %2$s 时发生内部错误 %1$d\n"
 
-#: app/load_save.c:1259
-#, c-format
-msgid "Can't rename %s to final output file %s"
-msgstr "无法将 %s 重命名为终稿输出文件 %s"
-
-#: app/load_save.c:1384 app/load_save.c:1395
+#: app/load_save.c:1279 app/load_save.c:1290
 msgid "Auto save"
 msgstr "自动保存"
 
-#: app/load_save.c:1419 app/load_save.c:1424
+#: app/load_save.c:1314 app/load_save.c:1319
 msgid "Dia Diagram File"
 msgstr "Dia 图表文件"
 
@@ -1976,12 +1937,12 @@ msgstr "用户"
 msgid "Widget not found: %s"
 msgstr "无法找到部件：%s"
 
-#: app/sheet-editor/sheet-editor-button.c:114
+#: app/sheet-editor/sheet-editor-button.c:116
 #, c-format
 msgid "No icon for “%s”"
 msgstr "没有用于“%s”的图标"
 
-#: app/sheet-editor/sheet-editor-button.c:186
+#: app/sheet-editor/sheet-editor-button.c:188
 #: app/sheet-editor/sheets_dialog_callbacks.c:945
 #: data/ui/sheets-new-dialog.ui:142
 msgid "Line Break"
@@ -2052,44 +2013,43 @@ msgstr "工作表必须有名称"
 msgid "Couldn't open '%s': %s"
 msgstr "无法打开“%s”：%s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1469
-#, c-format
-msgid "Couldn't open: '%s' for writing"
-msgstr "无法以写方式打开：“%s”"
+#: app/sheet-editor/sheets_dialog_callbacks.c:1433
+msgid "Write Sheet"
+msgstr "写入工作表"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1479
+#: app/sheet-editor/sheets_dialog_callbacks.c:1470
 msgid "a user"
 msgstr "用户"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1494
+#: app/sheet-editor/sheets_dialog_callbacks.c:1485
 #, c-format
 msgid "File: %s"
 msgstr "文件：%s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1497
+#: app/sheet-editor/sheets_dialog_callbacks.c:1488
 #, c-format
 msgid "Date: %s"
 msgstr "日期：%s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1501
+#: app/sheet-editor/sheets_dialog_callbacks.c:1492
 #, c-format
 msgid "For: %s"
 msgstr "用户：%s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1518
+#: app/sheet-editor/sheets_dialog_callbacks.c:1509
 msgid "add shapes here"
 msgstr "在此处添加形状"
 
 #: app/splash.c:41
 msgid "Loading …"
-msgstr "正在载入……"
+msgstr "正在载入…"
 
 #: app/splash.c:58
 #, c-format
 msgid "Dia v%s"
 msgstr "Dia v%s"
 
-#: app/toolbox.c:104
+#: app/toolbox.c:107
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
@@ -2097,7 +2057,7 @@ msgstr ""
 "修改对象\n"
 "使用<空格键>切换工具"
 
-#: app/toolbox.c:110
+#: app/toolbox.c:113
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
@@ -2106,17 +2066,17 @@ msgstr ""
 "使用<Esc>退出该工具"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/toolbox.c:116 objects/FS/function.c:1042
+#: app/toolbox.c:119 objects/FS/function.c:1042
 msgid "Magnify"
 msgstr "放大"
 
-#: app/toolbox.c:122
+#: app/toolbox.c:125
 msgid "Scroll around the diagram"
 msgstr "滚动图表"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: app/toolbox.c:128 lib/properties.c:96 lib/properties.h:697
+#: app/toolbox.c:131 lib/properties.c:96 lib/properties.h:697
 #: objects/AADL/aadlbox.c:165 objects/custom/custom_object.c:244
 #: objects/Jackson/requirement.c:126 objects/network/basestation.c:132
 #: objects/network/radiocell.c:129 objects/UML/activity.c:127
@@ -2128,78 +2088,78 @@ msgstr "滚动图表"
 msgid "Text"
 msgstr "文本"
 
-#: app/toolbox.c:134
+#: app/toolbox.c:137
 msgid "Box"
 msgstr "方框"
 
-#: app/toolbox.c:140
+#: app/toolbox.c:143
 msgid "Ellipse"
 msgstr "椭圆"
 
-#: app/toolbox.c:146
+#: app/toolbox.c:149
 msgid "Polygon"
 msgstr "多边形"
 
-#: app/toolbox.c:152
+#: app/toolbox.c:155
 msgid "Beziergon"
 msgstr "贝塞尔封闭曲线"
 
-#: app/toolbox.c:158 objects/standard/line.c:337
+#: app/toolbox.c:161 objects/standard/line.c:337
 msgid "Line"
 msgstr "直线"
 
-#: app/toolbox.c:164
+#: app/toolbox.c:167
 msgid "Arc"
 msgstr "圆弧"
 
-#: app/toolbox.c:170
+#: app/toolbox.c:173
 msgid "Zigzagline"
 msgstr "横竖折线"
 
-#: app/toolbox.c:176
+#: app/toolbox.c:179
 msgid "Polyline"
 msgstr "折线"
 
-#: app/toolbox.c:182
+#: app/toolbox.c:185
 msgid "Bezierline"
 msgstr "贝塞尔曲线"
 
-#: app/toolbox.c:188
+#: app/toolbox.c:191
 msgid "Image"
 msgstr "图像"
 
-#: app/toolbox.c:194
+#: app/toolbox.c:197
 msgid "Outline"
 msgstr "轮廓字"
 
-#: app/toolbox.c:493
+#: app/toolbox.c:496
 #, c-format
 msgid "No sheet named %s"
 msgstr "没有名为 %s 的工作表"
 
 #. Author: Alan Horkan, 2002, mailto:horkana@tcd.ie
 #. Please talk to me before making any changes to this sheet
-#: app/toolbox.c:617 sheets/Assorted.sheet:5
+#: app/toolbox.c:620 sheets/Assorted.sheet:5
 msgid "Assorted"
 msgstr "基本图形"
 
-#: app/toolbox.c:624 app/toolbox.c:760 sheets/Flowchart.sheet:3
+#: app/toolbox.c:627 app/toolbox.c:763 sheets/Flowchart.sheet:3
 msgid "Flowchart"
 msgstr "流程图"
 
-#: app/toolbox.c:631 sheets/UML.sheet:3
+#: app/toolbox.c:634 sheets/UML.sheet:3
 msgid "UML"
 msgstr "UML"
 
-#: app/toolbox.c:661
+#: app/toolbox.c:664
 msgid "All Sheets"
 msgstr "所有工作表"
 
-#: app/toolbox.c:676 lib/dia-colour-selector.c:349 lib/dia-font-selector.c:483
+#: app/toolbox.c:679 lib/dia-colour-selector.c:349 lib/dia-font-selector.c:483
 msgid "Reset Menu"
 msgstr "重置菜单"
 
-#: app/toolbox.c:799
+#: app/toolbox.c:802
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double-click to change "
@@ -2208,40 +2168,52 @@ msgstr ""
 "新对象的前景和背景色。黑白小方块可重置颜色。小箭头可调换颜色。双击可改变颜"
 "色。"
 
-#: app/toolbox.c:813
+#: app/toolbox.c:816
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
 "直线宽度。单击直线可以设定新对象的默认线条宽度。双击则可以更精确的设定线宽。"
 
-#: app/toolbox.c:861
+#: app/toolbox.c:864
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details…"
 msgstr "新直线起始端的箭头样式。单击可以挑选箭头，或是用“细节…”设定箭头参数。"
 
-#: app/toolbox.c:866
+#: app/toolbox.c:869
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details…"
 msgstr "新直线的线条样式。点击可以挑选直线样式，或是用“细节…”设定线条参数。"
 
-#: app/toolbox.c:882
+#: app/toolbox.c:885
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details…"
 msgstr "新直线终止端的箭头样式。点击可以挑选箭头，或是用“细节…”设定箭头参数。"
 
-#: data/org.gnome.Dia.appdata.xml.in:7 data/org.gnome.Dia.desktop.in:3
+#: data/org.gnome.Dia.desktop.in:3 data/org.gnome.Dia.metainfo.xml.in:7
 msgid "Dia"
 msgstr "Dia"
 
-#: data/org.gnome.Dia.appdata.xml.in:8
+#: data/org.gnome.Dia.desktop.in:4
+msgid "Diagram Editor"
+msgstr "图表编辑器"
+
+#: data/org.gnome.Dia.desktop.in:5
+msgid "Edit your Diagrams"
+msgstr "编辑您的图表"
+
+#: data/org.gnome.Dia.desktop.in:16
+msgid "graphic;diagram;vector;layout;"
+msgstr "graphic;diagram;vector;layout;图形;图表;矢量;向量;布局;"
+
+#: data/org.gnome.Dia.metainfo.xml.in:8
 msgid "Dia is a program for drawing diagrams"
 msgstr "Dia 是一个用于绘制图表的程序"
 
-#: data/org.gnome.Dia.appdata.xml.in:10
+#: data/org.gnome.Dia.metainfo.xml.in:10
 msgid ""
 "Dia is a GTK+ based diagram creation program for GNU/Linux, MacOS X, Unix, "
 "and Windows, and is released under the GPL license."
@@ -2249,7 +2221,7 @@ msgstr ""
 "Dia 是适用于 GNU/Linux、MacOS X、Unix 和 Windows 的基于 GTK+ 的图表制作程序，"
 "并在 GPL 许可证下发布。"
 
-#: data/org.gnome.Dia.appdata.xml.in:12
+#: data/org.gnome.Dia.metainfo.xml.in:12
 msgid ""
 "Dia is roughly inspired by the commercial Windows program 'Visio,' though "
 "more geared towards informal diagrams for casual use. It can be used to draw "
@@ -2264,7 +2236,7 @@ msgstr ""
 "图、UML 图、流程图、网络图和其他许多图表。它也可以通过编写简单的 XML 文件来添"
 "加新形状，以及使用 SVG 的子集来绘制形状。"
 
-#: data/org.gnome.Dia.appdata.xml.in:14
+#: data/org.gnome.Dia.metainfo.xml.in:17
 msgid ""
 "It can load and save diagrams to a custom XML format (gzipped by default, to "
 "save space), can export diagrams to a number of formats, including EPS, SVG, "
@@ -2275,25 +2247,13 @@ msgstr ""
 "出图表为多种格式，包含 EPS、SVG、XFIG、WMF 和 PNG，也可以打印图表（包括跨越多"
 "个页面的图表）。"
 
-#: data/org.gnome.Dia.appdata.xml.in:19
+#: data/org.gnome.Dia.metainfo.xml.in:24
 msgid "Main Window"
 msgstr "主窗口"
 
-#: data/org.gnome.Dia.appdata.xml.in:44
+#: data/org.gnome.Dia.metainfo.xml.in:49
 msgid "The GNOME Project"
 msgstr "GNOME 项目"
-
-#: data/org.gnome.Dia.desktop.in:4
-msgid "Diagram Editor"
-msgstr "图表编辑器"
-
-#: data/org.gnome.Dia.desktop.in:5
-msgid "Edit your Diagrams"
-msgstr "编辑您的图表"
-
-#: data/org.gnome.Dia.desktop.in:14
-msgid "graphic;diagram;vector;layout;"
-msgstr "graphic;diagram;vector;layout;图形;图表;矢量;向量;布局;"
 
 #: data/ui/preferences-dialog.ui:157
 msgid "_Reset tools after create"
@@ -2803,89 +2763,80 @@ msgstr "对角线"
 msgid "Radial"
 msgstr "径向"
 
-#: lib/dia_xml.c:206
-#, c-format
-msgid ""
-"The file %s has no encoding specification;\n"
-"assuming it is encoded in %s"
-msgstr ""
-"文件 %s 没有指定编码；\n"
-"假定编码为 %s"
-
-#: lib/dia_xml.c:512
+#: lib/dia_xml.c:221
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "未知的数据节点类型“%s”"
 
-#: lib/dia_xml.c:531
+#: lib/dia_xml.c:240
 msgid "Taking int value of non-int node."
 msgstr "试图获取非整型节点的整型值。"
 
-#: lib/dia_xml.c:707
+#: lib/dia_xml.c:416
 msgid "Taking point value of non-point node."
 msgstr "试图获取非点节点的点值。"
 
-#: lib/dia_xml.c:718
+#: lib/dia_xml.c:427
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "不正确的 x 点值“%s” %f；将其舍弃。"
 
-#: lib/dia_xml.c:725
+#: lib/dia_xml.c:434
 msgid "Error parsing point."
 msgstr "分析点时出错。"
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:733
+#: lib/dia_xml.c:442
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "不正确的 y 点值“%s” %f；将其舍弃。"
 
-#: lib/dia_xml.c:753
+#: lib/dia_xml.c:462
 msgid "Taking bezpoint value of non-point node."
 msgstr "获取非点节点的贝塞尔点值。"
 
-#: lib/dia_xml.c:771
+#: lib/dia_xml.c:480
 msgid "Error parsing bezpoint p1."
 msgstr "分析贝塞尔点 p1 时出错。"
 
-#: lib/dia_xml.c:785
+#: lib/dia_xml.c:494
 msgid "Error parsing bezpoint p2."
 msgstr "分析贝塞尔点 p2 时出错。"
 
-#: lib/dia_xml.c:799
+#: lib/dia_xml.c:508
 msgid "Error parsing bezpoint p3."
 msgstr "分析贝塞尔点 p3 时出错。"
 
-#: lib/dia_xml.c:826
+#: lib/dia_xml.c:535
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "获取非矩形节点的矩形值。"
 
-#: lib/dia_xml.c:838 lib/dia_xml.c:849 lib/dia_xml.c:860
+#: lib/dia_xml.c:547 lib/dia_xml.c:558 lib/dia_xml.c:569
 msgid "Error parsing rectangle."
 msgstr "分析矩形时出错。"
 
-#: lib/dia_xml.c:888
+#: lib/dia_xml.c:597
 msgid "Taking string value of non-string node."
 msgstr "获取非字符串节点的字符串值。"
 
-#: lib/dia_xml.c:916
+#: lib/dia_xml.c:625
 msgid "Error in string tag."
 msgstr "字符串标记错误。"
 
-#: lib/dia_xml.c:934
+#: lib/dia_xml.c:643
 msgid "Error in file, string not starting with #"
 msgstr "文件有错误，字符串未以 # 开头"
 
-#: lib/dia_xml.c:1000
+#: lib/dia_xml.c:709
 msgid "Taking font value of non-font node."
 msgstr "试图获取非字体节点的字体值。"
 
-#: lib/filter.c:181
+#: lib/filter.c:184
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "多个导出过滤器有相同的名称 %s"
 
-#: lib/filter.c:199
+#: lib/filter.c:202
 #, c-format
 msgid "Multiple import filters with unique name %s"
 msgstr "多个导入过滤器有相同的名称 %s"
@@ -2963,7 +2914,7 @@ msgstr "缺少符号“dia_plugin_init”"
 msgid "dia_plugin_init() call failed"
 msgstr "调用 dia_plugin_init() 时发生错误"
 
-#: lib/plug-ins.c:424
+#: lib/plug-ins.c:424 lib/plug-ins.c:597
 msgid "Plugin Configuration"
 msgstr "插件配置"
 
@@ -3176,7 +3127,30 @@ msgstr ""
 "没有在工作表“%2$s”中找到所需的 DiaObject“%1$s”。\n"
 "不能使用该 DiaObject。"
 
-#: lib/sheet.c:358
+#: lib/sheet.c:212
+msgid "Load Sheet"
+msgstr "加载工作表"
+
+#: lib/sheet.c:235
+#, c-format
+msgid "Loading Sheet from %s failed"
+msgstr "从 %s 加载工作表失败"
+
+#: lib/sheet.c:252
+msgid "Could not find sheet namespace"
+msgstr "无法找到工作表命名空间"
+
+#: lib/sheet.c:259
+#, c-format
+msgid "root element was %s — expecting sheet"
+msgstr "根元素为 %s — 应当是工作表"
+
+#: lib/sheet.c:324
+#, c-format
+msgid "No <name> and/or <contents> in sheet %s — skipping"
+msgstr "在工作表 %s 中无 <name> 和/或 <contents> — 正在跳过"
+
+#: lib/sheet.c:347
 #, c-format
 msgid ""
 "The system sheet '%s' appears to be more recent than your custom\n"
@@ -3191,7 +3165,7 @@ msgstr ""
 "把新对象（如果有的话）从“%s”移到您定制的工作表中，\n"
 "或者用“工作表和对象”对话框移除“%s”。"
 
-#: lib/sheet.c:425
+#: lib/sheet.c:414
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s：现在您应当用对象标签，而不是形状标签"
@@ -3293,8 +3267,7 @@ msgstr "缩放指针"
 msgid "Visible rect pointer"
 msgstr "可见矩形指针"
 
-#: lib/renderer/diacairo.c:96 plug-ins/drs/dia-render-script.c:136
-#: plug-ins/hpgl/hpgl.c:743
+#: lib/renderer/diacairo.c:96 plug-ins/hpgl/hpgl.c:743
 #, c-format
 msgid "Can't open output file %s."
 msgstr "无法打开输入文件 %s。"
@@ -3518,7 +3491,7 @@ msgstr "定制 XML 线形载入器"
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr "INTERNAL：CustomLines：LineInfo 对象中的非法线类型。"
 
-#: objects/custom/shape_info.c:174
+#: objects/custom/shape_info.c:175
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
@@ -3526,6 +3499,28 @@ msgid ""
 msgstr ""
 "文件“%s”含有无效的路径数据。\n"
 "svg：路径数据必须以 moveto 开始。"
+
+#: objects/custom/shape_info.c:718
+msgid "Load Custom Shape"
+msgstr "加载自定义形状"
+
+#: objects/custom/shape_info.c:730
+#, c-format
+msgid "Loading Custom Shape from %s failed"
+msgstr "从 %s 加载自定义形状失败"
+
+#: objects/custom/shape_info.c:746
+msgid "could not find shape namespace"
+msgstr "无法找到形状命名空间"
+
+#: objects/custom/shape_info.c:754
+msgid "could not find svg namespace"
+msgstr "无法找到 svg 命名空间"
+
+#: objects/custom/shape_info.c:762
+#, c-format
+msgid "root element was %s — expecting shape"
+msgstr "根元素为 %s — 应当是形状"
 
 #: objects/Database/compound.c:211
 msgid "Number of arms"
@@ -5953,19 +5948,19 @@ msgid "Abstract Class"
 msgstr "抽象类"
 
 #. should probably be refactored too.
-#: objects/UML/class_dialog.c:537
+#: objects/UML/class_dialog.c:539
 msgid "Line Width"
 msgstr "线宽"
 
-#: objects/UML/class_dialog.c:548
+#: objects/UML/class_dialog.c:550
 msgid "Text Color"
 msgstr "文本颜色"
 
-#: objects/UML/class_dialog.c:559
+#: objects/UML/class_dialog.c:561
 msgid "Foreground Color"
 msgstr "前景色"
 
-#: objects/UML/class_dialog.c:570
+#: objects/UML/class_dialog.c:572
 msgid "Background Color"
 msgstr "背景色"
 
@@ -6350,6 +6345,15 @@ msgstr ""
 "影像高度大于最大储存格高。\n"
 "影像未导出至 CGM。"
 
+#: plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
+#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1384
+#: plug-ins/pstricks/render_pstricks.c:999 plug-ins/vdx/vdx-export.c:1781
+#: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
+#: plug-ins/xfig/xfig-export.c:1272
+#, c-format
+msgid "Can't open output file %s"
+msgstr "无法打开输出文件 %s"
+
 #: plug-ins/cgm/cgm.c:1362
 msgid "Computer Graphics Metafile"
 msgstr "计算机图形文件（CGM）"
@@ -6358,15 +6362,15 @@ msgstr "计算机图形文件（CGM）"
 msgid "Computer Graphics Metafile export filter"
 msgstr "计算机图形文件（CGM）输出过滤器"
 
-#: plug-ins/drs/dia-render-script.c:175 plug-ins/drs/dia-render-script.c:180
+#: plug-ins/drs/dia-render-script.c:161 plug-ins/drs/dia-render-script.c:166
 msgid "DiaRenderScript"
 msgstr "DiaRenderScript"
 
-#: plug-ins/drs/dia-render-script.c:204
+#: plug-ins/drs/dia-render-script.c:191
 msgid "DiaRenderScript filter"
 msgstr "DiaRenderScript 过滤器"
 
-#: plug-ins/drs/dia-render-script-import.c:514
+#: plug-ins/drs/dia-render-script-import.c:515
 msgid "Broken file?"
 msgstr "文件损坏？"
 
@@ -6377,6 +6381,12 @@ msgstr "制图交换文件（DIF）导入/导出过滤器"
 #: plug-ins/dxf/dxf-export.c:666 plug-ins/dxf/dxf-import.c:1429
 msgid "Drawing Interchange File"
 msgstr "制图交换文件（DIF）"
+
+#: plug-ins/dxf/dxf-import.c:1327 plug-ins/wpg/wpg-import.c:519
+#: plug-ins/xfig/xfig-import.c:1322
+#, c-format
+msgid "Couldn't open: '%s' for reading.\n"
+msgstr "无法打开“%s”进行读取。\n"
 
 #: plug-ins/dxf/dxf-import.c:1338
 #, c-format
@@ -6471,7 +6481,7 @@ msgid "TeX Metapost export filter"
 msgstr "TeX Metapost 导出过滤器"
 
 #: plug-ins/metapost/render_metapost.c:909
-#: plug-ins/pstricks/render_pstricks.c:879 plug-ins/wpg/wpg.c:920
+#: plug-ins/pstricks/render_pstricks.c:901 plug-ins/wpg/wpg.c:920
 msgid "Not enough memory for image drawing."
 msgstr "没有足够的内存进行图像绘制。"
 
@@ -6491,12 +6501,12 @@ msgstr "PDF 文件"
 msgid "PDF import filter"
 msgstr "PDF 导入过滤器"
 
-#: plug-ins/pdf/pdf-import.cpp:436
+#: plug-ins/pdf/pdf-import.cpp:479
 #, c-format
 msgid "Page %d"
 msgstr "第 %d 页"
 
-#: plug-ins/pdf/pdf-import.cpp:915
+#: plug-ins/pdf/pdf-import.cpp:976
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6513,7 +6523,7 @@ msgstr "LaTeX PGF 导出过滤器"
 msgid "Not valid UTF-8"
 msgstr "不是有效的 UTF-8"
 
-#: plug-ins/pgf/render_pgf.c:1422
+#: plug-ins/pgf/render_pgf.c:1444
 msgid "LaTeX PGF macros"
 msgstr "LaTeX PGF 宏"
 
@@ -6553,7 +6563,7 @@ msgstr "基于 gdk-pixbuf 的点阵图导入/导出过滤器"
 msgid "TeX PSTricks export filter"
 msgstr "TeX PStricks 导出过滤器"
 
-#: plug-ins/pstricks/render_pstricks.c:1047
+#: plug-ins/pstricks/render_pstricks.c:1069
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks 宏"
 
@@ -6562,7 +6572,7 @@ msgstr "TeX PSTricks 宏"
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "无法以写方式打开：“%s”。\n"
 
-#: plug-ins/python/python.c:103
+#: plug-ins/python/python.c:102
 msgid "Python scripting support"
 msgstr "Python 脚本支持"
 
@@ -6775,21 +6785,25 @@ msgstr "非内联图像"
 
 #: plug-ins/shape/shape.c:38
 msgid "Dia shape export filter"
-msgstr "Dia 形状导出过滤器"
+msgstr "Dia 形状导出筛选器"
 
-#: plug-ins/shape/shape-export.c:624
+#: plug-ins/shape/shape-export.c:296
+msgid "Shape Export"
+msgstr "形状导出"
+
+#: plug-ins/shape/shape-export.c:616
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr "形状文件必须以 .shape 作为扩展名，否则无法被 Dia 载入"
 
-#: plug-ins/shape/shape-export.c:634
+#: plug-ins/shape/shape-export.c:626
 msgid "Can't export PNG icon without export plugin!"
 msgstr "缺少导出插件不能导出 PNG 图标！"
 
-#: plug-ins/shape/shape-export.c:667
+#: plug-ins/shape/shape-export.c:659
 msgid "Dia Shape File"
 msgstr "Dia 形状文件"
 
-#: plug-ins/svg/render_svg.c:701 plug-ins/svg/svg-import.c:2277
+#: plug-ins/svg/render_svg.c:700 plug-ins/svg/svg-import.c:2280
 msgid "Scalable Vector Graphics"
 msgstr "可缩放矢量图（SVG）"
 
@@ -6810,16 +6824,16 @@ msgstr ""
 "路径数据无效。\n"
 "svg:path 数据须以 moveto 开始。"
 
-#: plug-ins/svg/svg-import.c:2043
+#: plug-ins/svg/svg-import.c:2047
 msgid "'Shape Design' shapes missing."
 msgstr "“形状设计”形状缺失。"
 
-#: plug-ins/svg/svg-import.c:2077
+#: plug-ins/svg/svg-import.c:2081
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "创建对象“%s”失败"
 
-#: plug-ins/svg/svg-import.c:2106
+#: plug-ins/svg/svg-import.c:2110
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6828,30 +6842,11 @@ msgstr ""
 "存储块解析出错。\n"
 "%s"
 
-#: plug-ins/svg/svg-import.c:2124
-#, c-format
-msgid ""
-"SVG parser error for %s\n"
-"%s"
-msgstr ""
-"%s 有 SVG 解析器错误\n"
-"%s"
-
-#. just a warning
-#: plug-ins/svg/svg-import.c:2130
-#, c-format
-msgid ""
-"SVG parser warning for %s\n"
-"%s"
-msgstr ""
-"%s 有 SVG 解析器警告\n"
-"%s"
-
-#: plug-ins/svg/svg-import.c:2163
+#: plug-ins/svg/svg-import.c:2166
 msgid "Expected SVG name-space not found in file"
 msgstr "文件中找不到预期的 SVG 命名空间"
 
-#: plug-ins/svg/svg-import.c:2183
+#: plug-ins/svg/svg-import.c:2186
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "根元素为“%s”——应当是“svg”。"
@@ -6879,51 +6874,47 @@ msgstr "无法读颜色：%s"
 msgid "Couldn't find shape %d"
 msgstr "无法找到形状 %d"
 
-#: plug-ins/vdx/vdx-import.c:1071
+#: plug-ins/vdx/vdx-import.c:1072
 #, c-format
 msgid "Unexpected Ellipse object: %s"
 msgstr "不应有的椭圆对象：%s"
 
-#: plug-ins/vdx/vdx-import.c:1085
+#: plug-ins/vdx/vdx-import.c:1086
 msgid "Can't rotate ellipse"
 msgstr "无法旋转椭圆"
 
-#: plug-ins/vdx/vdx-import.c:1416
+#: plug-ins/vdx/vdx-import.c:1417
 msgid "MoveTo not at start of Bezier"
 msgstr "MoveTo 没有在 Bezier 开始"
 
-#: plug-ins/vdx/vdx-import.c:1766
+#: plug-ins/vdx/vdx-import.c:1767
 msgid "Invalid NURBS formula"
 msgstr "非法的 NURBS 公式"
 
-#: plug-ins/vdx/vdx-import.c:2025
+#: plug-ins/vdx/vdx-import.c:2027
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "不能处理外来的对象类型 %s"
 
-#: plug-ins/vdx/vdx-import.c:2960
+#: plug-ins/vdx/vdx-import.c:2966
 #, c-format
-msgid ""
-"VDX parser error for %s\n"
-"%s"
-msgstr ""
-"%s 有 VDX 解析器错误\n"
-"%s"
+msgid "VDX parser error for %s"
+msgstr "%s 有 VDX 解析器错误"
 
-#: plug-ins/vdx/vdx-import.c:2972
+#: plug-ins/vdx/vdx-import.c:2979
 msgid "Nothing in document!"
 msgstr "文档无内容！"
 
-#: plug-ins/vdx/vdx-import.c:2977
+#: plug-ins/vdx/vdx-import.c:2984
 #, c-format
 msgid "Expecting VisioDocument, got %s"
 msgstr "应为 VisioDocument，却得到 %s"
 
-#: plug-ins/vdx/vdx-import.c:3061
+#: plug-ins/vdx/vdx-import.c:3068
 msgid "Visio XML File Format"
 msgstr "Visio XML 文件格式"
 
-#: plug-ins/vdx/vdx-xml.c:3345
+#: plug-ins/vdx/vdx-xml.c:3344
 #, c-format
 msgid "Can't decode object %s"
 msgstr "无法解码对象 %s"
@@ -7073,131 +7064,131 @@ msgstr "负的角半径; 求反"
 msgid "Unknown polyline subtype: %d\n"
 msgstr "未知的折线子类型：%d\n"
 
-#: plug-ins/xfig/xfig-import.c:749 plug-ins/xfig/xfig-import.c:781
+#: plug-ins/xfig/xfig-import.c:750 plug-ins/xfig/xfig-import.c:782
 msgid "Couldn't read spline info."
 msgstr "不能读取样条曲线信息。"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:768 plug-ins/xfig/xfig-import.c:785
+#: plug-ins/xfig/xfig-import.c:769 plug-ins/xfig/xfig-import.c:786
 msgid "Cannot convert approximated spline yet."
 msgstr "无法转换逼近的样条曲线。"
 
-#: plug-ins/xfig/xfig-import.c:823
+#: plug-ins/xfig/xfig-import.c:825
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "未知的样条曲线类型：%d\n"
 
-#: plug-ins/xfig/xfig-import.c:888
+#: plug-ins/xfig/xfig-import.c:890
 msgid "Couldn't read arc info."
 msgstr "无法读弧的信息。"
 
 #. set new fill property on arc?
-#: plug-ins/xfig/xfig-import.c:916
+#: plug-ins/xfig/xfig-import.c:918
 msgid "Filled arc treated as unfilled"
 msgstr "填充弧按非填充弧处理"
 
-#: plug-ins/xfig/xfig-import.c:920
+#: plug-ins/xfig/xfig-import.c:922
 #, c-format
 msgid "Unknown polyline arc: %d\n"
 msgstr "未知的折线子类型：%d\n"
 
-#: plug-ins/xfig/xfig-import.c:985
+#: plug-ins/xfig/xfig-import.c:987
 msgid "Couldn't read text info."
 msgstr "无法读文本信息。"
 
-#: plug-ins/xfig/xfig-import.c:1013
+#: plug-ins/xfig/xfig-import.c:1015
 #, c-format
 msgid "Can't find LaTeX font nr. %d, using sans"
 msgstr "找不到 LaTeX 字体 nr. %d，将使用 sans"
 
-#: plug-ins/xfig/xfig-import.c:1021
+#: plug-ins/xfig/xfig-import.c:1023
 #, c-format
 msgid "Can't find PostScript font nr. %d, using sans"
 msgstr "找不到 PostScript 字体 nr. %d，将使用 sans"
 
-#: plug-ins/xfig/xfig-import.c:1050
+#: plug-ins/xfig/xfig-import.c:1052
 msgid "Couldn't identify Fig object."
 msgstr "无法识别 FIG 对象。"
 
-#: plug-ins/xfig/xfig-import.c:1058
+#: plug-ins/xfig/xfig-import.c:1060
 msgid "Compound end outside compound\n"
 msgstr "复合对象末端在复合对象之外\n"
 
-#: plug-ins/xfig/xfig-import.c:1080
+#: plug-ins/xfig/xfig-import.c:1082
 msgid "Couldn't read color\n"
 msgstr "无法读取颜色\n"
 
-#: plug-ins/xfig/xfig-import.c:1085
+#: plug-ins/xfig/xfig-import.c:1087
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "顔色编号 %d 超出 0..%d。范围。丢弃顔色。\n"
 
-#: plug-ins/xfig/xfig-import.c:1132
+#: plug-ins/xfig/xfig-import.c:1134
 msgid "Couldn't read group extent."
 msgstr "无法读取群组范围。"
 
-#: plug-ins/xfig/xfig-import.c:1143
+#: plug-ins/xfig/xfig-import.c:1145
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "未知对象类型 %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1170
+#: plug-ins/xfig/xfig-import.c:1172
 #, c-format
 msgid "“%s” is not one of “%s” or “%s”\n"
 msgstr "“%s”不是一个“%s”或“%s”\n"
 
-#: plug-ins/xfig/xfig-import.c:1185
+#: plug-ins/xfig/xfig-import.c:1187
 msgid "Error reading paper size."
 msgstr "读页面尺寸时出错。"
 
-#: plug-ins/xfig/xfig-import.c:1197
+#: plug-ins/xfig/xfig-import.c:1199
 #, c-format
 msgid "Unknown paper size “%s”, using default\n"
 msgstr "未知的页面尺寸“%s”，使用默认值\n"
 
-#: plug-ins/xfig/xfig-import.c:1213
+#: plug-ins/xfig/xfig-import.c:1215
 msgid "Error reading paper orientation."
 msgstr "读页面方向时出错。"
 
-#: plug-ins/xfig/xfig-import.c:1223
+#: plug-ins/xfig/xfig-import.c:1225
 msgid "Error reading justification."
 msgstr "读取对齐时出错。"
 
-#: plug-ins/xfig/xfig-import.c:1233
+#: plug-ins/xfig/xfig-import.c:1235
 msgid "Error reading units."
 msgstr "读量度单位时出错。"
 
-#: plug-ins/xfig/xfig-import.c:1249
+#: plug-ins/xfig/xfig-import.c:1251
 msgid "Error reading magnification."
 msgstr "读放大率时出错。"
 
-#: plug-ins/xfig/xfig-import.c:1262
+#: plug-ins/xfig/xfig-import.c:1264
 msgid "Error reading multipage indicator."
 msgstr "读多页指示时出错。"
 
-#: plug-ins/xfig/xfig-import.c:1273
+#: plug-ins/xfig/xfig-import.c:1275
 msgid "Error reading transparent color."
 msgstr "读透明色时出错。"
 
-#: plug-ins/xfig/xfig-import.c:1282 plug-ins/xfig/xfig-import.c:1343
-#: plug-ins/xfig/xfig-import.c:1363
+#: plug-ins/xfig/xfig-import.c:1284 plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:1365
 msgid "Error reading Fig file."
 msgstr "读 FIG 文件时出错。"
 
-#: plug-ins/xfig/xfig-import.c:1284
+#: plug-ins/xfig/xfig-import.c:1286
 msgid "Premature end of Fig file\n"
 msgstr "Fig 文件过早的结束\n"
 
-#: plug-ins/xfig/xfig-import.c:1293
+#: plug-ins/xfig/xfig-import.c:1295
 msgid "Error reading resolution."
 msgstr "读取分辨率时出错。"
 
-#: plug-ins/xfig/xfig-import.c:1329
+#: plug-ins/xfig/xfig-import.c:1331
 msgid "Doesn't look like a Fig file"
 msgstr "不是一个 Fig 文件"
 
-#: plug-ins/xfig/xfig-import.c:1335
+#: plug-ins/xfig/xfig-import.c:1337
 #, c-format
 msgid ""
 "This is a Fig version %d.%d file.\n"
@@ -7206,72 +7197,105 @@ msgstr ""
 "这是一个版本为 %d.%d 的 Fig 文件。\n"
 "它可能无法导入。"
 
-#: plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:1347
 msgid "Premature end of Fig file"
 msgstr "Fig 文件过早的结束"
 
-#: plug-ins/xfig/xfig-import.c:1390
+#: plug-ins/xfig/xfig-import.c:1392
 msgid "Xfig File Format"
 msgstr "Xfig 文件格式"
 
-#: plug-ins/xslt/xslt.c:109
-#, c-format
-msgid "Can't open output file %s: %s\n"
-msgstr "无法打开输入文件 %s：%s\n"
-
-#: plug-ins/xslt/xslt.c:118
-#, c-format
-msgid ""
-"Error while parsing %s\n"
-"%s"
-msgstr ""
-"解析 %s 时发生错误\n"
-"%s"
-
-#: plug-ins/xslt/xslt.c:128
-#, c-format
-msgid "Error while parsing stylesheet %s\n"
-msgstr "解析样式表 %s 时发生错误\n"
-
-#: plug-ins/xslt/xslt.c:135
-#, c-format
-msgid "Error while applying stylesheet %s\n"
-msgstr "应用样式表 %s 时发生错误\n"
-
-#: plug-ins/xslt/xslt.c:144
-#, c-format
-msgid "Error while parsing stylesheet: %s\n"
-msgstr "解析样式表时发生错误：%s\n"
-
-#: plug-ins/xslt/xslt.c:153
-#, c-format
-msgid "Error while applying stylesheet: %s\n"
-msgstr "应用样式表时发生错误：%s\n"
-
-#: plug-ins/xslt/xslt.c:161
-#, c-format
-msgid "Error while saving result: %s\n"
-msgstr "保存结果时发生错误：%s\n"
-
-#: plug-ins/xslt/xslt.c:332
-msgid "XSL Transformation filter"
-msgstr "XSL 变换过滤器"
-
-#: plug-ins/xslt/xslt.c:357
-msgid "No valid configuration files found for the XSLT plugin; not loading."
-msgstr "找不到用于 XSLT 插件的有效配置文件；不予载入。"
-
-#: plug-ins/xslt/xsltdialog.c:85
+#: plug-ins/xslt/dia-xslt-dialogue.ui:4
 msgid "Export through XSLT"
 msgstr "经 XSLT 导出"
 
-#: plug-ins/xslt/xsltdialog.c:99
-msgid "From:"
-msgstr "从："
+#: plug-ins/xslt/dia-xslt-dialogue.ui:14
+msgid "_From"
+msgstr "从(_F)"
 
-#: plug-ins/xslt/xsltdialog.c:129
-msgid "To:"
-msgstr "至："
+#: plug-ins/xslt/dia-xslt-dialogue.ui:42
+msgid "_To"
+msgstr "到(_T)"
+
+#: plug-ins/xslt/dia-xslt.c:214 plug-ins/xslt/dia-xslt.c:225
+#, c-format
+msgid ""
+"Name and stylesheet attributes are required for the implementation element "
+"%s in XSLT plugin configuration file"
+msgstr "在 XSLT 插件配置文件中实现 %s 元素需要名称和样式表属性"
+
+#: plug-ins/xslt/dia-xslt.c:260
+#, c-format
+msgid "Couldn't parse XSLT plugin's configuration file %s"
+msgstr "无法解析 XSLT 插件的配置文件 %s"
+
+#: plug-ins/xslt/dia-xslt.c:269
+#, c-format
+msgid "XSLT plugin's configuration file %s is empty"
+msgstr "XSLT 插件的配置文件 %s 是空的"
+
+#: plug-ins/xslt/dia-xslt.c:290 plug-ins/xslt/dia-xslt.c:301
+#, c-format
+msgid ""
+"'name' and 'stylesheet' attributes are required for the language element %s "
+"in XSLT plugin configuration file"
+msgstr "在 XSLT 插件配置文件中的 %s 语言元素需要“name”和“stylesheet”属性"
+
+#: plug-ins/xslt/dia-xslt.c:318
+#, c-format
+msgid ""
+"No implementation stylesheet for language %s in XSLT plugin configuration "
+"file"
+msgstr "在 XSLT 插件配置文件中的语言 %s 无样式表实现"
+
+#: plug-ins/xslt/dia-xslt.c:330
+#, c-format
+msgid ""
+"Wrong node name %s in XSLT plugin configuration file, 'language' expected"
+msgstr "在 XSLT 插件配置文件中错误的节点名称 %s，应为“language”"
+
+#: plug-ins/xslt/dia-xslt.c:375
+msgid "No valid configuration files found for the XSLT plugin; not loading."
+msgstr "找不到用于 XSLT 插件的有效配置文件；不予载入。"
+
+#: plug-ins/xslt/dia-xslt.c:422 plug-ins/xslt/dia-xslt.c:568
+#: plug-ins/xslt/dia-xslt.c:578
+#, c-format
+msgid "Error while saving %s: %s"
+msgstr "保存 %s 时出错：%s"
+
+#: plug-ins/xslt/dia-xslt.c:472
+#, c-format
+msgid "Can't open output file %s: %s"
+msgstr "无法打开输出文件 %s：%s"
+
+#: plug-ins/xslt/dia-xslt.c:487
+#, c-format
+msgid "Error while parsing: %s"
+msgstr "解析时出错：%s"
+
+#: plug-ins/xslt/dia-xslt.c:500 plug-ins/xslt/dia-xslt.c:520
+#, c-format
+msgid "Error while parsing stylesheet: %s"
+msgstr "解析样式表时出错：%s"
+
+#: plug-ins/xslt/dia-xslt.c:509 plug-ins/xslt/dia-xslt.c:531
+#, c-format
+msgid "Error while applying stylesheet: %s"
+msgstr "应用样式表时出错：%s"
+
+#: plug-ins/xslt/dia-xslt.c:542 plug-ins/xslt/dia-xslt.c:550
+#, c-format
+msgid "Error while saving result: %s"
+msgstr "保存结果时出错：%s"
+
+#: plug-ins/xslt/dia-xslt.c:669
+msgid "XSLT Plugin"
+msgstr "XSLT 插件"
+
+#: plug-ins/xslt/dia-xslt.c:676
+msgid "XSL Transformation filter"
+msgstr "XSL 变换过滤器"
 
 #: sheets/AADL.sheet:3
 msgid "AADL"
@@ -11156,6 +11180,60 @@ msgstr "活动"
 #: sheets/UML.sheet:96
 msgid "Fork/Union"
 msgstr "分叉/联合"
+
+#~ msgid "You must specify a file, not a directory."
+#~ msgstr "您必须指定一个文件，而不是目录。"
+
+#, c-format
+#~ msgid "Not allowed to write to output file %s\n"
+#~ msgstr "不允许写入输出文件 %s\n"
+
+#, c-format
+#~ msgid "Not allowed to write temporary files in %s\n"
+#~ msgstr "不允许在 %s 中写入临时文件\n"
+
+#, c-format
+#~ msgid "Can't rename %s to final output file %s"
+#~ msgstr "无法将 %s 重命名为终稿输出文件 %s"
+
+#, c-format
+#~ msgid "Couldn't open: '%s' for writing"
+#~ msgstr "无法以写方式打开：“%s”"
+
+#, c-format
+#~ msgid ""
+#~ "The file %s has no encoding specification;\n"
+#~ "assuming it is encoded in %s"
+#~ msgstr ""
+#~ "文件 %s 没有指定编码；\n"
+#~ "假定编码为 %s"
+
+#, c-format
+#~ msgid ""
+#~ "SVG parser error for %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s 有 SVG 解析器错误\n"
+#~ "%s"
+
+#, c-format
+#~ msgid ""
+#~ "SVG parser warning for %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s 有 SVG 解析器警告\n"
+#~ "%s"
+
+#, c-format
+#~ msgid "Error while parsing stylesheet %s\n"
+#~ msgstr "解析样式表 %s 时发生错误\n"
+
+#, c-format
+#~ msgid "Error while applying stylesheet %s\n"
+#~ msgstr "应用样式表 %s 时发生错误\n"
+
+#~ msgid "To:"
+#~ msgstr "至："
 
 #~ msgid ""
 #~ "Can't get symbol 'custom_type' from any module.\n"
