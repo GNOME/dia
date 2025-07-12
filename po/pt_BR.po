@@ -14,14 +14,14 @@
 # Rafael Fontenelle <rafaelff@gnome.org>, 2016-2019.
 # Henrique Machado Campos <henriquecamposrj@gmail.com>, 2020.
 # Enrico Nicoletto <liverig@gmail.com>, 2013, 2014, 2020.
-# Juliano de Souza Camargo <julianosc@pm.me>, 2024.
+# Juliano de Souza Camargo <julianosc@pm.me>, 2024-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
-"POT-Creation-Date: 2024-09-23 13:30+0000\n"
-"PO-Revision-Date: 2024-09-23 10:28-0300\n"
+"POT-Creation-Date: 2025-06-23 00:42+0000\n"
+"PO-Revision-Date: 2025-07-12 11:28-0300\n"
 "Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
 "Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 46.1\n"
+"X-Generator: Gtranslator 48.0\n"
 
 #. This is not an errror
 #: app/app_procs.c:164
@@ -263,7 +263,6 @@ msgstr "Sair do Dia"
 #: app/layer-editor/dia-layer-properties.c:246 data/ui/sheets-edit-dialog.ui:23
 #: data/ui/sheets-new-dialog.ui:22 data/ui/sheets-remove-dialog.ui:22
 #: lib/dia-arrow-chooser.c:177 lib/dia-line-chooser.c:172
-#: plug-ins/xslt/xsltdialog.c:87
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -519,7 +518,6 @@ msgstr "_Aplicar"
 #: data/ui/sheets-edit-dialog.ui:38 data/ui/sheets-new-dialog.ui:37
 #: data/ui/sheets-remove-dialog.ui:37 lib/dia-arrow-chooser.c:178
 #: lib/dia-line-chooser.c:173 objects/AADL/edit_port_declaration.c:176
-#: plug-ins/xslt/xsltdialog.c:88
 msgid "_OK"
 msgstr "_OK"
 
@@ -544,7 +542,7 @@ msgstr "Tentando agrupar sem qualquer objeto estar selecionado."
 msgid "Diagram"
 msgstr "Diagrama"
 
-#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:522
+#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:523
 msgid "Layer"
 msgstr "Camada"
 
@@ -605,11 +603,11 @@ msgstr "Nome"
 msgid "Diagram Tree"
 msgstr "Árvore de diagramas"
 
-#: app/dia-colour-area.c:182 app/dia-colour-area.c:190
+#: app/dia-colour-area.c:225
 msgid "Select foreground color"
 msgstr "Selecionar cor do primeiro plano"
 
-#: app/dia-colour-area.c:182 app/dia-colour-area.c:190
+#: app/dia-colour-area.c:225
 msgid "Select background color"
 msgstr "Selecionar cor de segundo plano"
 
@@ -656,7 +654,7 @@ msgstr "Tamanho da grade hexagonal"
 msgid "Grid"
 msgstr "Grade"
 
-#: app/dia-diagram-properties-dialog.ui:310 lib/diagramdata.c:149
+#: app/dia-diagram-properties-dialog.ui:310 lib/diagramdata.c:119
 msgid "Background"
 msgstr "Segundo plano"
 
@@ -1093,24 +1091,13 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "Não foi possível localizar o pai %s do objeto %s\n"
 
-#: app/load_save.c:417
-msgid "You must specify a file, not a directory."
-msgstr "Você deve especificar um arquivo, não um diretório."
-
-#: app/load_save.c:425 plug-ins/dxf/dxf-import.c:1327
-#: plug-ins/wpg/wpg-import.c:519 plug-ins/xfig/xfig-import.c:1322
-#: plug-ins/xslt/xslt.c:101
-#, c-format
-msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Não foi possível abrir “%s” para leitura.\n"
-
 #. this was talking about unknown file type but it could as well be broken XML
-#: app/load_save.c:444
+#: app/load_save.c:418
 #, c-format
 msgid "Error loading diagram %s."
 msgstr "Erro ao carregar o diagrama %s."
 
-#: app/load_save.c:455
+#: app/load_save.c:429
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1119,7 +1106,7 @@ msgstr ""
 "Erro ao carregar o diagrama %s.\n"
 "Tipo de arquivo desconhecido."
 
-#: app/load_save.c:463
+#: app/load_save.c:437
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1128,11 +1115,11 @@ msgstr ""
 "Erro ao carregar o diagrama %s.\n"
 "Não é um arquivo Dia."
 
-#: app/load_save.c:766
+#: app/load_save.c:742
 msgid "Error reading connections"
 msgstr "Erro ao ler conexões."
 
-#: app/load_save.c:789
+#: app/load_save.c:773
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1143,52 +1130,26 @@ msgstr ""
 "%s.\n"
 "Um arquivo válido do Dia possui ao menos uma camada."
 
-#: app/load_save.c:1116
+#: app/load_save.c:1100
 #, c-format
 msgid "Error saving connections to layer '%s'"
 msgstr "Erro ao salvar conexões com a camada “%s”"
 
-#: app/load_save.c:1125
+#: app/load_save.c:1109
 #, c-format
 msgid "Connection saving is incomplete for layer '%s'"
 msgstr "O salvamento da conexão está incompleto para a camada “%s”"
 
-#: app/load_save.c:1182
-#, c-format
-msgid "Not allowed to write to output file %s\n"
-msgstr "Não é permitido gravar no arquivo de saída %s\n"
-
-#: app/load_save.c:1214
-#, c-format
-msgid "Not allowed to write temporary files in %s\n"
-msgstr "Não é permitido gravar arquivos temporários em %s\n"
-
-#: app/load_save.c:1237 plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
-#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1384
-#: plug-ins/pstricks/render_pstricks.c:999 plug-ins/vdx/vdx-export.c:1781
-#: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
-#: plug-ins/xfig/xfig-export.c:1272
-#, c-format
-msgid "Can't open output file %s"
-msgstr "Não é possível abrir o arquivo de saída %s"
-
-#. Save failed; we clean our stuff up, without touching the file named
-#. "filename" if it existed.
-#: app/load_save.c:1248
+#: app/load_save.c:1158
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Erro interno %d ao gravar arquivo %s\n"
 
-#: app/load_save.c:1259
-#, c-format
-msgid "Can't rename %s to final output file %s"
-msgstr "Não foi possível renomear %s para o arquivo de saída final %s"
-
-#: app/load_save.c:1386 app/load_save.c:1397
+#: app/load_save.c:1279 app/load_save.c:1290
 msgid "Auto save"
 msgstr "Salvar automaticamente"
 
-#: app/load_save.c:1421 app/load_save.c:1426
+#: app/load_save.c:1314 app/load_save.c:1319
 msgid "Dia Diagram File"
 msgstr "Arquivo de diagrama do Dia"
 
@@ -2045,31 +2006,30 @@ msgstr "A folha dever ter um nome"
 msgid "Couldn't open '%s': %s"
 msgstr "Não foi possível abrir “%s”: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1469
-#, c-format
-msgid "Couldn't open: '%s' for writing"
-msgstr "Não foi possível abrir “%s” para escrita"
+#: app/sheet-editor/sheets_dialog_callbacks.c:1433
+msgid "Write Sheet"
+msgstr "Escrever folha"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1479
+#: app/sheet-editor/sheets_dialog_callbacks.c:1470
 msgid "a user"
 msgstr "um usuário"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1494
+#: app/sheet-editor/sheets_dialog_callbacks.c:1485
 #, c-format
 msgid "File: %s"
 msgstr "Arquivo: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1497
+#: app/sheet-editor/sheets_dialog_callbacks.c:1488
 #, c-format
 msgid "Date: %s"
 msgstr "Data: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1501
+#: app/sheet-editor/sheets_dialog_callbacks.c:1492
 #, c-format
 msgid "For: %s"
 msgstr "Para: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1518
+#: app/sheet-editor/sheets_dialog_callbacks.c:1509
 msgid "add shapes here"
 msgstr "adicione as formas aqui"
 
@@ -2235,15 +2195,27 @@ msgstr ""
 "Estilo de seta no final de novas linhas. Clique para escolher um seta ou "
 "defina os parâmetros através da opção Detalhes…"
 
-#: data/org.gnome.Dia.appdata.xml.in:7 data/org.gnome.Dia.desktop.in:3
+#: data/org.gnome.Dia.desktop.in:3 data/org.gnome.Dia.metainfo.xml.in:7
 msgid "Dia"
 msgstr "Dia"
 
-#: data/org.gnome.Dia.appdata.xml.in:8
+#: data/org.gnome.Dia.desktop.in:4
+msgid "Diagram Editor"
+msgstr "Editor de diagramas"
+
+#: data/org.gnome.Dia.desktop.in:5
+msgid "Edit your Diagrams"
+msgstr "Edite os seus diagramas"
+
+#: data/org.gnome.Dia.desktop.in:16
+msgid "graphic;diagram;vector;layout;"
+msgstr "gráfico;diagrama;vetor;leiaute;"
+
+#: data/org.gnome.Dia.metainfo.xml.in:8
 msgid "Dia is a program for drawing diagrams"
 msgstr "Dia é um programa para desenhar diagramas"
 
-#: data/org.gnome.Dia.appdata.xml.in:10
+#: data/org.gnome.Dia.metainfo.xml.in:10
 msgid ""
 "Dia is a GTK+ based diagram creation program for GNU/Linux, MacOS X, Unix, "
 "and Windows, and is released under the GPL license."
@@ -2251,7 +2223,7 @@ msgstr ""
 "Dia é um programa de criação de diagramas baseado em GTK+ para GNU/Linux, "
 "MacOS X, Unix e Windows, e é lançado sob a licença GPL."
 
-#: data/org.gnome.Dia.appdata.xml.in:12
+#: data/org.gnome.Dia.metainfo.xml.in:12
 msgid ""
 "Dia is roughly inspired by the commercial Windows program 'Visio,' though "
 "more geared towards informal diagrams for casual use. It can be used to draw "
@@ -2269,7 +2241,7 @@ msgstr ""
 "diagramas. Também é possível adicionar suporte para novas formas gravando "
 "arquivos XML simples, usando um subconjunto de SVG para desenhar a forma."
 
-#: data/org.gnome.Dia.appdata.xml.in:14
+#: data/org.gnome.Dia.metainfo.xml.in:17
 msgid ""
 "It can load and save diagrams to a custom XML format (gzipped by default, to "
 "save space), can export diagrams to a number of formats, including EPS, SVG, "
@@ -2281,25 +2253,13 @@ msgstr ""
 "para vários formatos, incluindo EPS, SVG, XFIG, WMF e PNG, e pode imprimir "
 "diagramas (incluindo aqueles que abrangem múltiplas páginas)."
 
-#: data/org.gnome.Dia.appdata.xml.in:19
+#: data/org.gnome.Dia.metainfo.xml.in:24
 msgid "Main Window"
 msgstr "Janela principal"
 
-#: data/org.gnome.Dia.appdata.xml.in:44
+#: data/org.gnome.Dia.metainfo.xml.in:49
 msgid "The GNOME Project"
 msgstr "O Projeto GNOME"
-
-#: data/org.gnome.Dia.desktop.in:4
-msgid "Diagram Editor"
-msgstr "Editor de diagramas"
-
-#: data/org.gnome.Dia.desktop.in:5
-msgid "Edit your Diagrams"
-msgstr "Edite os seus diagramas"
-
-#: data/org.gnome.Dia.desktop.in:16
-msgid "graphic;diagram;vector;layout;"
-msgstr "gráfico;diagrama;vetor;leiaute;"
 
 #: data/ui/preferences-dialog.ui:157
 msgid "_Reset tools after create"
@@ -2809,80 +2769,71 @@ msgstr "Diagonal"
 msgid "Radial"
 msgstr "Radial"
 
-#: lib/dia_xml.c:206
-#, c-format
-msgid ""
-"The file %s has no encoding specification;\n"
-"assuming it is encoded in %s"
-msgstr ""
-"O arquivo %s não possui informação de codificação;\n"
-"supondo que está codificado em %s"
-
-#: lib/dia_xml.c:512
+#: lib/dia_xml.c:221
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Tipo desconhecido de nó de dados “%s”"
 
-#: lib/dia_xml.c:531
+#: lib/dia_xml.c:240
 msgid "Taking int value of non-int node."
 msgstr "Obtendo valor inteiro de um nó que não é um inteiro."
 
-#: lib/dia_xml.c:707
+#: lib/dia_xml.c:416
 msgid "Taking point value of non-point node."
 msgstr "Obtendo valor de ponto de um nó que não é um ponto."
 
-#: lib/dia_xml.c:718
+#: lib/dia_xml.c:427
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Valor x do ponto “%s” %f incorreto; descartando-o."
 
-#: lib/dia_xml.c:725
+#: lib/dia_xml.c:434
 msgid "Error parsing point."
 msgstr "Erro ao analisar o ponto."
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:733
+#: lib/dia_xml.c:442
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Valor y do ponto “%s” %f incorreto; descartando-o."
 
-#: lib/dia_xml.c:753
+#: lib/dia_xml.c:462
 msgid "Taking bezpoint value of non-point node."
 msgstr "Obtendo valor de ponto de Bézier de um nó que não é um ponto."
 
-#: lib/dia_xml.c:771
+#: lib/dia_xml.c:480
 msgid "Error parsing bezpoint p1."
 msgstr "Erro ao analisar o ponto de Bézier p1."
 
-#: lib/dia_xml.c:785
+#: lib/dia_xml.c:494
 msgid "Error parsing bezpoint p2."
 msgstr "Erro ao analisar o ponto de Bézier p2."
 
-#: lib/dia_xml.c:799
+#: lib/dia_xml.c:508
 msgid "Error parsing bezpoint p3."
 msgstr "Erro ao analisar o ponto de Bézier p3."
 
-#: lib/dia_xml.c:826
+#: lib/dia_xml.c:535
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Obtendo valor retangular de nó que não é retângulo."
 
-#: lib/dia_xml.c:838 lib/dia_xml.c:849 lib/dia_xml.c:860
+#: lib/dia_xml.c:547 lib/dia_xml.c:558 lib/dia_xml.c:569
 msgid "Error parsing rectangle."
 msgstr "Erro ao analisar retângulo."
 
-#: lib/dia_xml.c:888
+#: lib/dia_xml.c:597
 msgid "Taking string value of non-string node."
 msgstr "Obtendo valor de string de um nó que não é string."
 
-#: lib/dia_xml.c:916
+#: lib/dia_xml.c:625
 msgid "Error in string tag."
 msgstr "Erro "
 
-#: lib/dia_xml.c:934
+#: lib/dia_xml.c:643
 msgid "Error in file, string not starting with #"
 msgstr "Erro no arquivo, string não iniciada com #"
 
-#: lib/dia_xml.c:1000
+#: lib/dia_xml.c:709
 msgid "Taking font value of non-font node."
 msgstr "Obtendo valor de fonte de um nó que não é de fonte."
 
@@ -2970,7 +2921,7 @@ msgstr "Símbolo “dia_plugin_init” faltando"
 msgid "dia_plugin_init() call failed"
 msgstr "A chamada dia_plugin_init() falhou"
 
-#: lib/plug-ins.c:424
+#: lib/plug-ins.c:424 lib/plug-ins.c:597
 msgid "Plugin Configuration"
 msgstr "Configuração de plug-in"
 
@@ -3189,7 +3140,30 @@ msgstr ""
 "O DiaObject “%s” necessário na folha “%s” não foi localizado.\n"
 "Ele não estará disponível para uso."
 
-#: lib/sheet.c:358
+#: lib/sheet.c:212
+msgid "Load Sheet"
+msgstr "Carregar folha"
+
+#: lib/sheet.c:235
+#, c-format
+msgid "Loading Sheet from %s failed"
+msgstr "Carregamento da folha de %s falhou"
+
+#: lib/sheet.c:252
+msgid "Could not find sheet namespace"
+msgstr "Não foi possível localizar o nome da folha"
+
+#: lib/sheet.c:259
+#, c-format
+msgid "root element was %s — expecting sheet"
+msgstr "o elemento raiz era %s — esperava-se folha"
+
+#: lib/sheet.c:324
+#, c-format
+msgid "No <name> and/or <contents> in sheet %s — skipping"
+msgstr "Nenhum <name> e/ou <contents> na folha %s — ignorando"
+
+#: lib/sheet.c:347
 #, c-format
 msgid ""
 "The system sheet '%s' appears to be more recent than your custom\n"
@@ -3204,7 +3178,7 @@ msgstr ""
 "Mova novos objetos (se existir algum) de “%s” para sua folha\n"
 "personalizada ou remova “%s”, usando o diálogo “Folhas e objetos”."
 
-#: lib/sheet.c:425
+#: lib/sheet.c:414
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr ""
@@ -3307,8 +3281,7 @@ msgstr "Ponteiro do zoom"
 msgid "Visible rect pointer"
 msgstr "Ponteiro ret. visível"
 
-#: lib/renderer/diacairo.c:96 plug-ins/drs/dia-render-script.c:136
-#: plug-ins/hpgl/hpgl.c:743
+#: lib/renderer/diacairo.c:96 plug-ins/hpgl/hpgl.c:743
 #, c-format
 msgid "Can't open output file %s."
 msgstr "Não é possível abrir o arquivo de saída %s."
@@ -3534,7 +3507,7 @@ msgstr "Carregador de linhas XML personalizadas"
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr "INTERNO: CustomLines: Tipo de linha inválido no objeto LineInfo."
 
-#: objects/custom/shape_info.c:174
+#: objects/custom/shape_info.c:175
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
@@ -3542,6 +3515,28 @@ msgid ""
 msgstr ""
 "O arquivo “%s” tem dados de caminho inválidos.\n"
 "dados svg:path devem começar com moveto."
+
+#: objects/custom/shape_info.c:718
+msgid "Load Custom Shape"
+msgstr "Carregar forma personalizada"
+
+#: objects/custom/shape_info.c:730
+#, c-format
+msgid "Loading Custom Shape from %s failed"
+msgstr "Carregamento de forma personalizada de %s falhou"
+
+#: objects/custom/shape_info.c:746
+msgid "could not find shape namespace"
+msgstr "Não foi possível localizar o espaço de nome da forma"
+
+#: objects/custom/shape_info.c:754
+msgid "could not find svg namespace"
+msgstr "namespace"
+
+#: objects/custom/shape_info.c:762
+#, c-format
+msgid "root element was %s — expecting shape"
+msgstr "o elemento raiz era %s — esperava-se forma"
 
 #: objects/Database/compound.c:211
 msgid "Number of arms"
@@ -5972,19 +5967,19 @@ msgid "Abstract Class"
 msgstr "Classe abstrata"
 
 #. should probably be refactored too.
-#: objects/UML/class_dialog.c:537
+#: objects/UML/class_dialog.c:539
 msgid "Line Width"
 msgstr "Largura da linha"
 
-#: objects/UML/class_dialog.c:548
+#: objects/UML/class_dialog.c:550
 msgid "Text Color"
 msgstr "Cor do texto"
 
-#: objects/UML/class_dialog.c:559
+#: objects/UML/class_dialog.c:561
 msgid "Foreground Color"
 msgstr "Cor do primeiro plano"
 
-#: objects/UML/class_dialog.c:570
+#: objects/UML/class_dialog.c:572
 msgid "Background Color"
 msgstr "Cor do segundo plano"
 
@@ -6371,6 +6366,15 @@ msgstr ""
 "do que a matriz de células máxima.\n"
 "A imagem não foi exportada para o formato CGM."
 
+#: plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
+#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1384
+#: plug-ins/pstricks/render_pstricks.c:999 plug-ins/vdx/vdx-export.c:1781
+#: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
+#: plug-ins/xfig/xfig-export.c:1272
+#, c-format
+msgid "Can't open output file %s"
+msgstr "Não é possível abrir o arquivo de saída %s"
+
 #: plug-ins/cgm/cgm.c:1362
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
@@ -6379,15 +6383,15 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtro de exportação para CGM"
 
-#: plug-ins/drs/dia-render-script.c:175 plug-ins/drs/dia-render-script.c:180
+#: plug-ins/drs/dia-render-script.c:161 plug-ins/drs/dia-render-script.c:166
 msgid "DiaRenderScript"
 msgstr "DiaRenderScript"
 
-#: plug-ins/drs/dia-render-script.c:204
+#: plug-ins/drs/dia-render-script.c:191
 msgid "DiaRenderScript filter"
 msgstr "Filtro DiaRenderScript"
 
-#: plug-ins/drs/dia-render-script-import.c:514
+#: plug-ins/drs/dia-render-script-import.c:515
 msgid "Broken file?"
 msgstr "Arquivo corrompido?"
 
@@ -6398,6 +6402,12 @@ msgstr "Filtros de importação e exportação para o formato DXF"
 #: plug-ins/dxf/dxf-export.c:666 plug-ins/dxf/dxf-import.c:1429
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File – DXF"
+
+#: plug-ins/dxf/dxf-import.c:1327 plug-ins/wpg/wpg-import.c:519
+#: plug-ins/xfig/xfig-import.c:1322
+#, c-format
+msgid "Couldn't open: '%s' for reading.\n"
+msgstr "Não foi possível abrir “%s” para leitura.\n"
 
 #: plug-ins/dxf/dxf-import.c:1338
 #, c-format
@@ -6512,12 +6522,12 @@ msgstr "Arquivo de Documento Portátil"
 msgid "PDF import filter"
 msgstr "Filtro de importação para PDF"
 
-#: plug-ins/pdf/pdf-import.cpp:436
+#: plug-ins/pdf/pdf-import.cpp:479
 #, c-format
 msgid "Page %d"
 msgstr "Página %d"
 
-#: plug-ins/pdf/pdf-import.cpp:915
+#: plug-ins/pdf/pdf-import.cpp:976
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6584,7 +6594,7 @@ msgstr "Macros TeX PSTricks"
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Não foi possível abrir “%s” para escrita.\n"
 
-#: plug-ins/python/python.c:103
+#: plug-ins/python/python.c:102
 msgid "Python scripting support"
 msgstr "Suporte aos scripts Python"
 
@@ -6806,21 +6816,25 @@ msgstr "Imagens não inseridas"
 msgid "Dia shape export filter"
 msgstr "Filtro de exportação para formas do Dia"
 
-#: plug-ins/shape/shape-export.c:624
+#: plug-ins/shape/shape-export.c:296
+msgid "Shape Export"
+msgstr "Exportar forma"
+
+#: plug-ins/shape/shape-export.c:616
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
 "Os arquivos de forma devem terminar em .shape ou eles não poderão ser "
 "carregados pelo Dia"
 
-#: plug-ins/shape/shape-export.c:634
+#: plug-ins/shape/shape-export.c:626
 msgid "Can't export PNG icon without export plugin!"
 msgstr "Não é possível exportar ícone PNG sem um plug-in de exportação!"
 
-#: plug-ins/shape/shape-export.c:667
+#: plug-ins/shape/shape-export.c:659
 msgid "Dia Shape File"
 msgstr "Arquivo de formas do Dia"
 
-#: plug-ins/svg/render_svg.c:701 plug-ins/svg/svg-import.c:2281
+#: plug-ins/svg/render_svg.c:700 plug-ins/svg/svg-import.c:2280
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -6860,30 +6874,11 @@ msgstr ""
 "Erro de análise em bloco de memória.\n"
 "%s"
 
-#: plug-ins/svg/svg-import.c:2128
-#, c-format
-msgid ""
-"SVG parser error for %s\n"
-"%s"
-msgstr ""
-"Erro de Análise SVG para %s\n"
-"%s"
-
-#. just a warning
-#: plug-ins/svg/svg-import.c:2134
-#, c-format
-msgid ""
-"SVG parser warning for %s\n"
-"%s"
-msgstr ""
-"Aviso de análise SVG para  %s\n"
-"%s"
-
-#: plug-ins/svg/svg-import.c:2167
+#: plug-ins/svg/svg-import.c:2166
 msgid "Expected SVG name-space not found in file"
 msgstr "O espaço de nome SVG esperado não foi encontrado no arquivo"
 
-#: plug-ins/svg/svg-import.c:2187
+#: plug-ins/svg/svg-import.c:2186
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "o elemento raiz era “%s” -- esperava-se “svg”."
@@ -6933,29 +6928,25 @@ msgstr "Fórmula NURBS inválida"
 msgid "Couldn't handle foreign object type %s"
 msgstr "Não foi possível manipular o objeto externo %s"
 
-#: plug-ins/vdx/vdx-import.c:2963
+#: plug-ins/vdx/vdx-import.c:2966
 #, c-format
-msgid ""
-"VDX parser error for %s\n"
-"%s"
-msgstr ""
-"Erro de análise VDX para %s\n"
-"%s"
+msgid "VDX parser error for %s"
+msgstr "Erro de análise VDX para %s"
 
-#: plug-ins/vdx/vdx-import.c:2975
+#: plug-ins/vdx/vdx-import.c:2979
 msgid "Nothing in document!"
 msgstr "Nada no documento!"
 
-#: plug-ins/vdx/vdx-import.c:2980
+#: plug-ins/vdx/vdx-import.c:2984
 #, c-format
 msgid "Expecting VisioDocument, got %s"
 msgstr "Era esperado “VisioDocument”, obteve-se %s"
 
-#: plug-ins/vdx/vdx-import.c:3064
+#: plug-ins/vdx/vdx-import.c:3068
 msgid "Visio XML File Format"
 msgstr "Formato de arquivo XML do Visio"
 
-#: plug-ins/vdx/vdx-xml.c:3345
+#: plug-ins/vdx/vdx-xml.c:3344
 #, c-format
 msgid "Can't decode object %s"
 msgstr "Não foi possível decodificar o objeto %s"
@@ -7250,66 +7241,107 @@ msgstr "Fim prematuro de arquivo Fig"
 msgid "Xfig File Format"
 msgstr "Formato de arquivo XFig"
 
-#: plug-ins/xslt/xslt.c:109
-#, c-format
-msgid "Can't open output file %s: %s\n"
-msgstr "Não é possível abrir o arquivo de saída %s: %s\n"
+#: plug-ins/xslt/dia-xslt-dialogue.ui:4
+msgid "Export through XSLT"
+msgstr "Exportar através de XSLT"
 
-#: plug-ins/xslt/xslt.c:118
+#: plug-ins/xslt/dia-xslt-dialogue.ui:14
+msgid "_From"
+msgstr "_De"
+
+#: plug-ins/xslt/dia-xslt-dialogue.ui:42
+msgid "_To"
+msgstr "_Para"
+
+#: plug-ins/xslt/dia-xslt.c:214 plug-ins/xslt/dia-xslt.c:225
 #, c-format
 msgid ""
-"Error while parsing %s\n"
-"%s"
+"Name and stylesheet attributes are required for the implementation element "
+"%s in XSLT plugin configuration file"
 msgstr ""
-"Erro durante análise  %s\n"
-"%s"
+"Nome e atributos do estilo de folha são requeridos para implementação do "
+"elemento %s no arquivo de configuração do plugin XSLT "
 
-#: plug-ins/xslt/xslt.c:128
+#: plug-ins/xslt/dia-xslt.c:260
 #, c-format
-msgid "Error while parsing stylesheet %s\n"
-msgstr "Erro ao analisar folha de estilos %s\n"
+msgid "Couldn't parse XSLT plugin's configuration file %s"
+msgstr "Não foi possível analisar o arquivo de configuração do plugin XSLT %s"
 
-#: plug-ins/xslt/xslt.c:135
+#: plug-ins/xslt/dia-xslt.c:269
 #, c-format
-msgid "Error while applying stylesheet %s\n"
-msgstr "Erro ao aplicar folha de estilos %s\n"
+msgid "XSLT plugin's configuration file %s is empty"
+msgstr "O arquivo de configuração do plugin XSLT %s está vazio"
 
-#: plug-ins/xslt/xslt.c:144
+#: plug-ins/xslt/dia-xslt.c:290 plug-ins/xslt/dia-xslt.c:301
 #, c-format
-msgid "Error while parsing stylesheet: %s\n"
-msgstr "Erro ao analisar folha de estilos: %s\n"
+msgid ""
+"'name' and 'stylesheet' attributes are required for the language element %s "
+"in XSLT plugin configuration file"
+msgstr ""
+"Atributos do 'nome' e 'folha de estilo' são requeridos para o elemento de "
+"linguagem %s no arquivo de configuração do plugin XSLT"
 
-#: plug-ins/xslt/xslt.c:153
+#: plug-ins/xslt/dia-xslt.c:318
 #, c-format
-msgid "Error while applying stylesheet: %s\n"
-msgstr "Erro ao aplicar folha de estilos: %s\n"
+msgid ""
+"No implementation stylesheet for language %s in XSLT plugin configuration "
+"file"
+msgstr ""
+"Nenhuma implementação da folha de estilo para a língua %s no arquivo de "
+"configuração do plugin XSLT"
 
-#: plug-ins/xslt/xslt.c:161
+#: plug-ins/xslt/dia-xslt.c:330
 #, c-format
-msgid "Error while saving result: %s\n"
-msgstr "Erro ao salvar resultado: %s\n"
+msgid ""
+"Wrong node name %s in XSLT plugin configuration file, 'language' expected"
+msgstr ""
+"Nome de nó %s errado no arquivo de configuração do plugin XSLT, esperava-se "
+"'língua'"
 
-#: plug-ins/xslt/xslt.c:332
-msgid "XSL Transformation filter"
-msgstr "Filtro de transformação XSL"
-
-#: plug-ins/xslt/xslt.c:357
+#: plug-ins/xslt/dia-xslt.c:375
 msgid "No valid configuration files found for the XSLT plugin; not loading."
 msgstr ""
 "Nenhum arquivo de configuração válido encontrado para o plug-in XSLT; não "
 "carregando."
 
-#: plug-ins/xslt/xsltdialog.c:85
-msgid "Export through XSLT"
-msgstr "Exportar através de XSLT"
+#: plug-ins/xslt/dia-xslt.c:422 plug-ins/xslt/dia-xslt.c:568
+#: plug-ins/xslt/dia-xslt.c:578
+#, c-format
+msgid "Error while saving %s: %s"
+msgstr "Erro ao salvar %s: %s"
 
-#: plug-ins/xslt/xsltdialog.c:99
-msgid "From:"
-msgstr "De:"
+#: plug-ins/xslt/dia-xslt.c:472
+#, c-format
+msgid "Can't open output file %s: %s"
+msgstr "Não é possível abrir o arquivo de saída %s: %s"
 
-#: plug-ins/xslt/xsltdialog.c:129
-msgid "To:"
-msgstr "Para:"
+#: plug-ins/xslt/dia-xslt.c:487
+#, c-format
+msgid "Error while parsing: %s"
+msgstr "Erro durante análise: %s"
+
+#: plug-ins/xslt/dia-xslt.c:500 plug-ins/xslt/dia-xslt.c:520
+#, c-format
+msgid "Error while parsing stylesheet: %s"
+msgstr "Erro ao analisar folha de estilos: %s"
+
+#: plug-ins/xslt/dia-xslt.c:509 plug-ins/xslt/dia-xslt.c:531
+#, c-format
+msgid "Error while applying stylesheet: %s"
+msgstr "Erro ao aplicar folha de estilos: %s"
+
+#: plug-ins/xslt/dia-xslt.c:542 plug-ins/xslt/dia-xslt.c:550
+#, c-format
+msgid "Error while saving result: %s"
+msgstr "Erro ao salvar resultado: %s"
+
+#: plug-ins/xslt/dia-xslt.c:669
+msgid "XSLT Plugin"
+msgstr "Plugin XSLT"
+
+#: plug-ins/xslt/dia-xslt.c:676
+msgid "XSL Transformation filter"
+msgstr "Filtro de transformação XSL"
 
 #: sheets/AADL.sheet:3
 msgid "AADL"
@@ -11201,6 +11233,60 @@ msgstr "Atividade"
 #: sheets/UML.sheet:96
 msgid "Fork/Union"
 msgstr "Bifurcação/união"
+
+#~ msgid "You must specify a file, not a directory."
+#~ msgstr "Você deve especificar um arquivo, não um diretório."
+
+#, c-format
+#~ msgid "Not allowed to write to output file %s\n"
+#~ msgstr "Não é permitido gravar no arquivo de saída %s\n"
+
+#, c-format
+#~ msgid "Not allowed to write temporary files in %s\n"
+#~ msgstr "Não é permitido gravar arquivos temporários em %s\n"
+
+#, c-format
+#~ msgid "Can't rename %s to final output file %s"
+#~ msgstr "Não foi possível renomear %s para o arquivo de saída final %s"
+
+#, c-format
+#~ msgid "Couldn't open: '%s' for writing"
+#~ msgstr "Não foi possível abrir “%s” para escrita"
+
+#, c-format
+#~ msgid ""
+#~ "The file %s has no encoding specification;\n"
+#~ "assuming it is encoded in %s"
+#~ msgstr ""
+#~ "O arquivo %s não possui informação de codificação;\n"
+#~ "supondo que está codificado em %s"
+
+#, c-format
+#~ msgid ""
+#~ "SVG parser error for %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Erro de Análise SVG para %s\n"
+#~ "%s"
+
+#, c-format
+#~ msgid ""
+#~ "SVG parser warning for %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Aviso de análise SVG para  %s\n"
+#~ "%s"
+
+#, c-format
+#~ msgid "Error while parsing stylesheet %s\n"
+#~ msgstr "Erro ao analisar folha de estilos %s\n"
+
+#, c-format
+#~ msgid "Error while applying stylesheet %s\n"
+#~ msgstr "Erro ao aplicar folha de estilos %s\n"
+
+#~ msgid "To:"
+#~ msgstr "Para:"
 
 #~ msgid ""
 #~ "Can't get symbol 'custom_type' from any module.\n"
