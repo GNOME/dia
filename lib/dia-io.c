@@ -49,6 +49,8 @@ struct _ReadContext {
   GInputStream *stream;
   GCancellable *cancellable;
   gboolean was_compressed;
+  /* TODO: We should try to keep BOM'd files BOM'd */
+  gboolean had_bom;
 };
 
 
@@ -154,12 +156,20 @@ read_context_close (gpointer user_data)
 static inline void
 read_context_maybe_mixin_decompressor (ReadContext *ctx)
 {
-  char peeked;
+  char peeked[3] = { 0, };
+  size_t peeked_len =
+    g_buffered_input_stream_peek (ctx->buffered_stream, &peeked, 0, 3);
 
-  /* An uncompressed utf-8 XML file will have ‘<’ as the first byte, so lets
-   * see what the first byte is. */
-  if (g_buffered_input_stream_peek (ctx->buffered_stream, &peeked, 0, 1) == 1) {
-    ctx->was_compressed = peeked != '<';
+  /* An uncompressed utf-8 XML file will either begin with a BOM, or have ‘<’
+   * as the first byte, so let see what the first three bytes are. */
+
+  if (peeked_len > 2 &&
+      peeked[0] == '\xEF' &&
+      peeked[1] == '\xBB' &&
+      peeked[2] == '\xBF') {
+    ctx->had_bom = TRUE;
+  } else if (peeked_len > 1) {
+    ctx->was_compressed = peeked[0] != '<';
   } else {
     g_warning ("Unable to check for compression");
   }
