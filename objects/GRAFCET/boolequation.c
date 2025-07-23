@@ -154,10 +154,10 @@ textblock_create (const char **str)
     *str = p1;
   }
 
-  block = g_new0 (Block, 1);
+  block = g_new0 (Block,1);
   block->type = BLOCK_TEXT;
   block->ops = &text_block_ops;
-  block->d.text = g_strndup (p, *str - p);
+  block->d.text = g_strndup (p, *str-p);
 
   return block;
 }
@@ -535,7 +535,7 @@ compoundblock_create (const char **str)
 {
   Block *block, *inblk;
 
-  block = g_new0 (Block, 1);
+  block = g_new0 (Block,1);
   block->type = BLOCK_COMPOUND;
   block->ops = &compound_block_ops;
   block->d.contained = NULL;

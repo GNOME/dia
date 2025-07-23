@@ -39,22 +39,25 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#include "dia_image.h"
-#include "dia-layer.h"
-#include "dia-locale.h"
-#include "diarenderer.h"
-#include "diatransformrenderer.h"
-#include "filter.h"
-#include "geometry.h"
-#include "group.h"
 #include "message.h"
+#include "geometry.h"
+#include "diarenderer.h"
+#include "filter.h"
 #include "object.h"
 #include "properties.h"
+#include "dia_image.h"
+#include "group.h"
+#include "diatransformrenderer.h"
+#include "dia-layer.h"
 
 #include "xfig.h"
 
 #define WARNING_OUT_OF_COLORS 0
 #define MAX_WARNING 1
+
+#define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
+#define xfig_dtostr(buf,d) \
+	g_ascii_formatd(buf, sizeof(buf), "%f", d)
 
 
 #define DIA_XFIG_TYPE_RENDERER dia_xfig_renderer_get_type ()
@@ -83,7 +86,7 @@ struct _DiaXfigRenderer {
   char *warnings[MAX_WARNING];
 };
 
-G_DEFINE_FINAL_TYPE (DiaXfigRenderer, dia_xfig_renderer, DIA_TYPE_RENDERER)
+G_DEFINE_TYPE (DiaXfigRenderer, dia_xfig_renderer, DIA_TYPE_RENDERER)
 
 enum {
   PROP_0,
@@ -382,8 +385,10 @@ figText (DiaXfigRenderer *renderer, const guchar *text)
 static void
 figArrow (DiaXfigRenderer *renderer, Arrow *arrow, double line_width)
 {
-  DiaLocaleContext ctx;
   int type, style;
+  char lw_buf[DTOSTR_BUF_SIZE];
+  char aw_buf[DTOSTR_BUF_SIZE];
+  char al_buf[DTOSTR_BUF_SIZE];
 
   switch (arrow->type) {
     case ARROW_NONE:
@@ -436,15 +441,13 @@ figArrow (DiaXfigRenderer *renderer, Arrow *arrow, double line_width)
       g_return_if_reached ();
   }
 
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
-           "  %d %d %f %f %f\n",
+           "  %d %d %s %s %s\n",
            type,
            style,
-           figAltCoord (renderer, line_width),
-           figCoord (renderer, arrow->width),
-           figCoord (renderer, arrow->length));
-  dia_locale_pop (&ctx);
+           xfig_dtostr (lw_buf, figAltCoord (renderer, line_width)),
+           xfig_dtostr (aw_buf, figCoord (renderer, arrow->width)),
+           xfig_dtostr (al_buf, figCoord (renderer, arrow->length)) );
 }
 
 
@@ -532,29 +535,27 @@ draw_line (DiaRenderer *self,
            Color       *color)
 {
   DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
-  DiaLocaleContext ctx;
+  char d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor (renderer, color);
     return;
   }
 
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
-           "2 1 %d %d %d 0 %d 0 -1 %f %d %d 0 0 0 2\n"
+           "2 1 %d %d %d 0 %d 0 -1 %s %d %d 0 0 0 2\n"
            "\t%d %d %d %d\n",
            figLineStyle (renderer),
            figLineWidth (renderer),
            figColor (renderer, color),
            figDepth (renderer),
-           figDashLength (renderer),
+           xfig_dtostr (d_buf, figDashLength (renderer)),
            figJoinStyle (renderer),
            figCapsStyle (renderer),
            (int) figCoord (renderer, start->x),
            (int) figCoord (renderer, start->y),
            (int) figCoord (renderer, end->x),
            (int) figCoord (renderer, end->y));
-  dia_locale_pop (&ctx);
 }
 
 
@@ -568,26 +569,24 @@ draw_line_with_arrows (DiaRenderer *self,
                        Arrow       *end_arrow)
 {
   DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
-  DiaLocaleContext ctx;
+  char d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor (renderer, color);
     return;
   }
 
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
-           "2 1 %d %d %d 0 %d 0 -1 %f %d %d 0 %d %d 2\n",
+           "2 1 %d %d %d 0 %d 0 -1 %s %d %d 0 %d %d 2\n",
            figLineStyle (renderer),
            figLineWidth (renderer),
            figColor (renderer, color),
            figDepth (renderer),
-           figDashLength (renderer),
+           xfig_dtostr (d_buf, figDashLength(renderer)),
            figJoinStyle (renderer),
            figCapsStyle (renderer),
            hasArrow (end_arrow),
            hasArrow (start_arrow));
-  dia_locale_pop (&ctx);
 
   if (hasArrow (end_arrow)) {
     figArrow (renderer, end_arrow, line_width);
@@ -612,35 +611,34 @@ draw_polyline (DiaRenderer *self,
                int          num_points,
                Color       *color)
 {
+  int i;
   DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
-  DiaLocaleContext ctx;
+  char d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor (renderer, color);
     return;
   }
 
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
-           "2 1 %d %d %d 0 %d 0 -1 %f %d %d 0 0 0 %d\n",
+           "2 1 %d %d %d 0 %d 0 -1 %s %d %d 0 0 0 %d\n",
            figLineStyle (renderer),
            figLineWidth (renderer),
            figColor (renderer, color),
            figDepth (renderer),
-           figDashLength (renderer),
+           xfig_dtostr (d_buf, figDashLength (renderer)),
            figJoinStyle (renderer),
            figCapsStyle (renderer),
            num_points);
 
   fprintf (renderer->file, "\t");
-  for (size_t i = 0; i < num_points; i++) {
+  for (i = 0; i < num_points; i++) {
     fprintf (renderer->file,
              "%d %d ",
              (int) figCoord (renderer, points[i].x),
              (int) figCoord (renderer, points[i].y));
   }
   fprintf (renderer->file, "\n");
-  dia_locale_pop (&ctx);
 }
 
 
@@ -653,22 +651,22 @@ draw_polyline_with_arrows (DiaRenderer *self,
                            Arrow       *start_arrow,
                            Arrow       *end_arrow)
 {
+  int i;
   DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
-  DiaLocaleContext ctx;
+  char d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor (renderer, color);
     return;
   }
 
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
-           "2 1 %d %d %d 0 %d 0 -1 %f %d %d 0 %d %d %d\n",
+           "2 1 %d %d %d 0 %d 0 -1 %s %d %d 0 %d %d %d\n",
            figLineStyle (renderer),
            figLineWidth (renderer),
            figColor (renderer, color),
            figDepth (renderer),
-           figDashLength (renderer),
+           xfig_dtostr (d_buf, figDashLength (renderer)),
            figJoinStyle (renderer),
            figCapsStyle (renderer),
            hasArrow (end_arrow),
@@ -684,14 +682,13 @@ draw_polyline_with_arrows (DiaRenderer *self,
   }
 
   fprintf (renderer->file, "\t");
-  for (size_t i = 0; i < num_points; i++) {
+  for (i = 0; i < num_points; i++) {
     fprintf (renderer->file,
              "%d %d ",
              (int) figCoord (renderer, points[i].x),
              (int) figCoord (renderer, points[i].y));
   }
   fprintf (renderer->file, "\n");
-  dia_locale_pop (&ctx);
 }
 
 
@@ -702,8 +699,9 @@ draw_polygon (DiaRenderer *self,
               Color       *fill,
               Color       *stroke)
 {
+  int i;
   DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
-  DiaLocaleContext ctx;
+  char d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     if (stroke) {
@@ -715,21 +713,20 @@ draw_polygon (DiaRenderer *self,
     return;
   }
 
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
-           "2 3 %d %d %d %d %d 0 %d %f %d %d 0 0 0 %d\n",
+           "2 3 %d %d %d %d %d 0 %d %s %d %d 0 0 0 %d\n",
            figLineStyle (renderer),
            stroke ? figLineWidth (renderer) : 0,
            stroke ? figColor (renderer, stroke) : 0,
            fill ? figColor (renderer, fill) : 0,
            figDepth (renderer),
            fill ? 20 : -1,
-           figDashLength (renderer),
+           xfig_dtostr (d_buf, figDashLength (renderer)),
            figJoinStyle (renderer),
            figCapsStyle (renderer), num_points + 1);
 
   fprintf (renderer->file, "\t");
-  for (size_t i = 0; i < num_points; i++) {
+  for (i = 0; i < num_points; i++) {
     fprintf (renderer->file,
              "%d %d ",
              (int) figCoord (renderer, points[i].x),
@@ -739,7 +736,6 @@ draw_polygon (DiaRenderer *self,
            "%d %d\n",
            (int) figCoord (renderer, points[0].x),
            (int) figCoord (renderer, points[0].y));
-  dia_locale_pop (&ctx);
 }
 
 
@@ -751,7 +747,7 @@ draw_rect (DiaRenderer *self,
            Color       *stroke)
 {
   DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
-  DiaLocaleContext ctx;
+  char d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     if (stroke) {
@@ -763,9 +759,8 @@ draw_rect (DiaRenderer *self,
     return;
   }
 
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
-           "2 3 %d %d %d %d %d -1 %d %f %d %d 0 0 0 5\n"
+           "2 3 %d %d %d %d %d -1 %d %s %d %d 0 0 0 5\n"
            "\t%d %d %d %d %d %d %d %d %d %d\n",
            figLineStyle (renderer),
            stroke ? figLineWidth (renderer) : 0,
@@ -773,7 +768,7 @@ draw_rect (DiaRenderer *self,
            fill ? figColor (renderer, fill) : 0,
            figDepth (renderer),
            fill ? 20 : -1,
-           figDashLength (renderer),
+           xfig_dtostr (d_buf, figDashLength (renderer)),
            figJoinStyle (renderer),
            figCapsStyle (renderer),
            (int) figCoord (renderer, ul_corner->x),
@@ -786,7 +781,6 @@ draw_rect (DiaRenderer *self,
            (int) figCoord (renderer, lr_corner->y),
            (int) figCoord (renderer, ul_corner->x),
            (int) figCoord (renderer, ul_corner->y));
-  dia_locale_pop (&ctx);
 }
 
 
@@ -799,17 +793,18 @@ draw_arc (DiaRenderer *self,
           double       angle2,
           Color       *color)
 {
-  DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
-  int direction = angle2 > angle1 ? 1 : 0; /* Dia not always gives counterclockwise */
-  DiaLocaleContext ctx;
   Point first, second, last;
+  int direction = angle2 > angle1 ? 1 : 0; /* Dia not always gives counterclockwise */
+  DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
+  char dl_buf[DTOSTR_BUF_SIZE];
+  char cx_buf[DTOSTR_BUF_SIZE];
+  char cy_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor (renderer, color);
     return;
   }
 
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
            "#draw_arc center=(%g,%g) radius=%g angle1=%g° angle2=%g°\n",
            center->x,
@@ -835,24 +830,23 @@ draw_arc (DiaRenderer *self,
   last.y -= (height / 2.0) * sin (angle2);
 
   fprintf (renderer->file,
-           "5 1 %d %d %d %d %d 0 -1 %f %d %d 0 0 %f %f %d %d %d %d %d %d\n",
+           "5 1 %d %d %d %d %d 0 -1 %s %d %d 0 0 %s %s %d %d %d %d %d %d\n",
            figLineStyle (renderer),
            figLineWidth (renderer),
            figColor (renderer, color),
            figColor (renderer, color),
            figDepth (renderer),
-           figDashLength (renderer),
+           xfig_dtostr (dl_buf, figDashLength (renderer)),
            figCapsStyle (renderer),
            direction,
-           figCoord (renderer, center->x),
-           figCoord (renderer, center->y),
+           xfig_dtostr (cx_buf, figCoord (renderer, center->x)),
+           xfig_dtostr (cy_buf, figCoord (renderer, center->y)),
            (int) figCoord (renderer, first.x),
            (int) figCoord (renderer, first.y),
            (int) figCoord (renderer, second.x),
            (int) figCoord (renderer, second.y),
            (int) figCoord (renderer, last.x),
            (int) figCoord (renderer, last.y));
-  dia_locale_pop (&ctx);
 }
 
 
@@ -882,11 +876,13 @@ draw_arc_with_arrows (DiaRenderer *self,
                       Arrow       *start_arrow,
                       Arrow       *end_arrow)
 {
-  DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
-  DiaLocaleContext ctx;
   Point center;
   int direction = 0;
   double radius = -1.0;
+  DiaXfigRenderer *renderer = DIA_XFIG_RENDERER(self);
+  char dl_buf[DTOSTR_BUF_SIZE];
+  char cx_buf[DTOSTR_BUF_SIZE];
+  char cy_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor (renderer, color);
@@ -900,10 +896,9 @@ draw_arc_with_arrows (DiaRenderer *self,
     message_warning ("xfig: arc conversion failed");
   }
 
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
            "#draw_arc_with_arrows center=(%g,%g) radius=%g\n"
-           "5 1 %d %d %d %d %d 0 -1 %f %d %d %d %d %f %f %d %d %d %d %d %d\n",
+           "5 1 %d %d %d %d %d 0 -1 %s %d %d %d %d %s %s %d %d %d %d %d %d\n",
            center.x,
            center.y,
            radius,
@@ -912,20 +907,19 @@ draw_arc_with_arrows (DiaRenderer *self,
            figColor (renderer, color),
            figColor (renderer, color),
            figDepth (renderer),
-           figDashLength (renderer),
+           xfig_dtostr (dl_buf, figDashLength (renderer)),
            figCapsStyle (renderer),
            direction,
            hasArrow (end_arrow),
            hasArrow (start_arrow),
-           figCoord (renderer, center.x),
-           figCoord (renderer, center.y),
+           xfig_dtostr (cx_buf, figCoord (renderer, center.x)),
+           xfig_dtostr (cy_buf, figCoord (renderer, center.y)),
            (int) figCoord (renderer, startpoint->x),
            (int) figCoord (renderer, startpoint->y),
            (int) figCoord (renderer, midpoint->x),
            (int) figCoord (renderer, midpoint->y),
            (int) figCoord (renderer, endpoint->x),
            (int) figCoord (renderer, endpoint->y));
-  dia_locale_pop (&ctx);
 
   if (hasArrow (end_arrow)) {
     figArrow (renderer, end_arrow, line_width);
@@ -946,16 +940,17 @@ fill_arc (DiaRenderer *self,
           double       angle2,
           Color       *color)
 {
-  DiaXfigRenderer *renderer = DIA_XFIG_RENDERER(self);
-  DiaLocaleContext ctx;
   Point first, second, last;
+  DiaXfigRenderer *renderer = DIA_XFIG_RENDERER(self);
+  char dl_buf[DTOSTR_BUF_SIZE];
+  char cx_buf[DTOSTR_BUF_SIZE];
+  char cy_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor (renderer, color);
     return;
   }
 
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
            "#fill_arc center=(%g,%g) radius=%g angle1=%g° angle2=%g°\n",
            center->x,
@@ -980,23 +975,22 @@ fill_arc (DiaRenderer *self,
   last.y -= (height / 2.0) * sin (angle2);
 
   fprintf (renderer->file,
-           "5 2 %d %d %d %d %d 20 0 %f %d 1 0 0 %f %f %d %d %d %d %d %d\n",
+           "5 2 %d %d %d %d %d 20 0 %s %d 1 0 0 %s %s %d %d %d %d %d %d\n",
            figLineStyle (renderer),
            figLineWidth (renderer),
            figColor (renderer, color),
            figColor (renderer, color),
            figDepth (renderer),
-           figDashLength (renderer),
+           xfig_dtostr (dl_buf, figDashLength (renderer)),
            figCapsStyle (renderer),
-           figCoord (renderer, center->x),
-           figCoord (renderer, center->y),
+           xfig_dtostr (cx_buf, figCoord (renderer, center->x)),
+           xfig_dtostr (cy_buf, figCoord (renderer, center->y)),
            (int) figCoord (renderer, first.x),
            (int) figCoord (renderer, first.y),
            (int) figCoord (renderer, second.x),
            (int) figCoord (renderer, second.y),
            (int) figCoord (renderer, last.x),
            (int) figCoord (renderer, last.y));
-  dia_locale_pop (&ctx);
 }
 
 
@@ -1009,7 +1003,7 @@ draw_ellipse (DiaRenderer *self,
               Color       *stroke)
 {
   DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
-  DiaLocaleContext ctx;
+  char d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     if (stroke) {
@@ -1021,21 +1015,19 @@ draw_ellipse (DiaRenderer *self,
     return;
   }
 
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
-           "1 1 %d %d %d %d %d 0 %d %f 1 0.0 %d %d %d %d 0 0 0 0\n",
+           "1 1 %d %d %d %d %d 0 %d %s 1 0.0 %d %d %d %d 0 0 0 0\n",
            figLineStyle (renderer),
            stroke ? figLineWidth (renderer) : 0,
            stroke ? figColor (renderer, stroke) : 0,
            fill ? figColor (renderer, fill) : 0,
            figDepth (renderer),
            fill ? 20 : -1,
-           figDashLength (renderer),
+           xfig_dtostr (d_buf, figDashLength (renderer)),
            (int) figCoord (renderer, center->x),
            (int) figCoord (renderer, center->y),
            (int) figCoord (renderer, width / 2),
            (int) figCoord (renderer, height / 2));
-  dia_locale_pop (&ctx);
 }
 
 
@@ -1119,9 +1111,9 @@ draw_string (DiaRenderer  *self,
              DiaAlignment  alignment,
              Color        *color)
 {
-  DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
   guchar *figtext = NULL;
-  DiaLocaleContext ctx;
+  DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
+  char d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
@@ -1129,21 +1121,17 @@ draw_string (DiaRenderer  *self,
   }
 
   figtext = figText (renderer, (unsigned char *) text);
-
   /* xfig texts are specials */
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
-           "4 %d %d %d 0 %d %f 0.0 6 0.0 0.0 %d %d %s\\001\n",
+           "4 %d %d %d 0 %d %s 0.0 6 0.0 0.0 %d %d %s\\001\n",
            figAlignment (renderer, alignment),
            figColor (renderer, color),
            figDepth (renderer),
            figFont (renderer),
-           figFontSize (renderer),
+           xfig_dtostr (d_buf, figFontSize (renderer)),
            (int) figCoord (renderer, pos->x),
            (int) figCoord (renderer, pos->y),
            figtext);
-  dia_locale_pop (&ctx);
-
   g_clear_pointer (&figtext, g_free);
 }
 
@@ -1156,20 +1144,19 @@ draw_image (DiaRenderer *self,
             DiaImage    *image)
 {
   DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
-  DiaLocaleContext ctx;
+  char d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
     return;
   }
 
-  dia_locale_push_numeric (&ctx);
   fprintf (renderer->file,
-           "2 5 %d 0 -1 0 %d 0 -1 %f %d %d 0 0 0 5\n"
+           "2 5 %d 0 -1 0 %d 0 -1 %s %d %d 0 0 0 5\n"
            "\t0 %s\n"
            "\t%d %d %d %d %d %d %d %d %d %d\n",
            figLineStyle (renderer),
            figDepth (renderer),
-           figDashLength (renderer),
+           xfig_dtostr (d_buf, figDashLength (renderer)),
            figJoinStyle (renderer),
            figCapsStyle (renderer),
            dia_image_filename (image),
@@ -1183,7 +1170,6 @@ draw_image (DiaRenderer *self,
            (int) figCoord (renderer, point->y+height),
            (int) figCoord (renderer, point->x),
            (int) figCoord (renderer, point->y));
-  dia_locale_pop (&ctx);
 }
 
 
@@ -1274,9 +1260,9 @@ export_fig (DiagramData *data,
             const char  *diafilename,
             void        *user_data)
 {
-  DiaXfigRenderer *renderer;
-  DiaLocaleContext l_ctx;
   FILE *file;
+  DiaXfigRenderer *renderer;
+  char d_buf[DTOSTR_BUF_SIZE];
 
   file = g_fopen (filename, "w");
 
@@ -1292,17 +1278,15 @@ export_fig (DiagramData *data,
 
   renderer->file = file;
 
-  dia_locale_push_numeric (&l_ctx);
   fprintf (file, "#FIG 3.2\n");
   fprintf (file, (data->paper.is_portrait ? "Portrait\n" : "Landscape\n"));
   fprintf (file, "Center\n");
   fprintf (file, "Metric\n");
   fprintf (file, "%s\n", data->paper.name);
-  fprintf (file, "%f\n", data->paper.scaling * 100.0);
+  fprintf (file, "%s\n", xfig_dtostr (d_buf, data->paper.scaling * 100.0));
   fprintf (file, "Single\n"); /* Could we do layers this way? */
   fprintf (file, "-2\n");
   fprintf (file, "1200 2\n");
-  dia_locale_pop (&l_ctx);
 
   renderer->color_pass = TRUE;
 

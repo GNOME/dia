@@ -1,10 +1,8 @@
 sources = files(
-    'autocad_pal.c',
-    'autocad_pal.h',
-    'dia-dxf-renderer.c',
-    'dia-dxf-renderer.h',
-    'dxf-import.c',
-    'dxf.c',
+	'dxf.c',
+	'dxf-export.c',
+	'dxf-import.c',
+	'autocad_pal.c'
 )
 
 install_plugins_desc += {

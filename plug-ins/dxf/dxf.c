@@ -24,36 +24,11 @@
 
 #include <glib/gi18n-lib.h>
 
-#include "dia-dxf-renderer.h"
 #include "filter.h"
 #include "plug-ins.h"
 
+extern DiaExportFilter dxf_export_filter;
 extern DiaImportFilter dxf_import_filter;
-
-
-static gboolean
-dia_dxf_export (DiagramData *data,
-                DiaContext  *ctx,
-                const char  *filename,
-                const char  *diafilename,
-                void        *user_data)
-{
-  DiaDxfRenderer *renderer = g_object_new (DIA_DXF_TYPE_RENDERER, NULL);
-  gboolean result = dia_dxf_renderer_export (renderer, ctx, data, filename);
-
-  g_clear_object (&renderer);
-
-  return result;
-}
-
-
-static const char *extensions[] = { "dxf", NULL };
-DiaExportFilter dxf_export_filter = {
-  N_("Drawing Interchange File"),
-  extensions,
-  dia_dxf_export
-};
-
 
 static gboolean
 _plugin_can_unload (PluginInfo *info)

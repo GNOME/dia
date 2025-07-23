@@ -1,7 +1,6 @@
 sources = files(
-    'dia-pst-renderer.c',
-    'dia-pst-renderer.h',
-    'dia-pst.c',
+    'pstricks.c',
+    'render_pstricks.c',
 )
 
 install_plugins_desc += {
