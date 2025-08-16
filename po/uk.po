@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uk\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
-"POT-Creation-Date: 2025-06-23 00:42+0000\n"
-"PO-Revision-Date: 2025-06-23 11:03+0300\n"
+"POT-Creation-Date: 2025-08-16 11:59+0000\n"
+"PO-Revision-Date: 2025-08-16 17:42+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2025,7 +2025,6 @@ msgid "Couldn't open '%s': %s"
 msgstr "Не вдалося відкрити: «%s»: %s"
 
 #: app/sheet-editor/sheets_dialog_callbacks.c:1433
-#| msgid "Sheet"
 msgid "Write Sheet"
 msgstr "Записати аркуш"
 
@@ -2214,19 +2213,19 @@ msgstr ""
 "Стиль стрілки в кінці нових ліній. Натисніть для вибору стрілки або "
 "встановіть властивості за допомогою кнопки «Параметри…»"
 
-#: data/org.gnome.Dia.desktop.in:3 data/org.gnome.Dia.metainfo.xml.in:7
+#: data/org.gnome.Dia.desktop.in:2 data/org.gnome.Dia.metainfo.xml.in:7
 msgid "Dia"
 msgstr "Діа"
 
-#: data/org.gnome.Dia.desktop.in:4
+#: data/org.gnome.Dia.desktop.in:3
 msgid "Diagram Editor"
 msgstr "Редактор діаграм"
 
-#: data/org.gnome.Dia.desktop.in:5
+#: data/org.gnome.Dia.desktop.in:4
 msgid "Edit your Diagrams"
 msgstr "Редагування Ваших діаграм"
 
-#: data/org.gnome.Dia.desktop.in:16
+#: data/org.gnome.Dia.desktop.in:15
 msgid "graphic;diagram;vector;layout;"
 msgstr "graphic;diagram;vector;layout;графіка;діаграма;вектор;компонування;"
 
@@ -2771,6 +2770,36 @@ msgstr ""
 "%s\n"
 "%s\n"
 
+#: lib/dia-io.c:63
+#, c-format
+msgid "Unable to parse: %s"
+msgstr "не вдалося обробити %s"
+
+#: lib/dia-io.c:120 lib/dia-io.c:235
+#, c-format
+msgid "Unable to read: %s"
+msgstr "не вдалося прочитати: %s"
+
+#: lib/dia-io.c:144 lib/dia-io.c:335
+#, c-format
+msgid "Unable to close: %s"
+msgstr "Не вдалося закрити: %s"
+
+#: lib/dia-io.c:210 lib/dia-io.c:423
+#, c-format
+msgid "‘%s’ is a directory"
+msgstr "«%s» є каталогом"
+
+#: lib/dia-io.c:216 lib/dia-io.c:429
+#, c-format
+msgid "Unable to open: %s"
+msgstr "Не вдалося відкрити: %s"
+
+#: lib/dia-io.c:311
+#, c-format
+msgid "Unable to write: %s"
+msgstr "Не вдалося записати: %s"
+
 #: lib/diapatternselector.c:95 lib/prop_pixbuf.c:325
 msgid "Yes"
 msgstr "Так"
@@ -2787,6 +2816,11 @@ msgstr "Діагонально"
 #: lib/diapatternselector.c:120
 msgid "Radial"
 msgstr "Радіально"
+
+#: lib/diasvgrenderer.c:193
+#| msgid "Export"
+msgid "SVG Export"
+msgstr "Експортування до SVG"
 
 #: lib/dia_xml.c:221
 #, c-format
@@ -3161,24 +3195,20 @@ msgstr ""
 "Ви не зможете ним скористатися."
 
 #: lib/sheet.c:212
-#| msgid "Sheet"
 msgid "Load Sheet"
 msgstr "Завантажити аркуш"
 
 #: lib/sheet.c:235
 #, c-format
-#| msgid "Saving file '%s' failed."
 msgid "Loading Sheet from %s failed"
 msgstr "Не вдалося завантажити аркуш з %s"
 
 #: lib/sheet.c:252
-#| msgid "Couldn't find shape %d"
 msgid "Could not find sheet namespace"
 msgstr "Не вдалося знайти простір назв аркуша"
 
 #: lib/sheet.c:259
 #, c-format
-#| msgid "root element was '%s' -- expecting 'svg'."
 msgid "root element was %s — expecting sheet"
 msgstr "кореневий елемент був «%s», мало бути — «sheet»"
 
@@ -3528,6 +3558,17 @@ msgstr "Завантажувач нетипових рядків XML"
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr "ВНУТРІШНЄ: Нетипові лінії: некоректний тип лінії у об’єкті LineInfo."
 
+#: objects/custom_lines/line_info.c:333
+#| msgid "Load Custom Shape"
+msgid "Load Custom Line"
+msgstr "Завантажити нетипову лінію"
+
+#: objects/custom_lines/line_info.c:343
+#, c-format
+#| msgid "Loading Custom Shape from %s failed"
+msgid "Loading Custom Line from %s failed"
+msgstr "Не вдалося завантажити нетипову лінію з %s"
+
 #: objects/custom/shape_info.c:175
 #, c-format
 msgid ""
@@ -3538,7 +3579,6 @@ msgstr ""
 "svg:path data мають починатися з moveto."
 
 #: objects/custom/shape_info.c:718
-#| msgid "Load at Startup"
 msgid "Load Custom Shape"
 msgstr "Завантажити нетипову форму"
 
@@ -3548,18 +3588,15 @@ msgid "Loading Custom Shape from %s failed"
 msgstr "Не вдалося завантажити нетипову форму з %s"
 
 #: objects/custom/shape_info.c:746
-#| msgid "Couldn't find shape %d"
 msgid "could not find shape namespace"
 msgstr "не вдалося знайти простір назв форми"
 
 #: objects/custom/shape_info.c:754
-#| msgid "Couldn't find shape %d"
 msgid "could not find svg namespace"
 msgstr "не вдалося знайти простір назв svg"
 
 #: objects/custom/shape_info.c:762
 #, c-format
-#| msgid "root element was '%s' -- expecting 'svg'."
 msgid "root element was %s — expecting shape"
 msgstr "кореневий елемент був «%s», мало бути — «shape»"
 
@@ -6388,7 +6425,7 @@ msgstr ""
 "Довжина рядка зображення перевищує максимальну кількість комірок масиву.\n"
 "Зображення не експортовано в CGM."
 
-#: plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
+#: plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dia-dxf-renderer.c:593
 #: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1384
 #: plug-ins/pstricks/render_pstricks.c:999 plug-ins/vdx/vdx-export.c:1781
 #: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
@@ -6417,26 +6454,26 @@ msgstr "Фільтрування скрипту показу Діа"
 msgid "Broken file?"
 msgstr "Файл пошкоджено?"
 
-#: plug-ins/dxf/dxf.c:52
-msgid "Drawing Interchange File import and export filters"
-msgstr "Фільтр експорту/імпорту DIF (Drawing Interchange File)"
-
-#: plug-ins/dxf/dxf-export.c:666 plug-ins/dxf/dxf-import.c:1429
+#: plug-ins/dxf/dia-dxf.c:52 plug-ins/dxf/dia-dxf-import.c:1441
 msgid "Drawing Interchange File"
 msgstr "DIF (формат файла обміну зображеннями)"
 
-#: plug-ins/dxf/dxf-import.c:1327 plug-ins/wpg/wpg-import.c:519
+#: plug-ins/dxf/dia-dxf.c:80
+msgid "Drawing Interchange File import and export filters"
+msgstr "Фільтр експорту/імпорту DIF (Drawing Interchange File)"
+
+#: plug-ins/dxf/dia-dxf-import.c:1343 plug-ins/wpg/wpg-import.c:519
 #: plug-ins/xfig/xfig-import.c:1322
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Не вдалося відкрити: «%s» для зчитування.\n"
 
-#: plug-ins/dxf/dxf-import.c:1338
+#: plug-ins/dxf/dia-dxf-import.c:1354
 #, c-format
 msgid "read_dxf_codes failed on '%s'"
 msgstr "помилка read_dxf_codes у «%s»"
 
-#: plug-ins/dxf/dxf-import.c:1345
+#: plug-ins/dxf/dia-dxf-import.c:1361
 #, c-format
 msgid "Binary DXF from '%s' not supported"
 msgstr "Підтримки двійкових DXF з «%s» не передбачено"
@@ -6829,7 +6866,6 @@ msgid "Dia shape export filter"
 msgstr "Фільтр експорту файлів форми Діа"
 
 #: plug-ins/shape/shape-export.c:296
-#| msgid "Export"
 msgid "Shape Export"
 msgstr "Експортування форми"
 
@@ -6942,9 +6978,6 @@ msgstr "Не вдалося керувати стороннім типом об'
 
 #: plug-ins/vdx/vdx-import.c:2966
 #, c-format
-#| msgid ""
-#| "VDX parser error for %s\n"
-#| "%s"
 msgid "VDX parser error for %s"
 msgstr "Помилка обробника VDX на %s"
 
@@ -7265,12 +7298,10 @@ msgid "Export through XSLT"
 msgstr "Експорт через XSLT"
 
 #: plug-ins/xslt/dia-xslt-dialogue.ui:14
-#| msgid "From:"
 msgid "_From"
 msgstr "_Від"
 
 #: plug-ins/xslt/dia-xslt-dialogue.ui:42
-#| msgid "_Top"
 msgid "_To"
 msgstr "_До"
 
@@ -7280,12 +7311,11 @@ msgid ""
 "Name and stylesheet attributes are required for the implementation element "
 "%s in XSLT plugin configuration file"
 msgstr ""
-"Має бути вказано назву та таблицю стилів для елемента реалізації %s у файлі"
-" налаштувань додатка XSLT"
+"Має бути вказано назву та таблицю стилів для елемента реалізації %s у файлі "
+"налаштувань додатка XSLT"
 
 #: plug-ins/xslt/dia-xslt.c:260
 #, c-format
-#| msgid "Could not create per-user Dia configuration directory"
 msgid "Couldn't parse XSLT plugin's configuration file %s"
 msgstr "Не вдалося обробити файл налаштувань додатка XSLT %s"
 
@@ -7300,8 +7330,8 @@ msgid ""
 "'name' and 'stylesheet' attributes are required for the language element %s "
 "in XSLT plugin configuration file"
 msgstr ""
-"Потрібні атрибути «name» і «stylesheet» для елемента мови %s у файлі"
-" налаштувань додатка XSLT"
+"Потрібні атрибути «name» і «stylesheet» для елемента мови %s у файлі "
+"налаштувань додатка XSLT"
 
 #: plug-ins/xslt/dia-xslt.c:318
 #, c-format
@@ -7316,8 +7346,8 @@ msgstr ""
 msgid ""
 "Wrong node name %s in XSLT plugin configuration file, 'language' expected"
 msgstr ""
-"Помилкова назва вузла %s у файлі налаштувань додатка XSLT, мало бути вказано"
-" «language»"
+"Помилкова назва вузла %s у файлі налаштувань додатка XSLT, мало бути вказано "
+"«language»"
 
 #: plug-ins/xslt/dia-xslt.c:375
 msgid "No valid configuration files found for the XSLT plugin; not loading."
@@ -7328,44 +7358,35 @@ msgstr ""
 #: plug-ins/xslt/dia-xslt.c:422 plug-ins/xslt/dia-xslt.c:568
 #: plug-ins/xslt/dia-xslt.c:578
 #, c-format
-#| msgid "Error while saving result: %s\n"
 msgid "Error while saving %s: %s"
 msgstr "Помилка під час спроби зберегти %s: %s"
 
 #: plug-ins/xslt/dia-xslt.c:472
 #, c-format
-#| msgid "Can't open output file %s: %s\n"
 msgid "Can't open output file %s: %s"
 msgstr "Не вдалося відкрити файл виведення %s: %s"
 
 #: plug-ins/xslt/dia-xslt.c:487
 #, c-format
-#| msgid ""
-#| "Error while parsing %s\n"
-#| "%s"
 msgid "Error while parsing: %s"
 msgstr "Помилка під час обробки %s"
 
 #: plug-ins/xslt/dia-xslt.c:500 plug-ins/xslt/dia-xslt.c:520
 #, c-format
-#| msgid "Error while parsing stylesheet: %s\n"
 msgid "Error while parsing stylesheet: %s"
 msgstr "Помилка при аналізі стильової таблиці: %s"
 
 #: plug-ins/xslt/dia-xslt.c:509 plug-ins/xslt/dia-xslt.c:531
 #, c-format
-#| msgid "Error while applying stylesheet: %s\n"
 msgid "Error while applying stylesheet: %s"
 msgstr "Помилка при застосуванні стильової таблиці: %s"
 
 #: plug-ins/xslt/dia-xslt.c:542 plug-ins/xslt/dia-xslt.c:550
 #, c-format
-#| msgid "Error while saving result: %s\n"
 msgid "Error while saving result: %s"
 msgstr "Помилка під час спроби збереження результату: %s"
 
 #: plug-ins/xslt/dia-xslt.c:669
-#| msgid "Plugins"
 msgid "XSLT Plugin"
 msgstr "Додаток XSLT"
 
