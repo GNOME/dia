@@ -60,8 +60,10 @@ lib/dia-line-style-selector.c
 lib/dia_dirs.c
 lib/diagramdata.c
 lib/dia_image.c
+lib/dia-io.c
 lib/diaoptionmenu.c
 lib/diapatternselector.c
+lib/diasvgrenderer.c
 lib/dia_xml.c
 lib/filter.c
 lib/font.c
@@ -101,6 +103,7 @@ objects/custom/custom.c
 objects/custom/custom_object.c
 objects/custom_lines/custom_lines.c
 objects/custom_lines/custom_linetypes.c
+objects/custom_lines/line_info.c
 objects/custom/shape_info.c
 objects/Database/compound.c
 objects/Database/database.c
@@ -209,9 +212,9 @@ plug-ins/drs/dia-render-script-import.c
 plug-ins/drs/dia-render-script-object.c
 plug-ins/drs/dia-render-script-renderer.c
 plug-ins/drs/dia-render-script-renderer.h
-plug-ins/dxf/dxf.c
-plug-ins/dxf/dxf-export.c
-plug-ins/dxf/dxf-import.c
+plug-ins/dxf/dia-dxf.c
+plug-ins/dxf/dia-dxf-import.c
+plug-ins/dxf/dia-dxf-renderer.c
 plug-ins/hpgl/hpgl.c
 plug-ins/layout/layout.cpp
 plug-ins/metapost/metapost.c
