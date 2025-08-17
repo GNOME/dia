@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.96.1\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
-"POT-Creation-Date: 2025-06-23 00:42+0000\n"
-"PO-Revision-Date: 2025-07-01 08:14+0800\n"
+"POT-Creation-Date: 2025-08-16 15:07+0000\n"
+"PO-Revision-Date: 2025-08-17 08:18+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -2193,19 +2193,19 @@ msgid ""
 "parameters with Details…"
 msgstr "新直线终止端的箭头样式。点击可以挑选箭头，或是用“细节…”设定箭头参数。"
 
-#: data/org.gnome.Dia.desktop.in:3 data/org.gnome.Dia.metainfo.xml.in:7
+#: data/org.gnome.Dia.desktop.in:2 data/org.gnome.Dia.metainfo.xml.in:7
 msgid "Dia"
 msgstr "Dia"
 
-#: data/org.gnome.Dia.desktop.in:4
+#: data/org.gnome.Dia.desktop.in:3
 msgid "Diagram Editor"
 msgstr "图表编辑器"
 
-#: data/org.gnome.Dia.desktop.in:5
+#: data/org.gnome.Dia.desktop.in:4
 msgid "Edit your Diagrams"
 msgstr "编辑您的图表"
 
-#: data/org.gnome.Dia.desktop.in:16
+#: data/org.gnome.Dia.desktop.in:15
 msgid "graphic;diagram;vector;layout;"
 msgstr "graphic;diagram;vector;layout;图形;图表;矢量;向量;布局;"
 
@@ -2746,6 +2746,36 @@ msgstr ""
 "%s\n"
 "%s\n"
 
+#: lib/dia-io.c:63
+#, c-format
+msgid "Unable to parse: %s"
+msgstr "无法解析：%s"
+
+#: lib/dia-io.c:120 lib/dia-io.c:235
+#, c-format
+msgid "Unable to read: %s"
+msgstr "无法读取：%s"
+
+#: lib/dia-io.c:144 lib/dia-io.c:335
+#, c-format
+msgid "Unable to close: %s"
+msgstr "无法关闭：%s"
+
+#: lib/dia-io.c:210 lib/dia-io.c:423
+#, c-format
+msgid "‘%s’ is a directory"
+msgstr "“%s”是一个目录"
+
+#: lib/dia-io.c:216 lib/dia-io.c:429
+#, c-format
+msgid "Unable to open: %s"
+msgstr "无法打开：%s"
+
+#: lib/dia-io.c:311
+#, c-format
+msgid "Unable to write: %s"
+msgstr "无法写入：%s"
+
 #: lib/diapatternselector.c:95 lib/prop_pixbuf.c:325
 msgid "Yes"
 msgstr "是"
@@ -2762,6 +2792,10 @@ msgstr "对角线"
 #: lib/diapatternselector.c:120
 msgid "Radial"
 msgstr "径向"
+
+#: lib/diasvgrenderer.c:193
+msgid "SVG Export"
+msgstr "SVG 导出"
 
 #: lib/dia_xml.c:221
 #, c-format
@@ -3490,6 +3524,15 @@ msgstr "定制 XML 线形载入器"
 #: objects/custom_lines/custom_linetypes.c:260
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr "INTERNAL：CustomLines：LineInfo 对象中的非法线类型。"
+
+#: objects/custom_lines/line_info.c:333
+msgid "Load Custom Line"
+msgstr "加载自定义线条"
+
+#: objects/custom_lines/line_info.c:343
+#, c-format
+msgid "Loading Custom Line from %s failed"
+msgstr "从 %s 加载自定义线条失败"
 
 #: objects/custom/shape_info.c:175
 #, c-format
@@ -6345,7 +6388,7 @@ msgstr ""
 "影像高度大于最大储存格高。\n"
 "影像未导出至 CGM。"
 
-#: plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
+#: plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dia-dxf-renderer.c:593
 #: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1384
 #: plug-ins/pstricks/render_pstricks.c:999 plug-ins/vdx/vdx-export.c:1781
 #: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
@@ -6374,26 +6417,26 @@ msgstr "DiaRenderScript 过滤器"
 msgid "Broken file?"
 msgstr "文件损坏？"
 
-#: plug-ins/dxf/dxf.c:52
-msgid "Drawing Interchange File import and export filters"
-msgstr "制图交换文件（DIF）导入/导出过滤器"
-
-#: plug-ins/dxf/dxf-export.c:666 plug-ins/dxf/dxf-import.c:1429
+#: plug-ins/dxf/dia-dxf.c:52 plug-ins/dxf/dia-dxf-import.c:1441
 msgid "Drawing Interchange File"
 msgstr "制图交换文件（DIF）"
 
-#: plug-ins/dxf/dxf-import.c:1327 plug-ins/wpg/wpg-import.c:519
+#: plug-ins/dxf/dia-dxf.c:80
+msgid "Drawing Interchange File import and export filters"
+msgstr "制图交换文件（DIF）导入/导出过滤器"
+
+#: plug-ins/dxf/dia-dxf-import.c:1343 plug-ins/wpg/wpg-import.c:519
 #: plug-ins/xfig/xfig-import.c:1322
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "无法打开“%s”进行读取。\n"
 
-#: plug-ins/dxf/dxf-import.c:1338
+#: plug-ins/dxf/dia-dxf-import.c:1354
 #, c-format
 msgid "read_dxf_codes failed on '%s'"
 msgstr "文件“%s”read_dxf_codes 失败"
 
-#: plug-ins/dxf/dxf-import.c:1345
+#: plug-ins/dxf/dia-dxf-import.c:1361
 #, c-format
 msgid "Binary DXF from '%s' not supported"
 msgstr "不支持来自“%s”的二进制的 DXF"
