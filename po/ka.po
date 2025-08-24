@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
-"POT-Creation-Date: 2025-06-23 00:42+0000\n"
-"PO-Revision-Date: 2025-06-27 04:49+0200\n"
+"POT-Creation-Date: 2025-08-24 10:37+0000\n"
+"PO-Revision-Date: 2025-08-24 14:07+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: \n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 
 #. This is not an errror
 #: app/app_procs.c:164
@@ -2083,19 +2083,19 @@ msgid ""
 "parameters with Details…"
 msgstr ""
 
-#: data/org.gnome.Dia.desktop.in:3 data/org.gnome.Dia.metainfo.xml.in:7
+#: data/org.gnome.Dia.desktop.in:2 data/org.gnome.Dia.metainfo.xml.in:7
 msgid "Dia"
 msgstr "დია"
 
-#: data/org.gnome.Dia.desktop.in:4
+#: data/org.gnome.Dia.desktop.in:3
 msgid "Diagram Editor"
 msgstr ""
 
-#: data/org.gnome.Dia.desktop.in:5
+#: data/org.gnome.Dia.desktop.in:4
 msgid "Edit your Diagrams"
 msgstr ""
 
-#: data/org.gnome.Dia.desktop.in:16
+#: data/org.gnome.Dia.desktop.in:15
 msgid "graphic;diagram;vector;layout;"
 msgstr ""
 
@@ -2620,6 +2620,36 @@ msgid ""
 "%s\n"
 msgstr ""
 
+#: lib/dia-io.c:63
+#, c-format
+msgid "Unable to parse: %s"
+msgstr "დამუშავების შეცდომა: %s"
+
+#: lib/dia-io.c:120 lib/dia-io.c:235
+#, c-format
+msgid "Unable to read: %s"
+msgstr ""
+
+#: lib/dia-io.c:144 lib/dia-io.c:335
+#, c-format
+msgid "Unable to close: %s"
+msgstr ""
+
+#: lib/dia-io.c:210 lib/dia-io.c:423
+#, c-format
+msgid "‘%s’ is a directory"
+msgstr ""
+
+#: lib/dia-io.c:216 lib/dia-io.c:429
+#, c-format
+msgid "Unable to open: %s"
+msgstr ""
+
+#: lib/dia-io.c:311
+#, c-format
+msgid "Unable to write: %s"
+msgstr ""
+
 #: lib/diapatternselector.c:95 lib/prop_pixbuf.c:325
 msgid "Yes"
 msgstr "დიახ"
@@ -2636,6 +2666,10 @@ msgstr "დიაგონალური"
 #: lib/diapatternselector.c:120
 msgid "Radial"
 msgstr "რადიალური"
+
+#: lib/diasvgrenderer.c:193
+msgid "SVG Export"
+msgstr "SVG-ში გატანა"
 
 #: lib/dia_xml.c:221
 #, c-format
@@ -3345,6 +3379,15 @@ msgstr ""
 
 #: objects/custom_lines/custom_linetypes.c:260
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
+msgstr ""
+
+#: objects/custom_lines/line_info.c:333
+msgid "Load Custom Line"
+msgstr ""
+
+#: objects/custom_lines/line_info.c:343
+#, c-format
+msgid "Loading Custom Line from %s failed"
 msgstr ""
 
 #: objects/custom/shape_info.c:175
@@ -6194,7 +6237,7 @@ msgid ""
 "Image not exported to CGM."
 msgstr ""
 
-#: plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
+#: plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dia-dxf-renderer.c:593
 #: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1384
 #: plug-ins/pstricks/render_pstricks.c:999 plug-ins/vdx/vdx-export.c:1781
 #: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
@@ -6223,26 +6266,26 @@ msgstr ""
 msgid "Broken file?"
 msgstr ""
 
-#: plug-ins/dxf/dxf.c:52
-msgid "Drawing Interchange File import and export filters"
-msgstr ""
-
-#: plug-ins/dxf/dxf-export.c:666 plug-ins/dxf/dxf-import.c:1429
+#: plug-ins/dxf/dia-dxf.c:52 plug-ins/dxf/dia-dxf-import.c:1441
 msgid "Drawing Interchange File"
 msgstr ""
 
-#: plug-ins/dxf/dxf-import.c:1327 plug-ins/wpg/wpg-import.c:519
+#: plug-ins/dxf/dia-dxf.c:80
+msgid "Drawing Interchange File import and export filters"
+msgstr ""
+
+#: plug-ins/dxf/dia-dxf-import.c:1343 plug-ins/wpg/wpg-import.c:519
 #: plug-ins/xfig/xfig-import.c:1322
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr ""
 
-#: plug-ins/dxf/dxf-import.c:1338
+#: plug-ins/dxf/dia-dxf-import.c:1354
 #, c-format
 msgid "read_dxf_codes failed on '%s'"
 msgstr ""
 
-#: plug-ins/dxf/dxf-import.c:1345
+#: plug-ins/dxf/dia-dxf-import.c:1361
 #, c-format
 msgid "Binary DXF from '%s' not supported"
 msgstr ""
@@ -7118,7 +7161,6 @@ msgid "Error while saving result: %s"
 msgstr ""
 
 #: plug-ins/xslt/dia-xslt.c:669
-#| msgid "Plugins"
 msgid "XSLT Plugin"
 msgstr "XSLT დამატება"
 
