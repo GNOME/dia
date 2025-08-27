@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
 "POT-Creation-Date: 2020-07-21 01:11+0000\n"
-"PO-Revision-Date: 2025-02-27 16:50+0000\n"
+"PO-Revision-Date: 2025-08-27 16:50+0000\n"
 "Last-Translator: Jaume Jorba <jaume.jorba@gmail.com>, 2020\n"
 "Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -6770,7 +6770,7 @@ msgstr "Gira en sentit antihorari"
 
 #: plug-ins/python/dia_rotate.py:46
 msgid "Rotation around (0,0). Rotation angle in degrees:"
-msgstr "Gir al volant (0,0). Angle de rotació en graus:"
+msgstr "Gir al voltant (0,0). Angle de rotació en graus:"
 
 #: plug-ins/python/dia_rotate.py:125
 msgid "Simple _Rotation"
@@ -6780,7 +6780,7 @@ msgstr "_Gir senzill"
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/diadissect.py:166
 msgid "Dissect"
-msgstr "Dissipa"
+msgstr "Dissecciona"
 
 #. dia.register_import("Cpp via GCC_XML", "cpp", ImportCpp)
 #: plug-ins/python/diagx.py:405
@@ -7443,7 +7443,7 @@ msgstr "AADL"
 
 #: sheets/AADL.sheet:4
 msgid "AADL Shapes"
-msgstr "Formes ADDL"
+msgstr "Formes AADL"
 
 #: sheets/AADL.sheet:13
 msgid "Thread"
@@ -8077,7 +8077,7 @@ msgstr "Bobina alineada horitzontalment"
 
 #: sheets/Circuit.sheet:13
 msgid "Vertically aligned inductor"
-msgstr "Bobina alineada horitzontalment"
+msgstr "Bobina alineada verticalment"
 
 #: sheets/Circuit.sheet:16
 msgid "Horizontally aligned resistor"
@@ -8093,7 +8093,7 @@ msgstr "Bobina alineada horitzontalment (Europeu)"
 
 #: sheets/Circuit.sheet:26
 msgid "Vertically aligned inductor (European)"
-msgstr "Bobina alineada horitzontalment (Europeu)"
+msgstr "Bobina alineada verticalment (Europeu)"
 
 #: sheets/Circuit.sheet:29
 msgid "Horizontally aligned resistor (European)"
@@ -8397,7 +8397,7 @@ msgstr "Targeta adaptadora d'ordinador"
 
 #: sheets/ciscohub.sheet:3
 msgid "Cisco — Switch"
-msgstr "Cisco — Commutació"
+msgstr "Cisco — Commutador"
 
 #: sheets/ciscohub.sheet:4
 msgid "Router and switch shapes by Cisco"
@@ -10107,7 +10107,7 @@ msgstr "Entitat externa alternativa"
 
 #: sheets/Gane_and_Sarson.sheet:15
 msgid "Data store"
-msgstr "Emmagatzemament de les dades"
+msgstr "Magatzem de dades"
 
 #: sheets/Gane_and_Sarson.sheet:18
 msgid "External entity"
@@ -10892,7 +10892,7 @@ msgstr "Sistema de commutació modular"
 
 #: sheets/network.sheet:36
 msgid "24 Port Patch Panel"
-msgstr "Tauler pedaç de 24 ports"
+msgstr "Tauler de connexions de 24 ports"
 
 #: sheets/network.sheet:39
 msgid "RJ45 wall-plug"
@@ -11088,7 +11088,7 @@ msgstr "Comandament indirecte per transmissió pneumàtica"
 
 #: sheets/SADT.sheet:3
 msgid "SADT/IDEF0"
-msgstr "SADT/IDEFO"
+msgstr "SADT/IDEF0"
 
 #: sheets/SADT.sheet:4
 msgid "Objects to design SADT diagrams"
@@ -11212,7 +11212,7 @@ msgstr "Aplicació client del Sybase"
 
 #: sheets/sybase.sheet:22
 msgid "Replication server manager"
-msgstr "Gestor del servidor de duplicat"
+msgstr "Gestor del servidor de replicació"
 
 #: sheets/UML.sheet:4
 msgid "Editor for UML Static Structure Diagrams"
