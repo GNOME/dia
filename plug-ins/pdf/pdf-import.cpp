@@ -396,7 +396,7 @@ public :
     if ((pf = strstr (family, " Oblique")) != NULL)
       *pf = 0;
 
-    const double *fm = f->getFontMatrix();
+    const auto& fm = f->getFontMatrix();
     double fsize = state->getTransformedFontSize();
     if (fm[0] != 0)
       fsize *= fabs(fm[3] / fm[0]);
