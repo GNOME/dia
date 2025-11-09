@@ -776,7 +776,11 @@ void
 DiaOutputDev::drawString(GfxState *state, GooString *s)
 {
   Color text_color = this->fill_color;
+#if POPPLER_VERSION_MAJOR > 25 || (POPPLER_VERSION_MAJOR == 25 && POPPLER_VERSION_MINOR >= 10)
+  int len = s->size();
+#else
   int len = s->getLength();
+#endif
   DiaObject *obj;
   gchar *utf8 = NULL;
   DiaFont *font;
