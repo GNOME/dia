@@ -2494,16 +2494,12 @@ msgid "Sheet"
 msgstr "Φύλλο εργασίας"
 
 #: data/ui/sheets-main-dialog.ui:7
-#, fuzzy
-#| msgid "Sheets and Objects…"
 msgid "Sheets and Objects"
-msgstr "Φύλλα εργασίας και αντικείμενα…"
+msgstr "Φύλλα εργασίας και αντικείμενα"
 
 #: data/ui/sheets-main-dialog.ui:58
-#, fuzzy
-#| msgid "Never"
 msgid "_Revert"
-msgstr "Ποτέ"
+msgstr "Επανα_φορά"
 
 #: data/ui/sheets-main-dialog.ui:132
 msgid "_Up"
@@ -2566,7 +2562,7 @@ msgstr "Γραμμές"
 #: lib/arrows.c:2274
 msgctxt "Arrow"
 msgid "Hollow Triangle"
-msgstr "Κούφιο τρίγωνο"
+msgstr "Κοίλο τρίγωνο"
 
 #: lib/arrows.c:2275
 msgctxt "Arrow"
@@ -2601,7 +2597,7 @@ msgstr "Μισό βέλος"
 #: lib/arrows.c:2281
 msgctxt "Arrow"
 msgid "Slashed Cross"
-msgstr "Πλάγιος Σταυρός"
+msgstr "Σταυρός με γραμμή"
 
 #: lib/arrows.c:2282
 msgctxt "Arrow"
@@ -2611,7 +2607,7 @@ msgstr "Γεμάτη έλλειψη"
 #: lib/arrows.c:2283
 msgctxt "Arrow"
 msgid "Hollow Ellipse"
-msgstr "Κούφια έλλειψη"
+msgstr "Κοίλη έλλειψη"
 
 #: lib/arrows.c:2284
 msgctxt "Arrow"
@@ -2621,7 +2617,7 @@ msgstr "Γεμάτο σημείο"
 #: lib/arrows.c:2285
 msgctxt "Arrow"
 msgid "Dimension Origin"
-msgstr "Αρχική διάσταση"
+msgstr "Αρχή διάστασης"
 
 #: lib/arrows.c:2286
 msgctxt "Arrow"
@@ -2631,7 +2627,7 @@ msgstr "Κενό σημείο"
 #: lib/arrows.c:2287
 msgctxt "Arrow"
 msgid "Double Hollow Triangle"
-msgstr "Διπλό κούφιο τρίγωνο"
+msgstr "Διπλό κοίλο τρίγωνο"
 
 #: lib/arrows.c:2288
 msgctxt "Arrow"
@@ -2807,32 +2803,32 @@ msgstr ""
 #: lib/dia-io.c:63
 #, c-format
 msgid "Unable to parse: %s"
-msgstr ""
+msgstr "Αδυναμία ανάλυσης: %s"
 
 #: lib/dia-io.c:120 lib/dia-io.c:235
 #, c-format
 msgid "Unable to read: %s"
-msgstr ""
+msgstr "Αδυναμία ανάγνωσης: %s"
 
 #: lib/dia-io.c:144 lib/dia-io.c:335
 #, c-format
 msgid "Unable to close: %s"
-msgstr ""
+msgstr "Αδυναμία κλεισίματος: %s"
 
 #: lib/dia-io.c:210 lib/dia-io.c:423
 #, c-format
 msgid "‘%s’ is a directory"
-msgstr ""
+msgstr "Το ‘%s’ είναι κατάλογος"
 
 #: lib/dia-io.c:216 lib/dia-io.c:429
 #, c-format
 msgid "Unable to open: %s"
-msgstr ""
+msgstr "Αδυναμία ανοίγματος: %s"
 
 #: lib/dia-io.c:311
 #, c-format
 msgid "Unable to write: %s"
-msgstr ""
+msgstr "Αδυναμία εγγραφής: %s"
 
 #: lib/diapatternselector.c:95 lib/prop_pixbuf.c:325
 msgid "Yes"
@@ -2852,10 +2848,8 @@ msgid "Radial"
 msgstr "Ακτινικά"
 
 #: lib/diasvgrenderer.c:193
-#, fuzzy
-#| msgid "Export"
 msgid "SVG Export"
-msgstr "Εξαγωγή"
+msgstr "Εξαγωγή SVG"
 
 #: lib/dia_xml.c:221
 #, c-format
@@ -2864,7 +2858,7 @@ msgstr "Άγνωστος τύπος DataNode '%s'"
 
 #: lib/dia_xml.c:240
 msgid "Taking int value of non-int node."
-msgstr "Λήψη τιμής int από μη κόμβο μη int."
+msgstr "Λήψη τιμής int από κόμβο μη int."
 
 #: lib/dia_xml.c:416
 msgid "Taking point value of non-point node."
@@ -2887,7 +2881,7 @@ msgstr "Εσφαλμένη τιμή σημείου y \"%s\" %f· απορρίπ�
 
 #: lib/dia_xml.c:462
 msgid "Taking bezpoint value of non-point node."
-msgstr "Λήψη τιμής σημείου bez μη σημειακού κόμβου."
+msgstr "Λήψη τιμής σημείου bez από μη σημειακό κόμβο."
 
 #: lib/dia_xml.c:480
 msgid "Error parsing bezpoint p1."
@@ -2990,7 +2984,7 @@ msgstr "Αυτόματη δρομολόγηση"
 
 #: lib/persistence.c:336
 msgid "Persistence"
-msgstr "Επιμονή"
+msgstr "Μονιμότητα"
 
 #: lib/plug-ins.c:114
 msgid "???"
@@ -3011,7 +3005,7 @@ msgstr "Η κλήση dia_plugin_init() απέτυχε"
 
 #: lib/plug-ins.c:424 lib/plug-ins.c:597
 msgid "Plugin Configuration"
-msgstr "Ρύθμιση προσθέτου"
+msgstr "Ρύθμιση προσθέτων"
 
 #: lib/propdialogs.c:374 objects/UML/association.c:243 objects/UML/object.c:142
 msgid "General"
@@ -3019,7 +3013,7 @@ msgstr "Γενικά"
 
 #: lib/propdialogs.c:375
 msgid "Meta"
-msgstr "Μετά"
+msgstr "Μεταδεδομένα"
 
 #: lib/prop_dict.c:43
 msgid "Author"
@@ -3031,7 +3025,7 @@ msgstr "Ημερομηνία δημιουργίας"
 
 #: lib/prop_dict.c:46
 msgid "Modification date"
-msgstr "Ημερομηνία μετατροπής"
+msgstr "Ημερομηνία τροποποίησης"
 
 #: lib/prop_dict.c:47
 msgid "URL"
@@ -3164,11 +3158,11 @@ msgstr "Προσαρμογή κειμένου"
 
 #: lib/properties.h:735 lib/standard-path.c:140
 msgid "Pattern"
-msgstr "Υπόδειγμα"
+msgstr "Μοτίβο"
 
 #: lib/prop_inttypes.c:562
 msgid "Property cast from int to enum out of range"
-msgstr "Η αναζήτηση ιδιότητας από int μέχρι enum εκτός πεδίου"
+msgstr "Μετατροπή ιδιότητας από int σε enum εκτός εύρους"
 
 #: lib/proplist.c:160
 #, c-format
@@ -3181,7 +3175,7 @@ msgid ""
 "Failed to load image form diagram:\n"
 "%s"
 msgstr ""
-"Αποτυχία φόρτωσης εικόνας μορφής διαγράμματος:\n"
+"Αποτυχία φόρτωσης εικόνας από το διάγραμμα:\n"
 "%s"
 
 #: lib/prop_pixbuf.c:244
@@ -3195,7 +3189,7 @@ msgstr ""
 
 #: lib/prop_pixbuf.c:352
 msgid "Cant create image data from scratch!"
-msgstr "Αδυναμία δημιουργίας δεδομένων εικόνας από το πρόχειρο!"
+msgstr "Αδυναμία δημιουργίας δεδομένων εικόνας από το μηδέν!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
 #: lib/prop_sdarray_widget.c:576 objects/chronogram/chronoline.c:162
@@ -3205,7 +3199,7 @@ msgstr "Παράμετροι"
 
 #: lib/prop_text.c:163
 msgid "Choose a file..."
-msgstr ""
+msgstr "Επιλογή αρχείου..."
 
 #: lib/prop_text.c:510
 #, c-format
@@ -3220,37 +3214,31 @@ msgid ""
 "DiaObject '%s' needed in sheet '%s' was not found.\n"
 "It will not be available for use."
 msgstr ""
-"Δεν βρέθηκε στο φύλλο '%s' το απαραίτητο αντικείμενοDia '%s'.\n"
+"Δεν βρέθηκε στο φύλλο '%s' το απαραίτητο αντικείμενο Dia '%s'.\n"
 "Δεν θα είναι διαθέσιμο για χρήση."
 
 #: lib/sheet.c:212
-#, fuzzy
-#| msgid "Sheet"
 msgid "Load Sheet"
-msgstr "Φύλλο εργασίας"
+msgstr "Φόρτωση φύλλου"
 
 #: lib/sheet.c:235
-#, fuzzy, c-format
-#| msgid "Saving file '%s' failed."
+#, c-format
 msgid "Loading Sheet from %s failed"
-msgstr "Αποτυχία αποθήκευσης αρχείου '%s'."
+msgstr "Η φόρτωση φύλλου από το %s απέτυχε"
 
 #: lib/sheet.c:252
-#, fuzzy
-#| msgid "Couldn't find shape %d"
 msgid "Could not find sheet namespace"
-msgstr "Αδυναμία εύρεσης σχήματος %d"
+msgstr "Αδυναμία εύρεσης χώρου ονομάτων φύλλου"
 
 #: lib/sheet.c:259
-#, fuzzy, c-format
-#| msgid "root element was '%s' -- expecting 'svg'."
+#, c-format
 msgid "root element was %s — expecting sheet"
-msgstr "το στοιχείο ρίζας ήταν '%s' -- αναμένεται 'svg'."
+msgstr "το ριζικό στοιχείο ήταν %s — αναμενόταν sheet"
 
 #: lib/sheet.c:324
 #, c-format
 msgid "No <name> and/or <contents> in sheet %s — skipping"
-msgstr ""
+msgstr "Δεν υπάρχει <name> και/ή <contents> στο φύλλο %s — παράλειψη"
 
 #: lib/sheet.c:347
 #, c-format
@@ -3262,16 +3250,16 @@ msgid ""
 "or remove '%s', using the 'Sheets and Objects' dialog."
 msgstr ""
 "Το φύλλο συστήματος '%s' φαίνεται να είναι πιο πρόσφατο από την\n"
-"προσαρμοσμένη έκδοση και φορτώθηκε ως '%s' για αυτή τη σύνοδο.\n"
+"προσαρμοσμένη έκδοση και φορτώθηκε ως '%s' για αυτή τη συνεδρία.\n"
 "\n"
 "Μεταφέρετε νέα αντικείμενα (εάν υπάρχουν) από '%s' στο προσαρμοσμένο φύλλο\n"
-"ή αφαιρέστε '%s', χρησιμοποιώντας το διάλογο 'φύλλα και αντικείμενα'."
+"σας ή αφαιρέστε '%s', χρησιμοποιώντας τον διάλογο 'Φύλλα και αντικείμενα'."
 
 #: lib/sheet.c:414
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr ""
-"%s: θα πρέπει να χρησιμοποιήσετε ετικέτες αντικειμένου παρά ετικέτες "
+"%s: θα πρέπει να χρησιμοποιήσετε ετικέτες αντικειμένου αντί για ετικέτες "
 "σχήματος τώρα"
 
 #: lib/standard-path.c:122
@@ -3286,11 +3274,11 @@ msgstr "Γέμισμα"
 
 #: lib/standard-path.c:124
 msgid "Fill & Stroke"
-msgstr "Γέμισμα & πινελιά"
+msgstr "Γέμισμα & Πινελιά"
 
 #: lib/standard-path.c:129
 msgid "Bezier points"
-msgstr "Σημεία Μπεζιέ"
+msgstr "Σημεία Bezier"
 
 #: lib/standard-path.c:130
 msgid "Drawing"
@@ -3302,7 +3290,7 @@ msgstr "Γραμμές ελέγχου σχεδίου"
 
 #: lib/standard-path.c:806
 msgid "Convert to Bezier"
-msgstr "Μετατροπή σε Μπεζιέ"
+msgstr "Μετατροπή σε Bezier"
 
 #: lib/standard-path.c:807
 msgid "Invert Path"
@@ -3356,14 +3344,12 @@ msgid "Millimeter"
 msgstr "Χιλιοστό"
 
 #: lib/units.c:54
-#, fuzzy
-#| msgid "AccessPoint"
 msgid "Point"
-msgstr "Σημείο πρόσβασης"
+msgstr "Στιγμή"
 
 #: lib/units.c:56
 msgid "Pica"
-msgstr ""
+msgstr "Πίκα"
 
 #: lib/renderer/diacairo-interactive.c:338
 #: lib/renderer/diacairo-interactive.c:339
@@ -3392,11 +3378,11 @@ msgstr ""
 #: lib/renderer/diacairo.c:287 lib/renderer/diacairo.c:303
 #, c-format
 msgid "Can't write %d bytes to %s"
-msgstr "Αδυναμία εγγραφής %d ψηφιολέξεων σε %s"
+msgstr "Αδυναμία εγγραφής %d bytes σε %s"
 
 #: lib/renderer/diacairo.c:316
 msgid "Clipboard copy failed"
-msgstr "Αποτυχία αντιγραφής πρόχειρου"
+msgstr "Αποτυχία αντιγραφής στο πρόχειρο"
 
 #: lib/renderer/diacairo.c:344 plug-ins/wmf/wmf.cpp:1566
 msgid "Nothing to print"
@@ -3412,7 +3398,7 @@ msgstr "Προσθήκη παροχέα πρόσβασης"
 
 #: objects/AADL/aadlbox.c:381
 msgid "Add Access Requirer"
-msgstr "Προσθήκη παροχέα πρόσβασης"
+msgstr "Προσθήκη απαιτητή πρόσβασης"
 
 #: objects/AADL/aadlbox.c:383
 msgid "Add In Data Port"
@@ -3444,15 +3430,15 @@ msgstr "Προσθήκη θύρας εισόδου εξόδου δεδομένω
 
 #: objects/AADL/aadlbox.c:397
 msgid "Add In Out Event Port"
-msgstr "Προσθήκη πόρτας εισόδου εξόδου Γεγονότων"
+msgstr "Προσθήκη θύρας εισόδου εξόδου συμβάντων"
 
 #: objects/AADL/aadlbox.c:399
 msgid "Add In Out Event Data Port"
-msgstr "Προσθήκη θύρας εισόδου εξόδου συμβάντων δεδομένων"
+msgstr "Προσθήκη θύρας εισόδου εξόδου δεδομένων συμβάντων"
 
 #: objects/AADL/aadlbox.c:401
 msgid "Add Port Group"
-msgstr "Προσθήκη θύρας ομάδας"
+msgstr "Προσθήκη ομάδας θυρών"
 
 #: objects/AADL/aadlbox.c:403
 msgid "Add Connection Point"
@@ -3472,11 +3458,11 @@ msgstr "Διαγραφή σημείου σύνδεσης"
 
 #: objects/AADL/aadl.c:50
 msgid "Architecture Analysis & Design Language diagram objects"
-msgstr "Αντικείμενα διαγράμματος γλώσσας αρχιτεκτονικής ανάλυσης & σχεδίασης"
+msgstr "Αντικείμενα διαγράμματος Γλώσσας Ανάλυσης & Σχεδίασης Αρχιτεκτονικής"
 
 #: objects/chronogram/chronogram.c:38
 msgid "Chronogram diagram objects"
-msgstr "Αντικείμενα διαγράμματος χρονόμετρου"
+msgstr "Αντικείμενα χρονοδιαγράμματος"
 
 #: objects/chronogram/chronoline.c:148 sheets/AADL.sheet:16
 msgid "Data"
@@ -3492,14 +3478,14 @@ msgstr "Συμβάντα"
 
 #: objects/chronogram/chronoline.c:155
 msgid "Event specification"
-msgstr "Καθορισμός γεγονότος"
+msgstr "Προδιαγραφή συμβάντος"
 
 #: objects/chronogram/chronoline.c:156
 msgid ""
-"@ time    set the pointer to an absolute time.\n"
-"( duration  set the signal up, then wait 'duration'.\n"
-") duration  set the signal down, then wait 'duration'.\n"
-"u duration  set the signal to \"unknown\" state, then wait 'duration'.\n"
+"@ time    set the pointer to an absolute time.\n"
+"( duration  set the signal up, then wait 'duration'.\n"
+") duration  set the signal down, then wait 'duration'.\n"
+"u duration  set the signal to \"unknown\" state, then wait 'duration'.\n"
 "Example: @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
 "@ χρόνος: ορισμός του δείκτη σε απόλυτο χρόνο.\n"
@@ -3511,11 +3497,11 @@ msgstr ""
 
 #: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
 msgid "Start time"
-msgstr "Ώρα έναρξης"
+msgstr "Χρόνος έναρξης"
 
 #: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
 msgid "End time"
-msgstr "Ώρα λήξης"
+msgstr "Χρόνος λήξης"
 
 #: objects/chronogram/chronoline.c:168
 msgid "Rise time"
@@ -3581,16 +3567,16 @@ msgstr "Κλίμακα των υποσχημάτων"
 #: objects/flowchart/diamond.c:151 objects/flowchart/ellipse.c:150
 #: objects/flowchart/parallelogram.c:155 objects/SADT/box.c:136
 msgid "Text padding"
-msgstr "Συμπλήρωση κειμένου"
+msgstr "Γέμισμα κειμένου"
 
 #: objects/custom/custom_object.c:1994
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
-msgstr "Αδυναμία ανοίγματος αρχείου εικόνας %s για τύπο αντικειμένου '%s'."
+msgstr "Αδυναμία ανοίγματος αρχείου εικονιδίου %s για τύπο αντικειμένου '%s'."
 
 #: objects/custom_lines/custom_lines.c:153
 msgid "CustomLines"
-msgstr "Γραμμές προσαρμογής"
+msgstr "Προσαρμοσμένες γραμμές"
 
 #: objects/custom_lines/custom_lines.c:153
 msgid "Custom XML lines loader"
@@ -3599,18 +3585,16 @@ msgstr "Φορτωτής προσαρμοσμένων γραμμών XML"
 #: objects/custom_lines/custom_linetypes.c:260
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr ""
-"ΕΣΩΤΕΡΙΚΟ: Γραμμές προσαρμογής: άκυρος τύπος γραμμής σε αντικείμενο LineInfo."
+"ΕΣΩΤΕΡΙΚΟ: CustomLines: Μη έγκυρος τύπος γραμμής σε αντικείμενο LineInfo."
 
 #: objects/custom_lines/line_info.c:333
-#, fuzzy
-#| msgid "CustomLines"
 msgid "Load Custom Line"
-msgstr "Γραμμές προσαρμογής"
+msgstr "Φόρτωση προσαρμοσμένης γραμμής"
 
 #: objects/custom_lines/line_info.c:343
 #, c-format
 msgid "Loading Custom Line from %s failed"
-msgstr ""
+msgstr "Η φόρτωση προσαρμοσμένης γραμμής από το %s απέτυχε"
 
 #: objects/custom/shape_info.c:175
 #, c-format
@@ -3618,37 +3602,30 @@ msgid ""
 "The file '%s' has invalid path data.\n"
 "svg:path data must start with moveto."
 msgstr ""
-"Το αρχείο '%s' έχει άκυρα δεδομένα μονοπατιού\n"
-"svg:τα δεδομένα μονοπατιού πρέπει να αρχίζουν με μετακίνηση σε."
+"Το αρχείο '%s' έχει άκυρα δεδομένα διαδρομής.\n"
+"svg:τα δεδομένα διαδρομής πρέπει να αρχίζουν με moveto."
 
 #: objects/custom/shape_info.c:718
-#, fuzzy
-#| msgid "Load at Startup"
 msgid "Load Custom Shape"
-msgstr "Φόρτωση κατά την εκκίνηση"
+msgstr "Φόρτωση προσαρμοσμένου σχήματος"
 
 #: objects/custom/shape_info.c:730
 #, c-format
 msgid "Loading Custom Shape from %s failed"
-msgstr ""
+msgstr "Η φόρτωση προσαρμοσμένου σχήματος από το %s απέτυχε"
 
 #: objects/custom/shape_info.c:746
-#, fuzzy
-#| msgid "Couldn't find shape %d"
 msgid "could not find shape namespace"
-msgstr "Αδυναμία εύρεσης σχήματος %d"
+msgstr "αδυναμία εύρεσης χώρου ονομάτων shape"
 
 #: objects/custom/shape_info.c:754
-#, fuzzy
-#| msgid "Couldn't find shape %d"
 msgid "could not find svg namespace"
-msgstr "Αδυναμία εύρεσης σχήματος %d"
+msgstr "αδυναμία εύρεσης χώρου ονομάτων svg"
 
 #: objects/custom/shape_info.c:762
-#, fuzzy, c-format
-#| msgid "root element was '%s' -- expecting 'svg'."
+#, c-format
 msgid "root element was %s — expecting shape"
-msgstr "το στοιχείο ρίζας ήταν '%s' -- αναμένεται 'svg'."
+msgstr "το ριζικό στοιχείο ήταν %s — αναμενόταν shape"
 
 #: objects/Database/compound.c:211
 msgid "Number of arms"
@@ -3680,7 +3657,7 @@ msgstr "Σύνθετο"
 
 #: objects/Database/database.c:37
 msgid "Entity/Relationship table diagram objects"
-msgstr "Αντικείμενα διαγράμματος πίνακα οντότητας/συσχέτισης"
+msgstr "Αντικείμενα διαγράμματος πίνακα Οντότητας/Συσχέτισης"
 
 #: objects/Database/reference.c:126 objects/flowchart/box.c:151
 #: objects/standard/box.c:158 objects/standard/polyline.c:108
@@ -3690,11 +3667,11 @@ msgstr "Ακτίνα γωνίας"
 
 #: objects/Database/reference.c:129
 msgid "Start description"
-msgstr "Έναρξη περιγραφής"
+msgstr "Περιγραφή αρχής"
 
 #: objects/Database/reference.c:131
 msgid "End description"
-msgstr "Τέλος περιγραφής"
+msgstr "Περιγραφή τέλους"
 
 #: objects/Database/reference.c:138 objects/Database/table.c:254
 #: objects/Database/table.c:256 objects/Database/table.c:258
@@ -3780,7 +3757,7 @@ msgstr "Ετικέτα σχολίου"
 
 #: objects/Database/table.c:235
 msgid "Use bold font for primary keys"
-msgstr "Χρήση έντονων γραμμάτων για τα πρωτεύοντα κλειδιά"
+msgstr "Χρήση έντονης γραμματοσειράς για τα πρωτεύοντα κλειδιά"
 
 #: objects/Database/table.c:238 objects/UML/class.c:197
 #: objects/UML/object.c:148
@@ -3818,15 +3795,15 @@ msgstr "Κλειδί:"
 
 #: objects/ER/attribute.c:155
 msgid "Weak key:"
-msgstr "Αδύναμο κλειδί:"
+msgstr "Ασθενές κλειδί:"
 
 #: objects/ER/attribute.c:157
 msgid "Derived:"
-msgstr "Εκπορευόμενο:"
+msgstr "Παράγωγο:"
 
 #: objects/ER/attribute.c:159
 msgid "Multivalue:"
-msgstr "Πολλαπλή τιμή:"
+msgstr "Πλειότιμο:"
 
 #: objects/ER/attribute.c:452 sheets/ER.sheet:17
 msgid "Attribute"
@@ -3834,25 +3811,25 @@ msgstr "Γνώρισμα"
 
 #: objects/ER/entity.c:139
 msgid "Weak:"
-msgstr "Αδύναμη:"
+msgstr "Ασθενής:"
 
 #: objects/ER/entity.c:141
 msgid "Associative:"
-msgstr "Συνδεμένο:"
+msgstr "Συσχετιστική:"
 
 # # NOTE: may seem like xlation for "entity" conflicts with usual
-# #       term for "class", but actually the notions are very much alike,
+# #       term for "class", but actually the notions are very much alike,
 #: objects/ER/entity.c:421 objects/UML/classicon.c:127 sheets/ER.sheet:7
 msgid "Entity"
 msgstr "Οντότητα"
 
 #: objects/ER/er.c:41
 msgid "Entity/Relationship diagram objects"
-msgstr "Αντικείμενα διαγράμματος οντότητας/συσχέτισης"
+msgstr "Αντικείμενα διαγράμματος Οντότητας/Συσχέτισης"
 
 #: objects/ER/participation.c:118
 msgid "Total:"
-msgstr "Υποχρεωτική συμμετοχή:"
+msgstr "Ολική:"
 
 #: objects/ER/relationship.c:138
 msgid "Left Cardinality:"
@@ -3868,7 +3845,7 @@ msgstr "Περιστροφή:"
 
 #: objects/ER/relationship.c:144
 msgid "Identifying:"
-msgstr "Προσδιορίζουσα συσχέτιση:"
+msgstr "Προσδιοριστική:"
 
 #: objects/ER/relationship.c:488 sheets/ER.sheet:14
 msgid "Relationship"
@@ -3876,7 +3853,7 @@ msgstr "Συσχέτιση"
 
 #: objects/flowchart/flowchart.c:36
 msgid "Flowchart objects"
-msgstr "Διάγραμμα ροής αντικειμένων"
+msgstr "Αντικείμενα διαγράμματος ροής"
 
 #: objects/flowchart/parallelogram.c:153
 msgid "Shear angle"
@@ -3920,11 +3897,11 @@ msgstr "Αντικείμενα διαγράμματος δομής λειτου�
 
 #: objects/FS/function.c:156
 msgid "Wish function"
-msgstr "Συνάρτηση ευχής"
+msgstr "Λειτουργία επιθυμίας"
 
 #: objects/FS/function.c:158
 msgid "User function"
-msgstr "Συνάρτηση χρήστη"
+msgstr "Λειτουργία χρήστη"
 
 #. Translators: Menu item Verb
 #: objects/FS/function.c:732
@@ -3953,7 +3930,7 @@ msgstr "Λήψη"
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
 #: objects/FS/function.c:746 objects/FS/function.c:1018
 msgid "Allow"
-msgstr "Επιτρέπεται"
+msgstr "Να επιτρέπεται"
 
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
 #: objects/FS/function.c:748
@@ -4014,12 +3991,12 @@ msgstr "Μετάδοση"
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
 #: objects/FS/function.c:782
 msgid "Conduct"
-msgstr "Επαφή"
+msgstr "Αγωγή"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
 #: objects/FS/function.c:786
 msgid "Convey"
-msgstr "Μεταφορά"
+msgstr "Μεταβίβαση"
 
 #. Translators: Menu item Verb/Channel/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide
@@ -4032,7 +4009,7 @@ msgstr "Οδηγός"
 #. Translators: Menu item Verb/Channel/Guide/Guide/Direct
 #: objects/FS/function.c:794
 msgid "Direct"
-msgstr "Άμεσο"
+msgstr "Κατεύθυνση"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
 #: objects/FS/function.c:796
@@ -4063,7 +4040,7 @@ msgstr "Περιστροφή"
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
 #: objects/FS/function.c:810 objects/FS/function.c:812
 msgid "Allow DOF"
-msgstr "Να επιτρέπεται DOF"
+msgstr "Επιτροπή Βαθμών Ελευθερίας"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
 #: objects/FS/function.c:814
@@ -4128,7 +4105,7 @@ msgstr "Σταθερό"
 #. Translators: Menu item Verb/Support/Secure/Secure
 #: objects/FS/function.c:842 objects/FS/function.c:844
 msgid "Secure"
-msgstr "Ασφαλές"
+msgstr "Ασφάλιση"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
 #. Translators: Menu item Verb/Connect/Couple/Attach
@@ -4154,12 +4131,12 @@ msgstr "Στερέωση"
 #. Translators: Menu item Verb/Support/Secure/Hold
 #: objects/FS/function.c:854
 msgid "Hold"
-msgstr "Αναμονή"
+msgstr "Κράτημα"
 
 #. Translators: Menu item Verb/Support/Position/Orient
 #: objects/FS/function.c:860
 msgid "Orient"
-msgstr "Ανατολικός"
+msgstr "Προσανατολισμός"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: objects/FS/function.c:862
@@ -4236,7 +4213,7 @@ msgstr "Διαχωρισμός"
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
 #: objects/FS/function.c:904
 msgid "Switch"
-msgstr "Αλλαγή"
+msgstr "Διακόπτης"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
 #: objects/FS/function.c:906
@@ -4246,7 +4223,7 @@ msgstr "Διαίρεση"
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
 #: objects/FS/function.c:908
 msgid "Release"
-msgstr "Έκδοση"
+msgstr "Απελευθέρωση"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: objects/FS/function.c:910
@@ -4292,17 +4269,17 @@ msgstr "Εξευγενισμός"
 #. Translators: Menu item Verb/Branch/Refine/Purify
 #: objects/FS/function.c:932
 msgid "Purify"
-msgstr "Καθαρισμός"
+msgstr "Εξαγνισμός"
 
 #. Translators: Menu item Verb/Branch/Refine/Strain
 #: objects/FS/function.c:934
 msgid "Strain"
-msgstr "Τάση"
+msgstr "Στράγγιση"
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
 #: objects/FS/function.c:936
 msgid "Filter"
-msgstr "Φίλτρο"
+msgstr "Φιλτράρισμα"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
 #: objects/FS/function.c:938
@@ -4319,12 +4296,12 @@ msgstr "Καθαρισμός"
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
 #: objects/FS/function.c:942 objects/FS/function.c:944
 msgid "Distribute"
-msgstr "Διανέμω"
+msgstr "Διανομή"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
 #: objects/FS/function.c:946
 msgid "Diverge"
-msgstr "Διχασμός"
+msgstr "Απόκλιση"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
 #: objects/FS/function.c:948
@@ -4340,18 +4317,18 @@ msgstr "Διασκορπισμός"
 #. Translators: Menu item Verb/Branch/Dissipate/Diffuse
 #: objects/FS/function.c:952 objects/FS/function.c:966
 msgid "Diffuse"
-msgstr "Εξάπλωση"
+msgstr "Διάχυση"
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
 #: objects/FS/function.c:954
 msgid "Empty"
-msgstr "Άδειο"
+msgstr "Άδειασμα"
 
 #. Translators: Menu item Verb/Branch/Dissipate
 #. Translators: Menu item Verb/Branch/Dissipate/Dissipate
 #: objects/FS/function.c:956 objects/FS/function.c:958
 msgid "Dissipate"
-msgstr "Διάχυση"
+msgstr "Σκέδαση"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
 #: objects/FS/function.c:960
@@ -4361,12 +4338,12 @@ msgstr "Απορρόφηση"
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
 #: objects/FS/function.c:962
 msgid "Dampen"
-msgstr "Ύγρανση"
+msgstr "Απόσβεση"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
 #: objects/FS/function.c:964
 msgid "Dispel"
-msgstr "Απομάκρυνση"
+msgstr "Διάλυση"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Resist
 #: objects/FS/function.c:968
@@ -4388,7 +4365,7 @@ msgstr "Αποθήκευση"
 #. Translators: Menu item Verb/Provision/Store/Contain
 #: objects/FS/function.c:978
 msgid "Contain"
-msgstr "Περιέκτης"
+msgstr "Συγκράτηση"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
 #: objects/FS/function.c:980
@@ -4398,13 +4375,13 @@ msgstr "Συλλογή"
 #. Translators: Menu item Verb/Provision/Store/Reserve
 #: objects/FS/function.c:982
 msgid "Reserve"
-msgstr "Κράτηση"
+msgstr "Δέσμευση"
 
 #. Translators: Menu item Verb/Provision/Supply
 #. Translators: Menu item Verb/Provision/Supply/Supply
 #: objects/FS/function.c:986 objects/FS/function.c:988
 msgid "Supply"
-msgstr "Παροχή"
+msgstr "Εφοδιασμός"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
 #: objects/FS/function.c:992
@@ -4414,7 +4391,7 @@ msgstr "Παροχή"
 #. Translators: Menu item Verb/Provision/Supply/Replenish
 #: objects/FS/function.c:994
 msgid "Replenish"
-msgstr "Ανανέωση"
+msgstr "Αναπλήρωση"
 
 #. Translators: Menu item Verb/Provision/Supply/Expose
 #: objects/FS/function.c:996
@@ -4430,7 +4407,7 @@ msgstr "Εξαγωγή"
 #. Translators: Menu item Verb/Control Magnitude/Control Magnitude
 #: objects/FS/function.c:1000 objects/FS/function.c:1002
 msgid "Control Magnitude"
-msgstr "Μέγεθος ελέγχου"
+msgstr "Έλεγχος μεγέθους"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
@@ -4474,7 +4451,7 @@ msgstr "Απενεργοποίηση"
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
 #: objects/FS/function.c:1026
 msgid "Limit"
-msgstr "Όριο"
+msgstr "Περιορισμός"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
 #: objects/FS/function.c:1028
@@ -4505,7 +4482,7 @@ msgstr "Ενίσχυση"
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
 #: objects/FS/function.c:1040
 msgid "Reduce"
-msgstr "Μείωση"
+msgstr "Ελάττωση"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
 #: objects/FS/function.c:1044
@@ -4527,28 +4504,28 @@ msgstr "Κλίμακα"
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
 #: objects/FS/function.c:1050
 msgid "Rectify"
-msgstr "Διόρθωση"
+msgstr "Ανόρθωση"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
 #: objects/FS/function.c:1052
 msgid "Adjust"
-msgstr "Ρύθμιση"
+msgstr "Προσαρμογή"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
 #. Translators: Menu item Verb/Control Magnitude/Form/Form
 #: objects/FS/function.c:1054 objects/FS/function.c:1056
 msgid "Form"
-msgstr "Φόρμα"
+msgstr "Μορφοποίηση"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
 #: objects/FS/function.c:1058
 msgid "Compact"
-msgstr "Συμπαγές"
+msgstr "Συμπύκνωση"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Crush
 #: objects/FS/function.c:1060
 msgid "Crush"
-msgstr "Σύνθλιψη"
+msgstr "Θρυμματισμός"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
 #: objects/FS/function.c:1062
@@ -4599,34 +4576,34 @@ msgstr "Εξάχνωση"
 #. Translators: Menu item Verb/Convert/Condense
 #: objects/FS/function.c:1082
 msgid "Condense"
-msgstr "Συμπύκνωμα"
+msgstr "Συμπύκνωση"
 
 #. Translators: Menu item Verb/Convert/Integrate
 #: objects/FS/function.c:1084
 msgid "Integrate"
-msgstr "Ενσωμάτωση"
+msgstr "Ολοκλήρωση"
 
 #. Translators: Menu item Verb/Convert/Differentiate
 #: objects/FS/function.c:1086
 msgid "Differentiate"
-msgstr "Διαφορικό"
+msgstr "Διαφόριση"
 
 #. Translators: Menu item Verb/Convert/Process
 #: objects/FS/function.c:1088 sheets/AADL.sheet:10
 #: sheets/Gane_and_Sarson.sheet:21
 msgid "Process"
-msgstr "Λειτουργία"
+msgstr "Διεργασία"
 
 #. Translators: Menu item Verb/Signal/Sense
 #. Translators: Menu item Verb/Signal/Sense/Sense
 #: objects/FS/function.c:1094 objects/FS/function.c:1096
 msgid "Sense"
-msgstr "Αίσθηση"
+msgstr "Ανίχνευση"
 
 #. Translators: Menu item Verb/Signal/Sense/Perceive
 #: objects/FS/function.c:1098
 msgid "Perceive"
-msgstr "Κατανόηση"
+msgstr "Αντίληψη"
 
 #. Translators: Menu item Verb/Signal/Sense/Recognize
 #: objects/FS/function.c:1100
@@ -4652,12 +4629,12 @@ msgstr "Επαλήθευση"
 #. Translators: Menu item Verb/Signal/Indicate/Indicate
 #: objects/FS/function.c:1110 objects/FS/function.c:1112
 msgid "Indicate"
-msgstr "Ένδειξη"
+msgstr "Υπόδειξη"
 
 #. Translators: Menu item Verb/Signal/Indicate/Mark
 #: objects/FS/function.c:1114
 msgid "Mark"
-msgstr "Σημάδι"
+msgstr "Σήμανση"
 
 #. Translators: Menu item Verb/Signal/Display
 #: objects/FS/function.c:1116 sheets/Flowchart.sheet:19
@@ -4731,7 +4708,7 @@ msgstr "Δάκτυλο"
 #. Translators: Menu item Noun/Material/Human/Toe
 #: objects/FS/function.c:1148
 msgid "Toe"
-msgstr "Φτέρνα"
+msgstr "Δάκτυλο ποδιού"
 
 #. Translators: Menu item Noun/Material/Biological
 #: objects/FS/function.c:1150
@@ -4741,17 +4718,17 @@ msgstr "Βιολογικό"
 #. Translators: Menu item Noun/Energy/Mechanical
 #: objects/FS/function.c:1154
 msgid "Mechanical"
-msgstr "Μηχανικό"
+msgstr "Μηχανική"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
 #: objects/FS/function.c:1156
 msgid "Mech. Energy"
-msgstr "Μηχανική Ενέργεια"
+msgstr "Μηχ. Ενέργεια"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
 #: objects/FS/function.c:1158
 msgid "Translation"
-msgstr "Μετάφραση"
+msgstr "Μετατόπιση"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
 #: objects/FS/function.c:1160
@@ -4807,12 +4784,12 @@ msgstr "Τάση"
 #. Translators: Menu item Noun/Energy/Electricity/Current
 #: objects/FS/function.c:1180
 msgid "Current"
-msgstr "Ρεύμα"
+msgstr "Ένταση"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
 #: objects/FS/function.c:1182
 msgid "Hydraulic"
-msgstr "Υδραυλικό"
+msgstr "Υδραυλική"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
 #: objects/FS/function.c:1184
@@ -4827,7 +4804,7 @@ msgstr "Ογκομετρική ροή"
 #. Translators: Menu item Noun/Energy/Thermal
 #: objects/FS/function.c:1188
 msgid "Thermal"
-msgstr "Θερμικό"
+msgstr "Θερμική"
 
 #. Translators: Menu item Noun/Energy/Thermal/Heat
 #: objects/FS/function.c:1190
@@ -4837,12 +4814,12 @@ msgstr "Θερμότητα"
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
 #: objects/FS/function.c:1192
 msgid "Conduction"
-msgstr "Αγωγιμότητα"
+msgstr "Αγωγή"
 
 #. Translators: Menu item Noun/Energy/Thermal/Convection
 #: objects/FS/function.c:1194
 msgid "Convection"
-msgstr "Μεταφορά"
+msgstr "Συναγωγή"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
 #. Translators: Menu item Noun/Energy/Radioactive/Radiation
@@ -4853,17 +4830,17 @@ msgstr "Ακτινοβολία"
 #. Translators: Menu item Noun/Energy/Pneumatic
 #: objects/FS/function.c:1198
 msgid "Pneumatic"
-msgstr "Πνευματικό"
+msgstr "Πνευματική"
 
 #. Translators: Menu item Noun/Energy/Chemical
 #: objects/FS/function.c:1200
 msgid "Chemical"
-msgstr "Χημικά"
+msgstr "Χημική"
 
 #. Translators: Menu item Noun/Energy/Radioactive
 #: objects/FS/function.c:1202
 msgid "Radioactive"
-msgstr "Ραδιενεργά"
+msgstr "Ραδιενεργή"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Microwaves
 #: objects/FS/function.c:1206
@@ -4888,22 +4865,22 @@ msgstr "Ακτίνες Γ"
 #. Translators: Menu item Noun/Energy/Acoustic Energy
 #: objects/FS/function.c:1214
 msgid "Acoustic Energy"
-msgstr "Ακουστική Ενέργεια"
+msgstr "Ακουστική ενέργεια"
 
 #. Translators: Menu item Noun/Energy/Optical Energy
 #: objects/FS/function.c:1216
 msgid "Optical Energy"
-msgstr "Οπτική Ενέργεια"
+msgstr "Οπτική ενέργεια"
 
 #. Translators: Menu item Noun/Energy/Solar Energy
 #: objects/FS/function.c:1218
 msgid "Solar Energy"
-msgstr "Ηλιακή Ενέργεια"
+msgstr "Ηλιακή ενέργεια"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
 #: objects/FS/function.c:1220
 msgid "Magnetic Energy"
-msgstr "Μαγνητική Ενέργεια"
+msgstr "Μαγνητική ενέργεια"
 
 #. Translators: Menu item Noun/Energy/Human/Human Motion
 #: objects/FS/function.c:1224
@@ -4922,19 +4899,19 @@ msgstr "Κατάσταση"
 
 #: objects/FS/function.c:1236
 msgid "User/Device Fn"
-msgstr "Λειτουργία χρήστη/συσκευής"
+msgstr "Λειτ. Χρήστη/Συσκευής"
 
 #: objects/FS/function.c:1237
 msgid "Wish Fn"
-msgstr "Επιθυμητή λειτουργία"
+msgstr "Επιθυμητή Λειτ."
 
 #: objects/GRAFCET/action.c:130 sheets/SDL.sheet:31
 msgid "Macro call"
-msgstr "Εκτέλεση μακροεντολής"
+msgstr "Κλήση μακροεντολής"
 
 #: objects/GRAFCET/action.c:130
 msgid "This action is a call to a macro-step"
-msgstr "Αυτή η ενέργεια θα καλέσει ένα βήμα μάκροεντολής"
+msgstr "Αυτή η ενέργεια είναι μια κλήση σε ένα βήμα μακροεντολής"
 
 #: objects/GRAFCET/condition.c:137
 msgid "Condition"
@@ -4942,7 +4919,7 @@ msgstr "Συνθήκη"
 
 #: objects/GRAFCET/condition.c:137
 msgid "The boolean equation of the condition"
-msgstr "Η εξίσωση Μπουλ της συνθήκης"
+msgstr "Η εξίσωση Boole της συνθήκης"
 
 #: objects/GRAFCET/condition.c:139
 msgid "The condition's font"
@@ -4958,7 +4935,7 @@ msgstr "Χρώμα"
 
 #: objects/GRAFCET/condition.c:144
 msgid "The condition's color"
-msgstr "Χρώμα κατάστασης"
+msgstr "Το χρώμα της συνθήκης"
 
 #: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
@@ -5010,7 +4987,8 @@ msgstr "Ενεργό"
 
 #: objects/GRAFCET/step.c:177
 msgid "Shows a red dot to figure the step's activity"
-msgstr "Προβολή κόκκινης τελείας για απεικόνηση της δραστηριότητας του βήματος"
+msgstr ""
+"Εμφανίζει μια κόκκινη κουκκίδα για να υποδείξει τη δραστηριότητα του βήματος"
 
 #: objects/GRAFCET/transition.c:147
 msgid "Receptivity"
@@ -5018,19 +4996,19 @@ msgstr "Δεκτικότητα"
 
 #: objects/GRAFCET/transition.c:147
 msgid "The boolean equation of the receptivity"
-msgstr "Η εξίσωση Μπουλ της δεκτικότητας"
+msgstr "Η εξίσωση Boole της δεκτικότητας"
 
 #: objects/GRAFCET/transition.c:149
 msgid "The receptivity's font"
-msgstr "Γραμματοσειρά δεκτικότητας"
+msgstr "Η γραμματοσειρά της δεκτικότητας"
 
 #: objects/GRAFCET/transition.c:151
 msgid "The receptivity's font size"
-msgstr "Μέγεθος γραμματοσειράς δεκτικότητας"
+msgstr "Το μέγεθος γραμματοσειράς της δεκτικότητας"
 
 #: objects/GRAFCET/transition.c:154
 msgid "The receptivity's color"
-msgstr "Χρώμα δεκτικότητας"
+msgstr "Το χρώμα της δεκτικότητας"
 
 #: objects/GRAFCET/transition.c:155
 msgid "North point"
@@ -5042,15 +5020,15 @@ msgstr "Νότιο σημείο"
 
 #: objects/GRAFCET/vector.c:129
 msgid "Draw arrow heads on upward arcs:"
-msgstr "Σχεδιασμός κεφαλών βέλους σε ανοδικά τόξα:"
+msgstr "Σχεδίαση κεφαλών βέλους σε ανοδικά τόξα:"
 
 #: objects/GRAFCET/vergent.c:132
 msgid "OR"
-msgstr "OR"
+msgstr "Η"
 
 #: objects/GRAFCET/vergent.c:133
 msgid "AND"
-msgstr "AND"
+msgstr "ΚΑΙ"
 
 #: objects/GRAFCET/vergent.c:145
 msgid "Vergent type:"
@@ -5070,11 +5048,11 @@ msgstr "Διαγραφή σημείου σύνδεσης"
 
 #: objects/GRAFCET/vergent.c:477
 msgid "GRAFCET OR/AND vergent"
-msgstr "Διακλάδωση GRAFCET ή/και"
+msgstr "Διακλάδωση OR/AND GRAFCET"
 
 #: objects/Istar/actor.c:64 objects/Istar/link.c:150
 msgid "Unspecified"
-msgstr "Απροσδιόριστο"
+msgstr "Ακαθόριστο"
 
 #: objects/Istar/actor.c:65 objects/KAOS/other.c:71
 msgid "Agent"
@@ -5119,7 +5097,7 @@ msgstr "Αποσύνθεση"
 
 #: objects/Istar/link.c:155
 msgid "Means-Ends"
-msgstr "Μέσα-πέρατα"
+msgstr "Μέσα-Σκοποί"
 
 #: objects/Istar/other.c:69
 msgid "Resource"
@@ -5135,7 +5113,7 @@ msgstr "Άλλα i*"
 
 #: objects/Jackson/domain.c:75
 msgid "Given Domain"
-msgstr "Παραχωρημένος τομέας"
+msgstr "Δεδομένος τομέας"
 
 #: objects/Jackson/domain.c:76
 msgid "Designed Domain"
@@ -5143,7 +5121,7 @@ msgstr "Σχεδιασμένος τομέας"
 
 #: objects/Jackson/domain.c:77
 msgid "Machine Domain"
-msgstr "Τομέας μηχανήματος"
+msgstr "Τομέας μηχανής"
 
 #: objects/Jackson/domain.c:92 objects/UML/association.c:229
 #: objects/UML/association.c:235
@@ -5152,15 +5130,15 @@ msgstr "Κανένα"
 
 #: objects/Jackson/domain.c:93
 msgid "Causal"
-msgstr "Αιτιολογικός"
+msgstr "Αιτιακός"
 
 #: objects/Jackson/domain.c:94
 msgid "Biddable"
-msgstr "Υπάκουο"
+msgstr "Υπάκουος"
 
 #: objects/Jackson/domain.c:95
 msgid "Lexical"
-msgstr "Λεξικό"
+msgstr "Λεξικός"
 
 #: objects/Jackson/domain.c:180 objects/Jackson/domain.c:181
 msgid "Domain Type"
@@ -5172,7 +5150,7 @@ msgstr "Είδος τομέα"
 
 #: objects/Jackson/domain.c:186
 msgid "Optional kind which appears in the lower-right corner of the Domain"
-msgstr "Προαιρετικό είδος που εμφανίζεται στην κάτω δεξιά γωνία του τομέα"
+msgstr "Προαιρετικό είδος που εμφανίζεται στην κάτω δεξιά γωνία του Τομέα"
 
 #: objects/Jackson/domain.c:625
 msgid "Jackson domain"
@@ -5184,14 +5162,14 @@ msgstr "Διάγραμμα Jackson"
 
 #: objects/Jackson/phenomenon.c:137
 msgid "Shared"
-msgstr "Διαμοιρασμός"
+msgstr "Κοινόχρηστο"
 
 #: objects/Jackson/phenomenon.c:138 objects/KAOS/goal.c:80
 msgid "Requirement"
 msgstr "Απαίτηση"
 
 #. how it used to be before 0.96+SVN
-#. new name matching "same name, same type"  rule
+#. new name matching "same name, same type"  rule
 #: objects/Jackson/phenomenon.c:145 objects/UML/message.c:147
 #: objects/UML/message.c:149
 msgid "Message:"
@@ -5219,7 +5197,7 @@ msgstr "Βελτίωση AND"
 
 #: objects/KAOS/metaandorrel.c:155
 msgid "Complete AND Refinement"
-msgstr "Συμπλήρωση βελτίωσης AND"
+msgstr "Πλήρης βελτίωση AND"
 
 #: objects/KAOS/metaandorrel.c:156
 msgid "OR Refinement"
@@ -5227,7 +5205,7 @@ msgstr "Βελτίωση OR"
 
 #: objects/KAOS/metaandorrel.c:157
 msgid "Operationalization"
-msgstr "Λειτουργικότητα"
+msgstr "Λειτουργικοποίηση"
 
 #: objects/KAOS/metaandorrel.c:164
 msgid "Text:"
@@ -5235,35 +5213,35 @@ msgstr "Κείμενο:"
 
 #: objects/KAOS/metabinrel.c:157
 msgid "Contributes"
-msgstr "Συνεργάτες"
+msgstr "Συνεισφέρει"
 
 #: objects/KAOS/metabinrel.c:158
 msgid "Obstructs"
-msgstr "Εμπόδια"
+msgstr "Παρεμποδίζει"
 
 #: objects/KAOS/metabinrel.c:159
 msgid "Conflicts"
-msgstr "Διενέξεις"
+msgstr "Συγκρούεται"
 
 #: objects/KAOS/metabinrel.c:160
 msgid "Responsibility"
-msgstr "Υπευθυνότητα"
+msgstr "Ευθύνη"
 
 #: objects/KAOS/metabinrel.c:161
 msgid "Monitors"
-msgstr "Οθόνες"
+msgstr "Παρακολουθεί"
 
 #: objects/KAOS/metabinrel.c:162
 msgid "Controls"
-msgstr "Έλεγχοι"
+msgstr "Ελέγχει"
 
 #: objects/KAOS/metabinrel.c:163
 msgid "CapableOf"
-msgstr "Ικανός να"
+msgstr "ΙκανόΝα"
 
 #: objects/KAOS/metabinrel.c:164
 msgid "Performs"
-msgstr "Επιδόσεις"
+msgstr "Εκτελεί"
 
 #: objects/KAOS/metabinrel.c:166
 msgid "Output"
@@ -5271,7 +5249,7 @@ msgstr "Έξοδος"
 
 #: objects/KAOS/other.c:605
 msgid "KAOS other"
-msgstr "Άλλο KAOS"
+msgstr "Άλλα KAOS"
 
 #: objects/Misc/analog_clock.c:134
 msgid "Arrow color"
@@ -5283,11 +5261,11 @@ msgstr "Πλάτος γραμμής βέλους"
 
 #: objects/Misc/analog_clock.c:138
 msgid "Seconds arrow color"
-msgstr "Χρώμα δευτερεύοντος τόξου"
+msgstr "Χρώμα δείκτη δευτερολέπτων"
 
 #: objects/Misc/analog_clock.c:140
 msgid "Seconds arrow line width"
-msgstr "Πλάτος γραμμής δευτερεύοντος τόξου"
+msgstr "Πλάτος γραμμής δείκτη δευτερολέπτων"
 
 #: objects/Misc/analog_clock.c:142
 msgid "Show hours"
@@ -5372,7 +5350,7 @@ msgstr "Ακρίβεια"
 
 #: objects/Misc/n_gon.c:105
 msgid "Convex"
-msgstr "Καμπύλο"
+msgstr "Κυρτό"
 
 #: objects/Misc/n_gon.c:106
 msgid "Concave"
@@ -5396,7 +5374,7 @@ msgstr "Πυκνότητα"
 
 #: objects/Misc/n_gon.c:123
 msgid "Winding number for Crossing"
-msgstr "Δείκτης στροφής για τεμνόμενα"
+msgstr "Αριθμός στροφών για τεμνόμενα"
 
 #. no property widget, but still to be serialized
 #: objects/Misc/n_gon.c:126
@@ -5439,7 +5417,7 @@ msgstr "Επτάγωνο"
 
 #: objects/Misc/n_gon.c:334
 msgid "Heptagram"
-msgstr "Επταγραμμο"
+msgstr "Επτάγραμμο"
 
 #: objects/Misc/n_gon.c:335
 msgid "Octagon"
@@ -5479,15 +5457,15 @@ msgstr "Δωδεκάγωνο"
 
 #: objects/Misc/n_gon.c:339
 msgid "Dodecagram"
-msgstr "Δωδεκάγραμμα"
+msgstr "Δωδεκάγραμμο"
 
 #: objects/Misc/n_gon.c:340
 msgid "Tridecagon"
-msgstr "δεκατριάγωνο"
+msgstr "Δεκατριάγωνο"
 
 #: objects/Misc/n_gon.c:340
 msgid "Tridecagram"
-msgstr "δεκατριάγραμμο"
+msgstr "Δεκατριάγραμμο"
 
 #: objects/Misc/n_gon.c:341
 msgid "Tetradecagon"
@@ -5559,7 +5537,7 @@ msgstr "Αστέρι"
 
 #: objects/Misc/tree.c:620 objects/network/bus.c:620
 msgid "Add Handle"
-msgstr "Νέα λαβή"
+msgstr "Προσθήκη λαβής"
 
 #: objects/Misc/tree.c:621 objects/network/bus.c:621
 msgid "Delete Handle"
@@ -5571,7 +5549,7 @@ msgstr "Τομείς"
 
 #: objects/network/basestation.c:393 objects/network/basestation.c:395
 msgid "Base Station"
-msgstr "Σταθμός βάσης"
+msgstr "Σταθμός Βάσης"
 
 #: objects/network/network.c:39
 msgid "Network diagram objects"
@@ -5587,15 +5565,15 @@ msgstr "Πλάτος"
 
 #: objects/SADT/arrow.c:139
 msgid "Import resource (not shown upstairs)"
-msgstr "Εισαγωγή πόρου (μη εμφανιζόμενου προς τα πάνω)"
+msgstr "Εισαγωγή πόρου (δεν εμφανίζεται επάνω)"
 
 #: objects/SADT/arrow.c:140
 msgid "Imply resource (not shown downstairs)"
-msgstr "Υποδήλωση πόρου (μη εμφανιζόμενου προς τα κάτω)"
+msgstr "Υπονόηση πόρου (δεν εμφανίζεται κάτω)"
 
 #: objects/SADT/arrow.c:141
 msgid "Dotted arrow"
-msgstr "Εστιγμένο βέλος"
+msgstr "Διάστικτο βέλος"
 
 #: objects/SADT/arrow.c:142
 msgid "disable arrow heads"
@@ -5627,7 +5605,7 @@ msgstr "Αναγνωριστικό δραστηριότητας/δεδομένω
 
 #: objects/SADT/box.c:146
 msgid "The identifier which appears in the lower-right corner of the Box"
-msgstr "Το αναγνωριστικό που εμφανίζεται στην κάτω δεξιά γωνία του πλαισίου"
+msgstr "Το αναγνωριστικό που εμφανίζεται στην κάτω δεξιά γωνία του Πλαισίου"
 
 #: objects/SADT/box.c:505
 msgid "SADT box"
@@ -5658,7 +5636,7 @@ msgstr "Απόλυτο κενό τερματισμού"
 
 #: objects/standard/bezier.c:811 objects/standard/beziergon.c:536
 msgid "Add Segment"
-msgstr "Προσθήκη τμημάτος"
+msgstr "Προσθήκη τμήματος"
 
 #: objects/standard/bezier.c:812 objects/standard/beziergon.c:537
 msgid "Delete Segment"
@@ -5674,7 +5652,7 @@ msgstr "Ομαλός έλεγχος"
 
 #: objects/standard/bezier.c:818 objects/standard/beziergon.c:543
 msgid "Cusp control"
-msgstr "Έλεγχος τομής"
+msgstr "Έλεγχος αιχμής"
 
 #: objects/standard/box.c:144 objects/standard/ellipse.c:131
 msgid "Free"
@@ -5686,7 +5664,7 @@ msgstr "Σταθερό"
 
 #: objects/standard/box.c:160 objects/standard/ellipse.c:144
 msgid "Aspect ratio"
-msgstr "Λόγος θέασης"
+msgstr "Αναλογία διαστάσεων"
 
 #: objects/standard/box.c:163 objects/standard/ellipse.c:147
 msgid "Rotation angle"
@@ -5726,11 +5704,11 @@ msgstr "Η αναφορά Pixbuf"
 
 #: objects/standard/image.c:125
 msgid "Draw border"
-msgstr "Σχεδιασμός πλαισίου"
+msgstr "Σχεδίαση πλαισίου"
 
 #: objects/standard/image.c:127
 msgid "Keep aspect ratio"
-msgstr "Διατήρηση λόγου θέασης"
+msgstr "Διατήρηση αναλογίας διαστάσεων"
 
 #: objects/standard/image.c:129
 msgid "Angle"
@@ -5742,7 +5720,7 @@ msgstr "Αδύνατη η αποθήκευση εικόνας χωρίς όνο�
 
 #: objects/standard/image.c:763
 msgid "Inconsistent pixbuf during image save."
-msgstr "Ασταθές pixbuf κατά την αποθήκευση της εικόνας."
+msgstr "Ασυνεπές pixbuf κατά την αποθήκευση της εικόνας."
 
 #: objects/standard/image.c:871
 #, c-format
@@ -5763,7 +5741,7 @@ msgstr "Σημείο λήξης"
 
 #: objects/standard/line.c:332
 msgid "Upgrade to Polyline"
-msgstr "Αναβάθμιση σε πολλαπλή γραμμή"
+msgstr "Αναβάθμιση σε πολυγωνική γραμμή"
 
 #: objects/standard/line.c:333
 msgid "Upgrade to Zigzagline"
@@ -5819,7 +5797,7 @@ msgstr "Αναβάθμιση σε γραμμή Μπεζιέ"
 
 #: objects/UML/actor.c:367 objects/UML/actor.c:369 sheets/UML.sheet:45
 msgid "Actor"
-msgstr "Ηθοποιός"
+msgstr "Δράστης"
 
 #: objects/UML/association.c:230
 msgid "From A to B"
@@ -5831,11 +5809,11 @@ msgstr "Από το B στο A"
 
 #: objects/UML/association.c:236
 msgid "Aggregation"
-msgstr "Συνυπολογισμός"
+msgstr "Συσσωμάτωση"
 
 #: objects/UML/association.c:237
 msgid "Composition"
-msgstr "Σύνταξη"
+msgstr "Σύνθεση"
 
 #: objects/UML/association.c:247
 msgid "Direction"
@@ -5877,11 +5855,11 @@ msgstr "_Γνωρίσματα"
 
 #: objects/UML/class_attributes_dialog.c:610
 msgid "Add Attribute"
-msgstr "Προσθήκη χαρακτηριστικού"
+msgstr "Προσθήκη γνωρίσματος"
 
 #: objects/UML/class_attributes_dialog.c:623
 msgid "Remove Attribute"
-msgstr "Αφαίρεση χαρακτηριστικού"
+msgstr "Αφαίρεση γνωρίσματος"
 
 #: objects/UML/class_attributes_dialog.c:636
 msgid "Move Attribute Up"
@@ -5934,13 +5912,13 @@ msgstr "Υλοποίηση"
 #: objects/UML/class_attributes_dialog.c:768
 #: objects/UML/class_operations_dialog.c:952
 msgid "Class scope"
-msgstr "Εύρος τάξης"
+msgstr "Εμβέλεια κλάσης"
 
 # # NOTE: For consistency (as far as I remember from my information systems class):
 #: objects/UML/class.c:154 objects/UML/class.c:367 objects/UML/class.c:1941
 #: sheets/UML.sheet:7
 msgid "Class"
-msgstr "Τάξη"
+msgstr "Κλάση"
 
 #. how it used to be before 0.96+SVN
 #. one name, one type: but breaks forward-compatibiliy so kind of reverted
@@ -5956,7 +5934,7 @@ msgstr "Στερεότυπο"
 #: objects/UML/class_operations_dialog.c:943 objects/UML/umlattribute.c:48
 #: objects/UML/uml.c:109
 msgid "Abstract"
-msgstr "Αφηρημένο"
+msgstr "Αφηρημένη"
 
 #: objects/UML/class.c:167
 msgid "Visible Attributes"
@@ -5968,7 +5946,7 @@ msgstr "Ορατές λειτουργίες"
 
 #: objects/UML/class.c:171 objects/UML/class_dialog.c:419
 msgid "Wrap Operations"
-msgstr "Λειτουργίες αναδίπλωσης"
+msgstr "Αναδίπλωση λειτουργιών"
 
 #: objects/UML/class.c:173
 msgid "Visible Comments"
@@ -5984,7 +5962,7 @@ msgstr "Πρότυπο"
 
 #: objects/UML/class.c:183 objects/UML/class_dialog.c:402
 msgid "Suppress Attributes"
-msgstr "Απόκρυψη γνωρισμάτων"
+msgstr "Καταστολή γνωρισμάτων"
 
 #: objects/UML/class.c:185
 msgid "Suppress Operations"
@@ -6014,21 +5992,21 @@ msgstr "Πολυμορφικό"
 
 #: objects/UML/class.c:223 objects/UML/class_dialog.c:515
 msgid "Class Name"
-msgstr "Όνομα τάξης"
+msgstr "Όνομα κλάσης"
 
 #: objects/UML/class.c:225
 msgid "Abstract Class Name"
-msgstr "Όνομα αφηρημένης τάξης"
+msgstr "Όνομα αφηρημένης κλάσης"
 
 # # NOTE: For consistency (as far as I remember from my information systems class):
 #. Class page:
 #: objects/UML/class_dialog.c:352
 msgid "_Class"
-msgstr "_Τάξη"
+msgstr "_Κλάση"
 
 #: objects/UML/class_dialog.c:362
 msgid "Class name:"
-msgstr "Όνομα τάξης:"
+msgstr "Όνομα κλάσης:"
 
 #: objects/UML/class_dialog.c:371 objects/UML/class_operations_dialog.c:904
 #: objects/UML/dependency.c:136 objects/UML/generalization.c:133
@@ -6080,7 +6058,7 @@ msgstr "Μέγεθος"
 
 #: objects/UML/class_dialog.c:520
 msgid "Abstract Class"
-msgstr "Αφηρημένη τάξη"
+msgstr "Αφηρημένη κλάση"
 
 #. should probably be refactored too.
 #: objects/UML/class_dialog.c:539
@@ -6137,16 +6115,12 @@ msgid "Remove Parameter"
 msgstr "Αφαίρεση παραμέτρου"
 
 #: objects/UML/class_operations_dialog.c:1132
-#, fuzzy
-#| msgid "Parameters"
 msgid "Move Parameter Up"
-msgstr "Παράμετροι"
+msgstr "Μετακίνηση παραμέτρου πάνω"
 
 #: objects/UML/class_operations_dialog.c:1147
-#, fuzzy
-#| msgid "Parameters"
 msgid "Move Parameter Down"
-msgstr "Παράμετροι"
+msgstr "Μετακίνηση παραμέτρου κάτω"
 
 #: objects/UML/class_operations_dialog.c:1277
 msgid "Parameter data"
@@ -6190,16 +6164,12 @@ msgid "Remove Operation"
 msgstr "Αφαίρεση λειτουργίας"
 
 #: objects/UML/class_operations_dialog.c:1499
-#, fuzzy
-#| msgid "Operations"
 msgid "Move Operation Up"
-msgstr "Λειτουργίες"
+msgstr "Μετακίνηση λειτουργίας πάνω"
 
 #: objects/UML/class_operations_dialog.c:1512
-#, fuzzy
-#| msgid "Operations"
 msgid "Move Operation Down"
-msgstr "Λειτουργίες"
+msgstr "Μετακίνηση λειτουργίας κάτω"
 
 #: objects/UML/class_operations_dialog.c:1524
 msgid "Operation data"
@@ -6212,31 +6182,23 @@ msgstr "_Πρότυπα"
 
 #: objects/UML/class_templates_dialog.c:403 sheets/UML.sheet:10
 msgid "Template class"
-msgstr "Τάξη προτύπου"
+msgstr "Κλάση προτύπου"
 
 #: objects/UML/class_templates_dialog.c:455
-#, fuzzy
-#| msgid "Formal parameter data"
 msgid "Add Formal Parameter"
-msgstr "Δεδομένα τυπικής παραμέτρου"
+msgstr "Προσθήκη τυπικής παραμέτρου"
 
 #: objects/UML/class_templates_dialog.c:468
-#, fuzzy
-#| msgid "Formal parameter data"
 msgid "Remove Formal Parameter"
-msgstr "Δεδομένα τυπικής παραμέτρου"
+msgstr "Αφαίρεση τυπικής παραμέτρου"
 
 #: objects/UML/class_templates_dialog.c:481
-#, fuzzy
-#| msgid "Formal parameter data"
 msgid "Move Formal Parameter Up"
-msgstr "Δεδομένα τυπικής παραμέτρου"
+msgstr "Μετακίνηση τυπικής παραμέτρου πάνω"
 
 #: objects/UML/class_templates_dialog.c:494
-#, fuzzy
-#| msgid "Formal parameter data"
 msgid "Move Formal Parameter Down"
-msgstr "Δεδομένα τυπικής παραμέτρου"
+msgstr "Μετακίνηση τυπικής παραμέτρου κάτω"
 
 #: objects/UML/class_templates_dialog.c:507
 msgid "Formal parameter data"
@@ -6244,7 +6206,7 @@ msgstr "Δεδομένα τυπικής παραμέτρου"
 
 #: objects/UML/component_feature.c:150 sheets/UML.sheet:63
 msgid "Facet"
-msgstr "Πλευρά"
+msgstr "Όψη"
 
 #: objects/UML/component_feature.c:151 sheets/UML.sheet:66
 msgid "Receptacle"
@@ -6256,7 +6218,7 @@ msgstr "Πηγή συμβάντος"
 
 #: objects/UML/component_feature.c:153 sheets/UML.sheet:74
 msgid "Event Sink"
-msgstr "Βύθιση συμβάντος"
+msgstr "Καταβόθρα συμβάντος"
 
 #: objects/UML/constraint.c:124
 msgid "Constraint:"
@@ -6267,14 +6229,14 @@ msgid "Show arrow:"
 msgstr "Εμφάνιση βέλους:"
 
 #. how it used to be before 0.96+SVN
-#. new name matching "same name, same type"  rule - reverted, forward compatibility seems more important
+#. new name matching "same name, same type"  rule - reverted, forward compatibility seems more important
 #: objects/UML/implements.c:125 objects/UML/implements.c:127
 msgid "Interface:"
 msgstr "Διεπαφή:"
 
 #: objects/UML/lifeline.c:167
 msgid "Draw focus of control:"
-msgstr "Εστίαση του ελέγχου:"
+msgstr "Σχεδίαση εστίασης του ελέγχου:"
 
 #: objects/UML/lifeline.c:169
 msgid "Draw destruction mark:"
@@ -6334,7 +6296,7 @@ msgstr "Αναδρομικό"
 
 #: objects/UML/message.c:151
 msgid "Message type:"
-msgstr "Τύπος μυνήματος:"
+msgstr "Τύπος μηνύματος:"
 
 #: objects/UML/object.c:146
 msgid "Explicit state"
@@ -6346,7 +6308,7 @@ msgstr "Ενεργό αντικείμενο"
 
 #: objects/UML/object.c:153
 msgid "Show attributes"
-msgstr "Εμφάνιση ιδιοτήτων"
+msgstr "Εμφάνιση γνωρισμάτων"
 
 #: objects/UML/object.c:155
 msgid "Multiple instance"
@@ -6354,15 +6316,15 @@ msgstr "Πολλαπλά στιγμιότυπα"
 
 #: objects/UML/state.c:145
 msgid "Entry action"
-msgstr "Δράση εισαγωγής"
+msgstr "Δράση εισόδου"
 
 #: objects/UML/state.c:146
 msgid "Do action"
-msgstr "Πραγματοποίηση δράσης"
+msgstr "Δράση εκτέλεσης"
 
 #: objects/UML/state.c:147
 msgid "Exit action"
-msgstr "Έξοδος από την δράση"
+msgstr "Δράση εξόδου"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
@@ -6400,7 +6362,7 @@ msgstr "Η εκτελούμενη ενέργεια κατά τη λήψη αυτ
 
 #: objects/UML/transition.c:144 sheets/cisconetwork.sheet:27
 msgid "Guard"
-msgstr "Φύλακας"
+msgstr "Φρουρός"
 
 #: objects/UML/transition.c:145
 msgid "Condition for taking this transition when the event is fired"
@@ -6416,7 +6378,7 @@ msgstr "Εμβέλεια κλάσης (μεταβλητή στατικής κλ�
 
 #: objects/UML/uml.c:65
 msgid "Unified Modelling Language diagram objects UML 1.3"
-msgstr "Διάγραμμα αντικειμένων UML 1.3 ενοποιημένης γλώσσας προτύπων"
+msgstr "Διάγραμμα αντικειμένων UML 1.3 ενοποιημένης γλώσσας μοντελοποίησης"
 
 #: objects/UML/umloperation.c:73
 msgid "Inheritance"
@@ -6428,7 +6390,7 @@ msgstr "Μέθοδος σταθεράς C++"
 
 #: objects/UML/umloperation.c:77
 msgid "Class scope (C++ static method)"
-msgstr "Εμβέλεια τάξης (στατικής μεθόδου C++)"
+msgstr "Εμβέλεια κλάσης (στατική μέθοδος C++)"
 
 #: objects/UML/usecase.c:128
 msgid "Collaboration"
@@ -6443,10 +6405,8 @@ msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
 #: plug-ins/cairo/diacairo.c:77
-#, fuzzy
-#| msgid "Encapsulated PostScript (using Pango fonts)"
 msgid "Encapsulated PostScript"
-msgstr "Encapsulated PostScript (με γραμματοσειρές Pango)"
+msgstr "Encapsulated PostScript"
 
 #: plug-ins/cairo/diacairo.c:88
 msgid "Cairo Portable Document Format"
@@ -6531,11 +6491,11 @@ msgstr "Ελαττωματικό αρχείο;"
 
 #: plug-ins/dxf/dia-dxf.c:52 plug-ins/dxf/dia-dxf-import.c:1441
 msgid "Drawing Interchange File"
-msgstr "Σχεδίαση εναλλάξιμου αρχείου"
+msgstr "Drawing Interchange File (DXF)"
 
 #: plug-ins/dxf/dia-dxf.c:80
 msgid "Drawing Interchange File import and export filters"
-msgstr "Φίλτρα εισαγωγής και εξαγωγής σχεδίασης εναλλάξιμου αρχείου"
+msgstr "Φίλτρα εισαγωγής και εξαγωγής Drawing Interchange File (DXF)"
 
 #: plug-ins/dxf/dia-dxf-import.c:1343 plug-ins/wpg/wpg-import.c:519
 #: plug-ins/xfig/xfig-import.c:1322
@@ -6559,7 +6519,7 @@ msgstr "Γλώσσα γραφικών HP"
 
 #: plug-ins/hpgl/hpgl.c:811
 msgid "HP Graphics Language export filter"
-msgstr "Γλώσσα γραφικών HP φίλτρο εξαγωγής"
+msgstr "Φίλτρο εξαγωγής Γλώσσας γραφικών HP"
 
 #: plug-ins/layout/layout.cpp:242
 msgid "Please select edges and nodes to layout."
@@ -6613,21 +6573,19 @@ msgstr ""
 #. Quick 'n Nasty hack to mark strings as translatable
 #: plug-ins/layout/layout.cpp:435
 msgid "Grow"
-msgstr ""
+msgstr "Επέκταση"
 
 #: plug-ins/layout/layout.cpp:436
 msgid "Shrink"
-msgstr ""
+msgstr "Συρρίκνωση"
 
 #: plug-ins/layout/layout.cpp:437
-#, fuzzy
-#| msgid "Height"
 msgid "Heighten"
-msgstr "Ύψος"
+msgstr "Ψήλωμα"
 
 #: plug-ins/layout/layout.cpp:438
 msgid "Widen"
-msgstr ""
+msgstr "Πλάτυνση"
 
 #: plug-ins/layout/layout.cpp:465
 msgid "OGDF Layout Algorithms"
@@ -6652,7 +6610,7 @@ msgstr "Η εισαγωγή PDF δεν είναι διαθέσιμη."
 
 #: plug-ins/pdf/pdf.c:42
 msgid "Portable Document File"
-msgstr "Φορητό αρχείο εγγράφου"
+msgstr "Portable Document File (PDF)"
 
 #: plug-ins/pdf/pdf.c:60
 msgid "PDF import filter"
@@ -6734,16 +6692,12 @@ msgid "Python scripting support"
 msgstr "Υποστήριξη σεναρίων Python"
 
 #: plug-ins/python/allprops.py:133
-#, fuzzy
-#| msgid "Object properties"
 msgid "All Object _Properties"
-msgstr "Ιδιότητες αντικειμένου"
+msgstr "Όλες οι _ιδιότητες αντικειμένου"
 
 #: plug-ins/python/allsheets.py:85
-#, fuzzy
-#| msgid "Delete selection"
 msgid "Dia _Sheets Inspection"
-msgstr "Διαγραφή επιλογής"
+msgstr "Επιθεώρηση _φύλλων Dia"
 
 #
 #: plug-ins/python/aobjects.py:102
@@ -6760,14 +6714,12 @@ msgstr "Όλα τα _αντικείμενα"
 #.
 #. \ingroup PyDia
 #: plug-ins/python/arrange.py:127
-#, fuzzy
-#| msgid "_Objects"
 msgid "Arrange _Objects"
-msgstr "Α_ντικείμενα"
+msgstr "Τακτοποίηση _αντικειμένων"
 
 #: plug-ins/python/autolayoutforce.py:125
 msgid "_Layout (force)"
-msgstr ""
+msgstr "_Διάταξη (εξαναγκασμός)"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/codegen.py:711
@@ -6797,33 +6749,29 @@ msgstr "Δημιουργία κώδικα PyDia (PHP)"
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/debug_objects.py:30
 msgid "Dia _BoundingBox Debugger"
-msgstr ""
+msgstr "Αποσφαλματωτής _πλαισίου οριοθέτησης Dia"
 
 #: plug-ins/python/debug_objects.py:34
 msgid "Dia _Property API Debugger"
-msgstr ""
+msgstr "Αποσφαλματωτής API _ιδιοτήτων Dia"
 
 #: plug-ins/python/dia_rotate.py:37
 msgid "Rotate counter-clockwise"
-msgstr ""
+msgstr "Περιστροφή αριστερόστροφα"
 
 #: plug-ins/python/dia_rotate.py:52
 msgid "Rotation around (0,0). Rotation angle in degrees:"
-msgstr ""
+msgstr "Περιστροφή γύρω από (0,0). Γωνία περιστροφής σε μοίρες:"
 
 #: plug-ins/python/dia_rotate.py:131
-#, fuzzy
-#| msgid "Rotation"
 msgid "Simple _Rotation"
-msgstr "Περιστροφή"
+msgstr "Απλή _περιστροφή"
 
 #. XXX: check image, e.g. existing file name
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/diadissect.py:166
-#, fuzzy
-#| msgid "Dissipate"
 msgid "Dissect"
-msgstr "Διάχυση"
+msgstr "Διαμελισμός"
 
 #. dia.register_import("Cpp via GCC_XML", "cpp", ImportCpp)
 #: plug-ins/python/diagx.py:405
@@ -6833,12 +6781,12 @@ msgstr "XML από GCC_XML"
 #. register the renderer
 #: plug-ins/python/diastddia.py:361
 msgid "Dia plain"
-msgstr ""
+msgstr "Απλό Dia"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/diasvg_import.py:731 plug-ins/python/diasvg.py:267
 msgid "SVG plain"
-msgstr ""
+msgstr "Απλό SVG"
 
 #: plug-ins/python/diasvg_import.py:732 plug-ins/python/diasvg.py:268
 msgid "SVG compressed"
@@ -6847,11 +6795,11 @@ msgstr "Συμπίεση SVG"
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/dot.py:92
 msgid "PyDia DOT Export"
-msgstr ""
+msgstr "Εξαγωγή PyDia DOT"
 
 #: plug-ins/python/dot2dia.py:282
 msgid "Graphviz Dot"
-msgstr ""
+msgstr "Graphviz Dot"
 
 #: plug-ins/python/doxrev.py:488
 msgid "Dox2UML"
@@ -6869,10 +6817,8 @@ msgstr "Εξαγωγή αντικειμένου PyDia"
 #. # \brief Register the renderer with Dia's export system
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/export-render.py:119
-#, fuzzy
-#| msgid "DiaRenderScript"
 msgid "PyDia Render Export"
-msgstr "DiaRenderScript"
+msgstr "Εξαγωγή απόδοσης PyDia"
 
 #: plug-ins/python/gtkcons.py:388
 msgid "Python Dia Console"
@@ -6884,22 +6830,16 @@ msgstr "Κονσόλα _Python"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/imgmap.py:80
-#, fuzzy
-#| msgid "Image"
 msgid "Imagemap"
-msgstr "Εικόνα"
+msgstr "Χάρτης εικόνας"
 
 #: plug-ins/python/mark-cps.py:72
-#, fuzzy
-#| msgid "Main Connection Point"
 msgid "_Mark Connection Points"
-msgstr "Κύριο σημείο σύνδεσης"
+msgstr "_Σήμανση σημείων σύνδεσης"
 
 #: plug-ins/python/otypes.py:185
-#, fuzzy
-#| msgid "DiaObject"
 msgid "Dia Object _Types"
-msgstr "DiaObject"
+msgstr "_Τύποι αντικειμένων Dia"
 
 #: plug-ins/python/pydiadoc.py:264
 msgid "PyDia _HTML Docs"
@@ -6907,27 +6847,23 @@ msgstr "PyDia _HTML Έγγραφα"
 
 #: plug-ins/python/pydiadoc.py:267
 msgid "PyDia _Docs"
-msgstr ""
+msgstr "_Έγγραφα PyDia"
 
 #: plug-ins/python/pydiadoc.py:270
 msgid "PyDia Docs _Update"
 msgstr "_Ενημέρωση εγγράφων PyDia"
 
 #: plug-ins/python/scascale.py:44
-#, fuzzy
-#| msgid "Scaling"
 msgid "Simple Scaling"
-msgstr "Κλιμάκωση"
+msgstr "Απλή κλιμάκωση"
 
 #: plug-ins/python/scascale.py:157
-#, fuzzy
-#| msgid "Scaling"
 msgid "Simple _Scaling"
-msgstr "Κλιμάκωση"
+msgstr "Απλή _κλιμάκωση"
 
 #: plug-ins/python/select_by.py:43
 msgid "Select by name"
-msgstr "Επιλέξτε κατά όνομα"
+msgstr "Επιλογή κατά όνομα"
 
 #: plug-ins/python/select_by.py:58
 msgid "Enter name"
@@ -6960,17 +6896,15 @@ msgstr "Ά_δειο"
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/uninline_data.py:52
 msgid "Uninline Images"
-msgstr ""
+msgstr "Αποενσωμάτωση εικόνων"
 
 #: plug-ins/shape/shape.c:38
 msgid "Dia shape export filter"
 msgstr "Φίλτρο εξαγωγής σχήματος Dia"
 
 #: plug-ins/shape/shape-export.c:296
-#, fuzzy
-#| msgid "Export"
 msgid "Shape Export"
-msgstr "Εξαγωγή"
+msgstr "Εξαγωγή σχήματος"
 
 #: plug-ins/shape/shape-export.c:616
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
@@ -7080,14 +7014,9 @@ msgid "Couldn't handle foreign object type %s"
 msgstr "Αδυναμία χειρισμού ξένου αντικειμένου τύπου %s"
 
 #: plug-ins/vdx/vdx-import.c:2966
-#, fuzzy, c-format
-#| msgid ""
-#| "VDX parser error for %s\n"
-#| "%s"
+#, c-format
 msgid "VDX parser error for %s"
-msgstr ""
-"Σφάλμα αναλυτή VDX για %s\n"
-"%s"
+msgstr "Σφάλμα αναλυτή VDX για %s"
 
 #: plug-ins/vdx/vdx-import.c:2979
 msgid "Nothing in document!"
@@ -7152,22 +7081,22 @@ msgstr "Φίλτρο εξαγωγής γραφικών WordPerfect"
 #: plug-ins/wpg/wpg-import.c:531
 #, c-format
 msgid "File: %s type/version unsupported.\n"
-msgstr "Αρχείο: %s τύπος/έκδοση δεν υποστηρίζεται.\n"
+msgstr "Αρχείο: %s, μη υποστηριζόμενος τύπος/έκδοση.\n"
 
 #: plug-ins/wpg/wpg-import.c:673
 #, c-format
 msgid "Unknown WPG type %d size %d."
-msgstr "Άγνωστο %d τύπου WPG, μεγέθους %d."
+msgstr "Άγνωστος τύπος WPG %d μεγέθους %d."
 
 #: plug-ins/wpg/wpg-import.c:678
 #, c-format
 msgid "Size 0 on WPG type %d, expecting WPG_END\n"
-msgstr "Μέγεθος 0 στον τύπο %d του WPG, αναμένεται WPG_END\n"
+msgstr "Μέγεθος 0 στον τύπο WPG %d, αναμένεται WPG_END\n"
 
 #: plug-ins/wpg/wpg-import.c:688
 #, c-format
 msgid "Unexpected end of file. WPG type %d, size %d.\n"
-msgstr "Απροσδόκητο τέλος αρχείου. %d τύπου WPG, μεγέθους %d.\n"
+msgstr "Απροσδόκητο τέλος αρχείου. Τύπος WPG %d, μέγεθος %d.\n"
 
 #: plug-ins/wpg/wpg-import.c:701
 msgid "Empty WPG file?"
@@ -7185,18 +7114,18 @@ msgstr ""
 
 #: plug-ins/xfig/xfig-export.c:462
 msgid "No more user-definable colors - using black"
-msgstr "Μη καθοριζόμενα πλέον από το χρήστη χρώματα - χρήση μαύρου"
+msgstr "Δεν υπάρχουν άλλα καθοριζόμενα από το χρήστη χρώματα - χρήση μαύρου"
 
 #: plug-ins/xfig/xfig-export.c:1327
 msgid "Xfig format"
-msgstr "Μορφή XFig"
+msgstr "Μορφή Xfig"
 
 #: plug-ins/xfig/xfig-import.c:109
 #, c-format
 msgid "Color index %d too high; only 512 colors allowed. Using black instead."
 msgstr ""
-"Ο δείκτης χρώματος %d υπερβολικά υψηλός· μόνο 512 χρώματα επιτρέπονται. "
-"Χρησιμοποιήστε στη θέση του μαύρο."
+"Ο δείκτης χρώματος %d είναι πολύ υψηλός· επιτρέπονται μόνο 512 χρώματα. "
+"Χρήση μαύρου αντ' αυτού."
 
 #: plug-ins/xfig/xfig-import.c:140
 msgid "Patterns are not supported by Dia"
@@ -7205,13 +7134,13 @@ msgstr "Το Dia δεν υποστηρίζει μοτίβα"
 #: plug-ins/xfig/xfig-import.c:169
 msgid "Triple-dotted lines are not supported by Dia; using double-dotted"
 msgstr ""
-"Τριπλά διάστικτες γραμμές δεν υποστηρίζονται από το Dia· χρησιμοποιήστε "
-"διπλές διάστικτες γραμμές"
+"Οι τριπλά διάστικτες γραμμές δεν υποστηρίζονται από το Dia· χρήση διπλά "
+"διάστικτων"
 
 #: plug-ins/xfig/xfig-import.c:173
 #, c-format
 msgid "Line style %d should not appear"
-msgstr "Η τεχνοτροπία γραμμής %d δεν πρέπει να εμφανίζεται"
+msgstr "Η τεχνοτροπία γραμμής %d δεν θα έπρεπε να εμφανίζεται"
 
 #: plug-ins/xfig/xfig-import.c:248
 #, c-format
@@ -7234,7 +7163,7 @@ msgstr "Άγνωστος τύπος βέλους %d\n"
 #: plug-ins/xfig/xfig-import.c:404
 #, c-format
 msgid "Depth %d out of range, only 0-%d allowed.\n"
-msgstr "Το βάθος %d είναι εκτός της περιοχής, μόνο 0-%d επιτρέπεται.\n"
+msgstr "Βάθος %d εκτός εύρους, επιτρέπεται μόνο 0-%d.\n"
 
 #: plug-ins/xfig/xfig-import.c:452
 msgid "Couldn't read ellipse info."
@@ -7246,11 +7175,11 @@ msgstr "Αδυναμία ανάγνωσης πληροφοριών πολυγω�
 
 #: plug-ins/xfig/xfig-import.c:536
 msgid "Couldn't read flipped bit."
-msgstr "Αδυναμία ανάγνωσης ανεστραμμένου δυαδικού."
+msgstr "Αδυναμία ανάγνωσης bit αντιστροφής."
 
 #: plug-ins/xfig/xfig-import.c:554
 msgid "Negative corner radius; negating"
-msgstr "Αρνητική ακτίνα γωνίας· αναίρεση"
+msgstr "Αρνητική ακτίνα γωνίας· αντιστροφή"
 
 #: plug-ins/xfig/xfig-import.c:597
 #, c-format
@@ -7259,7 +7188,7 @@ msgstr "Άγνωστος υποτύπος πολυγωνικής γραμμής:
 
 #: plug-ins/xfig/xfig-import.c:750 plug-ins/xfig/xfig-import.c:782
 msgid "Couldn't read spline info."
-msgstr "Αδυναμία ανάγνωσης πληροφοριών εύκαμπτης καμπύλης."
+msgstr "Αδυναμία ανάγνωσης πληροφοριών spline."
 
 #. Open approximated spline
 #. Closed approximated spline
@@ -7279,7 +7208,7 @@ msgstr "Αδυναμία ανάγνωσης πληροφοριών τόξου."
 #. set new fill property on arc?
 #: plug-ins/xfig/xfig-import.c:918
 msgid "Filled arc treated as unfilled"
-msgstr "Γεμάτο τόξο συμπεριφέρεται ως άδειο"
+msgstr "Γεμάτο τόξο αντιμετωπίζεται ως άδειο"
 
 #: plug-ins/xfig/xfig-import.c:922
 #, c-format
@@ -7294,23 +7223,22 @@ msgstr "Αδυναμία ανάγνωσης πληροφοριών κειμέν�
 #, c-format
 msgid "Can't find LaTeX font nr. %d, using sans"
 msgstr ""
-"Αδυναμία εύρεσης γραμματοσειράς LaTeX αριθμός %d, χρησιμοποιώντας χωρίς "
-"πατούρα"
+"Αδυναμία εύρεσης γραμματοσειράς LaTeX με αρ. %d, χρήση sans (χωρίς πατούρα)"
 
 #: plug-ins/xfig/xfig-import.c:1023
 #, c-format
 msgid "Can't find PostScript font nr. %d, using sans"
 msgstr ""
-"Αδυναμία εύρεσης γραμματοσειράς PostScript αριθμός %d, χρησιμοποιώντας χωρίς "
-"πατούρα"
+"Αδυναμία εύρεσης γραμματοσειράς PostScript με αρ. %d, χρήση sans (χωρίς "
+"πατούρα)"
 
 #: plug-ins/xfig/xfig-import.c:1052
 msgid "Couldn't identify Fig object."
-msgstr "Αδυναμία ταυτοποίησης αντικειμένου Fig."
+msgstr "Αδυναμία αναγνώρισης αντικειμένου Fig."
 
 #: plug-ins/xfig/xfig-import.c:1060
 msgid "Compound end outside compound\n"
-msgstr "Σύνθεση τέλους έξω από το συγκρότημα\n"
+msgstr "Τέλος σύνθετου αντικειμένου εκτός σύνθετου\n"
 
 #: plug-ins/xfig/xfig-import.c:1082
 msgid "Couldn't read color\n"
@@ -7318,12 +7246,12 @@ msgstr "Αδυναμία ανάγνωσης χρώματος\n"
 
 #: plug-ins/xfig/xfig-import.c:1087
 #, c-format
-msgid "Color number %d out of range 0..%d.  Discarding color.\n"
-msgstr "Αριθμός χρώματος %d εκτός περιοχής 0..%d. Απόρριψη χρώματος.\n"
+msgid "Color number %d out of range 0..%d.  Discarding color.\n"
+msgstr "Αριθμός χρώματος %d εκτός εύρους 0..%d. Απόρριψη χρώματος.\n"
 
 #: plug-ins/xfig/xfig-import.c:1134
 msgid "Couldn't read group extent."
-msgstr "Αδυναμία ανάγνωσης επέκτασης ομάδας."
+msgstr "Αδυναμία ανάγνωσης εύρους ομάδας."
 
 #: plug-ins/xfig/xfig-import.c:1145
 #, c-format
@@ -7331,20 +7259,18 @@ msgid "Unknown object type %d\n"
 msgstr "Άγνωστος τύπος αντικειμένου %d\n"
 
 #: plug-ins/xfig/xfig-import.c:1172
-#, fuzzy, c-format
-#| msgid "`%s' is not one of `%s' or `%s'\n"
+#, c-format
 msgid "“%s” is not one of “%s” or “%s”\n"
-msgstr "Το `%s' δεν είναι ένα από τα `%s' ή `%s'\n"
+msgstr "Το “%s” δεν είναι ένα από τα “%s” ή “%s”\n"
 
 #: plug-ins/xfig/xfig-import.c:1187
 msgid "Error reading paper size."
 msgstr "Σφάλμα ανάγνωσης μεγέθους χαρτιού."
 
 #: plug-ins/xfig/xfig-import.c:1199
-#, fuzzy, c-format
-#| msgid "Unknown paper size `%s', using default\n"
+#, c-format
 msgid "Unknown paper size “%s”, using default\n"
-msgstr "Άγνωστο μέγεθος χαρτιού `%s', θα χρησιμοποιηθεί το προεπιλεγμένο\n"
+msgstr "Άγνωστο μέγεθος χαρτιού “%s”, χρήση προεπιλογής\n"
 
 #: plug-ins/xfig/xfig-import.c:1215
 msgid "Error reading paper orientation."
@@ -7394,7 +7320,7 @@ msgid ""
 " It may not be importable."
 msgstr ""
 "Αυτό είναι ένα αρχείο Fig έκδοσης %d.%d.\n"
-" Ίσως να μην είναι εισακτέο."
+" Ίσως να μην είναι δυνατή η εισαγωγή του."
 
 #: plug-ins/xfig/xfig-import.c:1347
 msgid "Premature end of Fig file"
@@ -7402,23 +7328,19 @@ msgstr "Πρόωρο τέλος αρχείου Fig"
 
 #: plug-ins/xfig/xfig-import.c:1392
 msgid "Xfig File Format"
-msgstr "Μορφή αρχείου XFig"
+msgstr "Μορφή αρχείου Xfig"
 
 #: plug-ins/xslt/dia-xslt-dialogue.ui:4
 msgid "Export through XSLT"
-msgstr "Εξαγωγή μέσα από XSLT"
+msgstr "Εξαγωγή μέσω XSLT"
 
 #: plug-ins/xslt/dia-xslt-dialogue.ui:14
-#, fuzzy
-#| msgid "From:"
 msgid "_From"
-msgstr "Από:"
+msgstr "Α_πό"
 
 #: plug-ins/xslt/dia-xslt-dialogue.ui:42
-#, fuzzy
-#| msgid "Toe"
 msgid "_To"
-msgstr "Φτέρνα"
+msgstr "_Προς"
 
 #: plug-ins/xslt/dia-xslt.c:214 plug-ins/xslt/dia-xslt.c:225
 #, c-format
@@ -7426,17 +7348,18 @@ msgid ""
 "Name and stylesheet attributes are required for the implementation element "
 "%s in XSLT plugin configuration file"
 msgstr ""
+"Τα γνωρίσματα ονόματος και φύλλου τεχνοτροπίας απαιτούνται για το στοιχείο "
+"υλοποίησης %s στο αρχείο ρυθμίσεων του προσθέτου XSLT"
 
 #: plug-ins/xslt/dia-xslt.c:260
-#, fuzzy, c-format
-#| msgid "Could not find plugin init function in `%s'"
+#, c-format
 msgid "Couldn't parse XSLT plugin's configuration file %s"
-msgstr "Στο `%s' δε βρέθηκε λειτουργία αρχικοποίησης πρόσθετης λειτουργίας"
+msgstr "Αδυναμία ανάλυσης του αρχείου ρυθμίσεων του προσθέτου XSLT %s"
 
 #: plug-ins/xslt/dia-xslt.c:269
 #, c-format
 msgid "XSLT plugin's configuration file %s is empty"
-msgstr ""
+msgstr "Το αρχείο ρυθμίσεων του προσθέτου XSLT %s είναι κενό"
 
 #: plug-ins/xslt/dia-xslt.c:290 plug-ins/xslt/dia-xslt.c:301
 #, c-format
@@ -7444,6 +7367,8 @@ msgid ""
 "'name' and 'stylesheet' attributes are required for the language element %s "
 "in XSLT plugin configuration file"
 msgstr ""
+"Τα γνωρίσματα 'όνομα' και 'φύλλο τεχνοτροπίας' απαιτούνται για το στοιχείο "
+"γλώσσας %s στο αρχείο ρυθμίσεων του προσθέτου XSLT"
 
 #: plug-ins/xslt/dia-xslt.c:318
 #, c-format
@@ -7451,64 +7376,56 @@ msgid ""
 "No implementation stylesheet for language %s in XSLT plugin configuration "
 "file"
 msgstr ""
+"Δεν υπάρχει φύλλο τεχνοτροπίας υλοποίησης για τη γλώσσα %s στο αρχείο "
+"ρυθμίσεων του προσθέτου XSLT"
 
 #: plug-ins/xslt/dia-xslt.c:330
 #, c-format
 msgid ""
 "Wrong node name %s in XSLT plugin configuration file, 'language' expected"
 msgstr ""
+"Λανθασμένο όνομα κόμβου %s στο αρχείο ρυθμίσεων του προσθέτου XSLT, "
+"αναμενόταν 'γλώσσα'"
 
 #: plug-ins/xslt/dia-xslt.c:375
 msgid "No valid configuration files found for the XSLT plugin; not loading."
 msgstr ""
-"Δεν βρέθηκαν έγκυρα αρχεία διευθέτησης για το πρόσθετο XSLT· δεν φορτώνεται."
+"Δεν βρέθηκαν έγκυρα αρχεία ρυθμίσεων για το πρόσθετο XSLT· δεν φορτώνεται."
 
 #: plug-ins/xslt/dia-xslt.c:422 plug-ins/xslt/dia-xslt.c:568
 #: plug-ins/xslt/dia-xslt.c:578
-#, fuzzy, c-format
-#| msgid "Error while saving result: %s\n"
+#, c-format
 msgid "Error while saving %s: %s"
-msgstr "Σφάλμα κατά την αποθήκευση αποτελέσματος: %s\n"
+msgstr "Σφάλμα κατά την αποθήκευση του %s: %s"
 
 #: plug-ins/xslt/dia-xslt.c:472
-#, fuzzy, c-format
-#| msgid "Can't open output file %s: %s\n"
+#, c-format
 msgid "Can't open output file %s: %s"
-msgstr "Αδυναμία ανοίγματος του αρχείου εξόδου %s: %s\n"
+msgstr "Αδυναμία ανοίγματος του αρχείου εξόδου %s: %s"
 
 #: plug-ins/xslt/dia-xslt.c:487
-#, fuzzy, c-format
-#| msgid ""
-#| "Error while parsing %s\n"
-#| "%s"
+#, c-format
 msgid "Error while parsing: %s"
-msgstr ""
-"Σφάλμα κατά την ανάλυση του %s\n"
-"%s"
+msgstr "Σφάλμα κατά την ανάλυση: %s"
 
 #: plug-ins/xslt/dia-xslt.c:500 plug-ins/xslt/dia-xslt.c:520
-#, fuzzy, c-format
-#| msgid "Error while parsing stylesheet: %s\n"
+#, c-format
 msgid "Error while parsing stylesheet: %s"
-msgstr "Σφάλμα κατά την ανάλυση φύλλου τεχνοτροπίας: %s\n"
+msgstr "Σφάλμα κατά την ανάλυση φύλλου τεχνοτροπίας: %s"
 
 #: plug-ins/xslt/dia-xslt.c:509 plug-ins/xslt/dia-xslt.c:531
-#, fuzzy, c-format
-#| msgid "Error while applying stylesheet: %s\n"
+#, c-format
 msgid "Error while applying stylesheet: %s"
-msgstr "Σφάλμα κατά την εφαρμογή φύλλου τεχνοτροπίας: %s\n"
+msgstr "Σφάλμα κατά την εφαρμογή φύλλου τεχνοτροπίας: %s"
 
 #: plug-ins/xslt/dia-xslt.c:542 plug-ins/xslt/dia-xslt.c:550
-#, fuzzy, c-format
-#| msgid "Error while saving result: %s\n"
+#, c-format
 msgid "Error while saving result: %s"
-msgstr "Σφάλμα κατά την αποθήκευση αποτελέσματος: %s\n"
+msgstr "Σφάλμα κατά την αποθήκευση αποτελέσματος: %s"
 
 #: plug-ins/xslt/dia-xslt.c:669
-#, fuzzy
-#| msgid "Plugins"
 msgid "XSLT Plugin"
-msgstr "Πρόσθετα"
+msgstr "Πρόσθετο XSLT"
 
 #: plug-ins/xslt/dia-xslt.c:676
 msgid "XSL Transformation filter"
@@ -7562,8 +7479,8 @@ msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
 msgstr ""
-"Μια ποικίλη συλλογή πολυγώνων, γωνιών Bezier και άλλων ποικίλων γεωμετρικών "
-"σχημάτων"
+"Μια ποικίλη συλλογή πολυγώνων, πολυγώνων Bezier και άλλων ποικίλων "
+"γεωμετρικών σχημάτων"
 
 #: sheets/Assorted.sheet:25
 msgid "Right angle triangle"
@@ -7575,7 +7492,7 @@ msgstr "Ισοσκελές τρίγωνο"
 
 #: sheets/Assorted.sheet:33
 msgid "Perfect square, height equals width"
-msgstr "Τέλειο ορθογώνιο, ύψος ίσο με το πλάτος"
+msgstr "Τέλειο τετράγωνο, ύψος ίσο με πλάτος"
 
 #: sheets/Assorted.sheet:34
 msgid "Perfect circle"
@@ -7587,7 +7504,7 @@ msgstr "Τέταρτο κύκλου"
 
 #: sheets/Assorted.sheet:37
 msgid "Diamond"
-msgstr "Διαμάντι"
+msgstr "Ρόμβος"
 
 #: sheets/Assorted.sheet:39
 msgid "Pentagon. Five-point shape"
@@ -7655,23 +7572,23 @@ msgstr "Ελβετικός σταυρός"
 
 #: sheets/Assorted.sheet:63
 msgid "Maltese cross"
-msgstr "Σταυρός Μάλτας"
+msgstr "Σταυρός της Μάλτας"
 
 #: sheets/Assorted.sheet:66
 msgid "Down arrow"
-msgstr "Κάτω βέλος"
+msgstr "Βέλος κάτω"
 
 #: sheets/Assorted.sheet:67
 msgid "Up arrow"
-msgstr "Άνω βέλος"
+msgstr "Βέλος πάνω"
 
 #: sheets/Assorted.sheet:68
 msgid "Left arrow"
-msgstr "Αριστερό βέλος"
+msgstr "Βέλος αριστερά"
 
 #: sheets/Assorted.sheet:69
 msgid "Right arrow"
-msgstr "Δεξί βέλος"
+msgstr "Βέλος δεξιά"
 
 #: sheets/Assorted.sheet:71
 msgid "Notched left arrow"
@@ -7683,31 +7600,31 @@ msgstr "Δεξιό βέλος με εγκοπή"
 
 #: sheets/Assorted.sheet:74
 msgid "Left-up arrow"
-msgstr "Αριστερό-πάνω βέλος"
+msgstr "Βέλος αριστερά-πάνω"
 
 #: sheets/Assorted.sheet:75
 msgid "Turn-up arrow"
-msgstr "Καμπυλωμένο βέλος προς τα πάνω"
+msgstr "Βέλος στροφής προς τα πάνω"
 
 #: sheets/Assorted.sheet:76
 msgid "Left-right arrow"
-msgstr "Αριστερό-δεξί βέλος"
+msgstr "Βέλος αριστερά-δεξιά"
 
 #: sheets/Assorted.sheet:77
 msgid "Up-down arrow"
-msgstr "Πάνω-κάτω βέλος"
+msgstr "Βέλος πάνω-κάτω"
 
 #: sheets/Assorted.sheet:79
 msgid "Quad arrow"
-msgstr "Τετράδυμο βέλος"
+msgstr "Τετραπλό βέλος"
 
 #: sheets/Assorted.sheet:80
 msgid "Left-right-up arrow"
-msgstr "Αριστερό-δεξί-επάνω βέλος"
+msgstr "Βέλος αριστερά-δεξιά-πάνω"
 
 #: sheets/Assorted.sheet:81
 msgid "Up-down-left arrow"
-msgstr "Πάνω-κάτω-αριστερό βέλος"
+msgstr "Βέλος πάνω-κάτω-αριστερά"
 
 #: sheets/Assorted.sheet:83
 msgid "Pentagon block arrow"
@@ -7739,155 +7656,155 @@ msgstr "BPMN"
 
 #: sheets/BPMN.sheet:8
 msgid "Business Process Modeling Notation"
-msgstr "Σημειογραφία προτυποποίησης εργασιακής επεξεργασίας"
+msgstr "Σημειογραφία Μοντελοποίησης Επιχειρησιακών Διαδικασιών"
 
 #: sheets/BPMN.sheet:12 sheets/EDPC.sheet:11
 msgid "Start Event"
-msgstr "Έναρξη συμβάντος"
+msgstr "Συμβάν Έναρξης"
 
 #: sheets/BPMN.sheet:15
 msgid "Start Event — Message"
-msgstr "Έναρξη συμβάντος - μήνυμα"
+msgstr "Συμβάν Έναρξης — Μήνυμα"
 
 #: sheets/BPMN.sheet:18
 msgid "Start Event — Timer"
-msgstr "Έναρξη συμβάντος - χρονόμετρο"
+msgstr "Συμβάν Έναρξης — Χρονοδιακόπτης"
 
 #: sheets/BPMN.sheet:21
 msgid "Start Event — Rule"
-msgstr "Έναρξη συμβάντος - κανόνας"
+msgstr "Συμβάν Έναρξης — Κανόνας"
 
 #: sheets/BPMN.sheet:24
 msgid "Start Event — Link"
-msgstr "Έναρξη συμβάντος - σύνδεση"
+msgstr "Συμβάν Έναρξης — Σύνδεσμος"
 
 #: sheets/BPMN.sheet:27
 msgid "Start Event — Multiple"
-msgstr "Έναρξη συμβάντος - πολλαπλασιασμός"
+msgstr "Συμβάν Έναρξης — Πολλαπλό"
 
 #: sheets/BPMN.sheet:30
 msgid "Intermediate Event"
-msgstr "Ενδιάμεσο συμβάν"
+msgstr "Ενδιάμεσο Συμβάν"
 
 #: sheets/BPMN.sheet:33
 msgid "Intermediate Event — Message"
-msgstr "Ενδιάμεσο συμβάν - μήνυμα"
+msgstr "Ενδιάμεσο Συμβάν — Μήνυμα"
 
 #: sheets/BPMN.sheet:36
 msgid "Intermediate Event — Timer"
-msgstr "Ενδιάμεσο συμβάν - χρονόμετρο"
+msgstr "Ενδιάμεσο Συμβάν — Χρονοδιακόπτης"
 
 #: sheets/BPMN.sheet:39
 msgid "Intermediate Event — Error"
-msgstr "Ενδιάμεσο συμβάν - σφάλμα"
+msgstr "Ενδιάμεσο Συμβάν — Σφάλμα"
 
 #: sheets/BPMN.sheet:42
 msgid "Intermediate Event — Cancel"
-msgstr "Ενδιάμεσο συμβάν - ακύρωση"
+msgstr "Ενδιάμεσο Συμβάν — Ακύρωση"
 
 #: sheets/BPMN.sheet:45
 msgid "Intermediate Event — Compensation"
-msgstr "Ενδιάμεσο συμβάν - αντιστάθμιση"
+msgstr "Ενδιάμεσο Συμβάν — Αντιστάθμιση"
 
 #: sheets/BPMN.sheet:48
 msgid "Intermediate Event — Rule"
-msgstr "Ενδιάμεσο συμβάν - κανόνας"
+msgstr "Ενδιάμεσο Συμβάν — Κανόνας"
 
 #: sheets/BPMN.sheet:51
 msgid "Intermediate Event — Link"
-msgstr "Ενδιάμεσο συμβάν - σύνδεση"
+msgstr "Ενδιάμεσο Συμβάν — Σύνδεσμος"
 
 #: sheets/BPMN.sheet:54
 msgid "Intermediate Event — Multiple"
-msgstr "Ενδιάμεσο συμβάν - πολλαπλασιασμός"
+msgstr "Ενδιάμεσο Συμβάν — Πολλαπλό"
 
 #: sheets/BPMN.sheet:57 sheets/EDPC.sheet:12
 msgid "End Event"
-msgstr "Τέλος συμβάντος"
+msgstr "Συμβάν Τέλους"
 
 #: sheets/BPMN.sheet:60
 msgid "End Event — Message"
-msgstr "Τέλος συμβάντος - μήνυμα"
+msgstr "Συμβάν Τέλους — Μήνυμα"
 
 #: sheets/BPMN.sheet:63
 msgid "End Event — Error"
-msgstr "Τέλος συμβάντος - σφάλμα"
+msgstr "Συμβάν Τέλους — Σφάλμα"
 
 #: sheets/BPMN.sheet:66
 msgid "End Event — Cancel"
-msgstr "Τέλος συμβάντος - ακύρωση"
+msgstr "Συμβάν Τέλους — Ακύρωση"
 
 #: sheets/BPMN.sheet:69
 msgid "End Event — Compensation"
-msgstr "Τέλος συμβάντος - αντιστάθμιση"
+msgstr "Συμβάν Τέλους — Αντιστάθμιση"
 
 #: sheets/BPMN.sheet:72
 msgid "End Event — Link"
-msgstr "Τέλος συμβάντος - σύνδεση"
+msgstr "Συμβάν Τέλους — Σύνδεσμος"
 
 #: sheets/BPMN.sheet:75
 msgid "End Event — Multiple"
-msgstr "Τέλος συμβάντος - πολλαπλασιασμός"
+msgstr "Συμβάν Τέλους — Πολλαπλό"
 
 #: sheets/BPMN.sheet:78
 msgid "End Event — Terminate"
-msgstr "Τέλος συμβάντος - τερματισμός"
+msgstr "Συμβάν Τέλους — Τερματισμός"
 
 #: sheets/BPMN.sheet:81
 msgid "Gateway"
-msgstr "Πύλη δικτύου"
+msgstr "Πύλη"
 
 #: sheets/BPMN.sheet:84
 msgid "Exclusive (XOR) Data Based"
-msgstr "Αποκλειστικό (XOR) με βάση δεδομένα"
+msgstr "Αποκλειστική (XOR) Βάσει Δεδομένων"
 
 #: sheets/BPMN.sheet:87
 msgid "Exclusive (XOR) Event Based"
-msgstr "Αποκλειστικό (XOR) με βάση συμβάν"
+msgstr "Αποκλειστική (XOR) Βάσει Συμβάντος"
 
 #: sheets/BPMN.sheet:90
 msgid "Inclusive (OR)"
-msgstr "Εγκλειστκό (OR)"
+msgstr "Εγκλειστική (OR)"
 
 #: sheets/BPMN.sheet:93
 msgid "Complex"
-msgstr "Σύμπλεγμα"
+msgstr "Σύνθετη"
 
 #: sheets/BPMN.sheet:96
 msgid "Parallel (AND)"
-msgstr "Παράλληλα (AND)"
+msgstr "Παράλληλη (AND)"
 
 #: sheets/BPMN.sheet:102
 msgid "Activity Looping"
-msgstr "Ανακυκλούμενη δραστηριότητα"
+msgstr "Βρόχος Δραστηριότητας"
 
 #: sheets/BPMN.sheet:105
 msgid "Multiple Instance Task"
-msgstr "Πολλαπλή περίπτωση διεργασίας"
+msgstr "Εργασία Πολλαπλών Στιγμιοτύπων"
 
 #: sheets/BPMN.sheet:108
 msgid "Compensation Task"
-msgstr "Εργασία αντιστάθμισης"
+msgstr "Εργασία Αντιστάθμισης"
 
 #: sheets/BPMN.sheet:111
 msgid "Collapsed Sub-Process"
-msgstr "Κατάρρευση υποεπεξεργασίας"
+msgstr "Συμπτυγμένη Υπο-Διαδικασία"
 
 #: sheets/BPMN.sheet:114
 msgid "Looping Collapsed Sub-Process"
-msgstr "Ανακυκλούμενη κατάρρευση υποεπεξεργασίας"
+msgstr "Συμπτυγμένη Υπο-Διαδικασία σε Βρόχο"
 
 #: sheets/BPMN.sheet:117
 msgid "Multiple Instance Collapsed Sub-Process"
-msgstr "Πολλαπλή περίπτωση κατάρρευσης υποεπεξεργασίας"
+msgstr "Συμπτυγμένη Υπο-Διαδικασία Πολλαπλών Στιγμιοτύπων"
 
 #: sheets/BPMN.sheet:120
 msgid "Ad-Hoc Collapsed Sub-Process"
-msgstr "Ειδική κατάρρευση υποεπεξεργασίας"
+msgstr "Ad-Hoc Συμπτυγμένη Υπο-Διαδικασία"
 
 #: sheets/BPMN.sheet:123
 msgid "Compensation Collapsed Sub-Process"
-msgstr "Αντιστάθμιση υποεπεξεργασίας που κατέρρευσε"
+msgstr "Συμπτυγμένη Υπο-Διαδικασία Αντιστάθμισης"
 
 #: sheets/BPMN.sheet:126
 msgid "Group"
@@ -7899,11 +7816,11 @@ msgstr "Συναλλαγή"
 
 #: sheets/BPMN.sheet:132
 msgid "Data Object"
-msgstr "Αντικείμενο δεδομένων"
+msgstr "Αντικείμενο Δεδομένων"
 
 #: sheets/BPMN.sheet:135
 msgid "Text Annotation"
-msgstr "Σημείωση κειμένου"
+msgstr "Σχόλιο Κειμένου"
 
 #. Dia-Version: 0.91
 #. File: /home/zenith/.dia/sheets/Chemeng.sheet
@@ -7911,7 +7828,7 @@ msgstr "Σημείωση κειμένου"
 #. For: zenith
 #: sheets/ChemEng.sheet:8
 msgid "ChemEng"
-msgstr "Χημική μηχανική"
+msgstr "Χημική Μηχανική"
 
 #: sheets/ChemEng.sheet:9
 msgid "Collection for chemical engineering"
@@ -7919,27 +7836,27 @@ msgstr "Συλλογή για χημική μηχανική"
 
 #: sheets/ChemEng.sheet:13
 msgid "Fan or Stirrer"
-msgstr "Ανεμιστήρας ή αναδευτήρας"
+msgstr "Ανεμιστήρας ή Αναδευτήρας"
 
 #: sheets/ChemEng.sheet:14
 msgid "Spraying Device"
-msgstr "Συσκευή καταιωνισμού"
+msgstr "Συσκευή Ψεκασμού"
 
 #: sheets/ChemEng.sheet:15
 msgid "Pneumatic Line"
-msgstr "Πνευματική γραμμή"
+msgstr "Πνευματική Γραμμή"
 
 #: sheets/ChemEng.sheet:16
 msgid "Pneumatic Line, vertical"
-msgstr "Πνευματική γραμμή, κάθετη"
+msgstr "Πνευματική Γραμμή, κάθετη"
 
 #: sheets/ChemEng.sheet:18
 msgid "Simple Heat Exchanger"
-msgstr "Απλός εναλλάκτης θερμότητας"
+msgstr "Απλός Εναλλάκτης Θερμότητας"
 
 #: sheets/ChemEng.sheet:19
 msgid "Simple Heat Exchanger, vertical"
-msgstr "Απλός εναλλάκτης θερμότητας, κάθετος"
+msgstr "Απλός Εναλλάκτης Θερμότητας, κάθετος"
 
 #: sheets/ChemEng.sheet:20
 msgid "Water Cooler"
@@ -7951,71 +7868,71 @@ msgstr "Υδροψύκτης, κάθετος"
 
 #: sheets/ChemEng.sheet:22
 msgid "Fixed-Sheet Exchanger"
-msgstr "Εναλλάκτης σταθερού φύλλου"
+msgstr "Εναλλάκτης Σταθερών Φύλλων"
 
 #: sheets/ChemEng.sheet:23
 msgid "Floating-Head or U-Tube Exchanger"
-msgstr "Εναλλάκτης επιπλέουσας κεφαλής ή υοειδούς σωλήνα"
+msgstr "Εναλλάκτης Κινητής Κεφαλής ή Σωλήνα U"
 
 #: sheets/ChemEng.sheet:24
 msgid "Kettle Reboiler"
-msgstr "Αναβραστήρας λέβητα"
+msgstr "Αναβραστήρας Τύπου Kettle"
 
 #: sheets/ChemEng.sheet:25
 msgid "Air Cooler"
-msgstr "Αεροψυχραντήρας"
+msgstr "Αεροψύκτης"
 
 #: sheets/ChemEng.sheet:26
 msgid "Forced-Flow Air Cooler"
-msgstr "Αεροψύκτης εξαναγκασμένης ροής"
+msgstr "Αεροψύκτης Εξαναγκασμένης Ροής"
 
 #: sheets/ChemEng.sheet:27
 msgid "Induced-Flow Air Cooler"
-msgstr "Αεροψύκτης επαγόμενης ροής"
+msgstr "Αεροψύκτης Επαγόμενης Ροής"
 
 #: sheets/ChemEng.sheet:28
 msgid "Plate Exchanger"
-msgstr "Ανταλλάκτης πλακών"
+msgstr "Πλακοειδής Εναλλάκτης"
 
 #: sheets/ChemEng.sheet:29
 msgid "Double-Pipe Exchanger"
-msgstr "Εναλλάκτης διπλού σωλήνα"
+msgstr "Εναλλάκτης Διπλού Σωλήνα"
 
 #: sheets/ChemEng.sheet:30
 msgid "Heating/Cooling Coil"
-msgstr "Στοιχείο θέρμανσης/ψύξης"
+msgstr "Σερπαντίνα Θέρμανσης/Ψύξης"
 
 #: sheets/ChemEng.sheet:31
 msgid "Heating/Cooling Coil, vertical"
-msgstr "Στοιχείο θέρμανσης/ψύξης, κάθετο"
+msgstr "Σερπαντίνα Θέρμανσης/Ψύξης, κάθετη"
 
 #: sheets/ChemEng.sheet:32
 msgid "Simple Furnace"
-msgstr "Απλός φούρνος"
+msgstr "Απλός Φούρνος"
 
 #: sheets/ChemEng.sheet:33
 msgid "Simple Vessel"
-msgstr "Απλό δοχείο"
+msgstr "Απλό Δοχείο"
 
 #: sheets/ChemEng.sheet:34
 msgid "Knock-out Drum (with demister pad)"
-msgstr "Τύμπανο εξωστήρα (με αντεφιδρωτική βάση)"
+msgstr "Διαχωριστής Υγρού (με πλέγμα αποθάμβωσης)"
 
 #: sheets/ChemEng.sheet:35
 msgid "Tray Column, simple"
-msgstr "Στήλη δίσκων, απλή"
+msgstr "Στήλη Δίσκων, απλή"
 
 #: sheets/ChemEng.sheet:36
 msgid "Tray Column, detailed"
-msgstr "Στήλη δίσκων, λεπτομερής"
+msgstr "Στήλη Δίσκων, λεπτομερής"
 
 #: sheets/ChemEng.sheet:37
 msgid "Fluid Contacting Vessel, simple"
-msgstr "Δοχείο επαφής ρευστού, απλό"
+msgstr "Δοχείο Επαφής Ρευστών, απλό"
 
 #: sheets/ChemEng.sheet:38
 msgid "Reactor or Absorption Vessel, simple"
-msgstr "Αντιδραστήρας ή δοχείο απορρόφησης, απλό"
+msgstr "Αντιδραστήρας ή Δοχείο Απορρόφησης, απλό"
 
 #: sheets/ChemEng.sheet:39
 msgid "Autoclave"
@@ -8023,63 +7940,63 @@ msgstr "Αυτόκλειστο"
 
 #: sheets/ChemEng.sheet:40
 msgid "Open Tank"
-msgstr "Ανοιχτή δεξαμενή"
+msgstr "Ανοιχτή Δεξαμενή"
 
 #: sheets/ChemEng.sheet:41
 msgid "Clarifier or Settling Tank"
-msgstr "Δεξαμενή καθαρισμού ή καθίζησης"
+msgstr "Δεξαμενή Διαύγασης ή Καθίζησης"
 
 #: sheets/ChemEng.sheet:42
 msgid "Sealed Tank"
-msgstr "Σφραγισμένη δεξαμενή"
+msgstr "Σφραγισμένη Δεξαμενή"
 
 #: sheets/ChemEng.sheet:43
 msgid "Covered tank"
-msgstr "Σκεπασμένη δεξαμενή"
+msgstr "Σκεπασμένη Δεξαμενή"
 
 #: sheets/ChemEng.sheet:44
 msgid "Tank with Fixed Roof"
-msgstr "Δεξαμενή σταθερής οροφής"
+msgstr "Δεξαμενή με Σταθερή Οροφή"
 
 #: sheets/ChemEng.sheet:45
 msgid "Tank with Floating Roof"
-msgstr "Δεξαμενή επιπλέουσας οροφής"
+msgstr "Δεξαμενή με Πλωτή Οροφή"
 
 #: sheets/ChemEng.sheet:46
 msgid "Storage Sphere"
-msgstr "Σφαίρα αποθήκευσης"
+msgstr "Σφαίρα Αποθήκευσης"
 
 #: sheets/ChemEng.sheet:47
 msgid "Gas Holder, basic"
-msgstr "Υποδοχή αερίου, βασική"
+msgstr "Αεριοφυλάκιο, βασικό"
 
 #: sheets/ChemEng.sheet:48
 msgid "Centrifugal Pump or Fan"
-msgstr "Φυγόκεντρος αντλία ή ανεμιστήρας"
+msgstr "Φυγόκεντρος Αντλία ή Ανεμιστήρας"
 
 #: sheets/ChemEng.sheet:49
 msgid "Positive Displacement Rotary Pump or Compressor"
-msgstr "Θετική μετατόπιση περιστροφικής αντλίας ή συμπιεστή"
+msgstr "Περιστροφική Αντλία ή Συμπιεστής Θετικής Μετατόπισης"
 
 #: sheets/ChemEng.sheet:50
 msgid "Reciprocating Compressor or Pump"
-msgstr "Παλινδρομικός συμπιεστής ή αντλία"
+msgstr "Παλινδρομικός Συμπιεστής ή Αντλία"
 
 #: sheets/ChemEng.sheet:51
 msgid "Axial Flow Fan"
-msgstr "Αξονικός ανεμιστήρας ροής"
+msgstr "Αξονικός Ανεμιστήρας Ροής"
 
 #: sheets/ChemEng.sheet:52
 msgid "Compressor or Turbine"
-msgstr "Συμπιεστής ή στρόβιλος"
+msgstr "Συμπιεστής ή Στρόβιλος"
 
 #: sheets/ChemEng.sheet:53
 msgid "Ejector or Injector"
-msgstr "Εκτοξευτής ή εγχυτήρας"
+msgstr "Εκτοξευτής ή Εγχυτήρας"
 
 #: sheets/ChemEng.sheet:54
 msgid "AC Generator"
-msgstr "Γεννήτρια εναλλασσόμενου ρεύματος"
+msgstr "Γεννήτρια ΕΡ"
 
 #: sheets/ChemEng.sheet:55
 msgid "Valve"
@@ -8091,19 +8008,19 @@ msgstr "Βαλβίδα, κάθετη"
 
 #: sheets/ChemEng.sheet:57
 msgid "Regulable Valve"
-msgstr "Ρυθμιστική βαλβίδα"
+msgstr "Ρυθμιζόμενη Βαλβίδα"
 
 #: sheets/ChemEng.sheet:58
 msgid "Regulable Valve, vertical"
-msgstr "Ρυθμιστική βαλβίδα, κατακόρυφη"
+msgstr "Ρυθμιζόμενη Βαλβίδα, κάθετη"
 
 #: sheets/ChemEng.sheet:59
 msgid "Basic Filter"
-msgstr "Βασικό φίλτρο"
+msgstr "Βασικό Φίλτρο"
 
 #: sheets/ChemEng.sheet:60
 msgid "Mixer"
-msgstr "Μείκτης"
+msgstr "Αναμικτήρας"
 
 #: sheets/ChemEng.sheet:61
 msgid "Cyclone and hydrocyclone"
@@ -8111,7 +8028,7 @@ msgstr "Κυκλώνας και υδροκυκλώνας"
 
 #: sheets/ChemEng.sheet:62
 msgid "Spray Drier"
-msgstr "Ξηραντήρας καταιωνισμού"
+msgstr "Ξηραντήρας Ψεκασμού"
 
 #: sheets/ChemEng.sheet:63
 msgid "Centrifuge"
@@ -8119,7 +8036,7 @@ msgstr "Φυγόκεντρος"
 
 #: sheets/ChemEng.sheet:64
 msgid "Pressure Relief Valve"
-msgstr "Βαλβίδα εκτόνωσης πίεσης"
+msgstr "Βαλβίδα Εκτόνωσης Πίεσης"
 
 #: sheets/chronogram.sheet:3
 msgid "Chronogram"
@@ -8131,11 +8048,11 @@ msgstr "Αντικείμενα για σχεδίαση διαγραμμάτων 
 
 #: sheets/chronogram.sheet:7
 msgid "Time scale"
-msgstr "Κλίμακα χρόνου"
+msgstr "Χρονική κλίμακα"
 
 #: sheets/chronogram.sheet:10
 msgid "Data line"
-msgstr "Δεδομένα γραμμής"
+msgstr "Γραμμή δεδομένων"
 
 #: sheets/Circuit.sheet:3
 msgid "Circuit"
@@ -8147,15 +8064,15 @@ msgstr "Συστατικά για διαγράμματα κυκλωμάτων"
 
 #: sheets/Circuit.sheet:7
 msgid "Vertically aligned resistor"
-msgstr "Κάθετα στοιχισμένη αντιστάτης"
+msgstr "Κάθετα στοιχισμένος αντιστάτης"
 
 #: sheets/Circuit.sheet:10
 msgid "Horizontally aligned inductor"
-msgstr "Οριζόντια στοιχισμένος επαγωγέας"
+msgstr "Οριζόντια στοιχισμένο πηνίο"
 
 #: sheets/Circuit.sheet:13
 msgid "Vertically aligned inductor"
-msgstr "Κάθετα στοιχισμένος επαγωγέας"
+msgstr "Κάθετα στοιχισμένο πηνίο"
 
 #: sheets/Circuit.sheet:16
 msgid "Horizontally aligned resistor"
@@ -8167,11 +8084,11 @@ msgstr "Κάθετα στοιχισμένος αντιστάτης (ευρωπα
 
 #: sheets/Circuit.sheet:23
 msgid "Horizontally aligned inductor (European)"
-msgstr "Οριζόντια στοιχισμένος επαγωγέας (ευρωπαϊκός)"
+msgstr "Οριζόντια στοιχισμένο πηνίο (ευρωπαϊκό)"
 
 #: sheets/Circuit.sheet:26
 msgid "Vertically aligned inductor (European)"
-msgstr "Κάθετα στοιχισμένος επαγωγέας (ευρωπαϊκός)"
+msgstr "Κάθετα στοιχισμένο πηνίο (ευρωπαϊκό)"
 
 #: sheets/Circuit.sheet:29
 msgid "Horizontally aligned resistor (European)"
@@ -8188,7 +8105,7 @@ msgstr "Κάθετα στοιχισμένος πυκνωτής"
 #.
 #: sheets/Circuit.sheet:42
 msgid "NPN bipolar transistor"
-msgstr "Διπολικό τρανζίστορ ΝΡΝ"
+msgstr "Διπολικό τρανζίστορ NPN"
 
 #.
 #: sheets/Circuit.sheet:47
@@ -8265,7 +8182,7 @@ msgstr "Τρανζίστορ PMOS"
 
 #: sheets/Circuit.sheet:105
 msgid "Horizontal jumper"
-msgstr "Οριζόντιος διακλαδωτής"
+msgstr "Οριζόντιος βραχυκυκλωτήρας"
 
 #: sheets/Circuit.sheet:108
 msgid "Horizontal xtal"
@@ -8273,19 +8190,19 @@ msgstr "Οριζόντιος κρύσταλλος"
 
 #: sheets/Circuit.sheet:111
 msgid "Vertical xtal"
-msgstr "Κάθετο κρύσταλλος"
+msgstr "Κάθετος κρύσταλλος"
 
 #: sheets/ciscocomputer.sheet:3
 msgid "Cisco — Computer"
-msgstr "Cisco - Υπολογιστής"
+msgstr "Cisco — Υπολογιστής"
 
 #: sheets/ciscocomputer.sheet:4
 msgid "Computer shapes by Cisco"
-msgstr "Σχήματα υπολογιστή από την Cisco"
+msgstr "Σχήματα υπολογιστών από την Cisco"
 
 #: sheets/ciscocomputer.sheet:6
 msgid "PC"
-msgstr "Προσωπικός υπολογιστής"
+msgstr "PC"
 
 #: sheets/ciscocomputer.sheet:7
 msgid "Macintosh"
@@ -8305,19 +8222,19 @@ msgstr "Σταθμός εργασίας CiscoWorks"
 
 #: sheets/ciscocomputer.sheet:13
 msgid "PC Router Card"
-msgstr "Κάρτα δρομολογητή υπολογιστή"
+msgstr "Κάρτα Δρομολογητή PC"
 
 #: sheets/ciscocomputer.sheet:14
 msgid "PC Software"
-msgstr "Λογισμικό υπολογιστή"
+msgstr "Λογισμικό PC"
 
 #: sheets/ciscocomputer.sheet:15
 msgid "PC with Router-Based Software"
-msgstr "Υπολογιστής με λογισμικό βασισμένο σε δρομολογητή"
+msgstr "PC με Λογισμικό Δρομολόγησης"
 
 #: sheets/ciscocomputer.sheet:16
 msgid "Workgroup director"
-msgstr "Διευθυντής σταθμού εργασίας"
+msgstr "Διευθυντής ομάδας εργασίας"
 
 #: sheets/ciscocomputer.sheet:17
 msgid "CiscoSecurity"
@@ -8333,19 +8250,19 @@ msgstr "Διακομιστής WWW"
 
 #: sheets/ciscocomputer.sheet:20
 msgid "Web browser"
-msgstr "Περιηγητής ιστού"
+msgstr "Περιηγητής Ιστού"
 
 #: sheets/ciscocomputer.sheet:21
 msgid "File Server"
-msgstr "Διακομιστής αρχείου"
+msgstr "Διακομιστής Αρχείων"
 
 #: sheets/ciscocomputer.sheet:22
 msgid "Software-Based Router on File Server"
-msgstr "Δρομολογητής βασισμένος σε λογισμικό σε διακομιστή αρχείου"
+msgstr "Δρομολογητής Λογισμικού σε Διακομιστή Αρχείων"
 
 #: sheets/ciscocomputer.sheet:23
 msgid "Server with PC Router"
-msgstr "Διακομιστής με δρομολογητή υπολογιστή"
+msgstr "Διακομιστής με Δρομολογητή PC"
 
 #: sheets/ciscocomputer.sheet:24
 msgid "IBM Tower"
@@ -8357,7 +8274,7 @@ msgstr "IBM Mini (AS400)"
 
 #: sheets/ciscocomputer.sheet:26
 msgid "Front End Processor"
-msgstr "Μετωπικός επεξεργαστής"
+msgstr "Επεξεργαστής Προσκηνίου (FEP)"
 
 #: sheets/ciscocomputer.sheet:27
 msgid "IBM mainframe"
@@ -8369,7 +8286,7 @@ msgstr "Κύριος υπολογιστής IBM με FEP"
 
 #: sheets/ciscocomputer.sheet:29
 msgid "HP Mini"
-msgstr "Μίνι HP"
+msgstr "HP Mini"
 
 #: sheets/ciscocomputer.sheet:30
 msgid "Supercomputer"
@@ -8377,7 +8294,7 @@ msgstr "Υπερυπολογιστής"
 
 #: sheets/ciscocomputer.sheet:31
 msgid "Web cluster"
-msgstr "Συστοιχία ιστού"
+msgstr "Συστοιχία Ιστού"
 
 #: sheets/ciscocomputer.sheet:32
 msgid "Mini VAX"
@@ -8386,7 +8303,7 @@ msgstr "Mini VAX"
 # # NOTE: For consistency (as far as I remember from my information systems class):
 #: sheets/ciscocomputer.sheet:33
 msgid "PC Card"
-msgstr "Κάρτα υπολογιστή"
+msgstr "Κάρτα PC"
 
 #: sheets/ciscocomputer.sheet:34 sheets/Lights.sheet:41
 msgid "Scanner"
@@ -8398,27 +8315,27 @@ msgstr "Πινακίδα"
 
 #: sheets/ciscocomputer.sheet:36
 msgid "EtherClient"
-msgstr "Πελάτης ether"
+msgstr "Πελάτης Ether"
 
 #: sheets/ciscocomputer.sheet:37
 msgid "Handheld"
-msgstr "Υπολογιστής παλάμης"
+msgstr "Υπολογιστής χειρός"
 
 #: sheets/ciscocomputer.sheet:38
 msgid "Wireless"
-msgstr "Ασύρματη μεταφορά"
+msgstr "Ασύρματο"
 
 #: sheets/ciscocomputer.sheet:39
 msgid "PDA"
-msgstr "Προσωπικός ψηφιακός βοηθός"
+msgstr "PDA"
 
 #: sheets/ciscocomputer.sheet:40
 msgid "Newton"
-msgstr "Νεύτωνας"
+msgstr "Newton"
 
 #: sheets/ciscocomputer.sheet:41
 msgid "Laptop"
-msgstr "Φορητός υπολογιστής"
+msgstr "Φορητός Υπολογιστής"
 
 #: sheets/ciscocomputer.sheet:43
 msgid "Printer"
@@ -8430,11 +8347,11 @@ msgstr "Οθόνη"
 
 #: sheets/ciscocomputer.sheet:46
 msgid "PC Video"
-msgstr "Βίντεο υπολογιστή"
+msgstr "Βίντεο PC"
 
 #: sheets/ciscocomputer.sheet:47
 msgid "Modem"
-msgstr "Διαμορφωτής-αποδιαμορφωτής"
+msgstr "Μόντεμ"
 
 #: sheets/ciscocomputer.sheet:48
 msgid "BBS"
@@ -8446,7 +8363,7 @@ msgstr "Διακομιστής MicroWeb"
 
 #: sheets/ciscocomputer.sheet:50
 msgid "Relational Database"
-msgstr "Σχεσιακή βάση δεδομένων"
+msgstr "Σχεσιακή Βάση Δεδομένων"
 
 #: sheets/ciscocomputer.sheet:51
 msgid "Diskette"
@@ -8454,15 +8371,15 @@ msgstr "Δισκέτα"
 
 #: sheets/ciscocomputer.sheet:52
 msgid "Host"
-msgstr "Κεντρικός υπολογιστής"
+msgstr "Κεντρικός Υπολογιστής"
 
 #: sheets/ciscocomputer.sheet:53
 msgid "Tape array"
-msgstr "Διάταξη ταινίας"
+msgstr "Συστοιχία Ταινιών"
 
 #: sheets/ciscocomputer.sheet:54
 msgid "Disk subsystem"
-msgstr "Υποσύστημα δίσκου"
+msgstr "Υποσύστημα Δίσκων"
 
 #: sheets/ciscocomputer.sheet:55
 msgid "JBOD"
@@ -8470,7 +8387,7 @@ msgstr "JBOD"
 
 #: sheets/ciscocomputer.sheet:56
 msgid "Storage array"
-msgstr "Διάταξη αποθήκευσης"
+msgstr "Συστοιχία Αποθήκευσης"
 
 #: sheets/ciscocomputer.sheet:57
 msgid "FC Storage"
@@ -8478,11 +8395,11 @@ msgstr "Αποθήκευση FC"
 
 #: sheets/ciscocomputer.sheet:58
 msgid "PC Adapter Card"
-msgstr "Προσαρμογέας κάρτας υπολογιστή"
+msgstr "Κάρτα Προσαρμογέα PC"
 
 #: sheets/ciscohub.sheet:3
 msgid "Cisco — Switch"
-msgstr "Διακόπτης Cisco"
+msgstr "Cisco — Διακόπτης"
 
 #: sheets/ciscohub.sheet:4
 msgid "Router and switch shapes by Cisco"
@@ -8494,11 +8411,11 @@ msgstr "Δρομολογητής"
 
 #: sheets/ciscohub.sheet:7
 msgid "Router subdued"
-msgstr "Εξασθενημένος δρομολογητής"
+msgstr "Δρομολογητής (αχνός)"
 
 #: sheets/ciscohub.sheet:8
 msgid "Router with Silicon Switch"
-msgstr "Δρομολογητής με διακόπτη πυριτίου"
+msgstr "Δρομολογητής με Διακόπτη Πυριτίου"
 
 #: sheets/ciscohub.sheet:9
 msgid "NetFlow router"
@@ -8506,15 +8423,15 @@ msgstr "Δρομολογητής NetFlow"
 
 #: sheets/ciscohub.sheet:10
 msgid "Broadband router"
-msgstr "Ευρυζωνικός δρομολογητής"
+msgstr "Ευρυζωνικός Δρομολογητής"
 
 #: sheets/ciscohub.sheet:11
 msgid "Wavelength router"
-msgstr "Δρομολογητής μήκους κύματος"
+msgstr "Δρομολογητής Μήκους Κύματος"
 
 #: sheets/ciscohub.sheet:12
 msgid "Wireless router"
-msgstr "Ασύρματος δρομολογητής"
+msgstr "Ασύρματος Δρομολογητής"
 
 #: sheets/ciscohub.sheet:13
 msgid "7507 Router"
@@ -8530,31 +8447,31 @@ msgstr "Δρομολογητής 7500ARS (7513)"
 
 #: sheets/ciscohub.sheet:16
 msgid "Edge Label Switch Router with NetFlow"
-msgstr "Ετικέτα ακμής διακόπτη δρομολογητή με NetFlow"
+msgstr "Δρομολογητής Μεταγωγής Ετικετών Άκρου με NetFlow"
 
 #: sheets/ciscohub.sheet:17
 msgid "Edge Label Switch Router"
-msgstr "Ετικέτα ακμής διακόπτη δρομολογητή"
+msgstr "Δρομολογητής Μεταγωγής Ετικετών Άκρου"
 
 #: sheets/ciscohub.sheet:18
 msgid "Router with Firewall"
-msgstr "Δρομολογητής με τείχος προστασίας"
+msgstr "Δρομολογητής με Τείχος Προστασίας"
 
 #: sheets/ciscohub.sheet:19
 msgid "Optical Services Router"
-msgstr "Δρομολογητής οπτικών εξυπηρετήσεων"
+msgstr "Δρομολογητής Οπτικών Υπηρεσιών"
 
 #: sheets/ciscohub.sheet:20
 msgid "Content Router"
-msgstr "Δρομολογητής περιεχομένου"
+msgstr "Δρομολογητής Περιεχομένου"
 
 #: sheets/ciscohub.sheet:21
 msgid "Carrier Routing System"
-msgstr "Σύστημα δρομολόγησης φέροντος κύματος"
+msgstr "Σύστημα Δρομολόγησης Παρόχου"
 
 #: sheets/ciscohub.sheet:22
 msgid "Storage Router"
-msgstr "Δρομολογητής αποθήκευσης"
+msgstr "Δρομολογητής Αποθήκευσης"
 
 #: sheets/ciscohub.sheet:23
 msgid "NetSonar"
@@ -8566,7 +8483,7 @@ msgstr "Συγκεντρωτής"
 
 #: sheets/ciscohub.sheet:25
 msgid "Hub subdued"
-msgstr "Εξασθενημένος συγκεντρωτής"
+msgstr "Συγκεντρωτής (αχνός)"
 
 #: sheets/ciscohub.sheet:26
 msgid "Cisco Hub"
@@ -8574,11 +8491,11 @@ msgstr "Συγκεντρωτής Cisco"
 
 #: sheets/ciscohub.sheet:27
 msgid "Small Hub"
-msgstr "Μικρός συγκεντρωτής"
+msgstr "Μικρός Συγκεντρωτής"
 
 #: sheets/ciscohub.sheet:28
 msgid "100BaseT Hub"
-msgstr "Συγκεντρωτή 100BaseT"
+msgstr "Συγκεντρωτής 100BaseT"
 
 #: sheets/ciscohub.sheet:29
 msgid "Workgroup switch"
@@ -8586,11 +8503,11 @@ msgstr "Διακόπτης ομάδας εργασίας"
 
 #: sheets/ciscohub.sheet:30
 msgid "Workgroup switch Subdued"
-msgstr "Εξασθενημένος διακόπτης ομάδας εργασίας"
+msgstr "Διακόπτης ομάδας εργασίας (αχνός)"
 
 #: sheets/ciscohub.sheet:31
 msgid "Workgroup Switch Voice-Enabled"
-msgstr "Φωνητικός διακόπτης ομάδας εργασίας"
+msgstr "Διακόπτης Ομάδας Εργασίας με Δυνατότητα Φωνής"
 
 #: sheets/ciscohub.sheet:32
 msgid "BBSM"
@@ -8598,19 +8515,19 @@ msgstr "BBSM"
 
 #: sheets/ciscohub.sheet:33
 msgid "ATM Tag Switch Router"
-msgstr "Δρομολογητής διακόπτη ετικέτας ασύγχρονης μετάδοσης"
+msgstr "Δρομολογητής Μεταγωγής Ετικετών ATM"
 
 #: sheets/ciscohub.sheet:34
 msgid "Switch Processor"
-msgstr "Επεξεργαστής διακόπτη"
+msgstr "Επεξεργαστής Μεταγωγής"
 
 #: sheets/ciscohub.sheet:35
 msgid "Route Switch Processor"
-msgstr "Επεξεργαστής διακόπτη πορείας"
+msgstr "Επεξεργαστής Μεταγωγής Δρομολόγησης"
 
 #: sheets/ciscohub.sheet:36
 msgid "Route Switch Processor with Si"
-msgstr "Επεξεργαστής διακόπτη πορείας με πυρίτιο"
+msgstr "Επεξεργαστής Μεταγωγής Δρομολόγησης με Πυρίτιο"
 
 #: sheets/ciscohub.sheet:37
 msgid "PXF"
@@ -8622,27 +8539,27 @@ msgstr "Επεξεργαστής ASIC"
 
 #: sheets/ciscohub.sheet:39
 msgid "Generic Processor"
-msgstr "Γενικός επεξεργαστής"
+msgstr "Γενικός Επεξεργαστής"
 
 #: sheets/ciscohub.sheet:40
 msgid "Data Center Switch"
-msgstr "Διακόπτης κέντρου δεδομένων"
+msgstr "Διακόπτης Κέντρου Δεδομένων"
 
 #: sheets/ciscohub.sheet:41
 msgid "Data Center Switch Reversed"
-msgstr "Αντίστροφος διακόπτης κέντρου δεδομένων"
+msgstr "Διακόπτης Κέντρου Δεδομένων (Αντίστροφος)"
 
 #: sheets/ciscohub.sheet:42
 msgid "Data Switch Processor"
-msgstr "Επεξεργαστής διακόπτη δεδομένων"
+msgstr "Επεξεργαστής Μεταγωγής Δεδομένων"
 
 #: sheets/ciscohub.sheet:43
 msgid "Content Switch"
-msgstr "Διακόπτης περιεχομένου"
+msgstr "Διακόπτης Περιεχομένου"
 
 #: sheets/ciscohub.sheet:44
 msgid "Content Service Module"
-msgstr "Άρθρωμα εξυπηρέτησης περιεχομένου"
+msgstr "Άρθρωμα Υπηρεσίας Περιεχομένου"
 
 #: sheets/ciscohub.sheet:45
 msgid "CSM-S"
@@ -8650,11 +8567,11 @@ msgstr "CSM-S"
 
 #: sheets/ciscohub.sheet:46
 msgid "Access Gateway"
-msgstr "Πρόσβαση πύλης δικτύου"
+msgstr "Πύλη Πρόσβασης"
 
 #: sheets/ciscohub.sheet:47
 msgid "ATM Switch"
-msgstr "Διακόπτης ασύγχρονης μετάδοσης"
+msgstr "Διακόπτης ATM"
 
 #: sheets/ciscohub.sheet:48
 msgid "ATM 3800"
@@ -8670,11 +8587,11 @@ msgstr "Διακόπτης ISDN"
 
 #: sheets/ciscohub.sheet:51
 msgid "Label Switch Router"
-msgstr "Ετικέτα διακόπτη δρομολογητή"
+msgstr "Δρομολογητής Μεταγωγής Ετικετών"
 
 #: sheets/ciscohub.sheet:52
 msgid "MultiSwitch Device"
-msgstr "Συσκευή πολλαπλού διακόπτη"
+msgstr "Συσκευή Πολλαπλής Μεταγωγής"
 
 #: sheets/ciscohub.sheet:53
 msgid "LAN2LAN Switch"
@@ -8682,27 +8599,27 @@ msgstr "Διακόπτης LAN2LAN"
 
 #: sheets/ciscohub.sheet:54
 msgid "Multilayer Switch"
-msgstr "Πολυστρωματικός διακόπτης"
+msgstr "Πολυστρωματικός Διακόπτης"
 
 #: sheets/ciscohub.sheet:55
 msgid "Multilayer Switch with Silicon"
-msgstr "Πολυστρωματικός διακόπτης με πυρίτιο"
+msgstr "Πολυστρωματικός Διακόπτης με Πυρίτιο"
 
 #: sheets/ciscohub.sheet:56
 msgid "Multilayer Switch with Silicon subdued"
-msgstr "Πολυστρωματικός διακόπτης με εξασθενημένο πυρίτιο"
+msgstr "Πολυστρωματικός Διακόπτης με Πυρίτιο (Αχνός)"
 
 #: sheets/ciscohub.sheet:57
 msgid "Programmable Switch"
-msgstr "Προγραμματίσιμος διακόπτης"
+msgstr "Προγραμματιζόμενος Διακόπτης"
 
 #: sheets/ciscohub.sheet:58
 msgid "Content Service Switch 1100"
-msgstr "Διακόπτης εξυπηρέτησης περιεχομένου 1100"
+msgstr "Διακόπτης Υπηρεσίας Περιεχομένου 1100"
 
 #: sheets/ciscohub.sheet:59
 msgid "ATM Fast Gigabit Etherswitch"
-msgstr "Διακόπτης Ether γρήγορου Gigabit ATM"
+msgstr "Γρήγορος Διακόπτης Ethernet Gigabit ATM"
 
 #: sheets/ciscohub.sheet:60
 msgid "RateMUX"
@@ -8710,15 +8627,15 @@ msgstr "RateMUX"
 
 #: sheets/ciscohub.sheet:61
 msgid "Workgroup 5500"
-msgstr "Ομάδα εργασίας 5500"
+msgstr "Ομάδα Εργασίας 5500"
 
 #: sheets/ciscohub.sheet:62
 msgid "Workgroup 5000"
-msgstr "Ομάδα εργασίας 5000"
+msgstr "Ομάδα Εργασίας 5000"
 
 #: sheets/ciscohub.sheet:63
 msgid "Workgroup 5002"
-msgstr "Ομάδα εργασίας 5002"
+msgstr "Ομάδα Εργασίας 5002"
 
 #: sheets/ciscohub.sheet:64
 msgid "NetRanger"
@@ -8738,7 +8655,7 @@ msgstr "MGX 8260"
 
 #: sheets/ciscohub.sheet:68
 msgid "Universal Gateway"
-msgstr "Γενική πύλη δικτύου"
+msgstr "Καθολική Πύλη"
 
 #: sheets/ciscohub.sheet:69
 msgid "iSCSI switch"
@@ -8746,43 +8663,43 @@ msgstr "Διακόπτης iSCSI"
 
 #: sheets/ciscohub.sheet:70
 msgid "Workgroup Fibre Channel intelligent switch"
-msgstr "Έξυπνος διακόπτης ομάδας εργασίας καναλιού ίνας"
+msgstr "Έξυπνος Διακόπτης Fibre Channel Ομάδας Εργασίας"
 
 #: sheets/ciscohub.sheet:71
 msgid "Director-class Fibre Channel intelligent switch"
-msgstr "Διακόπτης έξυπνου καναλιού ίνας κατευθυντήριας τάξης"
+msgstr "Έξυπνος Διακόπτης Fibre Channel Κλάσης Director"
 
 #: sheets/ciscohub.sheet:72
 msgid "Multi-Fabric Server Switch"
-msgstr "Πολυδομικός διακόπτης διακομιστή"
+msgstr "Διακόπτης Διακομιστή Multi-Fabric"
 
 #: sheets/ciscohub.sheet:73
 msgid "Server Switch"
-msgstr "Διακόπτης διακομιστή"
+msgstr "Διακόπτης Διακομιστή"
 
 #: sheets/ciscohub.sheet:74
 msgid "Multilayer Remote Switch"
-msgstr "Πολυστρωματικός απομακρυσμένος διακόπτης"
+msgstr "Πολυστρωματικός Απομακρυσμένος Διακόπτης"
 
 #: sheets/ciscohub.sheet:75
 msgid "Layer 2 Remote Switch"
-msgstr "Στρώμα 2 απομακρυσμένου διακόπτη"
+msgstr "Απομακρυσμένος Διακόπτης Επιπέδου 2"
 
 #: sheets/ciscohub.sheet:76
 msgid "Virtual Layer Switch"
-msgstr "Διακόπτης εικονικής στρώσης"
+msgstr "Διακόπτης Εικονικού Επιπέδου"
 
 #: sheets/ciscomisc.sheet:3
 msgid "Cisco — Miscellaneous"
-msgstr "Cisco - Διάφορα"
+msgstr "Cisco — Διάφορα"
 
 #: sheets/ciscomisc.sheet:4
 msgid "Miscellaneous shapes by Cisco"
-msgstr "Ποικίλα σχήματα από την Cisco"
+msgstr "Διάφορα σχήματα από την Cisco"
 
 #: sheets/ciscomisc.sheet:6
 msgid "Government Building"
-msgstr "Κυβερνητικό κτίριο"
+msgstr "Κυβερνητικό Κτίριο"
 
 #: sheets/ciscomisc.sheet:7
 msgid "University"
@@ -8790,11 +8707,11 @@ msgstr "Πανεπιστήμιο"
 
 #: sheets/ciscomisc.sheet:8
 msgid "Small Business"
-msgstr "Μικρή επιχείριση"
+msgstr "Μικρή Επιχείρηση"
 
 #: sheets/ciscomisc.sheet:9
 msgid "Home office"
-msgstr "Προσωπικό γραφείο"
+msgstr "Οικιακό Γραφείο"
 
 #: sheets/ciscomisc.sheet:10
 msgid "Branch office"
@@ -8802,35 +8719,35 @@ msgstr "Υποκατάστημα"
 
 #: sheets/ciscomisc.sheet:11
 msgid "Branch office subdued"
-msgstr "Εξασθενημένο υποκατάστημα"
+msgstr "Υποκατάστημα (αχνό)"
 
 #: sheets/ciscomisc.sheet:12
 msgid "Branch office blue"
-msgstr "Γαλάζιο υποκατάστημα"
+msgstr "Υποκατάστημα (μπλε)"
 
 #: sheets/ciscomisc.sheet:13
 msgid "Generic Building"
-msgstr "Γενικό κτίριο"
+msgstr "Γενικό Κτίριο"
 
 #: sheets/ciscomisc.sheet:14
 msgid "Generic Building subdued"
-msgstr "Εξασθενημένο γενικό κτίριο"
+msgstr "Γενικό Κτίριο (αχνό)"
 
 #: sheets/ciscomisc.sheet:15
 msgid "Generic Building blue"
-msgstr "Γαλάζιο γενικό κτίριο"
+msgstr "Γενικό Κτίριο (μπλε)"
 
 #: sheets/ciscomisc.sheet:16
 msgid "Medium Building"
-msgstr "Μεσαίο κτίριο"
+msgstr "Μεσαίο Κτίριο"
 
 #: sheets/ciscomisc.sheet:17
 msgid "Medium Building subdued"
-msgstr "Εξασθενημένο μεσαίο κτίριο"
+msgstr "Μεσαίο Κτίριο (αχνό)"
 
 #: sheets/ciscomisc.sheet:18
 msgid "Medium Building blue"
-msgstr "Μεσαίο κτίριο γαλάζιο"
+msgstr "Μεσαίο Κτίριο (μπλε)"
 
 #: sheets/ciscomisc.sheet:19
 msgid "House"
@@ -8838,43 +8755,43 @@ msgstr "Σπίτι"
 
 #: sheets/ciscomisc.sheet:20
 msgid "House blue"
-msgstr "Σπίτι γαλάζιο"
+msgstr "Σπίτι (μπλε)"
 
 #: sheets/ciscomisc.sheet:21
 msgid "Telecommuter house"
-msgstr "Σπίτι τηλεργαζόμενου"
+msgstr "Σπίτι Τηλεργαζόμενου"
 
 #: sheets/ciscomisc.sheet:22
 msgid "Telecommuter house subdued"
-msgstr "Σπίτι τηλεργαζόμενου εξασθενημένο"
+msgstr "Σπίτι Τηλεργαζόμενου (αχνό)"
 
 #: sheets/ciscomisc.sheet:23
 msgid "MDU"
-msgstr "MDU"
+msgstr "Πολυκατοικία (MDU)"
 
 #: sheets/ciscomisc.sheet:24
 msgid "Man"
-msgstr "Άντρας"
+msgstr "Άνδρας"
 
 #: sheets/ciscomisc.sheet:25
 msgid "Man red"
-msgstr "Άντρας κόκκινος"
+msgstr "Άνδρας (κόκκινος)"
 
 #: sheets/ciscomisc.sheet:26
 msgid "Man gold"
-msgstr "Άντρας κίτρινος"
+msgstr "Άνδρας (χρυσός)"
 
 #: sheets/ciscomisc.sheet:27
 msgid "Man blue"
-msgstr "Άντρας γαλάζιος"
+msgstr "Άνδρας (μπλε)"
 
 #: sheets/ciscomisc.sheet:28
 msgid "Standing Man"
-msgstr "Όρθιος άντρας"
+msgstr "Όρθιος Άνδρας"
 
 #: sheets/ciscomisc.sheet:29
 msgid "Standing woman"
-msgstr "Όρθια γυναίκα"
+msgstr "Όρθια Γυναίκα"
 
 #: sheets/ciscomisc.sheet:30
 msgid "Woman"
@@ -8882,23 +8799,23 @@ msgstr "Γυναίκα"
 
 #: sheets/ciscomisc.sheet:31
 msgid "Woman red"
-msgstr "Κόκκινη γυναίκα"
+msgstr "Γυναίκα (κόκκινη)"
 
 #: sheets/ciscomisc.sheet:32
 msgid "Woman gold"
-msgstr "Κίτρινη γυναίκα"
+msgstr "Γυναίκα (χρυσή)"
 
 #: sheets/ciscomisc.sheet:33
 msgid "Woman blue"
-msgstr "Γαλάζια γυναίκα"
+msgstr "Γυναίκα (μπλε)"
 
 #: sheets/ciscomisc.sheet:34
 msgid "Running man"
-msgstr "Άντρας που τρέχει"
+msgstr "Άνδρας που Τρέχει"
 
 #: sheets/ciscomisc.sheet:35
 msgid "Running man subdued"
-msgstr "Άντρας που τρέχει εξασθενημένο"
+msgstr "Άνδρας που Τρέχει (αχνός)"
 
 #: sheets/ciscomisc.sheet:36
 msgid "Telecommuter"
@@ -8906,19 +8823,19 @@ msgstr "Τηλεργαζόμενος"
 
 #: sheets/ciscomisc.sheet:37
 msgid "Running woman"
-msgstr "Γυναίκα που τρέχει"
+msgstr "Γυναίκα που Τρέχει"
 
 #: sheets/ciscomisc.sheet:38
 msgid "CiscoWorks Man"
-msgstr "Άντρας CiscoWorks"
+msgstr "Άνδρας CiscoWorks"
 
 #: sheets/ciscomisc.sheet:41
 msgid "PC Man"
-msgstr "Άντρας & υπολογιστής"
+msgstr "Άνδρας με PC"
 
 #: sheets/ciscomisc.sheet:45
 msgid "Sitting Woman"
-msgstr "Καθιστή γυναίκα"
+msgstr "Καθιστή Γυναίκα"
 
 #: sheets/ciscomisc.sheet:47
 msgid "Mac Woman"
@@ -8926,15 +8843,15 @@ msgstr "Γυναίκα Mac"
 
 #: sheets/ciscomisc.sheet:48
 msgid "Androgynous Person"
-msgstr "Ανδρόγυνο άτομο"
+msgstr "Ανδρόγυνο Άτομο"
 
 #: sheets/ciscomisc.sheet:51
 msgid "Lock and Key"
-msgstr "Κλειδαριά και κλειδί"
+msgstr "Λουκέτο και Κλειδί"
 
 #: sheets/ciscomisc.sheet:52
 msgid "Satellite dish"
-msgstr "Δορυφορικό πιάτο"
+msgstr "Δορυφορικό Πιάτο"
 
 #: sheets/ciscomisc.sheet:53
 msgid "Satellite"
@@ -8946,7 +8863,7 @@ msgstr "Κεραία"
 
 #: sheets/ciscomisc.sheet:55
 msgid "File cabinet"
-msgstr "Ερμάριο αρχείου"
+msgstr "Αρχειοθήκη"
 
 # # NOTE: For consistency (as far as I remember from my information systems class):
 #: sheets/ciscomisc.sheet:56
@@ -8967,7 +8884,7 @@ msgstr "Ακουστικά"
 
 #: sheets/cisconetwork.sheet:3
 msgid "Cisco — Network"
-msgstr "Cisco - Δίκτυο"
+msgstr "Cisco — Δίκτυο"
 
 #: sheets/cisconetwork.sheet:4
 msgid "Network shapes by Cisco"
@@ -8975,7 +8892,7 @@ msgstr "Σχήματα δικτύου από την Cisco"
 
 #: sheets/cisconetwork.sheet:6
 msgid "Network Management"
-msgstr "Διαχείριση δικτύου"
+msgstr "Διαχείριση Δικτύου"
 
 #: sheets/cisconetwork.sheet:7
 msgid "Detector"
@@ -8983,19 +8900,19 @@ msgstr "Ανιχνευτής"
 
 #: sheets/cisconetwork.sheet:8
 msgid "Protocol Translator"
-msgstr "Μεταφραστής πρωτοκόλλου"
+msgstr "Μεταφραστής Πρωτοκόλλου"
 
 #: sheets/cisconetwork.sheet:9
 msgid "IP"
-msgstr "Πρωτόκολλο διαδικτύου"
+msgstr "IP"
 
 #: sheets/cisconetwork.sheet:10
 msgid "IP Old-style"
-msgstr "Παλιά τεχνοτροπία IP"
+msgstr "IP Παλαιού Τύπου"
 
 #: sheets/cisconetwork.sheet:11
 msgid "NAT"
-msgstr "Μετάφραση διεύθυνσης δικτύου"
+msgstr "NAT"
 
 #: sheets/cisconetwork.sheet:12
 msgid "VIP"
@@ -9003,51 +8920,51 @@ msgstr "VIP"
 
 #: sheets/cisconetwork.sheet:13
 msgid "Terminal Server"
-msgstr "Διακομιστής τερματικού"
+msgstr "Διακομιστής Τερματικού"
 
 #: sheets/cisconetwork.sheet:14
 msgid "Access Server"
-msgstr "Διακομιστής πρόσβασης"
+msgstr "Διακομιστής Πρόσβασης"
 
 #: sheets/cisconetwork.sheet:15
 msgid "System controller"
-msgstr "Ελεγκτής συστήματος"
+msgstr "Ελεγκτής Συστήματος"
 
 #: sheets/cisconetwork.sheet:16
 msgid "Directory Server"
-msgstr "Διακομιστής καταλόγου"
+msgstr "Διακομιστής Καταλόγου"
 
 #: sheets/cisconetwork.sheet:17
 msgid "Firewall"
-msgstr "Τοίχος προστασίας"
+msgstr "Τείχος Προστασίας"
 
 #: sheets/cisconetwork.sheet:18
 msgid "Firewall subdued"
-msgstr "Εξασθενημένος αλεξίπυρος τοίχος"
+msgstr "Τείχος Προστασίας (αχνό)"
 
 #: sheets/cisconetwork.sheet:19
 msgid "Firewall horizontal"
-msgstr "Οριζόντιος αλεξίπυρος τοίχος"
+msgstr "Τείχος Προστασίας (οριζόντιο)"
 
 #: sheets/cisconetwork.sheet:20
 msgid "Firewall Service Module"
-msgstr "Άρθρωμα εξυπηρέτησης τείχους προστασίας"
+msgstr "Άρθρωμα Υπηρεσίας Τείχους Προστασίας"
 
 #: sheets/cisconetwork.sheet:21
 msgid "IOS Firewall"
-msgstr "Αλεξίπυρος τοίχος IOS"
+msgstr "Τείχος Προστασίας IOS"
 
 #: sheets/cisconetwork.sheet:24
 msgid "PIX Firewall"
-msgstr "Αλεξίπυρος τοίχος PIX"
+msgstr "Τείχος Προστασίας PIX"
 
 #: sheets/cisconetwork.sheet:26
 msgid "Centri Firewall"
-msgstr "Τοίχος προστασίας Centri"
+msgstr "Τείχος Προστασίας Centri"
 
 #: sheets/cisconetwork.sheet:28
 msgid "Security appliance"
-msgstr "Συσκευή ασφάλειας"
+msgstr "Συσκευή Ασφαλείας"
 
 #: sheets/cisconetwork.sheet:29
 msgid "VPN Concentrator"
@@ -9055,11 +8972,11 @@ msgstr "Συγκεντρωτής VPN"
 
 #: sheets/cisconetwork.sheet:30
 msgid "VPN Gateway"
-msgstr "Πύλη δικτύου VPN"
+msgstr "Πύλη VPN"
 
 #: sheets/cisconetwork.sheet:31
 msgid "LAN to LAN"
-msgstr "LAN προς LAN"
+msgstr "LAN σε LAN"
 
 #: sheets/cisconetwork.sheet:32
 msgid "SSL Terminator"
@@ -9067,7 +8984,7 @@ msgstr "Τερματιστής SSL"
 
 #: sheets/cisconetwork.sheet:33
 msgid "IP DSL Switch"
-msgstr "Διακόπτης DSL IP"
+msgstr "Διακόπτης IP DSL"
 
 #: sheets/cisconetwork.sheet:34
 msgid "DSLAM"
@@ -9075,47 +8992,47 @@ msgstr "DSLAM"
 
 #: sheets/cisconetwork.sheet:35
 msgid "Cable Modem"
-msgstr "Καλωδιακό μόντεμ"
+msgstr "Καλωδιακό Μόντεμ"
 
 #: sheets/cisconetwork.sheet:36
 msgid "Wireless Connectivity"
-msgstr "Ασύρματη σύνδεσιμότητα"
+msgstr "Ασύρματη Συνδεσιμότητα"
 
 #: sheets/cisconetwork.sheet:37
 msgid "Wireless Transport"
-msgstr "Ασύρματη μεταφορά"
+msgstr "Ασύρματη Μεταφορά"
 
 #: sheets/cisconetwork.sheet:38
 msgid "AccessPoint"
-msgstr "Σημείο πρόσβασης"
+msgstr "Σημείο Πρόσβασης"
 
 #: sheets/cisconetwork.sheet:39
 msgid "Wireless Bridge"
-msgstr "Ασύρματη γέφυρα"
+msgstr "Ασύρματη Γέφυρα"
 
 #: sheets/cisconetwork.sheet:40
 msgid "Dual Mode AccessPoint"
-msgstr "Σημείο πρόσβασης διπλής κατάστασης"
+msgstr "Σημείο Πρόσβασης Διπλής Λειτουργίας"
 
 #: sheets/cisconetwork.sheet:41
 msgid "Wi-Fi Tag"
-msgstr "Ετικέτα Wi-Fi (ασύρματης ποιότητας)"
+msgstr "Ετικέτα Wi-Fi"
 
 #: sheets/cisconetwork.sheet:42
 msgid "Wireless Location Appliance"
-msgstr "Συσκευή ασύρματης τοποθεσίας"
+msgstr "Συσκευή Ασύρματου Εντοπισμού Θέσης"
 
 #: sheets/cisconetwork.sheet:43
 msgid "Location server"
-msgstr "Θέση διακομιστή"
+msgstr "Διακομιστής Τοποθεσίας"
 
 #: sheets/cisconetwork.sheet:44
 msgid "Lightweight AP"
-msgstr "Πρωτόκολλο εύκολης πρόσβασης"
+msgstr "AP Ελαφρού Τύπου"
 
 #: sheets/cisconetwork.sheet:45
 msgid "WLAN controller"
-msgstr "Ελεγκτής ασύρματου τοπικού δικτύου"
+msgstr "Ελεγκτής WLAN"
 
 #: sheets/cisconetwork.sheet:46
 msgid "BBFW"
@@ -9127,35 +9044,35 @@ msgstr "Μέσα BBFW"
 
 #: sheets/cisconetwork.sheet:48
 msgid "Channelized Pipe"
-msgstr "Διοχέτευση με κανάλι"
+msgstr "Διοχέτευση με Κανάλια"
 
 #: sheets/cisconetwork.sheet:49
 msgid "Concatenated Payload"
-msgstr "Συνενωμένο ωφέλιμο φορτίο"
+msgstr "Συνενωμένο Ωφέλιμο Φορτίο"
 
 #: sheets/cisconetwork.sheet:50
 msgid "Optical Cross-Connect"
-msgstr "Οπτική σταυροειδής σύνδεση"
+msgstr "Οπτική Σταυροειδής Σύνδεση"
 
 #: sheets/cisconetwork.sheet:51
 msgid "Optical Transport"
-msgstr "Οπτική μεταφορά"
+msgstr "Οπτική Μεταφορά"
 
 #: sheets/cisconetwork.sheet:52
 msgid "Optical Fiber"
-msgstr "Οπτική ίνα"
+msgstr "Οπτική Ίνα"
 
 #: sheets/cisconetwork.sheet:53
 msgid "Optical Amplifier"
-msgstr "Οπτικός ενισχυτής"
+msgstr "Οπτικός Ενισχυτής"
 
 #: sheets/cisconetwork.sheet:54
 msgid "Digital Cross-Connect"
-msgstr "Ψηφιακή σταυροειδής σύνδεση"
+msgstr "Ψηφιακή Σταυροειδής Σύνδεση"
 
 #: sheets/cisconetwork.sheet:55
 msgid "IP Transport Concentrator"
-msgstr "Συγκεντρωτής μεταφοράς IP"
+msgstr "Συγκεντρωτής Μεταφοράς IP"
 
 #: sheets/cisconetwork.sheet:56
 msgid "DWDM Filter"
@@ -9191,7 +9108,7 @@ msgstr "ONS15540"
 
 #: sheets/cisconetwork.sheet:64
 msgid "Automatic Protection Switching"
-msgstr "Αλλαγή αυτόματης προστασίας"
+msgstr "Αυτόματη Μεταγωγή Προστασίας"
 
 #: sheets/cisconetwork.sheet:65
 msgid "RPS"
@@ -9199,19 +9116,19 @@ msgstr "RPS"
 
 #: sheets/cisconetwork.sheet:66
 msgid "UPS"
-msgstr "Συσκευή αδιάλειπτης παροχής ρεύματος"
+msgstr "UPS"
 
 #: sheets/cisconetwork.sheet:67
 msgid "LongReach CPE"
-msgstr "CPE ευρείας προσέγγισης"
+msgstr "CPE Μεγάλης Εμβέλειας"
 
 #: sheets/cisconetwork.sheet:68
 msgid "3X74 (floor) cluster controller"
-msgstr "3Χ74 (επιδαπέδιος) ελεγκτής συστοιχίας"
+msgstr "Ελεγκτής Συστοιχίας 3X74 (δαπέδου)"
 
 #: sheets/cisconetwork.sheet:69
 msgid "3174 (desktop) cluster controller"
-msgstr "3174 (επιτραπέζιος) ελεγκτής συστοιχίας"
+msgstr "Ελεγκτής Συστοιχίας 3174 (επιτραπέζιος)"
 
 #: sheets/cisconetwork.sheet:70
 msgid "CSU/DSU"
@@ -9219,7 +9136,7 @@ msgstr "CSU/DSU"
 
 #: sheets/cisconetwork.sheet:71
 msgid "WAN"
-msgstr "Δίκτυο ευρείας περιοχής"
+msgstr "WAN"
 
 #: sheets/cisconetwork.sheet:72
 msgid "Cloud"
@@ -9227,23 +9144,23 @@ msgstr "Σύννεφο"
 
 #: sheets/cisconetwork.sheet:73
 msgid "Cloud Gold"
-msgstr "Κίτρινο σύννεφο"
+msgstr "Σύννεφο (Χρυσό)"
 
 #: sheets/cisconetwork.sheet:74
 msgid "Cloud White"
-msgstr "Άσπρο σύννεφο"
+msgstr "Σύννεφο (Λευκό)"
 
 #: sheets/cisconetwork.sheet:75
 msgid "Cloud Dark"
-msgstr "Σκούρο σύννεφο"
+msgstr "Σύννεφο (Σκούρο)"
 
 #: sheets/cisconetwork.sheet:76
 msgid "Distributed Director"
-msgstr "Κατανεμημένος συντονιστής"
+msgstr "Κατανεμημένος Διευθυντής"
 
 #: sheets/cisconetwork.sheet:77
 msgid "LocalDirector"
-msgstr "Τοπικός συντονιστής"
+msgstr "Τοπικός Διευθυντής"
 
 #: sheets/cisconetwork.sheet:78
 msgid "IOS SLB"
@@ -9255,7 +9172,7 @@ msgstr "MUX"
 
 #: sheets/cisconetwork.sheet:80
 msgid "General Appliance"
-msgstr "Γενική συσκευή"
+msgstr "Γενική Συσκευή"
 
 #. compatibility
 #. <alias name="Cisco - PAD"/>
@@ -9273,7 +9190,7 @@ msgstr "Δακτύλιος FDDI"
 
 #: sheets/cisconetwork.sheet:88
 msgid "TokenRing"
-msgstr "Δακτύλιος με σκυτάλη"
+msgstr "Δακτύλιος με Σκυτάλη"
 
 #: sheets/cisconetwork.sheet:89
 msgid "MAU"
@@ -9281,7 +9198,7 @@ msgstr "MAU"
 
 #: sheets/cisconetwork.sheet:90
 msgid "Repeater"
-msgstr "Επαναλήπτης"
+msgstr "Αναμεταδότης"
 
 #: sheets/cisconetwork.sheet:91
 msgid "Bridge"
@@ -9289,11 +9206,11 @@ msgstr "Γέφυρα"
 
 #: sheets/cisconetwork.sheet:92
 msgid "Breakout box"
-msgstr "Πλαίσιο διαφυγής"
+msgstr "Κουτί Διακλάδωσης"
 
 #: sheets/cisconetwork.sheet:93
 msgid "STB (set top box)"
-msgstr "STB (ορισμός άνω πλαισίου)"
+msgstr "STB (αποκωδικοποιητής)"
 
 #: sheets/cisconetwork.sheet:94
 msgid "TV"
@@ -9301,11 +9218,11 @@ msgstr "Τηλεόραση"
 
 #: sheets/cisconetwork.sheet:95
 msgid "IPTV broadcast server"
-msgstr "Διακομιστής εκπομπής IPTV"
+msgstr "Διακομιστής Μετάδοσης IPTV"
 
 #: sheets/cisconetwork.sheet:96
 msgid "IPTV content manager"
-msgstr "Διαχειριστής περιεχομένου IPTV"
+msgstr "Διαχειριστής Περιεχομένου IPTV"
 
 #: sheets/cisconetwork.sheet:97
 msgid "VN2900"
@@ -9321,11 +9238,11 @@ msgstr "VN5900"
 
 #: sheets/cisconetwork.sheet:100
 msgid "Catalyst Access Gateway"
-msgstr "Καταλύτης πρόσβασης πύλης δικτύου"
+msgstr "Πύλη Πρόσβασης Catalyst"
 
 #: sheets/cisconetwork.sheet:101
 msgid "Generic Gateway"
-msgstr "Γενική πύλη δικτύου"
+msgstr "Γενική Πύλη"
 
 #: sheets/cisconetwork.sheet:102
 msgid "TransPath"
@@ -9333,23 +9250,23 @@ msgstr "TransPath"
 
 #: sheets/cisconetwork.sheet:103
 msgid "uBR910 Cable DSU"
-msgstr "uBR910 καλώδιο DSU"
+msgstr "Καλωδιακό DSU uBR910"
 
 #: sheets/cisconetwork.sheet:104
 msgid "Storage Solution Engine"
-msgstr "Μηχανή λύσης αποθήκευσης"
+msgstr "Μηχανή Λύσης Αποθήκευσης"
 
 #: sheets/cisconetwork.sheet:105
 msgid "Content Engine (Cache Director)"
-msgstr "Μηχανή περιεχομένου (διαχειριστής κρυφής μνήμης)"
+msgstr "Μηχανή Περιεχομένου (Διαχειριστής Κρυφής Μνήμης)"
 
 #: sheets/cisconetwork.sheet:106
 msgid "CDM Content Distribution Manager"
-msgstr "Διαχειριστής κατανομής περιεχομένου CDM"
+msgstr "Διαχειριστής Κατανομής Περιεχομένου CDM"
 
 #: sheets/cisconetwork.sheet:107
 msgid "Content Transformation Engine (CTE)"
-msgstr "Μηχανή μετασχηματισμού περιεχόμενου (CTE)"
+msgstr "Μηχανή Μετασχηματισμού Περιεχομένου (CTE)"
 
 #: sheets/cisconetwork.sheet:108
 msgid "ME 1100"
@@ -9357,19 +9274,19 @@ msgstr "ME 1100"
 
 #: sheets/cisconetwork.sheet:109
 msgid "MAS Gateway"
-msgstr "Πύλη δικτύου MAS"
+msgstr "Πύλη MAS"
 
 #: sheets/cisconetwork.sheet:110
 msgid "File Engine"
-msgstr "Μηχανή αρχείου"
+msgstr "Μηχανή Αρχείων"
 
 #: sheets/cisconetwork.sheet:111
 msgid "Service Control"
-msgstr "Έλεγχος εξυπηρέτησης"
+msgstr "Έλεγχος Υπηρεσίας"
 
 #: sheets/ciscotelephony.sheet:3
 msgid "Cisco — Telephony"
-msgstr "Cisco - Τηλεφωνία"
+msgstr "Cisco — Τηλεφωνία"
 
 #: sheets/ciscotelephony.sheet:4
 msgid "Telephony shapes by Cisco"
@@ -9389,11 +9306,11 @@ msgstr "Τηλέφωνο Ethernet"
 
 #: sheets/ciscotelephony.sheet:9
 msgid "Phone Appliance"
-msgstr "Συσκευή τηλεφώνου"
+msgstr "Τηλεφωνική Συσκευή"
 
 #: sheets/ciscotelephony.sheet:10
 msgid "Phone Feature"
-msgstr "Χαρακτηριστικά τηλεφώνου"
+msgstr "Λειτουργία Τηλεφώνου"
 
 #: sheets/ciscotelephony.sheet:11
 msgid "Phone/Fax"
@@ -9409,23 +9326,23 @@ msgstr "Τηλέφωνο IP"
 
 #: sheets/ciscotelephony.sheet:14
 msgid "IP Softphone"
-msgstr "Τηλέφωνο λογισμικού IP"
+msgstr "IP Τηλέφωνο Λογισμικού"
 
 #: sheets/ciscotelephony.sheet:15
 msgid "Softphone"
-msgstr "Τηλέφωνο λογισμικού"
+msgstr "Τηλέφωνο Λογισμικού"
 
 #: sheets/ciscotelephony.sheet:16
 msgid "Cellular Phone"
-msgstr "Κυψελοειδές τηλέφωνο"
+msgstr "Κινητό Τηλέφωνο"
 
 #: sheets/ciscotelephony.sheet:17
 msgid "Mobile Access IP Phone"
-msgstr "Τηλέφωνο IP κινητής πρόσβασης"
+msgstr "Τηλέφωνο IP Κινητής Πρόσβασης"
 
 #: sheets/ciscotelephony.sheet:18
 msgid "Pager"
-msgstr "Σελιδοποιητής"
+msgstr "Τηλεειδοποιητής"
 
 #: sheets/ciscotelephony.sheet:19
 msgid "Fax"
@@ -9441,7 +9358,7 @@ msgstr "Octel"
 
 #: sheets/ciscotelephony.sheet:22
 msgid "Radio Tower"
-msgstr "Ραδιοφωνικός πύργος"
+msgstr "Ραδιοφωνικός Πύργος"
 
 #: sheets/ciscotelephony.sheet:23
 msgid "PBX"
@@ -9453,7 +9370,7 @@ msgstr "Διακόπτης PBX"
 
 #: sheets/ciscotelephony.sheet:25
 msgid "Class 4/5 switch"
-msgstr "Διακόπτης τάξης 4/5"
+msgstr "Διακόπτης Κλάσης 4/5"
 
 #: sheets/ciscotelephony.sheet:26
 msgid "SONET MUX"
@@ -9473,43 +9390,43 @@ msgstr "ATA"
 
 #: sheets/ciscotelephony.sheet:30
 msgid "SIP Proxy Server"
-msgstr "Διακομιστής διαμεσολάβησης SIP"
+msgstr "Διακομιστής Μεσολαβητής SIP"
 
 #: sheets/ciscotelephony.sheet:31
 msgid "Gatekeeper"
-msgstr "Θυρωρός"
+msgstr "Gatekeeper"
 
 #: sheets/ciscotelephony.sheet:32
 msgid "MGX 8000 Series Voice Gateway"
-msgstr "Φωνητική πύλη δικτύου σειράς MGX 8000"
+msgstr "Πύλη Φωνής Σειράς MGX 8000"
 
 #: sheets/ciscotelephony.sheet:33
 msgid "End Office"
-msgstr "Τελικό γραφείο"
+msgstr "Τελικό Γραφείο"
 
 #: sheets/ciscotelephony.sheet:34
 msgid "Voice-Enabled Access Server"
-msgstr "Φωνητική πρόσβαση διακομιστή"
+msgstr "Διακομιστής Πρόσβασης με Δυνατότητα Φωνής"
 
 #: sheets/ciscotelephony.sheet:35
 msgid "Voice-Enabled Router"
-msgstr "Φωνητικός δρομολογητής"
+msgstr "Δρομολογητής με Δυνατότητα Φωνής"
 
 #: sheets/ciscotelephony.sheet:36
 msgid "Voice-Enabled ATM Switch"
-msgstr "Φωνητικός διακόπτης ATM"
+msgstr "Διακόπτης ATM με Δυνατότητα Φωνής"
 
 #: sheets/ciscotelephony.sheet:37
 msgid "CallManager"
-msgstr "Διαχειριστής κλήσεων"
+msgstr "Διαχειριστής Κλήσεων"
 
 #: sheets/ciscotelephony.sheet:38
 msgid "IP Telephony Router"
-msgstr "Δρομολογητής τηλεφωνίας IP"
+msgstr "Δρομολογητής Τηλεφωνίας IP"
 
 #: sheets/ciscotelephony.sheet:39
 msgid "Mobile Access Router"
-msgstr "Δρομολογητής κινητής πρόσβασης"
+msgstr "Δρομολογητής Κινητής Πρόσβασης"
 
 #: sheets/ciscotelephony.sheet:40
 msgid "H.323"
@@ -9525,23 +9442,23 @@ msgstr "BTS 10200"
 
 #: sheets/ciscotelephony.sheet:43
 msgid "Generic softswitch"
-msgstr "Γενικός διακόπτης λογισμικού"
+msgstr "Γενικός Διακόπτης Λογισμικού"
 
 #: sheets/ciscotelephony.sheet:44
 msgid "SC2200/VSC3000 host"
-msgstr "Κεντρικός υπολογιστής SC2200/VSC3000"
+msgstr "Κεντρικός Υπολογιστής SC2200/VSC3000"
 
 #: sheets/ciscotelephony.sheet:45
 msgid "Virtual switch controller (VSC 3000)"
-msgstr "Ελεγκτής εικονικού διακόπτη (VSC 3000)"
+msgstr "Ελεγκτής Εικονικού Διακόπτη (VSC 3000)"
 
 #: sheets/ciscotelephony.sheet:46
 msgid "SC2200 (Signalling Controller)"
-msgstr "SC2200 (ελεγκτής σηματοδότησης)"
+msgstr "SC2200 (Ελεγκτής Σηματοδοσίας)"
 
 #: sheets/ciscotelephony.sheet:47
 msgid "MoH server (Music on Hold)"
-msgstr "Διακομιστής MoH (μουσική σε αναμονή)"
+msgstr "Διακομιστής MoH (Μουσική σε Αναμονή)"
 
 #: sheets/ciscotelephony.sheet:48
 msgid "TDM router"
@@ -9573,11 +9490,11 @@ msgstr "ICM"
 
 #: sheets/ciscotelephony.sheet:55
 msgid "IntelliSwitch Stack"
-msgstr "Στοίβα έξυπνου διακόπτη"
+msgstr "Στοίβα IntelliSwitch"
 
 #: sheets/ciscotelephony.sheet:56
 msgid "Unity server"
-msgstr "Διακομιστής μονάδας"
+msgstr "Διακομιστής Unity"
 
 #: sheets/ciscotelephony.sheet:57
 msgid "Unity Express"
@@ -9593,23 +9510,23 @@ msgstr "Σειρές uMG"
 
 #: sheets/civil.sheet:3
 msgid "Civil"
-msgstr "Πολιτικός"
+msgstr "Πολιτικός Μηχανικός"
 
 #: sheets/civil.sheet:4
 msgid "Civil Engineering Components"
-msgstr "Στοιχεία πολιτικού μηχανικού"
+msgstr "Στοιχεία Πολιτικού Μηχανικού"
 
 #: sheets/civil.sheet:7
 msgid "Vertical rest"
-msgstr "Κάθετη ακινησία"
+msgstr "Κάθετο στήριγμα"
 
 #: sheets/civil.sheet:10
 msgid "Horizontal rest"
-msgstr "Οριζόντια ακινησία"
+msgstr "Οριζόντιο στήριγμα"
 
 #: sheets/civil.sheet:13
 msgid "Bivalent vertical rest"
-msgstr "Διπλό κάθετο στήριγμα"
+msgstr "Δισθενές κάθετο στήριγμα"
 
 #: sheets/civil.sheet:16
 msgid "Reference line"
@@ -9617,7 +9534,7 @@ msgstr "Γραμμή αναφοράς"
 
 #: sheets/civil.sheet:19
 msgid "Water level"
-msgstr "Επίπεδο νερού"
+msgstr "Στάθμη νερού"
 
 #: sheets/civil.sheet:22
 msgid "Soil"
@@ -9637,7 +9554,7 @@ msgstr "Οριζόντια οριακή γραμμή"
 
 #: sheets/civil.sheet:34
 msgid "Vertical limiting line"
-msgstr "Κάθετη περιοριστική γραμμή"
+msgstr "Κάθετη οριακή γραμμή"
 
 #: sheets/civil.sheet:37
 msgid "Horizontally aligned pump"
@@ -9665,15 +9582,15 @@ msgstr "Οριζόντια στοιχισμένη βαλβίδα"
 
 #: sheets/civil.sheet:55
 msgid "Backflow preventer"
-msgstr "Αποτροπή αντιστροφής"
+msgstr "Αντεπίστροφη βαλβίδα"
 
 #: sheets/civil.sheet:58
 msgid "Motor"
-msgstr "Μοτέρ"
+msgstr "Κινητήρας"
 
 #: sheets/civil.sheet:61
 msgid "Gas bottle"
-msgstr "Δοχείο αερίου"
+msgstr "Φιάλη αερίου"
 
 #: sheets/civil.sheet:64
 msgid "Frequency converter"
@@ -9681,15 +9598,15 @@ msgstr "Μετατροπέας συχνότητας"
 
 #: sheets/civil.sheet:67
 msgid "Vertically aligned propeller"
-msgstr "Κάθετα στοιχισμένος έλικας"
+msgstr "Κάθετα στοιχισμένη προπέλα"
 
 #: sheets/civil.sheet:70
 msgid "Aerator with bubbles"
-msgstr "Εξαεριστήρας με φυσαλίδες"
+msgstr "Αεριστήρας με φυσαλίδες"
 
 #: sheets/civil.sheet:73
 msgid "Rotor"
-msgstr "Pότορας"
+msgstr "Ρότορας"
 
 #: sheets/civil.sheet:76
 msgid "Final-settling basin"
@@ -9697,7 +9614,7 @@ msgstr "Δεξαμενή τελικής καθίζησης"
 
 #: sheets/civil.sheet:79
 msgid "Preliminary clarification tank"
-msgstr "Δεξαμενή προκαταρκτικού καθαρισμού"
+msgstr "Δεξαμενή προκαταρκτικής διαύγασης"
 
 #: sheets/civil.sheet:82
 msgid "Basin"
@@ -9705,23 +9622,23 @@ msgstr "Λεκάνη"
 
 #: sheets/civil.sheet:85
 msgid "Container"
-msgstr "Περιέκτης"
+msgstr "Δοχείο"
 
 #: sheets/Contact.sheet:3
 msgid "Ladder"
-msgstr "Κλίμακα"
+msgstr "Ladder"
 
 #: sheets/Contact.sheet:4
 msgid "Components for LADDER circuits"
-msgstr "Συστατικά για κυκλώματα LADDER"
+msgstr "Στοιχεία για κυκλώματα LADDER"
 
 #: sheets/Contact.sheet:7
 msgid "'if' (normally open) ladder contact"
-msgstr "'εάν' (συνήθως ανοιχτή) επαφή κλίμακας"
+msgstr "επαφή ladder 'εάν' (κανονικά ανοιχτή)"
 
 #: sheets/Contact.sheet:10
 msgid "'if not' (normally closed) ladder contact"
-msgstr "'εάν όχι' (συνήθως κλειστή) επαφή κλίμακας"
+msgstr "επαφή ladder 'εάν όχι' (κανονικά κλειστή)"
 
 #: sheets/Contact.sheet:14
 msgid "Simple output variable"
@@ -9733,15 +9650,15 @@ msgstr "Αρνητική μεταβλητή εξόδου"
 
 #: sheets/Contact.sheet:20
 msgid "'set' output variable"
-msgstr "Μεταβλητή εξόδου 'ορισμού'"
+msgstr "μεταβλητή εξόδου 'set'"
 
 #: sheets/Contact.sheet:23
 msgid "'reset' output variable"
-msgstr "Μεταβλητή εξόδου 'επαναφοράς'"
+msgstr "μεταβλητή εξόδου 'reset'"
 
 #: sheets/Contact.sheet:26
 msgid "'jump' output variable"
-msgstr "Μεταβλητή εξόδου 'άλματος'"
+msgstr "μεταβλητή εξόδου 'jump'"
 
 #: sheets/Contact.sheet:29
 msgid "Receptivity output variable"
@@ -9749,19 +9666,19 @@ msgstr "Μεταβλητή εξόδου δεκτικότητας"
 
 #: sheets/Contact.sheet:33
 msgid "Power-saved simple output variable"
-msgstr "Απλή μεταβλητή εξόδου αποθηκευμένης ισχύος"
+msgstr "Απλή μεταβλητή εξόδου εξοικονόμησης ενέργειας"
 
 #: sheets/Contact.sheet:36
 msgid "Power-saved negative output variable"
-msgstr "Αρνητική μεταβλητή εξόδου αποθηκευμένης ισχύος"
+msgstr "Αρνητική μεταβλητή εξόδου εξοικονόμησης ενέργειας"
 
 #: sheets/Contact.sheet:39
 msgid "Power-saved 'set' output variable"
-msgstr "Μεταβλητή εξόδου 'ορισμού' αποθηκευμένης ισχύος"
+msgstr "μεταβλητή εξόδου 'set' εξοικονόμησης ενέργειας"
 
 #: sheets/Contact.sheet:42
 msgid "Power-saved 'reset' output variable"
-msgstr "Μεταβλητή εξόδου 'επαναφοράς' αποθηκευμένης ισχύος"
+msgstr "μεταβλητή εξόδου 'reset' εξοικονόμησης ενέργειας"
 
 #: sheets/Cybernetics.sheet:4
 msgid "Cybernetics"
@@ -9769,55 +9686,55 @@ msgstr "Κυβερνητική"
 
 #: sheets/Cybernetics.sheet:5
 msgid "Elements of cybernetic circuits"
-msgstr "Στοιχεία κυκλωμάτων κυβερνητικής"
+msgstr "Στοιχεία κυβερνητικών κυκλωμάτων"
 
 #: sheets/Cybernetics.sheet:9
 msgid "Sensor — left"
-msgstr "Αισθητήρας - αριστερός"
+msgstr "Αισθητήρας — αριστερά"
 
 #: sheets/Cybernetics.sheet:12
 msgid "Sensor — right"
-msgstr "Αισθητήρας - δεξιός"
+msgstr "Αισθητήρας — δεξιά"
 
 #: sheets/Cybernetics.sheet:15
 msgid "Sensor — bottom"
-msgstr "Αισθητήρας - κάτω"
+msgstr "Αισθητήρας — κάτω"
 
 #: sheets/Cybernetics.sheet:18
 msgid "Sensor — top"
-msgstr "Αισθητήρας - πάνω"
+msgstr "Αισθητήρας — επάνω"
 
 #: sheets/Cybernetics.sheet:24
 msgid "Sum, subtracting left input"
-msgstr "Άθροισμα, αφαιρώντας την αριστερή είσοδο"
+msgstr "Άθροισμα, αφαίρεση αριστερής εισόδου"
 
 #: sheets/Cybernetics.sheet:27
 msgid "Sum, subtracting right input"
-msgstr "Άθροισμα, αφαιρώντας την δεξιά είσοδο"
+msgstr "Άθροισμα, αφαίρεση δεξιάς εισόδου"
 
 #: sheets/Cybernetics.sheet:30
 msgid "Sum, subtracting bottom input"
-msgstr "Άθροισμα, αφαιρώντας την κάτω είσοδο"
+msgstr "Άθροισμα, αφαίρεση κάτω εισόδου"
 
 #: sheets/Cybernetics.sheet:33
 msgid "Sum, subtracting top input"
-msgstr "Άθροισμα, αφαιρώντας την πάνω είσοδο"
+msgstr "Άθροισμα, αφαίρεση επάνω εισόδου"
 
 #: sheets/Cybernetics.sheet:39
 msgid "Integrator — input left"
-msgstr "Ολοκληρωτής - αριστερή είσοδος"
+msgstr "Ολοκληρωτής — είσοδος αριστερά"
 
 #: sheets/Cybernetics.sheet:42
 msgid "Integrator — input right"
-msgstr "Ολοκληρωτής - δεξιά είσοδος"
+msgstr "Ολοκληρωτής — είσοδος δεξιά"
 
 #: sheets/Cybernetics.sheet:45
 msgid "Integrator — input bottom"
-msgstr "Ολοκληρωτής - κάτω είσοδος"
+msgstr "Ολοκληρωτής — είσοδος κάτω"
 
 #: sheets/Cybernetics.sheet:48
 msgid "Integrator — input top"
-msgstr "Ολοκληρωτής - πάνω είσοδος"
+msgstr "Ολοκληρωτής — είσοδος επάνω"
 
 #: sheets/Cybernetics.sheet:54
 msgid "Sum"
@@ -9825,23 +9742,23 @@ msgstr "Άθροισμα"
 
 #: sheets/Cybernetics.sheet:57
 msgid "Product"
-msgstr "Προϊόν"
+msgstr "Γινόμενο"
 
 #: sheets/Cybernetics.sheet:61
 msgid "High pass filter"
-msgstr "Φίλτρο υψηλής διέλευσης"
+msgstr "Υψιπερατό φίλτρο"
 
 #: sheets/Cybernetics.sheet:64
 msgid "Low pass filter"
-msgstr "Φίλτρο χαμηλής διέλευσης"
+msgstr "Βαθυπερατό φίλτρο"
 
 #: sheets/Cybernetics.sheet:70
 msgid "Sine characteristic or input"
-msgstr "Χαρακτηριστική ημιτόνου ή είσοδος"
+msgstr "Ημιτονοειδής χαρακτηριστική ή είσοδος"
 
 #: sheets/Cybernetics.sheet:73
 msgid "Sigmoid characteristic"
-msgstr "Χαρακτηριστική σιγμοειδούς"
+msgstr "Σιγμοειδής χαρακτηριστική"
 
 #: sheets/Cybernetics.sheet:76
 msgid "Saturation characteristic"
@@ -9849,7 +9766,7 @@ msgstr "Χαρακτηριστική κορεσμού"
 
 #: sheets/Cybernetics.sheet:79
 msgid "Relay characteristic (sigma)"
-msgstr "Χαρακτηριστική ηλεκτρονόμου (σίγμα)"
+msgstr "Χαρακτηριστική ρελέ (σίγμα)"
 
 #: sheets/Cybernetics.sheet:85
 msgid "Half wave rectifier or ramp input"
@@ -9861,27 +9778,27 @@ msgstr "Ανορθωτής πλήρους κύματος (απόλυτη τιμ�
 
 #: sheets/Cybernetics.sheet:92
 msgid "Constant positive shift on the y-axis"
-msgstr "Σταθερά θετικής μετατόπισης στον άξονα y"
+msgstr "Σταθερή θετική μετατόπιση στον άξονα y"
 
 #: sheets/Cybernetics.sheet:95
 msgid "Constant negative shift on the y-axis"
-msgstr "Σταθερά αρνητικής μετατόπισης στον άξονα y"
+msgstr "Σταθερή αρνητική μετατόπιση στον άξονα y"
 
 #: sheets/Cybernetics.sheet:101
 msgid "Constant factor greater 1"
-msgstr "Συντελεστής σταθεράς μεγαλύτερος από 1"
+msgstr "Σταθερός συντελεστής μεγαλύτερος του 1"
 
 #: sheets/Cybernetics.sheet:104
 msgid "Constant factor between 0 and 1"
-msgstr "Συντελεστής σταθεράς μεταξύ 0 και 1"
+msgstr "Σταθερός συντελεστής μεταξύ 0 και 1"
 
 #: sheets/Cybernetics.sheet:107
 msgid "Constant factor between 0 and -1"
-msgstr "Συντελεστής σταθεράς μεταξύ 0 και -1"
+msgstr "Σταθερός συντελεστής μεταξύ 0 και -1"
 
 #: sheets/Cybernetics.sheet:110
 msgid "Constant factor below -1"
-msgstr "Συντελεστής σταθεράς κάτω από -1"
+msgstr "Σταθερός συντελεστής κάτω από -1"
 
 #: sheets/Cybernetics.sheet:116
 msgid "Template for custom characteristics"
@@ -9893,15 +9810,15 @@ msgstr "Χρονική καθυστέρηση"
 
 #: sheets/Database.sheet:3
 msgid "Database"
-msgstr "Βάση δεδομένων"
+msgstr "Βάση Δεδομένων"
 
 #: sheets/Database.sheet:4
 msgid "Editor for Database Table Relation Diagrams"
-msgstr "Επεξεργαστής για σχεσιακά διαγράμματα πίνακα βάσης δεδομένων"
+msgstr "Επεξεργαστής για Διαγράμματα Σχέσεων Πινάκων Βάσης Δεδομένων"
 
 #: sheets/Database.sheet:13
 msgid "Attribute compound"
-msgstr "Σύνθεση γνωρίσματος"
+msgstr "Σύνθετο γνώρισμα"
 
 #. Author: Marcus Kossatz, 2019
 #: sheets/EDPC.sheet:4
@@ -9909,24 +9826,21 @@ msgid "EDPC"
 msgstr "EDPC"
 
 #: sheets/EDPC.sheet:5
-#, fuzzy
-#| msgid "Objects to draw flowcharts"
 msgid "Objects to draw event-driven process chains"
-msgstr "Αντικείμενα για σχεδίαση διαγραμμάτων ροής"
+msgstr ""
+"Αντικείμενα για σχεδίαση αλυσίδων διεργασιών καθοδηγούμενων από γεγονότα"
 
 #: sheets/EDPC.sheet:7
 msgid "Business Process"
-msgstr "Επιχειρηματική διαδικασία"
+msgstr "Επιχειρηματική Διαδικασία"
 
 #: sheets/EDPC.sheet:8
-#, fuzzy
-#| msgid "Processor"
 msgid "Process Group"
-msgstr "Επεξεργαστής"
+msgstr "Ομάδα Διεργασιών"
 
 #: sheets/EDPC.sheet:9 sheets/FS.sheet:13
 msgid "Function"
-msgstr "Συνάρτηση"
+msgstr "Λειτουργία"
 
 #: sheets/EDPC.sheet:10
 msgid "Event"
@@ -9934,7 +9848,7 @@ msgstr "Συμβάν"
 
 #: sheets/EDPC.sheet:13
 msgid "Organisation Unit"
-msgstr ""
+msgstr "Μονάδα Οργανισμού"
 
 #: sheets/EDPC.sheet:14 sheets/Flowchart.sheet:29
 msgid "Document"
@@ -9942,39 +9856,35 @@ msgstr "Έγγραφο"
 
 #: sheets/EDPC.sheet:15
 msgid "Operator AND (Input)"
-msgstr "Τελεστής ΚΑΙ (Είσοδος)"
+msgstr "Τελεστής AND (Είσοδος)"
 
 #: sheets/EDPC.sheet:16
 msgid "Operator AND (Output)"
-msgstr "Τελεστής ΚΑΙ (Έξοδος)"
+msgstr "Τελεστής AND (Έξοδος)"
 
 #: sheets/EDPC.sheet:17
-#, fuzzy
-#| msgid "Inclusive (OR)"
 msgid "Operator Inclusive (OR) (Input)"
-msgstr "Εγκλειστκό (OR)"
+msgstr "Τελεστής Εγκλειστικός (OR) (Είσοδος)"
 
 #: sheets/EDPC.sheet:18
-#, fuzzy
-#| msgid "Inclusive (OR)"
 msgid "Operator Inclusive (OR) (Output)"
-msgstr "Εγκλειστκό (OR)"
+msgstr "Τελεστής Εγκλειστικός (OR) (Έξοδος)"
 
 #: sheets/EDPC.sheet:19
 msgid "Operator Exclusive (XOR) (Input)"
-msgstr "Αποκλειστικός τελεστής (XOR) (Είσοδος)"
+msgstr "Τελεστής Αποκλειστικός (XOR) (Είσοδος)"
 
 #: sheets/EDPC.sheet:20
 msgid "Operator Exclusive (XOR) (Output)"
-msgstr "Αποκλειστικός τελεστής (XOR) (Έξοδος)"
+msgstr "Τελεστής Αποκλειστικός (XOR) (Έξοδος)"
 
 #: sheets/Electric.sheet:3
 msgid "Electric"
-msgstr "Ηλεκτρικό"
+msgstr "Ηλεκτρικά"
 
 #: sheets/Electric.sheet:4
 msgid "Components for electric circuits"
-msgstr "Συστατικά για ηλεκτρικά κυκλώματα"
+msgstr "Εξαρτήματα για ηλεκτρικά κυκλώματα"
 
 #: sheets/Electric.sheet:7
 msgid "Normally open contact (horizontal)"
@@ -9986,11 +9896,11 @@ msgstr "Επαφή κανονικά κλειστή (οριζόντια)"
 
 #: sheets/Electric.sheet:13
 msgid "Normally open position switch (horizontal)"
-msgstr "Διακόπτης κανονικά ανοικτής θέσης (οριζόντιος)"
+msgstr "Διακόπτης θέσης κανονικά ανοικτός (οριζόντιος)"
 
 #: sheets/Electric.sheet:16
 msgid "Normally closed position switch (horizontal)"
-msgstr "Διακόπτης κανονικά κλειστής θέσης (οριζόντιος)"
+msgstr "Διακόπτης θέσης κανονικά κλειστός (οριζόντιος)"
 
 #: sheets/Electric.sheet:20
 msgid "Normally open contact (vertical)"
@@ -10002,35 +9912,35 @@ msgstr "Επαφή κανονικά κλειστή (κάθετη)"
 
 #: sheets/Electric.sheet:26
 msgid "Normally open position switch (vertical)"
-msgstr "Διακόπτης κανονικά ανοικτής θέσης (κάθετος)"
+msgstr "Διακόπτης θέσης κανονικά ανοικτός (κάθετος)"
 
 #: sheets/Electric.sheet:29
 msgid "Normally closed position switch (vertical)"
-msgstr "Διακόπτης κανονικά κλειστής θέσης (κάθετος)"
+msgstr "Διακόπτης θέσης κανονικά κλειστός (κάθετος)"
 
 #: sheets/Electric.sheet:33
 msgid "The command organ of a relay (horizontal)"
-msgstr "Το όργανο εντολής ηλεκτρονόμου (οριζόντιο)"
+msgstr "Το όργανο εντολής ενός ρελέ (οριζόντιο)"
 
 #: sheets/Electric.sheet:36
 msgid "Relay (horizontal)"
-msgstr "Ηλεκτρονόμος (οριζόντιος)"
+msgstr "Ρελέ (οριζόντιο)"
 
 #: sheets/Electric.sheet:39
 msgid "Lamp or indicator light (horizontal)"
-msgstr "Λάμπα ή ενδεικτικός λαμπτήρας (οριζόντιος)"
+msgstr "Λαμπτήρας ή ενδεικτική λυχνία (οριζόντια)"
 
 #: sheets/Electric.sheet:43
 msgid "The command organ of a relay (vertical)"
-msgstr "Το όργανο εντολής ηλεκτρονόμου (κάθετο)"
+msgstr "Το όργανο εντολής ενός ρελέ (κάθετο)"
 
 #: sheets/Electric.sheet:46
 msgid "Relay (vertical)"
-msgstr "Ηλεκτρονόμος (κάθετος)"
+msgstr "Ρελέ (κάθετο)"
 
 #: sheets/Electric.sheet:49
 msgid "Lamp or indicator light (vertical)"
-msgstr "Λάμπα ή ενδεικτικός λαμπτήρας (κάθετος)"
+msgstr "Λαμπτήρας ή ενδεικτική λυχνία (κάθετη)"
 
 #: sheets/Electric.sheet:55 sheets/Pneumatic.sheet:76
 msgid "Connection point"
@@ -10042,13 +9952,13 @@ msgstr "ER"
 
 #: sheets/ER.sheet:4
 msgid "Editor for Entity Relations Diagrams"
-msgstr "Επεξεργαστής για σχεσιακά διαγράμματα οντότητας"
+msgstr "Επεξεργαστής για Διαγράμματα Σχέσεων Οντοτήτων"
 
 # # NOTE: may seem like xlation for "entity" conflicts with usual
-# #       term for "class", but actually the notions are very much alike,
+# #       term for "class", but actually the notions are very much alike,
 #: sheets/ER.sheet:10
 msgid "Weak entity"
-msgstr "Αδύναμη οντότητα"
+msgstr "Ασθενής οντότητα"
 
 #: sheets/ER.sheet:11
 msgid "res:/org/gnome/Dia/ER/weakentity.png"
@@ -10064,7 +9974,7 @@ msgstr "Αντικείμενα για σχεδίαση διαγραμμάτων 
 
 #: sheets/Flowchart.sheet:7
 msgid "Process/Auxiliary Operation"
-msgstr "Λειτουργία επεξεργασίας/βοήθειας"
+msgstr "Διαδικασία/Βοηθητική Λειτουργία"
 
 #: sheets/Flowchart.sheet:10
 msgid "Input/Output"
@@ -10109,7 +10019,7 @@ msgstr "Τερματική διακοπή"
 
 #: sheets/Flowchart.sheet:47
 msgid "Magnetic disk"
-msgstr "Μαγνητική δισκέτα"
+msgstr "Μαγνητικός δίσκος"
 
 #: sheets/Flowchart.sheet:50
 msgid "Magnetic drum"
@@ -10134,12 +10044,12 @@ msgstr "Καθυστέρηση"
 #. XXX
 #: sheets/Flowchart.sheet:69
 msgid "Summing junction"
-msgstr "Αθροιστική διακλάδωση"
+msgstr "Κόμβος άθροισης"
 
 #. XXX
 #: sheets/Flowchart.sheet:73
 msgid "Collate"
-msgstr "Διαταξινόμηση"
+msgstr "Διασυρραφή"
 
 #: sheets/Flowchart.sheet:76
 msgid "Sort"
@@ -10163,7 +10073,7 @@ msgstr "Ταινία μετάδοσης"
 
 #: sheets/Flowchart.sheet:91
 msgid "Offline storage"
-msgstr "Αποθήκευση εκτός γραμμής"
+msgstr "Αποθήκευση εκτός σύνδεσης"
 
 #: sheets/Flowchart.sheet:94
 msgid "Data source"
@@ -10175,7 +10085,7 @@ msgstr "FS"
 
 #: sheets/FS.sheet:4
 msgid "Editor for Function Structure Diagrams."
-msgstr "Επεξεργαστής για διαγράμματα δομικής συνάρτησης."
+msgstr "Επεξεργαστής για διαγράμματα δομής λειτουργιών."
 
 #: sheets/FS.sheet:7
 msgid "Flow"
@@ -10194,18 +10104,18 @@ msgstr "Gane και Sarson"
 
 #: sheets/Gane_and_Sarson.sheet:8
 msgid "Gane and Sarson DFD"
-msgstr "Gane και Sarson DFD"
+msgstr "DFD κατά Gane και Sarson"
 
 #: sheets/Gane_and_Sarson.sheet:12
 msgid "Alternate external entity"
-msgstr "Εναλλαγή εξωτερικής οντότητας"
+msgstr "Εναλλακτική εξωτερική οντότητα"
 
 #: sheets/Gane_and_Sarson.sheet:15
 msgid "Data store"
-msgstr "Αποθήκευση δεδομένων"
+msgstr "Αποθήκη δεδομένων"
 
 # # NOTE: may seem like xlation for "entity" conflicts with usual
-# #       term for "class", but actually the notions are very much alike,
+# #       term for "class", but actually the notions are very much alike,
 #: sheets/Gane_and_Sarson.sheet:18
 msgid "External entity"
 msgstr "Εξωτερική οντότητα"
@@ -10244,11 +10154,11 @@ msgstr "res:/org/gnome/Dia/GRAFCET/etapesp.png"
 
 #: sheets/GRAFCET.sheet:31
 msgid "Action to associate to a step"
-msgstr "Ενέργεια για σύνδεση σε βήμα"
+msgstr "Ενέργεια συσχετισμένη με βήμα"
 
 #: sheets/GRAFCET.sheet:34
 msgid "Condition (of an action)"
-msgstr "Προϋπόθεση (μιας ενέργειας)"
+msgstr "Συνθήκη (μιας ενέργειας)"
 
 #: sheets/GRAFCET.sheet:38 sheets/UML.sheet:99
 msgid "Transition"
@@ -10256,11 +10166,11 @@ msgstr "Μετάβαση"
 
 #: sheets/GRAFCET.sheet:41
 msgid "OR vergent"
-msgstr "Πύλη OR"
+msgstr "Διακλάδωση OR"
 
 #: sheets/GRAFCET.sheet:44
 msgid "AND vergent"
-msgstr "Πύλη AND"
+msgstr "Διακλάδωση AND"
 
 #: sheets/GRAFCET.sheet:45
 msgid "res:/org/gnome/Dia/GRAFCET/vergent_and.png"
@@ -10282,13 +10192,13 @@ msgstr "Πνευματικά δικαιώματα Alan Horkan 2003"
 #. use dc:title instead?
 #: sheets/IsometricMap.sheet:9
 msgid "Map, Isometric"
-msgstr "Ισομετρικός χάρτης"
+msgstr "Χάρτης, Ισομετρικός"
 
 #. Visio calls theses Map, Directional Map 3D.
 #. use dc:description instead?
 #: sheets/IsometricMap.sheet:12
 msgid "Isometric Directional Map Shapes"
-msgstr "Ισομετρικός κατευθυντήριος χάρτης σχημάτων"
+msgstr "Σχήματα Ισομετρικού Κατευθυντήριου Χάρτη"
 
 #: sheets/IsometricMap.sheet:16
 msgid "Road Section"
@@ -10300,15 +10210,15 @@ msgstr "Μακρύ ευθύ τμήμα δρόμου"
 
 #: sheets/IsometricMap.sheet:19
 msgid "Crossroads"
-msgstr "Διασταυρώσεις"
+msgstr "Διασταύρωση"
 
 #: sheets/IsometricMap.sheet:21
 msgid "T-Junction"
-msgstr "Τ-διασταύρωση"
+msgstr "Διασταύρωση Τ"
 
 #: sheets/IsometricMap.sheet:24
 msgid "Elevated Road"
-msgstr "Ανυψωμένος δρόμος"
+msgstr "Υπερυψωμένος δρόμος"
 
 #: sheets/IsometricMap.sheet:26
 msgid "Corner 1"
@@ -10328,31 +10238,31 @@ msgstr "Σκεπή 1"
 
 #: sheets/IsometricMap.sheet:32
 msgid "Block 1, 2:4"
-msgstr "Συγκρότημα 1, 2:4"
+msgstr "Τετράγωνο 1, 2:4"
 
 #: sheets/IsometricMap.sheet:33
 msgid "Block 2, 2:8"
-msgstr "Συγκρότημα 2, 2:8"
+msgstr "Τετράγωνο 2, 2:8"
 
 #: sheets/IsometricMap.sheet:34
 msgid "Block 3, 4:4"
-msgstr "Συγκρότημα 3, 4:4"
+msgstr "Τετράγωνο 3, 4:4"
 
 #: sheets/IsometricMap.sheet:35
 msgid "Block 4, 4:8"
-msgstr "Συγκρότημα 4, 4:8"
+msgstr "Τετράγωνο 4, 4:8"
 
 #: sheets/IsometricMap.sheet:36
 msgid "Block 5, 3:3"
-msgstr "Συγκρότημα 5, 3:3"
+msgstr "Τετράγωνο 5, 3:3"
 
 #: sheets/IsometricMap.sheet:37
 msgid "Block 6, 4:6"
-msgstr "Συγκρότημα 6, 4:6"
+msgstr "Τετράγωνο 6, 4:6"
 
 #: sheets/IsometricMap.sheet:41
 msgid "Block 7"
-msgstr "Συγκρότημα 7"
+msgstr "Τετράγωνο 7"
 
 #: sheets/IsometricMap.sheet:43
 msgid "Factory"
@@ -10368,11 +10278,11 @@ msgstr "Αυτοκίνητο 2, πίσω όψη"
 
 #: sheets/IsometricMap.sheet:58
 msgid "Train 1, angled downward"
-msgstr "Τρένο 1, με καθοδική γωνία"
+msgstr "Τρένο 1, με κλίση προς τα κάτω"
 
 #: sheets/IsometricMap.sheet:59
 msgid "Train 2, angled upward"
-msgstr "Τρένο 2, με ανοδική γωνία"
+msgstr "Τρένο 2, με κλίση προς τα πάνω"
 
 #: sheets/IsometricMap.sheet:62
 msgid "Tree 1"
@@ -10380,7 +10290,7 @@ msgstr "Δέντρο 1"
 
 #: sheets/IsometricMap.sheet:64
 msgid "Footbridge, Pedestrian Bridge"
-msgstr "Πεζογέφυρα, γέφυρα πεζών"
+msgstr "Πεζογέφυρα"
 
 #: sheets/IsometricMap.sheet:65
 msgid "One Way Road Sign"
@@ -10424,7 +10334,7 @@ msgstr "Ακαθόριστος δράστης i*"
 
 #: sheets/Istar.sheet:24
 msgid "An i* agent"
-msgstr "Παράγοντας i*"
+msgstr "Πράκτορας i*"
 
 #: sheets/Istar.sheet:25
 msgid "res:/org/gnome/Dia/Istar/agent.png"
@@ -10484,7 +10394,7 @@ msgstr "res:/org/gnome/Dia/Istar/decomposition.png"
 
 #: sheets/Istar.sheet:55
 msgid "An i* means-ends link"
-msgstr "Σύνδεσμος μέσων-άκρων i*"
+msgstr "Σύνδεσμος μέσων-σκοπών i*"
 
 #: sheets/Istar.sheet:56
 msgid "res:/org/gnome/Dia/Istar/means_ends.png"
@@ -10500,11 +10410,11 @@ msgstr "Αντικείμενα για σχεδίαση διαγραμμάτων 
 
 #: sheets/Jackson.sheet:7
 msgid "A Jackson given domain"
-msgstr "Μια δοσμένη περιοχή Jackson"
+msgstr "Δεδομένος τομέας Jackson"
 
 #: sheets/Jackson.sheet:10
 msgid "A Jackson designed domain"
-msgstr "Περιοχή σχεδιασμένη από τον Jackson"
+msgstr "Σχεδιασμένος τομέας Jackson"
 
 #: sheets/Jackson.sheet:11
 msgid "res:/org/gnome/Dia/Jackson/designed_domain.png"
@@ -10512,7 +10422,7 @@ msgstr "res:/org/gnome/Dia/Jackson/designed_domain.png"
 
 #: sheets/Jackson.sheet:14
 msgid "A Jackson machine domain"
-msgstr "Περιοχή μηχανής Jackson"
+msgstr "Τομέας μηχανής Jackson"
 
 #: sheets/Jackson.sheet:15
 msgid "res:/org/gnome/Dia/Jackson/machine_domain.png"
@@ -10524,7 +10434,7 @@ msgstr "Απαίτηση Jackson"
 
 #: sheets/Jackson.sheet:21
 msgid "A Jackson shared phenomenon"
-msgstr "Φαινόμενο διαμοιρασμού Jackson"
+msgstr "Κοινό φαινόμενο Jackson"
 
 #: sheets/Jackson.sheet:24
 msgid "A Jackson requirement phenomenon"
@@ -10536,35 +10446,35 @@ msgstr "res:/org/gnome/Dia/Jackson/req_phen.png"
 
 #: sheets/jigsaw.sheet:3
 msgid "Jigsaw"
-msgstr "Συναρμολόγηση (παζλ)Ρ"
+msgstr "Παζλ"
 
 #: sheets/jigsaw.sheet:4
 msgid "Pieces of a jigsaw"
-msgstr "Μέρη συναρμολόγησης"
+msgstr "Κομμάτια παζλ"
 
 #: sheets/jigsaw.sheet:7
 msgid "Jigsaw — part_oioi"
-msgstr "Συναρμολόγηση - μέρος_οiοi"
+msgstr "Παζλ — κομμάτι_oioi"
 
 #: sheets/jigsaw.sheet:10
 msgid "Jigsaw — part_ioio"
-msgstr "Συναρμολόγηση - μέρος_iοiο"
+msgstr "Παζλ — κομμάτι_ioio"
 
 #: sheets/jigsaw.sheet:13
 msgid "Jigsaw — part_iiii"
-msgstr "Συναρμολόγηση - μέρος_iiii"
+msgstr "Παζλ — κομμάτι_iiii"
 
 #: sheets/jigsaw.sheet:16
 msgid "Jigsaw — part_oooo"
-msgstr "Συναρμολόγηση - μέρος_οοοο"
+msgstr "Παζλ — κομμάτι_oooo"
 
 #: sheets/jigsaw.sheet:20
 msgid "Jigsaw — part_oooi"
-msgstr "Συναρμολόγηση - μέρος_οοοi"
+msgstr "Παζλ — κομμάτι_oooi"
 
 #: sheets/jigsaw.sheet:23
 msgid "Jigsaw — part_iooo"
-msgstr "Συναρμολόγηση - μέρος_iοοο"
+msgstr "Παζλ — κομμάτι_iooo"
 
 #: sheets/jigsaw.sheet:26
 msgid "Jigsaw — part_oioo"
@@ -10724,7 +10634,7 @@ msgstr "res:/org/gnome/Dia/KAOS/responsibility.png"
 
 #: sheets/KAOS.sheet:64
 msgid "A KAOS monitor link"
-msgstr "Σύνδεσμος ανίχνευσης KAOS"
+msgstr "Σύνδεσμος παρακολούθησης KAOS"
 
 #: sheets/KAOS.sheet:65
 msgid "res:/org/gnome/Dia/KAOS/monitors.png"
@@ -10804,11 +10714,11 @@ msgstr "Φως από λάμπα φθορίου"
 
 #: sheets/Lights.sheet:25
 msgid "Ellipsoidal Reflector Spotlight"
-msgstr "Ελλειψοειδής ανακλαστήρας προβολέα"
+msgstr "Προβολέας ελλειψοειδούς κατόπτρου"
 
 #: sheets/Lights.sheet:28
 msgid "Blinders"
-msgstr "Παρωπίδες"
+msgstr "Τυφλωτικά φώτα"
 
 #: sheets/Lights.sheet:32
 msgid "Black light"
@@ -10848,7 +10758,7 @@ msgstr "πύλη XOR"
 
 #: sheets/Logic.sheet:16
 msgid "Simple buffer"
-msgstr "Απλή μνήμη"
+msgstr "Απλός απομονωτής"
 
 #: sheets/Logic.sheet:19
 msgid "Inverter"
@@ -11000,7 +10910,7 @@ msgstr "Πρίζα τοίχου RJ45"
 
 #: sheets/network.sheet:42
 msgid "Wall-plug for the scEAD cabling system"
-msgstr "Ρευματολήπτης τοίχου για το καλωδιακό σύστημα scEAD"
+msgstr "Πρίζα τοίχου για το καλωδιακό σύστημα scEAD"
 
 #: sheets/network.sheet:45
 msgid "Simple modem"
@@ -11076,7 +10986,7 @@ msgstr "Ηχείο χωρίς ενισχυτή"
 
 #: sheets/network.sheet:99
 msgid "3 1/2 inch diskette"
-msgstr "δισκέτα 3 1/2 ιντσών"
+msgstr "Δισκέτα 3 1/2 ιντσών"
 
 #: sheets/network.sheet:102
 msgid "ZIP disk"
@@ -11112,15 +11022,15 @@ msgstr "Συστατικά για πνευματικά και υδραυλικά
 
 #: sheets/Pneumatic.sheet:7
 msgid "Double-effect jack"
-msgstr "Υποδοχή διπλής δράσης"
+msgstr "Κύλινδρος διπλής ενέργειας"
 
 #: sheets/Pneumatic.sheet:10
 msgid "Normally-in simple-effect jack"
-msgstr "Υποδοχή απλής δράσης κανονικά είσοδος"
+msgstr "Κύλινδρος απλής ενέργειας (σε συστολή)"
 
 #: sheets/Pneumatic.sheet:13
 msgid "Normally-out simple-effect jack"
-msgstr "Υποδοχή απλής δράσης κανονικά έξοδος"
+msgstr "Κύλινδρος απλής ενέργειας (σε έκταση)"
 
 #: sheets/Pneumatic.sheet:19
 msgid "Generic pressure source"
@@ -11156,7 +11066,7 @@ msgstr "5/2 διανομέας"
 
 #: sheets/Pneumatic.sheet:51
 msgid "Muscular command"
-msgstr "Μυική εντολή"
+msgstr "Μυϊκή εντολή"
 
 #: sheets/Pneumatic.sheet:54
 msgid "Push-button command"
@@ -11200,7 +11110,7 @@ msgstr "Βέλος ροής δραστηριότητας/δεδομένων"
 
 #: sheets/SADT.sheet:10
 msgid "Activity/data box"
-msgstr "Κουτί δραστηριότητας/δεδομένων"
+msgstr "Πλαίσιο δραστηριότητας/δεδομένων"
 
 #: sheets/SADT.sheet:13
 msgid "Flow label"
@@ -11220,7 +11130,7 @@ msgstr "Αναφορά τύπου μπλοκ"
 
 #: sheets/SDL.sheet:10
 msgid "Service type reference"
-msgstr "Αναφορά τύπου εξυπηρέτησης"
+msgstr "Αναφορά τύπου υπηρεσίας"
 
 #: sheets/SDL.sheet:13
 msgid "Process type reference"
@@ -11300,7 +11210,7 @@ msgstr "Διακομιστής αντιγραφής Sybase"
 
 #: sheets/sybase.sheet:13
 msgid "Log transfer manager or rep agent"
-msgstr "Διαχειριστής μεταφοράς ημερολογίου ή συντελεστής αντιγραφής"
+msgstr "Διαχειριστής μεταφοράς αρχείου καταγραφής ή πράκτορας αντιγραφής"
 
 #: sheets/sybase.sheet:16
 msgid "Stable storage device"
@@ -11312,7 +11222,7 @@ msgstr "Εφαρμογή πελάτη της Sybase"
 
 #: sheets/sybase.sheet:22
 msgid "Replication server manager"
-msgstr "Διαχείριση διακομιστή αντιγραφής"
+msgstr "Διαχειριστής διακομιστή αντιγραφής"
 
 #: sheets/UML.sheet:4
 msgid "Editor for UML Static Structure Diagrams"
@@ -11328,19 +11238,19 @@ msgstr "Σημείωση"
 
 #: sheets/UML.sheet:20
 msgid "Realizes, implements a specific interface"
-msgstr "Πραγματοποίηση, εφαρμογή ειδικής διεπαφής"
+msgstr "Πραγμάτωση, υλοποίηση συγκεκριμένης διεπαφής"
 
 #: sheets/UML.sheet:23
 msgid "Generalization, class inheritance"
-msgstr "Γενίκευση, τάξη κληρονομικότητας"
+msgstr "Γενίκευση, κληρονομικότητα κλάσης"
 
 #: sheets/UML.sheet:26
 msgid "Association, two classes are associated"
-msgstr "Ένωση, δύο τάξεις συνδέονται"
+msgstr "Συσχέτιση, δύο κλάσεις συσχετίζονται"
 
 #: sheets/UML.sheet:29
 msgid "Aggregation, one class is part of another"
-msgstr "Συνυπολογισμός, μια τάξη είναι μέρος μιας άλλης"
+msgstr "Συσσωμάτωση, μια κλάση είναι μέρος μιας άλλης"
 
 #: sheets/UML.sheet:30
 msgid "res:/org/gnome/Dia/UML/aggregation.png"
@@ -11348,7 +11258,7 @@ msgstr "res:/org/gnome/Dia/UML/aggregation.png"
 
 #: sheets/UML.sheet:33
 msgid "Implements, class implements a specific interface"
-msgstr "Εφαρμόζει, τάξη εργαλείων ειδικής διεπαφής"
+msgstr "Υλοποιεί, η κλάση υλοποιεί μια συγκεκριμένη διεπαφή"
 
 #: sheets/UML.sheet:36
 msgid "Constraint, place a constraint on something"
@@ -11368,7 +11278,7 @@ msgstr "Περίπτωση χρήσης"
 
 #: sheets/UML.sheet:51
 msgid "Lifeline"
-msgstr "Ζωτική γραμμή"
+msgstr "Γραμμή ζωής"
 
 #: sheets/UML.sheet:54
 msgid "Object"
@@ -11400,7 +11310,7 @@ msgstr "Κόμβος"
 
 #: sheets/UML.sheet:81
 msgid "Class stereotype icon"
-msgstr "Τάξη στερεότυπης εικόνας"
+msgstr "Εικονίδιο στερεοτύπου κλάσης"
 
 #: sheets/UML.sheet:84
 msgid "Initial/End state"
