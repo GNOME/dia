@@ -675,7 +675,7 @@ read_path_svg (xmlNodePtr   node,
   pathdata = (char *)str;
   bezpoints = g_array_new(FALSE, FALSE, sizeof(BezPoint));
   g_array_set_size(bezpoints, 0);
-  do {
+  while (pathdata) {
     int first = bezpoints->len;
     if (!dia_svg_parse_path (bezpoints, pathdata, &unparsed, &closed, &current_point))
       break;
@@ -755,7 +755,7 @@ read_path_svg (xmlNodePtr   node,
     }
     pathdata = unparsed;
     unparsed = NULL;
-  } while (pathdata);
+  }
 
   if (bezpoints) {
     g_array_free (bezpoints, TRUE);
