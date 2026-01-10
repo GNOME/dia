@@ -17,6 +17,7 @@ max_line_length = 80
 # Meson reads better with short lines.
 [meson.build]
 max_line_length = 60
+indent_size = 2
 
-[*.{c,h,cpp}]
+[*.{c,h,cpp,yml}]
 indent_size = 2

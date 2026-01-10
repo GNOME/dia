@@ -1,30 +1,45 @@
 include:
-  - project: 'gnome/citemplates'
-    file: 'flatpak/flatpak_ci_initiative.yml'
+  - project: "gnome/citemplates"
+    file: "flatpak/flatpak_ci_initiative.yml"
+  - component: gitlab.gnome.org/GNOME/citemplates/release-service@master
+    inputs:
+      dist-job-name: "flatpak@x86_64"
+      tarball-artifact-path: "${TARBALL_ARTIFACT_PATH}"
+  - component: "gitlab.gnome.org/GNOME/citemplates/gnomeos-basic-ci@master"
+    inputs:
+      before-script: "bash ./.gitlab-ci/gnomeos.sh"
 
 .cache-paths: &cache-paths
   paths:
     - _ccache/
 
 variables:
-    GIT_SUBMODULE_STRATEGY: recursive
-    MANIFEST_PATH: "build-aux/flatpak/org.gnome.Dia.json"
-    FLATPAK_MODULE: "dia"
-    RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
-    APP_ID: "org.gnome.Dia"
-    BUNDLE: "dia-dev.flatpak"
+  APP_ID: "org.gnome.Dia"
+  BUNDLE: "dia-dev.flatpak"
+  FLATPAK_MODULE: "dia"
+  GIT_SUBMODULE_STRATEGY: recursive
+  MANIFEST_PATH: "build-aux/flatpak/org.gnome.Dia.json"
+  RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
 
-flatpak:
+stages:
+  - build
+  - deploy
+
+flatpak@x86_64:
   stage: build
-  extends: .flatpak
+  extends: ".flatpak@x86_64"
 
-flatpak-aarch64:
+flatpak@aarch64:
   stage: build
   extends: ".flatpak@aarch64"
 
-nightly:
-  extends: '.publish_nightly'
+nightly@x86_64:
+  extends: ".publish_nightly"
+  needs: ["flatpak@x86_64"]
 
+nightly@aarch64:
+  extends: ".publish_nightly"
+  needs: ["flatpak@aarch64"]
 
 .mingw-defaults:
   stage: build
@@ -38,7 +53,6 @@ nightly:
     paths:
       - _ccache/
       - subprojects/xpm-pixbuf/
-
 
 msys2-ucrt64:
   extends: .mingw-defaults
