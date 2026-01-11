@@ -1135,7 +1135,7 @@ stdpath_transform(StdPath *stdpath, const DiaMatrix *m)
 }
 
 gboolean
-text_to_path (const Text *text, GArray *points)
+text_to_path (Text *text, GArray *points)
 {
   cairo_t *cr;
   cairo_surface_t *surface;
@@ -1216,7 +1216,7 @@ text_to_path (const Text *text, GArray *points)
 }
 
 DiaObject *
-create_standard_path_from_text (const Text *text)
+create_standard_path_from_text (Text *text)
 {
   DiaObject *obj = NULL;
   GArray *points = g_array_new (FALSE, FALSE, sizeof(BezPoint));

@@ -579,7 +579,7 @@ static DiaObjectChange *
 _textobj_convert_to_path_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Textobj *textobj = (Textobj *)obj;
-  const Text *text = textobj->text;
+  Text *text = textobj->text;
   DiaObject *path = NULL;
 
   if (!text_is_empty(text)) /* still screwed with empty lines ;) */

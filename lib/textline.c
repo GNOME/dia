@@ -35,93 +35,99 @@ static void text_line_dirty_cache(TextLine *text_line);
 static void text_line_cache_values(TextLine *text_line);
 static void clear_layout_offset (TextLine *text_line);
 
-/*!
- * \brief Sets this object to display a particular string.
- * @param text_line The object to change.
- * @param string The string to display.  This string will be copied.
- * \memberof TextLine
+
+/**
+ * text_line_set_string:
+ * @text_line: The object to change.
+ * @string: The string to display.  This string will be copied.
+ *
+ * Sets this object to display a particular string.
  */
 void
 text_line_set_string (TextLine *text_line, const char *string)
 {
-  if (text_line->chars == NULL ||
-      strcmp (text_line->chars, string)) {
-    g_clear_pointer (&text_line->chars, g_free);
-
-    text_line->chars = g_strdup(string);
-
-    text_line_dirty_cache(text_line);
-  }
-}
-
-/*!
- * \brief Sets the font used by this object.
- * @param text_line The object to change.
- * @param font The font to use for displaying this object.
- * \memberof TextLine
- */
-void
-text_line_set_font (TextLine *text_line, DiaFont *font)
-{
-  if (text_line->font != font) {
-    DiaFont *old_font = text_line->font;
-    g_object_ref (font);
-    text_line->font = font;
-    g_clear_object (&old_font);
+  if (g_set_str (&text_line->chars, string)) {
     text_line_dirty_cache (text_line);
   }
 }
 
-/*!
- * \brief Sets the font height used by this object.
- * @param text_line The object to change.
- * @param height The font height to use for displaying this object
- * (in cm, from baseline to baseline)
- * \memberof TextLine
+
+/**
+ * text_line_set_font:
+ * @text_line: The object to change.
+ * @font: The font to use for displaying this object.
+ *
+ * Sets the font used by this object.
  */
 void
-text_line_set_height(TextLine *text_line, real height)
+text_line_set_font (TextLine *text_line, DiaFont *font)
 {
-  if (fabs(text_line->height - height) > 0.00001) {
-    text_line->height = height;
-    text_line_dirty_cache(text_line);
+  if (g_set_object (&text_line->font, font)) {
+    text_line_dirty_cache (text_line);
   }
 }
 
-/*!
- * \brief Creates a new TextLine object from its components.
- * @param string the string to display
- * @param font the font to display the string with.
- * @param height the height of the font, in cm from baseline to baseline.
- * \memberof TextLine
+
+/**
+ * text_line_set_height:
+ * @text_line: The object to change.
+ * @height: The font height to use for displaying this object (in cm, from
+ *          baseline to baseline)
+ *
+ * Sets the font height used by this object.
+ */
+void
+text_line_set_height (TextLine *text_line, double height)
+{
+  if (!G_APPROX_VALUE (text_line->height, height, 0.00001)) {
+    text_line->height = height;
+    text_line_dirty_cache (text_line);
+  }
+}
+
+
+/**
+ * text_line_new:
+ * @string: the string to display
+ * @font: the font to display the string with.
+ * @height: the height of the font, in cm from baseline to baseline.
+ *
+ * Creates a new TextLine object from its components.
  */
 TextLine *
-text_line_new(const gchar *string, DiaFont *font, real height)
+text_line_new (const char *string, DiaFont *font, double height)
 {
-  TextLine *text_line = g_new0(TextLine, 1);
+  TextLine *text_line = g_new0 (TextLine, 1);
 
-  text_line_set_string(text_line, string);
-  text_line_set_font(text_line, font);
-  text_line_set_height(text_line, height);
+  text_line_set_string (text_line, string);
+  text_line_set_font (text_line, font);
+  text_line_set_height (text_line, height);
 
   return text_line;
 }
 
-/*!
- * \brief Make a deep copy of the given TextLine
- * \memberof TextLine
+
+/**
+ * text_line_copy:
+ * @text_line: The object to copy.
+ *
+ * Make a deep copy of the given TextLine
  */
 TextLine *
-text_line_copy(const TextLine *text_line)
+text_line_copy (TextLine *text_line)
 {
-  return text_line_new(text_line->chars, text_line->font, text_line->height);
+  return text_line_new (text_line->chars,
+                        text_line->font,
+                        text_line->height);
 }
 
-/*!
- * \brief Destroy a text_line object
- * This is deallocating all memory used and unreffing reffed objects.
- * @param text_line the object to kill.
- * \memberof TextLine
+
+/**
+ * text_line_destroy:
+ * @text_line: the object to kill.
+ *
+ * Destroy a text_line object, this is deallocating all memory used and
+ * unreffing reffed objects.
  */
 void
 text_line_destroy (TextLine *text_line)
@@ -133,60 +139,68 @@ text_line_destroy (TextLine *text_line)
   g_free (text_line);
 }
 
-/*!
- * \brief TextLine bounding box caclulation
+
+/**
+ * text_line_calc_boundingbox_size:
+ * @text_line:
+ * @size: A place to store the width and height of the text.
  *
- * Calculate the bounding box size of this object.  Since a text object has no
+ * TextLine bounding box caclulation
+ *
+ * Calculate the bounding box size of this object. Since a text object has no
  * position or alignment, this collapses to just a size.
- * @param text_line
- * @param size A place to store the width and height of the text.
- * \memberof TextLine
  */
 void
-text_line_calc_boundingbox_size(TextLine *text_line, Point *size)
+text_line_calc_boundingbox_size (TextLine *text_line, Point *size)
 {
-  text_line_cache_values(text_line);
+  text_line_cache_values (text_line);
 
   size->x = text_line->width;
   size->y = text_line->ascent + text_line->descent;
 }
 
-gchar *
-text_line_get_string(const TextLine *text_line)
+
+const char *
+text_line_get_string (TextLine *text_line)
 {
   return text_line->chars;
 }
 
+
 DiaFont *
-text_line_get_font(const TextLine *text_line)
+text_line_get_font (TextLine *text_line)
 {
   return text_line->font;
 }
 
-real
-text_line_get_height(const TextLine *text_line)
+
+double
+text_line_get_height (TextLine *text_line)
 {
   return text_line->height;
 }
 
-real
-text_line_get_width(const TextLine *text_line)
+
+double
+text_line_get_width (TextLine *text_line)
 {
-  text_line_cache_values((TextLine *)text_line);
+  text_line_cache_values (text_line);
   return text_line->width;
 }
 
-real
-text_line_get_ascent(const TextLine *text_line)
+
+double
+text_line_get_ascent (TextLine *text_line)
 {
-  text_line_cache_values((TextLine *)text_line);
+  text_line_cache_values (text_line);
   return text_line->ascent;
 }
 
-real
-text_line_get_descent(const TextLine *text_line)
+
+double
+text_line_get_descent (TextLine *text_line)
 {
-  text_line_cache_values((TextLine *)text_line);
+  text_line_cache_values (text_line);
   return text_line->descent;
 }
 

@@ -91,8 +91,8 @@ DIA_DEFINE_OBJECT_CHANGE (DiaTextObjectChange, dia_text_object_change)
  *
  * Since: dawn-of-time
  */
-char *
-text_get_line (const Text *text, int line)
+const char *
+text_get_line (Text *text, int line)
 {
   return text_line_get_string (text->lines[line]);
 }
@@ -583,7 +583,7 @@ text_calc_boundingbox (Text *text, DiaRectangle *box)
 
 
 char *
-text_get_string_copy (const Text *text)
+text_get_string_copy (Text *text)
 {
   int num;
   char *str;
@@ -732,8 +732,8 @@ typedef enum {
 static void
 text_move_cursor (Text *text, CursorMovement mv)
 {
-  char *str = text_line_get_string (text->lines[text->cursor_row]);
-  char *p = str;
+  const char *str = text_line_get_string (text->lines[text->cursor_row]);
+  const char *p = str;
   int curmax = text_get_line_strlen (text, text->cursor_row);
   if (text->cursor_pos > 0 && text->cursor_pos <= curmax) {
     int i;
@@ -876,7 +876,7 @@ text_delete_forward (Text *text)
   int row;
   int i;
   double width;
-  char *line;
+  const char *line;
   char *utf8_before, *utf8_after;
   char *str1, *str;
 
@@ -916,7 +916,7 @@ text_delete_backward (Text *text)
   int row;
   int i;
   double width;
-  char *line;
+  const char *line;
   char *utf8_before, *utf8_after;
   char *str1, *str;
 
@@ -955,7 +955,7 @@ static void
 text_split_line (Text *text)
 {
   int i;
-  char *line;
+  const char *line;
   double width;
   char *utf8_before;
   char *str1, *str2;
@@ -988,7 +988,8 @@ text_insert_char (Text *text, gunichar c)
   char ch[7];
   int unilen;
   int row;
-  char *line, *str;
+  const char *line;
+  char *str;
   char *utf8_before;
   char *str1;
 

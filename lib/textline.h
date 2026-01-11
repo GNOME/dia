@@ -15,12 +15,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef TEXTLINE_H
-#define TEXTLINE_H
+
+#pragma once
 
 #include <glib.h>
+
 #include "diatypes.h"
 #include "properties.h"
+
+G_BEGIN_DECLS
 
 /*!
  * \brief Helper class to cache text drawing and related calculations
@@ -62,26 +65,33 @@ struct _TextLine {
   PangoLayoutLine *layout_offsets;
 };
 
-TextLine *text_line_new(const gchar *string, DiaFont *font, real height);
-void text_line_destroy(TextLine *text);
-TextLine *text_line_copy(const TextLine *text);
-void text_line_set_string(TextLine *text, const char *string);
-void text_line_set_height(TextLine *text, real height);
-void text_line_set_font(TextLine *text, DiaFont *font);
-gchar *text_line_get_string(const TextLine *text);
-DiaFont *text_line_get_font(const TextLine *text);
-real text_line_get_height(const TextLine *text);
-void text_line_calc_boundingbox_size(TextLine *text, Point *size);
-real text_line_get_width(const TextLine *text);
-real text_line_get_ascent(const TextLine *text);
-real text_line_get_descent(const TextLine *text);
 
-void text_line_adjust_glyphs(TextLine *line,
-			     PangoGlyphString *glyphs,
-			     real scale);
-void text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
-				  real scale);
-double    text_line_get_alignment_adjustment  (TextLine     *text_line,
-                                               DiaAlignment  alignment);
+TextLine     *text_line_new                          (const char       *string,
+                                                      DiaFont          *font,
+                                                      double            height);
+void          text_line_destroy                      (TextLine         *text);
+TextLine     *text_line_copy                         (TextLine         *text);
+void          text_line_set_string                   (TextLine         *text,
+                                                      const char       *string);
+void          text_line_set_height                   (TextLine         *text,
+                                                      double            height);
+void          text_line_set_font                     (TextLine         *text,
+                                                      DiaFont          *font);
+const char   *text_line_get_string                   (TextLine         *text);
+DiaFont      *text_line_get_font                     (TextLine         *text);
+double        text_line_get_height                   (TextLine         *text);
+void          text_line_calc_boundingbox_size        (TextLine         *text,
+                                                      Point            *size);
+double        text_line_get_width                    (TextLine         *text);
+double        text_line_get_ascent                   (TextLine         *text);
+double        text_line_get_descent                  (TextLine         *text);
+void          text_line_adjust_glyphs                (TextLine         *line,
+                                                      PangoGlyphString *glyphs,
+                                                      double            scale);
+void          text_line_adjust_layout_line           (TextLine         *line,
+                                                      PangoLayoutLine  *layoutline,
+                                                      double            scale);
+double        text_line_get_alignment_adjustment     (TextLine         *text_line,
+                                                      DiaAlignment      alignment);
 
-#endif
+G_END_DECLS

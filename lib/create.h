@@ -23,7 +23,7 @@
  * \ingroup StandardObjects
  *
  * Typical import plug-ins translate some vector representation of the import format
- * into _DiaObject representations. This set of functions and structures simplifies 
+ * into _DiaObject representations. This set of functions and structures simplifies
  * the creation of standard objects.
  */
 
@@ -45,7 +45,7 @@ struct _MultipointCreateData {
   Point *points; /**< data */
 };
 
-/*! 
+/*!
  * \brief Can be used as extra parameter at create. Usually discouraged, you can set via StdProp API
  * \ingroup ObjectCreate
  */
@@ -112,10 +112,10 @@ DiaObject *create_standard_path(int num_points, BezPoint *points);
  * \brief Create a \ref _StdPath from the given _Text
  * \ingroup ObjectCreate
  */
-DiaObject *create_standard_path_from_text (const Text *text);
+DiaObject *create_standard_path_from_text (Text *text);
 
 /*!
- * \brief Create an \ref _Arc with arrows 
+ * \brief Create an \ref _Arc with arrows
  * @param x1 arc start position
  * @param y1 arc start position
  * @param x2 arc end position
@@ -126,10 +126,10 @@ DiaObject *create_standard_path_from_text (const Text *text);
  * \ingroup ObjectCreate
  */
 DiaObject *create_standard_arc(real x1, real y1, real x2, real y2,
-			       real curve_distance, 
+			       real curve_distance,
 			       Arrow *end_arrow, Arrow *start_arrow);
-/*! 
- * \brief Create an \ref _Image object from file with the given size and position 
+/*!
+ * \brief Create an \ref _Image object from file with the given size and position
  * \ingroup ObjectCreate
  */
 DiaObject *create_standard_image(real xpos, real ypos, real width, real height, char *file);

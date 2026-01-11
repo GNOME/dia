@@ -90,9 +90,9 @@ Text   *new_text_default      (Point         *pos,
                                DiaAlignment   align);
 void    text_destroy          (Text       *text);
 Text   *text_copy             (Text       *text);
-char   *text_get_line         (const Text *text,
-                               int         line);
-char   *text_get_string_copy  (const Text *text);
+const char   *text_get_line          (Text           *text,
+                                      int             line);
+char         *text_get_string_copy   (Text           *text);
 void    text_set_string       (Text       *text,
                                const char *string);
 void    text_set_height       (Text       *text,
