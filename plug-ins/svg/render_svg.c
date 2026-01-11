@@ -361,7 +361,7 @@ draw_object(DiaRenderer *self,
       char *s;
       graphene_matrix_t graphene_matrix;
 
-      dia_graphene_from_matrix (&graphene_matrix, gm);
+      dia_matrix_to_graphene (gm, &graphene_matrix);
 
       s = dia_svg_from_matrix (&graphene_matrix, renderer->scale);
 
@@ -383,7 +383,7 @@ draw_object(DiaRenderer *self,
       char *s;
       graphene_matrix_t graphene_matrix;
 
-      dia_graphene_from_matrix (&graphene_matrix, matrix);
+      dia_matrix_to_graphene (matrix, &graphene_matrix);
 
       s = dia_svg_from_matrix (&graphene_matrix, renderer->scale);
 
@@ -392,7 +392,7 @@ draw_object(DiaRenderer *self,
       g_clear_pointer (&s, g_free);
     }
 
-    object->ops->draw(object, DIA_RENDERER (renderer));
+    dia_object_draw (object, DIA_RENDERER (renderer));
 
     /* no easy way to count? */
     child = renderer->root->children;

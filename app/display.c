@@ -26,7 +26,6 @@
 
 #include <gdk/gdkkeysyms.h>
 
-#include "display.h"
 #include "disp_callbacks.h"
 #include "interface.h"
 #include "focus.h"
@@ -42,12 +41,15 @@
 #include "load_save.h"
 #include "dia-colour.h"
 #include "dia-diagram-properties-dialog.h"
+#include "dia-graphene.h"
 #include "dia-layer.h"
 #include "renderer/diacairo.h"
 #include "diatransform.h"
 #include "recent_files.h"
 #include "filedlg.h"
 #include "exit_dialog.h"
+
+#include "display.h"
 
 
 static GdkCursor *current_cursor = NULL;
@@ -1033,9 +1035,14 @@ ddisplay_present_object (DDisplay *ddisp, DiaObject *obj)
 {
   const DiaRectangle *r = dia_object_get_enclosing_box (obj);
   const DiaRectangle *v = &ddisp->visible;
+  graphene_rect_t orig_bb, visible_bb;
 
   display_set_active (ddisp);
-  if (!rectangle_in_rectangle (v, r)) {
+
+  dia_rectangle_to_graphene (r, &orig_bb);
+  dia_rectangle_to_graphene (v, &visible_bb);
+
+  if (!graphene_rect_contains_rect (&visible_bb, &orig_bb)) {
     Point delta = { 0, 0 };
 
     if ((r->right - r->left) > (v->right - v->left)) /* object bigger than visible area */

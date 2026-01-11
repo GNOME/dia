@@ -19,6 +19,7 @@ test_env = {
 tests = [
   'colour-selector',
   'colour',
+  'graphene',
 ]
 
 test_sources = files(

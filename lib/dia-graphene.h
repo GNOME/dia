@@ -17,7 +17,7 @@
  *
  * SPDX-License-Identifier: GPL-2.0-or-later
  *
- * Copyright © 2020 Zander Brown <zbrown@gnome.org>
+ * Copyright 2020-2026 Zander Brown <zbrown@gnome.org>
  */
 
 #pragma once
@@ -26,9 +26,12 @@
 
 #include "geometry.h"
 
+G_BEGIN_DECLS
+
+
 static inline void
-dia_matrix_from_graphene (DiaMatrix         *matrix,
-                          graphene_matrix_t *graphene)
+dia_matrix_from_graphene (DiaMatrix               *matrix,
+                          const graphene_matrix_t *graphene)
 {
   matrix->xx = graphene_matrix_get_value (graphene, 0, 0);
   matrix->yx = graphene_matrix_get_value (graphene, 0, 1);
@@ -38,9 +41,10 @@ dia_matrix_from_graphene (DiaMatrix         *matrix,
   matrix->y0 = graphene_matrix_get_y_translation (graphene);
 }
 
+
 static inline void
-dia_graphene_from_matrix (graphene_matrix_t *graphene,
-                          const DiaMatrix   *matrix)
+dia_matrix_to_graphene (const DiaMatrix   *matrix,
+                        graphene_matrix_t *graphene)
 {
   graphene_matrix_init_from_2d (graphene,
                                 matrix->xx,
@@ -50,3 +54,34 @@ dia_graphene_from_matrix (graphene_matrix_t *graphene,
                                 matrix->x0,
                                 matrix->y0);
 }
+
+
+static inline void
+dia_rectangle_from_graphene (DiaRectangle          *rect,
+                             const graphene_rect_t *graphene)
+{
+  graphene_point_t p;
+
+  graphene_rect_get_top_left (graphene, &p);
+  rect->top = p.y;
+  rect->left = p.x;
+
+  graphene_rect_get_bottom_right (graphene, &p);
+  rect->bottom = p.y;
+  rect->right = p.x;
+}
+
+
+static inline void
+dia_rectangle_to_graphene (const DiaRectangle *rect,
+                           graphene_rect_t    *graphene)
+{
+  graphene_rect_t tmp;
+  graphene_point_t bottom_right =
+    GRAPHENE_POINT_INIT (rect->right, rect->bottom);
+
+  graphene_rect_init (&tmp, rect->left, rect->top, 0.0, 0.0);
+  graphene_rect_expand (&tmp, &bottom_right, graphene);
+}
+
+G_END_DECLS
