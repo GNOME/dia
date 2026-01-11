@@ -87,13 +87,8 @@ PyDiaObject_Destroy(PyDiaObject *self, PyObject *args)
     return NULL;
   }
 
-  if (!self->object->ops->destroy) {
-    PyErr_SetString(PyExc_RuntimeError,"object does not implement method");
-    return NULL;
-  }
+  dia_clear_object (&self->object);
 
-  self->object->ops->destroy (self->object);
-  g_clear_pointer (&self->object, g_free);
   Py_INCREF (Py_None);
 
   return Py_None;

@@ -22,6 +22,9 @@
  */
 
 #include <config.h>
+
+#include "object.h"
+
 #include "boolequation.h"
 
 #define OVERLINE_RATIO .1
@@ -332,9 +335,9 @@ overlineblock_destroy (Block *block)
 {
   if (!block) return;
 
-  g_return_if_fail(block->type == BLOCK_OVERLINE);
+  g_return_if_fail (block->type == BLOCK_OVERLINE);
 
-  block->d.inside->ops->destroy(block->d.inside);
+  block->d.inside->ops->destroy (block->d.inside);
 
   g_free (block);
 }
@@ -512,7 +515,7 @@ compoundblock_destroy(Block *block)
     inblk = (Block *)(elem->data);
     if (!inblk) break;
 
-    inblk->ops->destroy(inblk);
+    inblk->ops->destroy (inblk);
     elem->data = NULL;
 
     elem = g_slist_next(elem);
@@ -594,13 +597,12 @@ void
 boolequation_set_value (Boolequation *booleq, const char *value)
 {
   g_return_if_fail (booleq);
-  g_clear_pointer (&booleq->value, g_free);
 
+  g_set_str (&booleq->value, value);
   if (booleq->rootblock) {
     booleq->rootblock->ops->destroy (booleq->rootblock);
   }
 
-  booleq->value = g_strdup (value);
   booleq->rootblock = compoundblock_create (&value);
   /* a good bounding box recalc here would be nice. */
 }
@@ -625,13 +627,15 @@ boolequation_create (const gchar *value,
 
 
 void
-boolequation_destroy(Boolequation *booleq)
+boolequation_destroy (Boolequation *booleq)
 {
   g_return_if_fail (booleq);
+
   g_clear_object (&booleq->font);
   g_clear_pointer (&booleq->value, g_free);
-
-  if (booleq->rootblock) booleq->rootblock->ops->destroy (booleq->rootblock);
+  if (booleq->rootblock) {
+    booleq->rootblock->ops->destroy (booleq->rootblock);
+  }
 
   g_free (booleq);
 }

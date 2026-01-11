@@ -1535,8 +1535,7 @@ add_def (gpointer       data,
   if (id) { /* pass ownership of name and object */
     g_hash_table_insert (defs_ht, id, obj);
   } else {
-    obj->ops->destroy (obj);
-    g_clear_pointer (&obj, g_free);
+    dia_clear_object (&obj);
   }
 }
 
@@ -1961,8 +1960,7 @@ read_defs (xmlNodePtr   startnode,
           group_destroy_shallow (otemp);
         } else {
           /* just loose the object */
-          otemp->ops->destroy (otemp);
-          g_clear_pointer (&otemp, g_free);
+          dia_clear_object (&otemp);
           list->data = NULL;
         }
       }

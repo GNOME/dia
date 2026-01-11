@@ -523,10 +523,7 @@ dia_exchange_object_change_free (DiaObjectChange *self)
   DiaExchangeObjectChange *c = DIA_EXCHANGE_OBJECT_CHANGE (self);
   DiaObject *obj = c->applied ? c->orig : c->subst;
 
-  if (obj) {
-    obj->ops->destroy (obj);
-    g_clear_pointer (&obj, g_free);
-  }
+  dia_clear_object (&obj);
 }
 
 
@@ -565,28 +562,17 @@ object_substitute (DiaObject *obj, DiaObject *subst)
  * @list_to_be_destroyed: A of objects list to destroy.  The list itself
  *                        will also be freed.
  *
- * Destroy a list of objects by calling ops->destroy on each in turn.
+ * Destroy a list of objects by calling dia_object_destroy() on each in turn.
  *
  * Since: dawn-of-time
  */
 void
 destroy_object_list (GList *list_to_be_destroyed)
 {
-  GList *list;
-  DiaObject *obj;
-
-  list = list_to_be_destroyed;
-  while (list != NULL) {
-    obj = (DiaObject *)list->data;
-
-    obj->ops->destroy (obj);
-    g_clear_pointer (&obj, g_free);
-
-    list = g_list_next (list);
-  }
-
-  g_list_free(list_to_be_destroyed);
+  g_list_free_full (list_to_be_destroyed,
+                    (GDestroyNotify) dia_object_destroy);
 }
+
 
 /*!
  * \brief Add a new handle to an object.
@@ -1950,4 +1936,27 @@ dia_object_add_connection_point (DiaObject            *self,
   cp->object = self;
   cp->connected = NULL;
   cp->flags = flags;
+}
+
+
+/**
+ * dia_object_destroy:
+ * @self: the #DiaObject
+ *
+ * Destroy the object, freeing it's resources.
+ *
+ * NOTE: This will go away when objects become refcounted.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+void
+dia_object_destroy (DiaObject *self)
+{
+  g_return_if_fail (self != NULL);
+  g_return_if_fail (self->ops->destroy != NULL);
+
+  self->ops->destroy (self);
+  g_free (self);
 }

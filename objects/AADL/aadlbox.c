@@ -936,18 +936,20 @@ DiaObject *aadlbox_create(Point *startpoint, void *user_data,
   return &aadlbox->element.object;
 }
 
+
 void
-aadlbox_destroy(Aadlbox *aadlbox)
+aadlbox_destroy (Aadlbox *aadlbox)
 {
-  int i;
-  text_destroy(aadlbox->name);
+  g_clear_pointer (&aadlbox->name, text_destroy);
 
   /* object_unconnect needs valid handles (from ports) */
-  element_destroy(&aadlbox->element);
+  element_destroy (&aadlbox->element);
 
-  for (i=0; i<aadlbox->num_ports; i++)
-    free_port(aadlbox->ports[i]);
+  for (int i = 0; i < aadlbox->num_ports; i++) {
+    free_port (aadlbox->ports[i]);
+  }
 }
+
 
 void
 aadlbox_save(Aadlbox *aadlbox, ObjectNode obj_node, DiaContext *ctx)

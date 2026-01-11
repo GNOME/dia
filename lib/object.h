@@ -539,6 +539,9 @@ void                   dia_object_add_connection_point (DiaObject               
                                                         ConnectionPoint         *cp,
                                                         int                      index,
                                                         ConnectionPointFlags     flags);
+void                   dia_object_destroy              (DiaObject               *self);
+
+#define dia_clear_object(object) g_clear_pointer ((DiaObject **) (object), dia_object_destroy);
 
 
 gboolean       dia_object_defaults_load (const gchar *filename,

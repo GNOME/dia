@@ -349,20 +349,21 @@ EXPORTS
  dia_object_get_num_connections
 
 
- dia_object_draw
- dia_object_distance_from
- dia_object_select
+ dia_object_apply_editor
+ dia_object_apply_properties
  dia_object_clone
+ dia_object_describe_properties
+ dia_object_destroy
+ dia_object_distance_from
+ dia_object_draw
+ dia_object_edit_text
+ dia_object_get_editor
+ dia_object_get_menu
+ dia_object_get_properties
  dia_object_move
  dia_object_move_handle
- dia_object_get_editor
- dia_object_apply_editor
- dia_object_get_menu
- dia_object_describe_properties
- dia_object_get_properties
+ dia_object_select
  dia_object_set_properties
- dia_object_apply_properties
- dia_object_edit_text
  dia_object_transform
 
  dia_change_get_type

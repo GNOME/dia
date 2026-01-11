@@ -134,9 +134,9 @@ _test_creation (gconstpointer user_data)
     }
 
   /* finally */
-  o->ops->destroy (o);
-  g_clear_pointer (&o, g_free);
+  dia_clear_object (&o);
 }
+
 
 static void
 _test_copy (gconstpointer user_data)
@@ -183,10 +183,8 @@ _test_copy (gconstpointer user_data)
   /* check some further properties which must be copied ? */
 
   /* finally */
-  o->ops->destroy (o);
-  g_clear_pointer (&o, g_free);
-  oc->ops->destroy (oc);
-  g_clear_pointer (&oc, g_free);
+  dia_clear_object (&o);
+  dia_clear_object (&oc);
 }
 
 
@@ -274,9 +272,9 @@ _test_movement (gconstpointer user_data)
       g_assert_cmpfloat (fabs((bbox2.right - bbox2.left) - fabs(bbox1.right - bbox1.left)), <, EPSILON);
       g_assert_cmpfloat (fabs((bbox2.bottom - bbox2.top) - fabs(bbox1.bottom - bbox1.top)), <, EPSILON);
     }
+
   /* finally */
-  o->ops->destroy (o);
-  g_clear_pointer (&o, g_free);
+  dia_clear_object (&o);
 }
 
 static void
@@ -302,13 +300,15 @@ _test_change (gconstpointer user_data)
       /* maybe we should do something interesting first? */
       g_clear_pointer (&change, dia_object_change_unref);
     } else {
-      g_printerr ("'%s' - no undo?\n", o->type->name);
+      g_test_message ("'%s' - no undo?", o->type->name);
     }
   }
+
   /* finally */
-  o->ops->destroy (o);
-  g_clear_pointer (&o, g_free);
+  dia_clear_object (&o);
 }
+
+
 static void
 _test_move_handle (gconstpointer user_data)
 {
@@ -412,13 +412,10 @@ _test_move_handle (gconstpointer user_data)
     }
     h2 = NULL;
   }
+
   /* finally */
-  o->ops->destroy (o);
-  g_clear_pointer (&o, g_free);
-  if (o2) {
-    o2->ops->destroy (o2);
-    g_clear_pointer (&o2, g_free);
-  }
+  dia_clear_object (&o);
+  dia_clear_object (&o2);
 }
 
 
@@ -569,10 +566,12 @@ _test_connectionpoint_consistency (gconstpointer user_data)
     }
 #endif
   }
+
   /* finally */
-  o->ops->destroy (o);
-  g_clear_pointer (&o, g_free);
+  dia_clear_object (&o);
 }
+
+
 static void
 _test_object_menu (gconstpointer user_data)
 {
@@ -584,7 +583,7 @@ _test_object_menu (gconstpointer user_data)
 
   /* the method itself is optional */
   if (!o->ops->get_object_menu) {
-    g_test_message ("SKIPPED (n.i.)!");
+    g_test_skip_printf ("‘%s’ does not implement get_object_menu", type->name);
   } else {
     DiaMenu *menu = (o->ops->get_object_menu)(o, &from); /* clicked_pos should not matter much */
     /* strangely enough I found a crash with menu==NULL today ;) */
@@ -608,11 +607,10 @@ _test_object_menu (gconstpointer user_data)
       if (item->callback && (item->active & DIAMENU_ACTIVE)) {
         DiaObjectChange *change;
 
-        /* g_test_message() does not show normally */
-        g_test_message ("\n\tCalling '%s'...", item->text);
+        g_test_message ("Calling '%s'...", item->text);
         change = (item->callback) (o, &from, item->callback_data);
         if (!change) {
-          g_test_message ("Undo/redo missing: %s\n", item->text);
+          g_test_message ("Undo/redo missing: %s", item->text);
         } else {
           /* Don't just call _object_change_free(change);
           * For 'Convert to *' this will screw up (destroy) the object
@@ -636,9 +634,9 @@ _test_object_menu (gconstpointer user_data)
       }
     }
   }
+
   /* finally */
-  o->ops->destroy (o);
-  g_clear_pointer (&o, g_free);
+  dia_clear_object (&o);
 }
 
 
@@ -768,19 +766,17 @@ _test_draw (gconstpointer user_data)
 	  g_assert_cmpfloat (fabs (obb->right - pbb->right), <, epsilon);
 	  g_assert_cmpfloat (fabs (obb->bottom - pbb->bottom), <, epsilon);
 #endif
-	}
-      /* destroy path object */
-      p->ops->destroy (p);
-      g_clear_pointer (&p, g_free);
     }
-  else
-    {
-      g_test_message ("SKIPPED (no path from %s)! ", type->name);
-    }
+    /* destroy path object */
+    dia_clear_object (&p);
+  } else {
+    g_test_skip_printf ("No path from %s", type->name);
+  }
+
   /* finally */
-  o->ops->destroy (o);
-  g_clear_pointer (&o, g_free);
+  dia_clear_object (&o);
 }
+
 
 static void
 _test_distance_from (gconstpointer user_data)
@@ -823,9 +819,9 @@ _test_distance_from (gconstpointer user_data)
   g_assert (o->ops->distance_from (o, &test) > 0 && "bottom");
 
   /* finally */
-  o->ops->destroy (o);
-  g_clear_pointer (&o, g_free);
+  dia_clear_object (&o);
 }
+
 
 #include "lib/prop_geomtypes.h" /* BezPointarrayProperty */
 
@@ -977,10 +973,12 @@ _test_segments (gconstpointer user_data)
   }
   if (prop)
     prop->ops->free (prop);
+
   /* finally */
-  o->ops->destroy (o);
-  g_clear_pointer (&o, g_free);
+  dia_clear_object (&o);
 }
+
+
 /*
  * A dictionary interface to all registered object(-types)
  */
