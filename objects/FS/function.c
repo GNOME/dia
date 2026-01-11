@@ -23,7 +23,6 @@
 #include <glib/gi18n-lib.h>
 
 #include <math.h>
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -649,9 +648,14 @@ function_insert_word (Function *func, const char *word, gboolean newline)
 {
   DiaObjectChange* change = function_create_change (func, TEXT_EDIT);
   char *old_chars = text_get_string_copy (func->text);
-  char *new_chars = g_new0 (char,
-                            strlen (old_chars) + strlen (word) + (newline ? 2 : 1));
-  sprintf (new_chars, newline ? "%s\n%s" : "%s%s", old_chars, word);
+  char *new_chars;
+
+  if (newline) {
+    new_chars = g_strconcat (old_chars, "\n", word, NULL);
+  } else {
+    new_chars = g_strconcat (old_chars, word, NULL);
+  }
+
   text_set_string (func->text, new_chars);
   g_clear_pointer (&new_chars, g_free);
   g_clear_pointer (&old_chars, g_free);
