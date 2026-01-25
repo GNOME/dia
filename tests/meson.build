@@ -74,7 +74,7 @@ test('testsvg', test_exes[2], env: test_env)
 run_target('sizeof', command: [test_exes[3]])
 
 xmllint_test = find_program('xmllint_test.sh')
-render_test_dia = files('..' / 'samples' / 'render-test.dia')[0]
+render_test_dia = dia_samples_dir / 'render-test.dia'
 shape_dtd = files('..' / 'doc' / 'shape.dtd')[0]
 
 find_program('xmllint', required: true)
@@ -83,6 +83,7 @@ test(
   xmllint_test,
   args: [diaapp, shape_dtd, render_test_dia],
   env: run_env,
+  workdir: dia_samples_dir,
 )
 
 
