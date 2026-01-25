@@ -30,7 +30,7 @@
 #include "element.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "pixmaps/function.xpm"
@@ -45,7 +45,7 @@ struct _Function {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
 
-  Text *text;
+  DiaText *text;
 
   int is_wish;
   int is_user;
@@ -175,9 +175,9 @@ static PropOffset function_offsets[] = {
   { "wish function", PROP_TYPE_BOOL, offsetof(Function, is_wish) },
   { "user function", PROP_TYPE_BOOL, offsetof(Function, is_user) },
   { "text", PROP_TYPE_TEXT, offsetof (Function, text) },
-  { "text_font", PROP_TYPE_FONT, offsetof(Function,text),offsetof(Text,font) },
-  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Function,text),offsetof(Text,height) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof(Function,text),offsetof(Text,color) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Function,text), DIA_TEXT_FONT_OFFSET },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Function,text), DIA_TEXT_HEIGHT_OFFSET },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Function,text), DIA_TEXT_COLOUR_OFFSET },
   { NULL, 0, 0}
 };
 
@@ -214,9 +214,10 @@ function_change_apply_revert (DiaFSFunctionObjectChange *change, DiaObject* obj)
      fcn->is_user = change->is_user ;
      change->is_user = tmp ;
   }
-  if ( change->change_type == TEXT_EDIT || change->change_type == ALL ) {
-     ttxt = text_get_string_copy( fcn->text ) ;
-     text_set_string( fcn->text, change->text ) ;
+
+  if (change->change_type == TEXT_EDIT || change->change_type == ALL) {
+    ttxt = dia_text_get_string_copy (fcn->text);
+    dia_text_set_string (fcn->text, change->text);
     g_clear_pointer (&change->text, g_free);
     change->text = ttxt;
   }
@@ -266,7 +267,7 @@ function_create_change (Function *fcn, enum FuncChangeType change_type)
   }
 
   if (change_type == TEXT_EDIT || change_type == ALL) {
-    change->text = text_get_string_copy (fcn->text);
+    change->text = dia_text_get_string_copy (fcn->text);
   }
 
   return DIA_OBJECT_CHANGE (change);
@@ -283,12 +284,13 @@ function_distance_from(Function *pkg, Point *point)
 
 
 static void
-function_select(Function *pkg, Point *clicked_point,
-		DiaRenderer *interactive_renderer)
+function_select (Function    *pkg,
+                 Point       *clicked_point,
+                 DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(pkg->text, clicked_point, interactive_renderer);
-  text_grab_focus(pkg->text, &pkg->element.object);
-  element_update_handles(&pkg->element);
+  dia_text_set_cursor (pkg->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (pkg->text, &pkg->element.object);
+  element_update_handles (&pkg->element);
 }
 
 
@@ -339,7 +341,7 @@ function_draw (Function *pkg, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  font_height = pkg->text->height ;
+  font_height = dia_text_get_height (pkg->text);
 
   dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer,
@@ -373,7 +375,7 @@ function_draw (Function *pkg, DiaRenderer *renderer)
                           &DIA_COLOUR_BLACK);
 
 
-  text_draw (pkg->text, renderer);
+  dia_text_draw (pkg->text, renderer);
 }
 
 static void
@@ -382,10 +384,10 @@ function_update_data(Function *pkg)
   Element *elem = &pkg->element;
   DiaObject *obj = &elem->object;
   Point p1;
-  real h, w = 0, font_height;
+  double h, w = 0, font_height;
 
-  text_calc_boundingbox(pkg->text, NULL) ;
-  font_height = pkg->text->height ;
+  dia_text_calc_boundingbox (pkg->text, NULL) ;
+  font_height = dia_text_get_height (pkg->text);
   pkg->element.extra_spacing.border_trans = (font_height / FUNCTION_BORDERWIDTH_SCALE) / 2.0;
   h = elem->corner.y + font_height/FUNCTION_MARGIN_Y;
 
@@ -393,17 +395,18 @@ function_update_data(Function *pkg)
     h += 2*font_height/FUNCTION_MARGIN_SCALE;
   }
 
-  w = MAX(w, pkg->text->max_width);
-  p1.y = h + pkg->text->ascent - ( pkg->is_user ? font_height/FUNCTION_MARGIN_SCALE : 0 );  /* position of text */
+  w = MAX (w, dia_text_get_max_width (pkg->text));
+  p1.y = h + dia_text_get_ascent (pkg->text) -
+    (pkg->is_user ? (font_height / FUNCTION_MARGIN_SCALE) : 0 );  /* position of text */
 
-  h += pkg->text->height*pkg->text->numlines;
+  h += dia_text_get_height (pkg->text) * dia_text_get_n_lines (pkg->text);
 
   h += font_height/FUNCTION_MARGIN_Y;
 
   w += 2*font_height/FUNCTION_MARGIN_X;
 
   p1.x = elem->corner.x + w/2.0 + ( pkg->is_user ? font_height/FUNCTION_MARGIN_SCALE : 0 );
-  text_set_position(pkg->text, &p1);
+  dia_text_set_position (pkg->text, &p1);
 
   if (pkg->is_user) {
     w += 2*font_height/FUNCTION_MARGIN_SCALE;
@@ -488,12 +491,12 @@ function_create(Point *startpoint,
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  pkg->text = new_text ("",
-                        font,
-                        FUNCTION_FONTHEIGHT,
-                        &p,
-                        &DIA_COLOUR_BLACK,
-                        DIA_ALIGN_CENTRE);
+  pkg->text = dia_text_new ("",
+                            font,
+                            FUNCTION_FONTHEIGHT,
+                            &p,
+                            &DIA_COLOUR_BLACK,
+                            DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   element_init (elem, 8, NUM_CONNECTIONS);
@@ -518,18 +521,19 @@ function_create(Point *startpoint,
   return &pkg->element.object;
 }
 
-static void
-function_destroy(Function *pkg)
-{
-  text_destroy(pkg->text);
 
-  element_destroy(&pkg->element);
+static void
+function_destroy (Function *pkg)
+{
+  dia_clear_part (&pkg->text);
+
+  element_destroy (&pkg->element);
 }
 
+
 static DiaObject *
-function_copy(Function *pkg)
+function_copy (Function *pkg)
 {
-  int i;
   Function *newpkg;
   Element *elem, *newelem;
   DiaObject *newobj;
@@ -540,11 +544,11 @@ function_copy(Function *pkg)
   newelem = &newpkg->element;
   newobj = &newelem->object;
 
-  element_copy(elem, newelem);
+  element_copy (elem, newelem);
 
-  newpkg->text = text_copy(pkg->text);
+  newpkg->text = dia_text_copy (pkg->text);
 
-  for (i=0;i<NUM_CONNECTIONS;i++) {
+  for (int i = 0; i < NUM_CONNECTIONS; i++) {
     newobj->connections[i] = &newpkg->connections[i];
     newpkg->connections[i].object = newobj;
     newpkg->connections[i].connected = NULL;
@@ -602,12 +606,12 @@ function_load(ObjectNode obj_node, int version, DiaContext *ctx)
   else { /* paranoid */
     DiaFont *font = dia_font_new_from_style (DIA_FONT_SANS,
                                              FUNCTION_FONTHEIGHT);
-    pkg->text = new_text ("",
-                          font,
-                          FUNCTION_FONTHEIGHT,
-                          &obj->position,
-                          &DIA_COLOUR_BLACK,
-                          DIA_ALIGN_CENTRE);
+    pkg->text = dia_text_new ("",
+                              font,
+                              FUNCTION_FONTHEIGHT,
+                              &obj->position,
+                              &DIA_COLOUR_BLACK,
+                              DIA_ALIGN_CENTRE);
     g_clear_object (&font);
   }
 
@@ -646,7 +650,7 @@ static DiaObjectChange *
 function_insert_word (Function *func, const char *word, gboolean newline)
 {
   DiaObjectChange* change = function_create_change (func, TEXT_EDIT);
-  char *old_chars = text_get_string_copy (func->text);
+  char *old_chars = dia_text_get_string_copy (func->text);
   char *new_chars;
 
   if (newline) {
@@ -655,11 +659,11 @@ function_insert_word (Function *func, const char *word, gboolean newline)
     new_chars = g_strconcat (old_chars, word, NULL);
   }
 
-  text_set_string (func->text, new_chars);
+  dia_text_set_string (func->text, new_chars);
   g_clear_pointer (&new_chars, g_free);
   g_clear_pointer (&old_chars, g_free);
   function_update_data (func);
-  text_set_cursor_at_end (func->text);
+  dia_text_set_cursor_at_end (func->text);
 
   return change;
 }

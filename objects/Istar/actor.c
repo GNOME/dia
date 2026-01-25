@@ -33,7 +33,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "pixmaps/actor.xpm"
@@ -74,7 +74,7 @@ struct _Actor {
   Element element;
   ActorType type;
   ConnectionPoint connections[NUM_CONNECTIONS];
-  Text *text;
+  DiaText *text;
 };
 
 static real actor_distance_from(Actor *actor, Point *point);
@@ -200,8 +200,8 @@ actor_select (Actor       *actor,
               Point       *clicked_point,
               DiaRenderer *interactive_renderer)
 {
-  text_set_cursor (actor->text, clicked_point, interactive_renderer);
-  text_grab_focus (actor->text, &actor->element.object);
+  dia_text_set_cursor (actor->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (actor->text, &actor->element.object);
 
   element_update_handles (&actor->element);
 }
@@ -315,11 +315,11 @@ actor_draw (Actor *actor, DiaRenderer *renderer)
                              &ACTOR_FG_COLOR);
 
   /* text */
-  text_draw (actor->text, renderer);
+  dia_text_draw (actor->text, renderer);
 
   /* computing and drawing decorations */
   r  = elem->height/2.0;
-  th = actor->text->height;
+  th = dia_text_get_height (actor->text);
   dy = r - th;
   dx = r*r - dy*dy;
   if (dx>0) dx=sqrt(dx); else dx=0;
@@ -372,9 +372,10 @@ actor_update_data (Actor *actor, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  text_calc_boundingbox (actor->text, NULL);
-  width = actor->text->max_width+0.5;
-  height = actor->text->height * (actor->text->numlines + 3); /* added 3 blank lines for top */
+  dia_text_calc_boundingbox (actor->text, NULL);
+  width = dia_text_get_max_width (actor->text) + 0.5;
+  height = dia_text_get_height (actor->text) *
+    (dia_text_get_n_lines (actor->text) + 3); /* added 3 blank lines for top */
 
   /* minimal radius */
   mradius = width;
@@ -425,9 +426,11 @@ actor_update_data (Actor *actor, AnchorShape horiz, AnchorShape vert)
 
   p = elem->corner;
   p.x += elem->width / 2.0;
-  p.y += elem->height / 2.0 - actor->text->height*actor->text->numlines/2 +
-    actor->text->ascent;
-  text_set_position (actor->text, &p);
+  p.y += elem->height / 2.0 -
+    ((dia_text_get_height (actor->text) *
+      dia_text_get_n_lines (actor->text)) / 2) +
+        dia_text_get_ascent (actor->text);
+  dia_text_set_position (actor->text, &p);
 
   /* compute connection positions */
   c.x = elem->corner.x + elem->width / 2;
@@ -481,16 +484,16 @@ actor_create(Point *startpoint,
   elem->width = ACTOR_RADIUS;
   elem->height = ACTOR_RADIUS;
 
-  font = dia_font_new_from_style( DIA_FONT_SANS, ACTOR_FONT);
+  font = dia_font_new_from_style (DIA_FONT_SANS, ACTOR_FONT);
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + ACTOR_FONT / 2;
-  actor->text = new_text ("",
-                          font,
-                          ACTOR_FONT,
-                          &p,
-                          &ACTOR_FG_COLOR,
-                          DIA_ALIGN_CENTRE);
+  actor->text = dia_text_new ("",
+                              font,
+                              ACTOR_FONT,
+                              &p,
+                              &ACTOR_FG_COLOR,
+                              DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   element_init (elem, 8, NUM_CONNECTIONS);
@@ -519,13 +522,15 @@ actor_create(Point *startpoint,
   return &actor->element.object;
 }
 
-static void
-actor_destroy(Actor *actor)
-{
-  text_destroy(actor->text);
 
-  element_destroy(&actor->element);
+static void
+actor_destroy (Actor *actor)
+{
+  dia_clear_part (&actor->text);
+
+  element_destroy (&actor->element);
 }
+
 
 static DiaObject *
 actor_load(ObjectNode obj_node, int version,DiaContext *ctx)

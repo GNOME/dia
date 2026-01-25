@@ -159,8 +159,8 @@ typedef struct _PropOffset PropOffset;
 typedef struct _Sheet Sheet;
 typedef struct _SheetObject SheetObject;
 
-/* In text.h: */
-typedef struct _Text Text;
+/* In dia-text.h: */
+typedef struct _DiaText DiaText;
 
 /* In textline.h: */
 typedef struct _TextLine TextLine;

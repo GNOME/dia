@@ -18,18 +18,18 @@
 * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
-
 #include <config.h>
 
 #include <math.h>
 #include <string.h>
 
-#include "object.h"
-#include "element.h"
-#include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
+#include "diarenderer.h"
+#include "element.h"
+#include "object.h"
 #include "properties.h"
+
 
 #define DIA_AADL_TYPE_POINT_OBJECT_CHANGE dia_aadl_point_object_change_get_type ()
 G_DECLARE_FINAL_TYPE (DiaAADLPointObjectChange,
@@ -76,7 +76,7 @@ struct _Aadlbox
 
   gchar *declaration;
 
-  Text *name;
+  DiaText *name;
 
   int num_ports;
   Aadlport **ports;

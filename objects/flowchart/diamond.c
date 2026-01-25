@@ -32,7 +32,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "pixmaps/diamond.xpm"
@@ -63,7 +63,7 @@ struct _Diamond {
   DiaLineStyle line_style;
   double dashlength;
 
-  Text *text;
+  DiaText *text;
   double padding;
 
   DiaTextFitting text_fitting;
@@ -176,10 +176,10 @@ static PropOffset diamond_offsets[] = {
     offsetof(Diamond, line_style), offsetof(Diamond, dashlength) },
   { "padding", PROP_TYPE_REAL, offsetof(Diamond, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Diamond,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Diamond,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Diamond,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Diamond,text),offsetof(Text,color)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Diamond,text),offsetof(Text,alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Diamond,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Diamond,text), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Diamond,text), DIA_TEXT_COLOUR_OFFSET},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Diamond,text), DIA_TEXT_ALIGNMENT_OFFSET},
   {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Diamond,text_fitting)},
   { NULL, 0, 0 },
 };
@@ -267,8 +267,10 @@ diamond_select (Diamond     *diamond,
                 Point       *clicked_point,
                 DiaRenderer *interactive_renderer)
 {
-  text_set_cursor (diamond->text, clicked_point, interactive_renderer);
-  text_grab_focus (diamond->text, &diamond->element.object);
+  dia_text_set_cursor (diamond->text,
+                       clicked_point,
+                       interactive_renderer);
+  dia_text_grab_focus (diamond->text, &diamond->element.object);
 
   element_update_handles (&diamond->element);
 }
@@ -395,7 +397,7 @@ diamond_draw (Diamond *diamond, DiaRenderer *renderer)
                              (diamond->show_background) ? &diamond->inner_color : NULL,
                              &diamond->border_color);
 
-  text_draw (diamond->text, renderer);
+  dia_text_draw (diamond->text, renderer);
 }
 
 static void
@@ -416,10 +418,12 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  text_calc_boundingbox(diamond->text, NULL);
-  width = diamond->text->max_width + 2*diamond->padding+diamond->border_width;
-  height = diamond->text->height * diamond->text->numlines +
-    2 * diamond->padding + diamond->border_width;
+  dia_text_calc_boundingbox (diamond->text, NULL);
+  width = dia_text_get_max_width (diamond->text) + (2 * diamond->padding) +
+    diamond->border_width;
+  height = dia_text_get_height (diamond->text) *
+    dia_text_get_n_lines (diamond->text) + 2 * diamond->padding +
+      diamond->border_width;
 
   if (diamond->text_fitting == DIA_TEXT_FIT_ALWAYS
       || (   diamond->text_fitting == DIA_TEXT_FIT_WHEN_NEEDED
@@ -465,9 +469,11 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
 
   p = elem->corner;
   p.x += elem->width / 2.0;
-  p.y += elem->height / 2.0 - diamond->text->height*diamond->text->numlines/2 +
-      diamond->text->ascent;
-  switch (diamond->text->alignment) {
+  p.y += elem->height / 2.0 -
+    ((dia_text_get_height (diamond->text) *
+      dia_text_get_n_lines (diamond->text)) / 2) +
+        dia_text_get_ascent (diamond->text);
+  switch (dia_text_get_alignment (diamond->text)) {
     case DIA_ALIGN_LEFT:
       p.x -= width / 2;
       break;
@@ -478,7 +484,7 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
     default:
       break;
   }
-  text_set_position (diamond->text, &p);
+  dia_text_set_position (diamond->text, &p);
 
   dw = elem->width / 8.0;
   dh = elem->height / 8.0;
@@ -569,12 +575,12 @@ diamond_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + font_height / 2;
-  diamond->text = new_text ("",
-                            font,
-                            font_height,
-                            &p,
-                            &diamond->border_color,
-                            DIA_ALIGN_CENTRE);
+  diamond->text = dia_text_new ("",
+                                font,
+                                font_height,
+                                &p,
+                                &diamond->border_color,
+                                DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   /* new default: let the user decide the size */
@@ -597,12 +603,13 @@ diamond_create(Point *startpoint,
   return &diamond->element.object;
 }
 
-static void
-diamond_destroy(Diamond *diamond)
-{
-  text_destroy(diamond->text);
 
-  element_destroy(&diamond->element);
+static void
+diamond_destroy (Diamond *diamond)
+{
+  dia_clear_part (&diamond->text);
+
+  element_destroy (&diamond->element);
 }
 
 
@@ -718,9 +725,9 @@ diamond_load(ObjectNode obj_node, int version,DiaContext *ctx)
     diamond->text = data_text (attribute_first_data (attr), ctx);
   } else {
     /* paranoid */
-    diamond->text = new_text_default (&obj->position,
-                                      &diamond->border_color,
-                                      DIA_ALIGN_CENTRE);
+    diamond->text = dia_text_new_default (&obj->position,
+                                          &diamond->border_color,
+                                          DIA_ALIGN_CENTRE);
   }
 
   /* old default: only growth, manual shrink */

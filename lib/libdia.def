@@ -356,7 +356,6 @@ EXPORTS
  dia_object_destroy
  dia_object_distance_from
  dia_object_draw
- dia_object_edit_text
  dia_object_get_editor
  dia_object_get_menu
  dia_object_get_properties
@@ -815,35 +814,43 @@ EXPORTS
 
  reset_foci_on_diagram
 
- new_text
- new_text_default
- text_calc_boundingbox
- text_copy
- text_delete_all
+ dia_text_calc_boundingbox
+ dia_text_copy
+ dia_text_delete_all
+ dia_text_distance_from
+ dia_text_draw
+ dia_text_get_alignment
+ dia_text_get_ascent
+ dia_text_get_attributes
+ dia_text_get_colour
+ dia_text_get_cursor
+ dia_text_get_descent
+ dia_text_get_font
+ dia_text_get_height
+ dia_text_get_line
+ dia_text_get_line_strlen
+ dia_text_get_line_width
+ dia_text_get_lines
+ dia_text_get_max_width
+ dia_text_get_n_lines
+ dia_text_get_position
+ dia_text_get_string_copy
+ dia_text_get_type
+ dia_text_grab_focus
+ dia_text_has_focus
+ dia_text_is_empty
+ dia_text_new
+ dia_text_new_default
+ dia_text_set_alignment
+ dia_text_set_attributes
+ dia_text_set_colour
+ dia_text_set_cursor
+ dia_text_set_cursor_at_end
+ dia_text_set_font
+ dia_text_set_height
+ dia_text_set_position
+ dia_text_set_string
  text_delete_key_handler
- text_destroy
- text_distance_from
- text_draw
- text_get_ascent
- text_get_attributes
- text_get_descent
- text_get_height
- text_get_line
- text_get_line_strlen
- text_get_line_width
- text_get_max_width
- text_get_string_copy
- text_grab_focus
- text_is_empty
- text_set_alignment
- text_set_attributes
- text_set_color
- text_set_cursor
- text_set_cursor_at_end
- text_set_font
- text_set_height
- text_set_position
- text_set_string
 
  text_line_new
  text_line_destroy

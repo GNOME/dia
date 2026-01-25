@@ -27,13 +27,13 @@
 
 #include "properties.h"
 #include "dia_xml.h"
-#include "text.h"
+#include "dia-text.h"
 
 
 typedef struct {
   Property common;
   gchar *string_data;
-  gint num_lines; 
+  gint num_lines;
 } StringProperty;
 
 typedef struct {

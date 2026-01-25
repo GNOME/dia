@@ -25,9 +25,9 @@
 
 #include "object.h"
 #include "element.h"
+#include "dia-text.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "properties.h"
 
 #include "pixmaps/case.xpm"
@@ -43,13 +43,13 @@ struct _Usecase {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
 
-  Text *text;
+  DiaText *text;
   int text_outside;
   int collaboration;
 
-  real line_width;
-  Color line_color;
-  Color fill_color;
+  double line_width;
+  DiaColour line_color;
+  DiaColour fill_color;
 };
 
 
@@ -152,9 +152,9 @@ static PropOffset usecase_offsets[] = {
   {"collaboration", PROP_TYPE_BOOL, offsetof(Usecase, collaboration) },
   {"text_outside", PROP_TYPE_BOOL, offsetof(Usecase, text_outside) },
   {"text",PROP_TYPE_TEXT,offsetof(Usecase,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Usecase,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Usecase,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Usecase,text),offsetof(Text,color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Usecase,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Usecase,text), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Usecase,text), DIA_TEXT_COLOUR_OFFSET},
   {PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Usecase, line_width)},
   {"line_colour", PROP_TYPE_COLOUR, offsetof(Usecase, line_color) },
   {"fill_colour", PROP_TYPE_COLOUR, offsetof(Usecase, fill_color) },
@@ -183,13 +183,15 @@ usecase_distance_from(Usecase *usecase, Point *point)
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
+
 static void
-usecase_select(Usecase *usecase, Point *clicked_point,
-	       DiaRenderer *interactive_renderer)
+usecase_select (Usecase     *usecase,
+                Point       *clicked_point,
+                DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(usecase->text, clicked_point, interactive_renderer);
-  text_grab_focus(usecase->text, &usecase->element.object);
-  element_update_handles(&usecase->element);
+  dia_text_set_cursor (usecase->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (usecase->text, &usecase->element.object);
+  element_update_handles (&usecase->element);
 }
 
 
@@ -211,24 +213,27 @@ usecase_move_handle (Usecase          *usecase,
 }
 
 
-static DiaObjectChange*
-usecase_move(Usecase *usecase, Point *to)
+static DiaObjectChange *
+usecase_move (Usecase *usecase, Point *to)
 {
-  real h;
+  double h;
   Point p;
 
   usecase->element.corner = *to;
-  h = usecase->text->height*usecase->text->numlines;
+  h = dia_text_get_height (usecase->text) *
+    dia_text_get_n_lines (usecase->text);
 
   p = *to;
   p.x += usecase->element.width/2.0;
   if (usecase->text_outside) {
-      p.y += usecase->element.height - h + usecase->text->ascent;
+    p.y += usecase->element.height - h +
+      dia_text_get_ascent (usecase->text);
   } else {
-      p.y += (usecase->element.height - h)/2.0 + usecase->text->ascent;
+    p.y += ((usecase->element.height - h) / 2.0) +
+      dia_text_get_ascent (usecase->text);
   }
-  text_set_position(usecase->text, &p);
-  usecase_update_data(usecase);
+  dia_text_set_position (usecase->text, &p);
+  usecase_update_data (usecase);
 
   return NULL;
 }
@@ -277,23 +282,24 @@ usecase_draw (Usecase *usecase, DiaRenderer *renderer)
                              &usecase->fill_color,
                              &usecase->line_color);
 
-  text_draw (usecase->text, renderer);
+  dia_text_draw (usecase->text, renderer);
 }
 
 
 static void
-usecase_update_data(Usecase *usecase)
+usecase_update_data (Usecase *usecase)
 {
-  real w, h, ratio;
+  double w, h, ratio;
   Point c, half, r,p;
 
   Element *elem = &usecase->element;
   ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
 
-  text_calc_boundingbox(usecase->text, NULL);
-  w = usecase->text->max_width;
-  h = usecase->text->height*usecase->text->numlines;
+  dia_text_calc_boundingbox (usecase->text, NULL);
+  w = dia_text_get_max_width (usecase->text);
+  h = dia_text_get_height (usecase->text) *
+    dia_text_get_n_lines (usecase->text);
 
   if (!usecase->text_outside) {
       ratio = w/h;
@@ -374,23 +380,26 @@ usecase_update_data(Usecase *usecase)
   usecase->connections[7].directions = DIR_SOUTH|DIR_EAST;
   usecase->connections[8].directions = DIR_ALL;
 
-  h = usecase->text->height*usecase->text->numlines;
+  h = dia_text_get_height (usecase->text) *
+    dia_text_get_n_lines (usecase->text);
   p = usecase->element.corner;
   p.x += usecase->element.width/2.0;
   if (usecase->text_outside) {
-      p.y += usecase->element.height - h + usecase->text->ascent;
+    p.y += usecase->element.height - h +
+      dia_text_get_ascent (usecase->text);
   } else {
-      p.y += (usecase->element.height - h)/2.0 + usecase->text->ascent;
+    p.y += ((usecase->element.height - h) / 2.0) +
+      dia_text_get_ascent (usecase->text);
   }
-  text_set_position(usecase->text, &p);
+  dia_text_set_position (usecase->text, &p);
 
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
-
+  element_update_handles (elem);
 }
+
 
 static DiaObject *
 usecase_create(Point *startpoint,
@@ -424,12 +433,12 @@ usecase_create(Point *startpoint,
   p.x += USECASE_WIDTH/2.0;
   p.y += USECASE_HEIGHT/2.0;
 
-  usecase->text = new_text ("",
-                            font,
-                            0.8,
-                            &p,
-                            &DIA_COLOUR_BLACK,
-                            DIA_ALIGN_CENTRE);
+  usecase->text = dia_text_new ("",
+                                font,
+                                0.8,
+                                &p,
+                                &DIA_COLOUR_BLACK,
+                                DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   usecase->text_outside = 0;
@@ -454,13 +463,15 @@ usecase_create(Point *startpoint,
   return &usecase->element.object;
 }
 
-static void
-usecase_destroy(Usecase *usecase)
-{
-  text_destroy(usecase->text);
 
-  element_destroy(&usecase->element);
+static void
+usecase_destroy (Usecase *usecase)
+{
+  dia_clear_part (&usecase->text);
+
+  element_destroy (&usecase->element);
 }
+
 
 static DiaObject *
 usecase_load(ObjectNode obj_node, int version,DiaContext *ctx)
@@ -477,7 +488,3 @@ usecase_load(ObjectNode obj_node, int version,DiaContext *ctx)
 
   return obj;
 }
-
-
-
-

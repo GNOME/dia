@@ -32,7 +32,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "pixmaps/box.xpm"
@@ -63,7 +63,7 @@ struct _Box {
   double dashlength;
   double corner_radius;
 
-  Text *text;
+  DiaText *text;
   double padding;
 
   DiaTextFitting text_fitting;
@@ -179,10 +179,10 @@ static PropOffset box_offsets[] = {
   { "corner_radius", PROP_TYPE_REAL, offsetof(Box, corner_radius) },
   { "padding", PROP_TYPE_REAL, offsetof(Box, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Box,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Box,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Box,text),offsetof(Text,color)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Box,text),offsetof(Text,alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Box,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,text), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Box,text), DIA_TEXT_COLOUR_OFFSET},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Box,text), DIA_TEXT_ALIGNMENT_OFFSET},
   {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Box,text_fitting)},
   { NULL, 0, 0 },
 };
@@ -238,10 +238,10 @@ box_select (Box         *box,
             Point       *clicked_point,
             DiaRenderer *interactive_renderer)
 {
-  real radius;
+  double radius;
 
-  text_set_cursor (box->text, clicked_point, interactive_renderer);
-  text_grab_focus (box->text, &box->element.object);
+  dia_text_set_cursor (box->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (box->text, &box->element.object);
 
   element_update_handles (&box->element);
 
@@ -380,7 +380,7 @@ box_draw (Box *box, DiaRenderer *renderer)
                                   &box->inner_color,
                                   &box->border_color,
                                   box->corner_radius);
-  text_draw(box->text, renderer);
+  dia_text_draw (box->text, renderer);
 }
 
 static void
@@ -401,10 +401,12 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  text_calc_boundingbox(box->text, NULL);
-  width = box->text->max_width + box->padding*2 + box->border_width;
-  height = box->text->height * box->text->numlines + box->padding*2 +
+  dia_text_calc_boundingbox (box->text, NULL);
+  width = dia_text_get_max_width (box->text) + (box->padding * 2) +
     box->border_width;
+  height = dia_text_get_height (box->text) *
+    dia_text_get_n_lines (box->text) + (box->padding * 2) +
+      box->border_width;
 
   /*
    *  If elem->width (e.g. the new requested dimensions of this object
@@ -449,10 +451,10 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
 
   p = elem->corner;
   p.x += elem->width / 2.0;
-  p.y += elem->height / 2.0 - box->text->height * box->text->numlines / 2 +
-    box->text->ascent;
+  p.y += elem->height / 2.0 - dia_text_get_height (box->text) *
+    dia_text_get_n_lines (box->text) / 2 + dia_text_get_ascent (box->text);
 
-  switch (box->text->alignment) {
+  switch (dia_text_get_alignment (box->text)) {
     case DIA_ALIGN_LEFT:
       p.x -= (elem->width - box->padding * 2 + box->border_width) / 2;
       break;
@@ -464,7 +466,7 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
       break;
   }
 
-  text_set_position (box->text, &p);
+  dia_text_set_position (box->text, &p);
 
   radius = box->corner_radius;
   radius = MIN(radius, elem->width/2);
@@ -602,12 +604,12 @@ box_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + font_height / 2;
-  box->text = new_text ("",
-                        font,
-                        font_height,
-                        &p,
-                        &box->border_color,
-                        DIA_ALIGN_CENTRE);
+  box->text = dia_text_new ("",
+                            font,
+                            font_height,
+                            &p,
+                            &box->border_color,
+                            DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   /* new default: let the user decide the size */
@@ -630,12 +632,13 @@ box_create(Point *startpoint,
   return &box->element.object;
 }
 
-static void
-box_destroy(Box *box)
-{
-  text_destroy(box->text);
 
-  element_destroy(&box->element);
+static void
+box_destroy (Box *box)
+{
+  dia_clear_part (&box->text);
+
+  element_destroy (&box->element);
 }
 
 
@@ -756,9 +759,9 @@ box_load (ObjectNode obj_node, int version, DiaContext *ctx)
     box->text = data_text (attribute_first_data (attr), ctx);
   } else {
     /* paranoid */
-    box->text = new_text_default (&obj->position,
-                                  &box->border_color,
-                                  DIA_ALIGN_CENTRE);
+    box->text = dia_text_new_default (&obj->position,
+                                      &box->border_color,
+                                      DIA_ALIGN_CENTRE);
   }
 
   /* old default: only growth, manual shrink */

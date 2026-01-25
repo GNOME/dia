@@ -31,9 +31,9 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "dia-colour.h"
+#include "dia-text.h"
 #include "properties.h"
 #include "geometry.h"
-#include "text.h"
 
 #include "grafcet.h"
 #include "boolequation.h"

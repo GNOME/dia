@@ -907,6 +907,7 @@ umlclass_draw_namebox (UMLClass    *umlclass,
   return Yoffset;
 }
 
+
 /**
  * Draw the attribute box.
  * This attribute box follows the name box in the class icon. If the
@@ -926,14 +927,14 @@ umlclass_draw_namebox (UMLClass    *umlclass,
  * @return           The offset from the start of the class to the bottom of the attributebox
  * @see uml_draw_comments
  */
-static real
+static double
 umlclass_draw_attributebox (UMLClass    *umlclass,
                             DiaRenderer *renderer,
                             Element     *elem,
-                            real         Yoffset)
+                            double       Yoffset)
 {
-  real     font_height;
-  real     ascent;
+  double font_height;
+  double ascent;
   Point    StartPoint;
   Point    LowerRight;
   DiaFont *font;
@@ -953,7 +954,6 @@ umlclass_draw_attributebox (UMLClass    *umlclass,
   dia_renderer_draw_rect (renderer, &StartPoint, &LowerRight, fill_color, line_color);
 
   if (!umlclass->suppress_attributes) {
-    gint i = 0;
     StartPoint.x += (umlclass->line_width/2.0 + 0.1);
     StartPoint.y += 0.1;
 
@@ -1003,7 +1003,6 @@ umlclass_draw_attributebox (UMLClass    *umlclass,
         StartPoint.y += umlclass->comment_font_height/2;
       }
       list = g_list_next (list);
-      i++;
       g_clear_pointer (&attstr, g_free);
     }
   }
@@ -1029,13 +1028,13 @@ umlclass_draw_attributebox (UMLClass    *umlclass,
  * @return          The offset from the start of the class to the bottom of the operationbox
  *
  */
-static real
+static double
 umlclass_draw_operationbox (UMLClass    *umlclass,
                             DiaRenderer *renderer,
                             Element     *elem,
-                            real         Yoffset)
+                            double       Yoffset)
 {
-  real     font_height;
+  double font_height;
   Point    StartPoint;
   Point    LowerRight;
   DiaFont *font;
@@ -1056,7 +1055,6 @@ umlclass_draw_operationbox (UMLClass    *umlclass,
   dia_renderer_draw_rect (renderer, &StartPoint, &LowerRight, fill_color, line_color);
 
   if (!umlclass->suppress_operations) {
-    gint i = 0;
     GList *wrapsublist = NULL;
     gchar *part_opstr = NULL;
     int wrap_pos, last_wrap_pos, ident;
@@ -1181,7 +1179,6 @@ umlclass_draw_operationbox (UMLClass    *umlclass,
       }
 
       list = g_list_next (list);
-      i++;
       g_clear_pointer (&opstr, g_free);
     }
     g_clear_pointer (&part_opstr, g_free);
@@ -1211,10 +1208,9 @@ umlclass_draw_template_parameters_box (UMLClass    *umlclass,
   Point LowerRight;
   Point TextInsert;
   GList *list;
-  gint   i;
   DiaFont *font = umlclass->normal_font;
-  real     font_height = umlclass->font_height;
-  real     ascent;
+  double font_height = umlclass->font_height;
+  double ascent;
   Color   *fill_color = &umlclass->fill_color;
   Color   *line_color = &umlclass->line_color;
   Color   *text_color = &umlclass->text_color;
@@ -1236,7 +1232,7 @@ umlclass_draw_template_parameters_box (UMLClass    *umlclass,
   TextInsert.x += 0.3;
   TextInsert.y += 0.1;
   dia_renderer_set_font (renderer, font, font_height);
-  i = 0;
+
   list = umlclass->formal_params;
   while (list != NULL) {
     char *paramstr = uml_formal_parameter_get_string ((UMLFormalParameter *) list->data);
@@ -1251,7 +1247,6 @@ umlclass_draw_template_parameters_box (UMLClass    *umlclass,
     TextInsert.y += font_height - ascent;
 
     list = g_list_next (list);
-    i++;
     g_clear_pointer (&paramstr, g_free);
   }
 }
@@ -1516,44 +1511,39 @@ umlclass_calculate_name_data(UMLClass *umlclass)
   return maxwidth;
 }
 
-/**
- * Calculate the dimensions of the attribute box on an object of type UMLClass.
- * @param   umlclass  a pointer to an object of UMLClass
- * @return            the horizontal size of the attribute box
- *
- */
 
-static real
-umlclass_calculate_attribute_data(UMLClass *umlclass)
+/*
+ * umlclass_calculate_attribute_data:
+ * @umlclass: a pointer to an object of UMLClass
+ *
+ * Calculate the dimensions of the attribute box on an object of type UMLClass.
+ *
+ * Returns: the horizontal size of the attribute box
+ */
+static double
+umlclass_calculate_attribute_data (UMLClass *umlclass)
 {
-  int    i;
-  real   maxwidth = 0.0;
-  real   width    = 0.0;
+  double maxwidth = 0.0;
+  double width    = 0.0;
   GList *list;
 
   umlclass->attributesbox_height = 2*0.1;
 
-  if (g_list_length(umlclass->attributes) != 0)
-  {
-    i = 0;
+  if (g_list_length (umlclass->attributes) != 0) {
     list = umlclass->attributes;
-    while (list != NULL)
-    {
-      UMLAttribute *attr   = (UMLAttribute *) list->data;
-      gchar        *attstr = uml_attribute_get_string (attr);
+    while (list != NULL) {
+      UMLAttribute *attr = (UMLAttribute *) list->data;
+      char *attstr = uml_attribute_get_string (attr);
 
-      if (attr->abstract)
-      {
-        width = dia_font_string_width(attstr,
-                                      umlclass->abstract_font,
-                                      umlclass->abstract_font_height);
+      if (attr->abstract) {
+        width = dia_font_string_width (attstr,
+                                       umlclass->abstract_font,
+                                       umlclass->abstract_font_height);
         umlclass->attributesbox_height += umlclass->abstract_font_height;
-      }
-      else
-      {
-        width = dia_font_string_width(attstr,
-                                      umlclass->normal_font,
-                                      umlclass->font_height);
+      } else {
+        width = dia_font_string_width (attstr,
+                                       umlclass->normal_font,
+                                       umlclass->font_height);
         umlclass->attributesbox_height += umlclass->font_height;
       }
       maxwidth = MAX(width, maxwidth);
@@ -1573,56 +1563,54 @@ umlclass_calculate_attribute_data(UMLClass *umlclass)
         maxwidth = MAX(width, maxwidth);
       }
 
-      i++;
-      list = g_list_next(list);
+      list = g_list_next (list);
       g_clear_pointer (&attstr, g_free);
     }
   }
 
-  if ((umlclass->attributesbox_height<0.4)|| umlclass->suppress_attributes )
-  {
+  if ((umlclass->attributesbox_height < 0.4) ||
+      umlclass->suppress_attributes) {
     umlclass->attributesbox_height = 0.4;
   }
+
   return maxwidth;
 }
 
-/**
+
+/*
+ * umlclass_calculate_operation_data:
+ * @umlclass: a pointer to an object of UMLClass
+ *
  * Calculate the dimensions of the operations box of an object of  UMLClass.
  * The vertical size or height is stored in the object.
- * @param   umlclass  a pointer to an object of UMLClass
- * @return         the horizontial size of the operations box
  *
+ * Returns: the horizontial size of the operations box
  */
-
-static real
-umlclass_calculate_operation_data(UMLClass *umlclass)
+static double
+umlclass_calculate_operation_data (UMLClass *umlclass)
 {
-  int    i;
-  int    pos_brace;
-  int    wrap_pos;
-  int    last_wrap_pos;
-  int    indent;
-  int    offset;
-  int    maxlinewidth;
-  int    length;
-  real   maxwidth = 0.0;
-  real   width    = 0.0;
+  int pos_brace;
+  int wrap_pos;
+  int last_wrap_pos;
+  int indent;
+  int offset;
+  int maxlinewidth;
+  int length;
+  double maxwidth = 0.0;
+  double width = 0.0;
   GList *list;
   GList *wrapsublist;
 
   /* operations box: */
   umlclass->operationsbox_height = 2*0.1;
 
-  if (0 != g_list_length(umlclass->operations))
-  {
-    i = 0;
+  if (0 != g_list_length (umlclass->operations)) {
     list = umlclass->operations;
-    while (list != NULL)
-    {
+    while (list != NULL) {
       UMLOperation *op = (UMLOperation *) list->data;
-      gchar *opstr = uml_get_operation_string(op);
-      DiaFont   *Font;
-      real       FontHeight;
+      char *opstr = uml_get_operation_string (op);
+      DiaFont *Font;
+      double FontHeight;
 
       length = strlen( (const gchar*)opstr);
 
@@ -1752,8 +1740,7 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
         maxwidth = MAX(width, maxwidth);
       }
 
-      i++;
-      list = g_list_next(list);
+      list = g_list_next (list);
       g_clear_pointer (&opstr, g_free);
     }
   }
@@ -1787,12 +1774,11 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
  *
  */
 void
-umlclass_calculate_data(UMLClass *umlclass)
+umlclass_calculate_data (UMLClass *umlclass)
 {
-  int    i;
-  int    num_templates;
-  real   maxwidth = 0.0;
-  real   width;
+  int num_templates;
+  double maxwidth = 0.0;
+  double width;
   GList *list;
 
   if (!umlclass->destroyed)
@@ -1824,12 +1810,9 @@ umlclass_calculate_data(UMLClass *umlclass)
 
 
     maxwidth = UMLCLASS_TEMPLATE_OVERLAY_X;
-    if (num_templates != 0)
-    {
-      i = 0;
+    if (num_templates != 0) {
       list = umlclass->formal_params;
-      while (list != NULL)
-      {
+      while (list != NULL) {
         UMLFormalParameter *param = (UMLFormalParameter *) list->data;
         gchar *paramstr = uml_formal_parameter_get_string (param);
 
@@ -1838,8 +1821,7 @@ umlclass_calculate_data(UMLClass *umlclass)
                                       umlclass->font_height);
         maxwidth = MAX(width, maxwidth);
 
-        i++;
-        list = g_list_next(list);
+        list = g_list_next (list);
         g_clear_pointer (&paramstr, g_free);
       }
     }

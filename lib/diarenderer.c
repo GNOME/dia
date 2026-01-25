@@ -27,12 +27,13 @@
 
 #include "diarenderer.h"
 #include "object.h"
-#include "text.h"
 #include "textline.h"
 #include "diatransformrenderer.h"
 #include "standard-path.h" /* text_to_path */
 #include "boundingbox.h" /* PolyBBextra */
 #include "dia-layer.h"
+#include "dia-text.h"
+
 
 typedef struct _DiaRendererPrivate DiaRendererPrivate;
 struct _DiaRendererPrivate
@@ -117,14 +118,16 @@ static void draw_image           (DiaRenderer  *renderer,
                                   double        height,
                                   DiaImage     *image);
 static void draw_text            (DiaRenderer  *renderer,
-                                  Text         *text);
+                                  DiaText      *text);
 static void draw_text_line       (DiaRenderer  *renderer,
                                   TextLine     *text_line,
                                   Point        *pos,
                                   DiaAlignment  alignment,
                                   Color        *color);
-static void draw_rotated_text (DiaRenderer *renderer, Text *text,
-			       Point *center, real angle);
+static void draw_rotated_text    (DiaRenderer  *renderer,
+                                  DiaText      *text,
+                                  Point        *center,
+                                  double        angle);
 static void draw_rotated_image (DiaRenderer *renderer,
 				Point *point,
 				real width, real height,
@@ -636,35 +639,34 @@ draw_image (DiaRenderer *renderer,
 
 /*! @} */
 
-/*!
- * \brief Default implementation of draw_text
+/*
+ * Default implementation of draw_text
  *
  * The default implementation of draw_text() splits the given _Text object
  * into single lines and passes them to draw_text_line().
  * A Renderer with a concept of multi-line text should overwrite it.
- *
- * \memberof _DiaRenderer
  */
 static void
-draw_text (DiaRenderer *renderer,
-	   Text *text)
+draw_text (DiaRenderer *renderer, DiaText *text)
 {
+  size_t n_lines;
+  TextLine **lines = dia_text_get_lines (text, &n_lines);
+  DiaColour text_colour;
   Point pos;
-  int i;
 
-  pos = text->position;
+  dia_text_get_colour (text, &text_colour);
+  dia_text_get_position (text, &pos);
 
-  for (i=0;i<text->numlines;i++) {
-    TextLine *text_line = text->lines[i];
-
+  for (size_t i = 0; i < n_lines;i++) {
     dia_renderer_draw_text_line (renderer,
-                                 text_line,
+                                 lines[i],
                                  &pos,
-                                 text->alignment,
-                                 &text->color);
-    pos.y += text->height;
+                                 dia_text_get_alignment (text),
+                                 &text_colour);
+    pos.y += dia_text_get_height (text);
   }
 }
+
 
 /**
  * draw_rotated_text:
@@ -684,53 +686,59 @@ draw_text (DiaRenderer *renderer,
  */
 static void
 draw_rotated_text (DiaRenderer *renderer,
-                   Text        *text,
+                   DiaText     *text,
                    Point       *center,
-                   real         angle)
+                   double       angle)
 {
   if (angle == 0.0) {
     /* maybe the fallback should also consider center? */
     draw_text (renderer, text);
   } else {
+    Point text_position;
+    DiaColour text_colour;
     GArray *path = g_array_new (FALSE, FALSE, sizeof (BezPoint));
-    if (!text_is_empty (text) && text_to_path (text, path)) {
+
+    dia_text_get_position (text, &text_position);
+    dia_text_get_colour (text, &text_colour);
+
+    if (!dia_text_is_empty (text) && text_to_path (text, path)) {
       /* Scaling and transformation here */
       DiaRectangle bz_bb, tx_bb;
       PolyBBExtras extra = { 0, };
-      real sx, sy;
+      double sx, sy;
       guint i;
-      real dx = center ? (text->position.x - center->x) : 0;
-      real dy = center ? (text->position.y - center->y) : 0;
+      double dx = center ? (text_position.x - center->x) : 0;
+      double dy = center ? (text_position.y - center->y) : 0;
       DiaMatrix m = { 1, 0, 0, 1, 0, 0 };
       DiaMatrix t = { 1, 0, 0, 1, 0, 0 };
 
       polybezier_bbox (&g_array_index (path, BezPoint, 0), path->len, &extra, TRUE, &bz_bb);
-      text_calc_boundingbox (text, &tx_bb);
+      dia_text_calc_boundingbox (text, &tx_bb);
       sx = (tx_bb.right - tx_bb.left) / (bz_bb.right - bz_bb.left);
       sy = (tx_bb.bottom - tx_bb.top) / (bz_bb.bottom - bz_bb.top);
 
       /* move center to origin */
-      if (DIA_ALIGN_LEFT == text->alignment) {
+      if (DIA_ALIGN_LEFT == dia_text_get_alignment (text)) {
         t.x0 = -bz_bb.left;
-      } else if (DIA_ALIGN_RIGHT == text->alignment) {
+      } else if (DIA_ALIGN_RIGHT == dia_text_get_alignment (text)) {
         t.x0 = - bz_bb.right;
       } else {
         t.x0 = -(bz_bb.left + bz_bb.right) / 2.0;
       }
       t.x0 -= dx / sx;
-      t.y0 = - bz_bb.top - (text_get_ascent (text) - dy) / sy;
+      t.y0 = - bz_bb.top - (dia_text_get_ascent (text) - dy) / sy;
       dia_matrix_set_angle_and_scales (&m, G_PI * angle / 180.0, sx, sx);
       dia_matrix_multiply (&m, &t, &m);
       /* move back center from origin */
-      if (DIA_ALIGN_LEFT == text->alignment) {
+      if (DIA_ALIGN_LEFT == dia_text_get_alignment (text)) {
         t.x0 = tx_bb.left;
-      } else if (DIA_ALIGN_RIGHT == text->alignment) {
+      } else if (DIA_ALIGN_RIGHT == dia_text_get_alignment (text)) {
         t.x0 = tx_bb.right;
       } else {
         t.x0 = (tx_bb.left + tx_bb.right) / 2.0;
       }
       t.x0 += dx;
-      t.y0 = tx_bb.top + (text_get_ascent (text) - dy);
+      t.y0 = tx_bb.top + (dia_text_get_ascent (text) - dy);
       dia_matrix_multiply (&m, &m, &t);
 
       for (i = 0; i < path->len; ++i) {
@@ -742,24 +750,24 @@ draw_rotated_text (DiaRenderer *renderer,
         dia_renderer_draw_beziergon (renderer,
                                       &g_array_index (path, BezPoint, 0),
                                       path->len,
-                                      &text->color,
+                                      &text_colour,
                                       NULL);
       } else {
         dia_renderer_bezier_fill (renderer,
                                   &g_array_index (path, BezPoint, 0),
                                   path->len,
-                                  &text->color);
+                                  &text_colour);
       }
     } else {
       Color magenta = { 1.0, 0.0, 1.0, 1.0 };
-      Point pt = center ? *center : text->position;
+      Point pt = center ? *center : text_position;
       DiaMatrix m = { 1, 0, 0, 1, pt.x, pt.y };
       DiaMatrix t = { 1, 0, 0, 1, -pt.x, -pt.y };
       DiaRectangle tb;
       Point poly[4];
       int i;
 
-      text_calc_boundingbox (text, &tb);
+      dia_text_calc_boundingbox (text, &tb);
       poly[0].x = tb.left;  poly[0].y = tb.top;
       poly[1].x = tb.right; poly[1].y = tb.top;
       poly[2].x = tb.right; poly[2].y = tb.bottom;
@@ -2465,8 +2473,8 @@ dia_renderer_draw_polyline (DiaRenderer      *self,
 
 
 void
-dia_renderer_draw_text (DiaRenderer      *self,
-                        Text             *text)
+dia_renderer_draw_text (DiaRenderer *self,
+                        DiaText     *text)
 {
   g_return_if_fail (DIA_IS_RENDERER (self));
 
@@ -2674,10 +2682,10 @@ dia_renderer_set_pattern (DiaRenderer      *self,
 
 
 void
-dia_renderer_draw_rotated_text (DiaRenderer      *self,
-                                Text             *text,
-                                Point            *center,
-                                real              angle)
+dia_renderer_draw_rotated_text (DiaRenderer *self,
+                                DiaText     *text,
+                                Point       *center,
+                                double       angle)
 {
   g_return_if_fail (DIA_IS_RENDERER (self));
 

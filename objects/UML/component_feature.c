@@ -36,7 +36,7 @@
 #include "attributes.h"
 #include "handle.h"
 #include "properties.h"
-#include "text.h"
+#include "dia-text.h"
 #include "arrows.h"
 
 #include "pixmaps/facet.xpm"
@@ -65,12 +65,12 @@ struct _Compfeat {
   CompRole role;
   CompRole roletmp;
 
-  Text *text;
+  DiaText *text;
   Point text_pos;
   Handle text_handle;
 
-  Color line_color;
-  real  line_width;
+  DiaColour line_color;
+  double line_width;
 };
 
 #define COMPPROP_FONTHEIGHT 0.8
@@ -234,35 +234,38 @@ static PropOffset compfeat_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { "role", PROP_TYPE_ENUM, offsetof(Compfeat, role) },
   { "text", PROP_TYPE_TEXT, offsetof(Compfeat, text) },
-  { "text_font", PROP_TYPE_FONT, offsetof(Compfeat,text),offsetof(Text,font) },
-  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Compfeat,text),offsetof(Text,height) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof(Compfeat,text),offsetof(Text,color) },
-  { "text_alignment", PROP_TYPE_ENUM, offsetof(Compfeat,text),offsetof(Text,alignment) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Compfeat,text), DIA_TEXT_FONT_OFFSET },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Compfeat,text), DIA_TEXT_HEIGHT_OFFSET },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Compfeat,text), DIA_TEXT_COLOUR_OFFSET },
+  { "text_alignment", PROP_TYPE_ENUM, offsetof(Compfeat,text), DIA_TEXT_ALIGNMENT_OFFSET },
   { "text_pos", PROP_TYPE_POINT, offsetof(Compfeat, text_pos) },
   { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Compfeat, line_width) },
   { "line_colour",PROP_TYPE_COLOUR,offsetof(Compfeat, line_color) },
   { NULL, 0, 0 }
 };
 
+
 static void
-compfeat_get_props(Compfeat *compfeat, GPtrArray *props)
+compfeat_get_props (Compfeat *compfeat, GPtrArray *props)
 {
   if (compfeat->roletmp)
     compfeat->role = compfeat->roletmp;
-  text_set_position(compfeat->text, &compfeat->text_pos);
-  object_get_props_from_offsets(&compfeat->orth.object,
-                                compfeat_offsets, props);
+  dia_text_set_position (compfeat->text, &compfeat->text_pos);
+  object_get_props_from_offsets (&compfeat->orth.object,
+                                 compfeat_offsets, props);
 }
 
+
 static void
-compfeat_set_props(Compfeat *compfeat, GPtrArray *props)
+compfeat_set_props (Compfeat *compfeat, GPtrArray *props)
 {
-  object_set_props_from_offsets(&compfeat->orth.object,
-                                compfeat_offsets, props);
+  object_set_props_from_offsets (&compfeat->orth.object,
+                                 compfeat_offsets, props);
   compfeat->text_handle.pos = compfeat->text_pos;
-  text_set_position(compfeat->text, &compfeat->text_handle.pos);
-  compfeat_update_data(compfeat);
+  dia_text_set_position (compfeat->text, &compfeat->text_handle.pos);
+  compfeat_update_data (compfeat);
 }
+
 
 static real
 compfeat_distance_from(Compfeat *compfeat, Point *point)
@@ -271,13 +274,15 @@ compfeat_distance_from(Compfeat *compfeat, Point *point)
   return orthconn_distance_from(orth, point, compfeat->line_width);
 }
 
+
 static void
-compfeat_select(Compfeat *compfeat, Point *clicked_point,
-		DiaRenderer *interactive_renderer)
+compfeat_select (Compfeat    *compfeat,
+                 Point       *clicked_point,
+                 DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(compfeat->text, clicked_point, interactive_renderer);
-  text_grab_focus(compfeat->text, &compfeat->orth.object);
-  orthconn_update_data(&compfeat->orth);
+  dia_text_set_cursor (compfeat->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (compfeat->text, &compfeat->orth.object);
+  orthconn_update_data (&compfeat->orth);
 }
 
 
@@ -296,7 +301,7 @@ compfeat_move_handle (Compfeat         *compfeat,
   g_return_val_if_fail (to != NULL, NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
-    text_set_position(compfeat->text, to);
+    dia_text_set_position (compfeat->text, to);
     change = NULL;
   } else  {
     change = orthconn_move_handle(&compfeat->orth, handle, to, cp,
@@ -313,16 +318,18 @@ compfeat_move (Compfeat *compfeat, Point *to)
 {
   DiaObjectChange *change;
   Point delta = *to;
+  Point text_position;
 
-  delta = *to;
-  point_sub(&delta, &compfeat->orth.points[0]);
+  dia_text_get_position (compfeat->text, &text_position);
+
+  point_sub (&delta, &compfeat->orth.points[0]);
 
   /* I don't understand this, but the text position is wrong directly
      after compfeat_create()! */
-  point_add(&delta, &compfeat->text->position);
-  text_set_position(compfeat->text, &delta);
-  change = orthconn_move(&compfeat->orth, to);
-  compfeat_update_data(compfeat);
+  point_add (&delta, &text_position);
+  dia_text_set_position (compfeat->text, &delta);
+  change = orthconn_move (&compfeat->orth, to);
+  compfeat_update_data (compfeat);
 
   return change;
 }
@@ -368,7 +375,7 @@ compfeat_draw (Compfeat *compfeat, DiaRenderer *renderer)
                                           &compfeat->line_color,
                                           &startarrow, &endarrow);
 
-  text_draw (compfeat->text, renderer);
+  dia_text_draw (compfeat->text, renderer);
 }
 
 static DiaObject *
@@ -401,11 +408,12 @@ compfeat_create(Point *startpoint,
   p.y -= COMPPROP_TEXTOFFSET;
 
   compfeat->line_color = attributes_get_foreground();
-  compfeat->text = new_text ("", font,
-                             COMPPROP_FONTHEIGHT,
-                             &p,
-                             &compfeat->line_color,
-                             DIA_ALIGN_CENTRE);
+  compfeat->text = dia_text_new ("",
+                                 font,
+                                 COMPPROP_FONTHEIGHT,
+                                 &p,
+                                 &compfeat->line_color,
+                                 DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   compfeat->text_handle.id = HANDLE_MOVE_TEXT;
@@ -438,13 +446,14 @@ compfeat_destroy(Compfeat *compfeat)
 {
   OrthConn *orth = &compfeat->orth;
 
-  if (compfeat->role == COMPPROP_FACET
-      || compfeat->role == COMPPROP_EVENTSOURCE) {
-    object_remove_connectionpoint(&orth->object, &compfeat->cp);
+  if (compfeat->role == COMPPROP_FACET ||
+      compfeat->role == COMPPROP_EVENTSOURCE) {
+    object_remove_connectionpoint (&orth->object, &compfeat->cp);
   }
-  text_destroy(compfeat->text);
-  orthconn_destroy(&compfeat->orth);
+  dia_clear_part (&compfeat->text);
+  orthconn_destroy (&compfeat->orth);
 }
+
 
 static void
 compfeat_update_data(Compfeat *compfeat)
@@ -455,6 +464,7 @@ compfeat_update_data(Compfeat *compfeat)
   DiaObject *obj = &orth->object;
   DiaRectangle rect;
   Point *points;
+  Point text_position;
 
   points = &orth->points[0];
   n = orth->numpoints;
@@ -465,7 +475,8 @@ compfeat_update_data(Compfeat *compfeat)
       || compfeat->role == COMPPROP_EVENTSOURCE)
     compfeat->cp.pos = points[n - 1];
 
-  compfeat->text_pos = compfeat->text_handle.pos = compfeat->text->position;
+  dia_text_get_position (compfeat->text, &text_position);
+  compfeat->text_pos = compfeat->text_handle.pos = text_position;
 
   orthconn_update_data(orth);
 
@@ -475,13 +486,14 @@ compfeat_update_data(Compfeat *compfeat)
     extra->end_long = compfeat->line_width + COMPPROP_DIAMETER;
   extra->end_trans = compfeat->line_width + COMPPROP_DIAMETER;
 
-  orthconn_update_boundingbox(orth);
-  text_calc_boundingbox(compfeat->text, &rect);
-  rectangle_union(&obj->bounding_box, &rect);
+  orthconn_update_boundingbox (orth);
+  dia_text_calc_boundingbox (compfeat->text, &rect);
+  rectangle_union (&obj->bounding_box, &rect);
 }
 
+
 static DiaObject *
-compfeat_load(ObjectNode obj_node, int version,DiaContext *ctx)
+compfeat_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   DiaObject *obj = object_load_using_properties(&compfeat_type,
                                                 obj_node,version,ctx);

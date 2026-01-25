@@ -35,7 +35,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
 #include "connpoint_line.h"
 #include "dia-colour.h"
 #include "properties.h"

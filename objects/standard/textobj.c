@@ -27,13 +27,13 @@
 #include "diarenderer.h"
 #include "diainteractiverenderer.h"
 #include "font.h"
-#include "text.h"
 #include "attributes.h"
 #include "properties.h"
 #include "diamenu.h"
 #include "create.h"
 #include "message.h" /* just dia_log_message */
 #include "dia-object-change-list.h"
+#include "dia-text.h"
 
 #define HANDLE_TEXT HANDLE_CUSTOM1
 
@@ -56,7 +56,7 @@ struct _Textobj {
   /*! just one handle to connect/move */
   Handle text_handle;
   /*! the real text object to be drawn */
-  Text *text;
+  DiaText *text;
   /*! vertical alignment of the whole text block */
   Valign vert_align;
   /*! bounding box filling */
@@ -144,10 +144,10 @@ static PropDescription textobj_props[] = {
 static PropOffset textobj_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Textobj,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Textobj,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Textobj,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Textobj,text),offsetof(Text,color)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Textobj,text),offsetof(Text,alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Textobj,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Textobj,text), DIA_TEXT_HEIGHT_OFFSET },
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Textobj,text), DIA_TEXT_COLOUR_OFFSET},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Textobj,text), DIA_TEXT_ALIGNMENT_OFFSET},
   {"text_angle",PROP_TYPE_REAL,offsetof(Textobj,text_angle)},
   {"text_vert_alignment",PROP_TYPE_ENUM,offsetof(Textobj,vert_align)},
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Textobj, fill_color) },
@@ -192,11 +192,15 @@ static ObjectOps textobj_ops = {
   (TransformFunc)       textobj_transform,
 };
 
+
 static void
-textobj_get_props(Textobj *textobj, GPtrArray *props)
+textobj_get_props (Textobj *textobj, GPtrArray *props)
 {
-  object_get_props_from_offsets(&textobj->object,textobj_offsets,props);
+  object_get_props_from_offsets (&textobj->object,
+                                 textobj_offsets,
+                                 props);
 }
+
 
 static void
 textobj_set_props(Textobj *textobj, GPtrArray *props)
@@ -218,7 +222,7 @@ _textobj_get_poly (const Textobj *textobj, Point poly[4])
   dia_matrix_set_angle_and_scales (&m, G_PI * textobj->text_angle / 180.0, 1.0, 1.0);
   dia_matrix_multiply (&m, &t, &m);
 
-  text_calc_boundingbox (textobj->text, &box);
+  dia_text_calc_boundingbox (textobj->text, &box);
   ul.x = box.left - textobj->margin;
   ul.y = box.top - textobj->margin;
   lr.x = box.right + textobj->margin;
@@ -237,8 +241,9 @@ _textobj_get_poly (const Textobj *textobj, Point poly[4])
     transform_point (&poly[i], &m);
 }
 
-static real
-textobj_distance_from(Textobj *textobj, Point *point)
+
+static double
+textobj_distance_from (Textobj *textobj, Point *point)
 {
   if (textobj->text_angle != 0) {
     Point poly[4];
@@ -246,17 +251,22 @@ textobj_distance_from(Textobj *textobj, Point *point)
     _textobj_get_poly (textobj, poly);
     return distance_polygon_point(poly, 4, 0.0, point);
   }
-  if (textobj->show_background)
-    return distance_rectangle_point(&textobj->object.bounding_box, point);
-  return text_distance_from(textobj->text, point);
+
+  if (textobj->show_background) {
+    return distance_rectangle_point (&textobj->object.bounding_box, point);
+  }
+
+  return dia_text_distance_from (textobj->text, point);
 }
 
+
 static void
-textobj_select(Textobj *textobj, Point *clicked_point,
-	       DiaRenderer *interactive_renderer)
+textobj_select (Textobj     *textobj,
+                Point       *clicked_point,
+                DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(textobj->text, clicked_point, interactive_renderer);
-  text_grab_focus(textobj->text, &textobj->object);
+  dia_text_set_cursor (textobj->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (textobj->text, &textobj->object);
 }
 
 
@@ -300,7 +310,7 @@ textobj_draw (Textobj *textobj, DiaRenderer *renderer)
   if (textobj->show_background) {
     DiaRectangle box;
     Point ul, lr;
-    text_calc_boundingbox (textobj->text, &box);
+    dia_text_calc_boundingbox (textobj->text, &box);
     ul.x = box.left - textobj->margin;
     ul.y = box.top - textobj->margin;
     lr.x = box.right + textobj->margin;
@@ -315,7 +325,7 @@ textobj_draw (Textobj *textobj, DiaRenderer *renderer)
     }
   }
   if (textobj->text_angle == 0) {
-    text_draw (textobj->text, renderer);
+    dia_text_draw (textobj->text, renderer);
   } else {
     dia_renderer_draw_rotated_text (renderer,
                                     textobj->text,
@@ -324,9 +334,9 @@ textobj_draw (Textobj *textobj, DiaRenderer *renderer)
     /* XXX: interactive case not working correctly */
     if (DIA_IS_INTERACTIVE_RENDERER (renderer) &&
         dia_object_is_selected (&textobj->object) &&
-        textobj->text->focus.has_focus) {
+        dia_text_has_focus (textobj->text)) {
       /* editing is not rotated */
-      text_draw (textobj->text, renderer);
+      dia_text_draw (textobj->text, renderer);
     }
   }
 }
@@ -366,8 +376,8 @@ textobj_update_data (Textobj *textobj)
   DiaObject *obj = &textobj->object;
   DiaRectangle tx_bb;
 
-  text_set_position(textobj->text, &obj->position);
-  text_calc_boundingbox(textobj->text, &obj->bounding_box);
+  dia_text_set_position (textobj->text, &obj->position);
+  dia_text_calc_boundingbox (textobj->text, &obj->bounding_box);
 
   to2 = obj->position;
   textobj_valign_point(textobj, &to2);
@@ -377,15 +387,15 @@ textobj_update_data (Textobj *textobj)
   else if (VALIGN_BOTTOM == textobj->vert_align)
     to2.y -= textobj->margin; /* up */
 
-  if (DIA_ALIGN_LEFT == textobj->text->alignment) {
+  if (DIA_ALIGN_LEFT == dia_text_get_alignment (textobj->text)) {
     to2.x += textobj->margin; /* right */
-  } else if (DIA_ALIGN_RIGHT == textobj->text->alignment) {
+  } else if (DIA_ALIGN_RIGHT == dia_text_get_alignment (textobj->text)) {
     to2.x -= textobj->margin; /* left */
   }
-  text_set_position (textobj->text, &to2);
+  dia_text_set_position (textobj->text, &to2);
 
   /* always use the unrotated box ... */
-  text_calc_boundingbox(textobj->text, &tx_bb);
+  dia_text_calc_boundingbox (textobj->text, &tx_bb);
   /* grow the bounding box by 2x margin */
   obj->bounding_box.top    -= textobj->margin;
   obj->bounding_box.left   -= textobj->margin;
@@ -417,17 +427,18 @@ textobj_update_data (Textobj *textobj)
   }
 }
 
+
 static DiaObject *
-textobj_create(Point *startpoint,
-	       void *user_data,
-	       Handle **handle1,
-	       Handle **handle2)
+textobj_create (Point   *startpoint,
+                void    *user_data,
+                Handle **handle1,
+                Handle **handle2)
 {
   Textobj *textobj;
   DiaObject *obj;
-  Color col;
+  DiaColour col;
   DiaFont *font = NULL;
-  real font_height;
+  double font_height;
 
   textobj = g_new0 (Textobj, 1);
   obj = &textobj->object;
@@ -437,10 +448,14 @@ textobj_create(Point *startpoint,
 
   obj->ops = &textobj_ops;
 
-  col = attributes_get_foreground();
-  attributes_get_default_font(&font, &font_height);
-  textobj->text = new_text("", font, font_height,
-			   startpoint, &col, default_properties.alignment );
+  col = attributes_get_foreground ();
+  attributes_get_default_font (&font, &font_height);
+  textobj->text = dia_text_new ("",
+                                font,
+                                font_height,
+                                startpoint,
+                                &col,
+                                default_properties.alignment);
   /* need to initialize to object.position as well, it is used update data */
   obj->position = *startpoint;
 
@@ -477,13 +492,15 @@ textobj_copy(Textobj *textobj)
   return &copied->object;
 }
 
+
 static void
-textobj_destroy(Textobj *textobj)
+textobj_destroy (Textobj *textobj)
 {
-  text_destroy(textobj->text);
+  dia_clear_part (&textobj->text);
   g_clear_pointer (&textobj->object.enclosing_box, g_free);
-  object_destroy(&textobj->object);
+  object_destroy (&textobj->object);
 }
+
 
 static void
 textobj_save(Textobj *textobj, ObjectNode obj_node, DiaContext *ctx)
@@ -527,12 +544,12 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
     textobj->text = data_text (attribute_first_data (attr), ctx);
   } else {
     DiaFont *font = dia_font_new_from_style (DIA_FONT_MONOSPACE, 1.0);
-    textobj->text = new_text ("",
-                              font,
-                              1.0,
-                              &startpoint,
-                              &DIA_COLOUR_BLACK,
-                              DIA_ALIGN_CENTRE);
+    textobj->text = dia_text_new ("",
+                                  font,
+                                  1.0,
+                                  &startpoint,
+                                  &DIA_COLOUR_BLACK,
+                                  DIA_ALIGN_CENTRE);
     g_clear_object (&font);
   }
 
@@ -578,18 +595,20 @@ static DiaObjectChange *
 _textobj_convert_to_path_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Textobj *textobj = (Textobj *)obj;
-  Text *text = textobj->text;
+  DiaText *text = textobj->text;
   DiaObject *path = NULL;
 
-  if (!text_is_empty(text)) /* still screwed with empty lines ;) */
+  if (!dia_text_is_empty (text)) {
+    /* still screwed with empty lines ;) */
     path = create_standard_path_from_text (text);
+  }
 
   if (path) {
     DiaObjectChange *change;
     Color bg = textobj->fill_color;
 
     /* FIXME: otherwise object_substitue() will tint the text with bg */
-    textobj->fill_color = text->color;
+    dia_text_get_colour (text, &textobj->fill_color);
     change = object_substitute (obj, path);
     /* restore */
     textobj->fill_color = bg;
@@ -614,16 +633,18 @@ static DiaMenu textobj_menu = {
   NULL
 };
 
-static DiaMenu *
-textobj_get_object_menu(Textobj *textobj, Point *clickedpoint)
-{
-  const Text *text = textobj->text;
 
+static DiaMenu *
+textobj_get_object_menu (Textobj *textobj, Point *clickedpoint)
+{
   /* Set entries sensitive/selected etc here */
-  textobj_menu_items[0].active = (text->numlines > 0) ? DIAMENU_ACTIVE : 0;
+  textobj_menu_items[0].active =
+    (dia_text_get_n_lines (textobj->text) > 0) ? DIAMENU_ACTIVE : 0;
 
   return &textobj_menu;
 }
+
+
 static gboolean
 textobj_transform(Textobj *textobj, const DiaMatrix *m)
 {
@@ -636,13 +657,13 @@ textobj_transform(Textobj *textobj, const DiaMatrix *m)
     return FALSE;
   } else {
     /* XXX: what to do if width!=height */
-    real height = text_get_height (textobj->text) * MIN(sx,sy);
-    real angle = a*180/G_PI;
+    double height = dia_text_get_height (textobj->text) * MIN (sx, sy);
+    double angle = a*180/G_PI;
     Point p = textobj->object.position;
 
     /* rotation is invariant to the handle position */
     transform_point (&p, m);
-    text_set_height (textobj->text, height);
+    dia_text_set_height (textobj->text, height);
     textobj->text_angle = angle;
     textobj->object.position = p;
  }

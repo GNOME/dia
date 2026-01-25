@@ -26,7 +26,7 @@
 
 #include "diaimportrenderer.h"
 #include "object.h"
-#include "text.h"
+#include "dia-text.h"
 #include "create.h"
 #include "properties.h"
 #include "dia_image.h"

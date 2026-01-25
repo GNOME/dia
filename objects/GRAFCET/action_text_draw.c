@@ -19,68 +19,75 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#include <config.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "config.h"
+
 #include <glib.h>
-#include <math.h>
 
-#include "geometry.h"
-#include "diarenderer.h"
-#include "diainteractiverenderer.h"
-#include "text.h"
 #include "action_text_draw.h"
+#include "dia-text.h"
+#include "diainteractiverenderer.h"
+#include "diarenderer.h"
+#include "geometry.h"
 
 /* This used to be really horrible code. Really.
    Now it's just a code fork. */
 
+/* Okay, so really what even is this object, why is any of this like this */
+
 void
-action_text_draw (Text *text, DiaRenderer *renderer)
+action_text_draw (DiaText *text, DiaRenderer *renderer)
 {
   Point pos;
-  int i;
-  real space_width;
+  double space_width;
 
-  dia_renderer_set_font (renderer, text->font, text->height);
+  dia_renderer_set_font (renderer,
+                         dia_text_get_font (text),
+                         dia_text_get_height (text));
 
-  pos = text->position;
+  dia_text_get_position (text, &pos);
 
   space_width = action_text_spacewidth (text);
 
   /* TODO: Use the TextLine object when available for faster rendering. */
-  for (i=0;i<text->numlines;i++) {
+  for (size_t i = 0; i < dia_text_get_n_lines (text); i++) {
+    DiaColour text_colour;
+
+    dia_text_get_colour (text, &text_colour);
     dia_renderer_draw_string (renderer,
-                              text_get_line (text, i),
+                              dia_text_get_line (text, i),
                               &pos,
-                              text->alignment,
-                              &text->color);
-    pos.x += text_get_line_width (text, i) +
-      2 * space_width;
+                              dia_text_get_alignment (text),
+                              &text_colour);
+    pos.x += dia_text_get_line_width (text, i) + (2 * space_width);
   }
 
-  if (DIA_IS_INTERACTIVE_RENDERER (renderer) && (text->focus.has_focus)) {
-    real curs_x, curs_y;
-    real str_width_first;
-    real str_width_whole;
+  if (DIA_IS_INTERACTIVE_RENDERER (renderer) && dia_text_has_focus (text)) {
+    double curs_x, curs_y;
+    double str_width_first;
+    double str_width_whole;
     Point p1, p2;
+    Point text_position;
+    int cursor_row, cursor_pos;
 
+    dia_text_get_position (text, &text_position);
+
+    dia_text_get_cursor (text, &cursor_row, &cursor_pos);
 
     str_width_first = dia_renderer_get_text_width (renderer,
-                                                   text_get_line (text, text->cursor_row),
-                                                   text->cursor_pos);
+                                                   dia_text_get_line (text, cursor_row),
+                                                   cursor_pos);
     str_width_whole = dia_renderer_get_text_width (renderer,
-                                                   text_get_line (text, text->cursor_row),
-                                                   text_get_line_strlen (text, text->cursor_row));
+                                                   dia_text_get_line (text, cursor_row),
+                                                   dia_text_get_line_strlen (text, cursor_row));
 
-    curs_x = text->position.x + str_width_first;
-    for (i = 0; i < text->cursor_row; i++) {
-      curs_x += text_get_line_width (text, i) + 2 * space_width;
+    curs_x = text_position.x + str_width_first;
+    for (size_t i = 0; i < cursor_row; i++) {
+      curs_x += dia_text_get_line_width (text, i) + 2 * space_width;
     }
-    curs_y = text->position.y - text->ascent;
+    curs_y = text_position.y - dia_text_get_ascent (text);
 
-    switch (text->alignment) {
+    switch (dia_text_get_alignment (text)) {
       case DIA_ALIGN_LEFT:
         break;
       case DIA_ALIGN_CENTRE:
@@ -96,7 +103,7 @@ action_text_draw (Text *text, DiaRenderer *renderer)
     p1.x = curs_x;
     p1.y = curs_y;
     p2.x = curs_x;
-    p2.y = curs_y + text->height;
+    p2.y = curs_y + dia_text_get_height (text);
 
     dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
     dia_renderer_set_linewidth (renderer, 0.1);
@@ -106,42 +113,44 @@ action_text_draw (Text *text, DiaRenderer *renderer)
 
 
 void
-action_text_calc_boundingbox (Text *text, DiaRectangle *box)
+action_text_calc_boundingbox (DiaText *text, DiaRectangle *box)
 {
   double width;
-  int i;
+  Point text_position;
 
-  box->left = text->position.x;
-  switch (text->alignment) {
+  dia_text_get_position (text, &text_position);
+
+  box->left = text_position.x;
+  switch (dia_text_get_alignment (text)) {
     case DIA_ALIGN_LEFT:
       break;
     case DIA_ALIGN_CENTRE:
-      box->left -= text->max_width / 2.0;
+      box->left -= dia_text_get_max_width (text) / 2.0;
       break;
     case DIA_ALIGN_RIGHT:
-      box->left -= text->max_width;
+      box->left -= dia_text_get_max_width (text);
       break;
     default:
       g_return_if_reached ();
   }
 
   width = 0;
-  for (i = 0; i < text->numlines; i++) {
-    width += text_get_line_width (text, i);
+  for (size_t i = 0; i < dia_text_get_n_lines (text); i++) {
+    width += dia_text_get_line_width (text, i);
   }
 
-  width += text->numlines * 2.0 * action_text_spacewidth (text);
+  width += dia_text_get_n_lines (text) * 2.0 * action_text_spacewidth (text);
 
   box->right = box->left + width;
 
-  box->top = text->position.y - text->ascent;
+  box->top = text_position.y - dia_text_get_ascent (text);
 
-  box->bottom = box->top + text->height;
+  box->bottom = box->top + dia_text_get_height (text);
 }
 
 
-real
-action_text_spacewidth (Text *text)
+double
+action_text_spacewidth (DiaText *text)
 {
-  return .2 * text->height;
+  return .2 * dia_text_get_height (text);
 }

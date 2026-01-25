@@ -36,7 +36,7 @@
 #include "element.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "pixmaps/requirement.xpm"
@@ -51,7 +51,7 @@ struct _Requirement {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
 
-  Text *text;
+  DiaText *text;
 };
 
 
@@ -136,9 +136,9 @@ req_describe_props(Requirement *req)
 static PropOffset req_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Requirement,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Requirement,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Requirement,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Requirement,text),offsetof(Text,color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Requirement,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Requirement,text), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Requirement,text), DIA_TEXT_COLOUR_OFFSET},
   { NULL, 0, 0 },
 };
 
@@ -170,13 +170,15 @@ req_distance_from(Requirement *req, Point *point)
 				REQ_LINEWIDTH, point);
 }
 
+
 static void
-req_select(Requirement *req, Point *clicked_point,
-	       DiaRenderer *interactive_renderer)
+req_select (Requirement *req,
+            Point       *clicked_point,
+            DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(req->text, clicked_point, interactive_renderer);
-  text_grab_focus(req->text, &req->element.object);
-  element_update_handles(&req->element);
+  dia_text_set_cursor (req->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (req->text, &req->element.object);
+  element_update_handles (&req->element);
 }
 
 
@@ -199,22 +201,23 @@ req_move_handle (Requirement      *req,
 
 
 static DiaObjectChange*
-req_move(Requirement *req, Point *to)
+req_move (Requirement *req, Point *to)
 {
-  real h;
+  double h;
   Point p;
 
   req->element.corner = *to;
-  h = req->text->height*req->text->numlines;
+  h = dia_text_get_height (req->text) * dia_text_get_n_lines (req->text);
 
   p = *to;
-  p.x += req->element.width/2.0;
-  p.y += (req->element.height - h)/2.0 + req->text->ascent;
+  p.x += req->element.width / 2.0;
+  p.y += ((req->element.height - h) / 2.0) + dia_text_get_ascent (req->text);
 
-  text_set_position(req->text, &p);
-  req_update_data(req);
+  dia_text_set_position (req->text, &p);
+  req_update_data (req);
   return NULL;
 }
+
 
 /** draw is here */
 static void
@@ -249,22 +252,22 @@ req_draw (Requirement *req, DiaRenderer *renderer)
                              &DIA_COLOUR_WHITE,
                              &DIA_COLOUR_BLACK);
 
-  text_draw (req->text, renderer);
+  dia_text_draw (req->text, renderer);
 }
 
 
 static void
-req_update_data(Requirement *req)
+req_update_data (Requirement *req)
 {
-  real w, h, ratio;
+  double w, h, ratio;
   Point c, half, r,p;
 
   Element *elem = &req->element;
   DiaObject *obj = &elem->object;
 
-  text_calc_boundingbox(req->text, NULL);
-  w = req->text->max_width;
-  h = req->text->height*req->text->numlines;
+  dia_text_calc_boundingbox (req->text, NULL);
+  w = dia_text_get_max_width (req->text);
+  h = dia_text_get_height (req->text) * dia_text_get_n_lines (req->text);
 
   ratio = w/h;
 
@@ -316,11 +319,11 @@ req_update_data(Requirement *req)
   req->connections[8].pos.x = elem->corner.x + elem->width/2;
   req->connections[8].pos.y = elem->corner.y + elem->height/2;
 
-  h = req->text->height*req->text->numlines;
+  h = dia_text_get_height (req->text) * dia_text_get_n_lines (req->text);
   p = req->element.corner;
   p.x += req->element.width/2.0;
-  p.y += (req->element.height - h)/2.0 + req->text->ascent;
-  text_set_position(req->text, &p);
+  p.y += ((req->element.height - h) / 2.0) + dia_text_get_ascent (req->text);
+  dia_text_set_position (req->text, &p);
 
   element_update_boundingbox(elem);
 
@@ -367,12 +370,12 @@ req_create(Point *startpoint,
   p.x += REQ_WIDTH/2.0;
   p.y += REQ_HEIGHT/2.0;
 
-  req->text = new_text ("",
-                        font,
-                        REQ_FONT,
-                        &p,
-                        &DIA_COLOUR_BLACK,
-                        DIA_ALIGN_CENTRE);
+  req->text = dia_text_new ("",
+                            font,
+                            REQ_FONT,
+                            &p,
+                            &DIA_COLOUR_BLACK,
+                            DIA_ALIGN_CENTRE);
   g_clear_object (&font);
   element_init (elem, 8, NUM_CONNECTIONS);
 
@@ -406,13 +409,15 @@ req_create(Point *startpoint,
   return &req->element.object;
 }
 
-static void
-req_destroy(Requirement *req)
-{
-  text_destroy(req->text);
 
-  element_destroy(&req->element);
+static void
+req_destroy (Requirement *req)
+{
+  dia_clear_part (&req->text);
+
+  element_destroy (&req->element);
 }
+
 
 static DiaObject *
 req_load(ObjectNode obj_node, int version,DiaContext *ctx)

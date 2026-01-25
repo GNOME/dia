@@ -32,7 +32,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "pixmaps/pgram.xpm"
@@ -64,7 +64,7 @@ struct _Pgram {
   double dashlength;
   double shear_angle, shear_grad;
 
-  Text *text;
+  DiaText *text;
   double padding;
 
   DiaTextFitting text_fitting;
@@ -181,10 +181,10 @@ static PropOffset pgram_offsets[] = {
   { "shear_angle", PROP_TYPE_REAL, offsetof(Pgram, shear_angle) },
   { "padding", PROP_TYPE_REAL, offsetof(Pgram, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Pgram,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Pgram,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Pgram,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Pgram,text),offsetof(Text,color)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Pgram,text),offsetof(Text,alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Pgram,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Pgram,text), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Pgram,text), DIA_TEXT_COLOUR_OFFSET},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Pgram,text), DIA_TEXT_ALIGNMENT_OFFSET},
   {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Pgram,text_fitting)},
   { NULL, 0, 0 },
 };
@@ -261,14 +261,16 @@ pgram_distance_from (Pgram *pgram, Point *point)
   return distance_rectangle_point (&rect, point);
 }
 
-static void
-pgram_select(Pgram *pgram, Point *clicked_point,
-	   DiaRenderer *interactive_renderer)
-{
-  text_set_cursor(pgram->text, clicked_point, interactive_renderer);
-  text_grab_focus(pgram->text, &pgram->element.object);
 
-  element_update_handles(&pgram->element);
+static void
+pgram_select (Pgram       *pgram,
+              Point       *clicked_point,
+              DiaRenderer *interactive_renderer)
+{
+  dia_text_set_cursor (pgram->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (pgram->text, &pgram->element.object);
+
+  element_update_handles (&pgram->element);
 }
 
 
@@ -400,7 +402,7 @@ pgram_draw (Pgram *pgram, DiaRenderer *renderer)
                              (pgram->show_background) ? &pgram->inner_color : NULL,
                              &pgram->border_color);
 
-  text_draw (pgram->text, renderer);
+  dia_text_draw (pgram->text, renderer);
 }
 
 
@@ -426,28 +428,32 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
 
   /* this takes the shearing of the parallelogram into account, so the
    * text can be extend to the edges of the parallelogram */
-  text_calc_boundingbox(pgram->text, NULL);
-  height = pgram->text->height * pgram->text->numlines + pgram->padding*2 +
-    pgram->border_width;
-  if (   pgram->text_fitting == DIA_TEXT_FIT_ALWAYS
-      || (pgram->text_fitting == DIA_TEXT_FIT_WHEN_NEEDED
-          && height > elem->height))
+  dia_text_calc_boundingbox (pgram->text, NULL);
+  height = dia_text_get_height (pgram->text) *
+    dia_text_get_n_lines (pgram->text) +
+      (pgram->padding * 2) + pgram->border_width;
+  if (pgram->text_fitting == DIA_TEXT_FIT_ALWAYS ||
+      (pgram->text_fitting == DIA_TEXT_FIT_WHEN_NEEDED &&
+       height > elem->height)) {
     elem->height = height;
+  }
 
-  avail_width = elem->width - (pgram->padding*2 + pgram->border_width +
-    fabs(pgram->shear_grad) * (elem->height + pgram->text->height
-			       * pgram->text->numlines));
-  if (   pgram->text_fitting == DIA_TEXT_FIT_ALWAYS
-      || (pgram->text_fitting == DIA_TEXT_FIT_WHEN_NEEDED
-          && avail_width < pgram->text->max_width)) {
-    elem->width = (elem->width-avail_width) + pgram->text->max_width;
-    avail_width = pgram->text->max_width;
+  avail_width = elem->width - ((pgram->padding * 2) + pgram->border_width +
+    fabs (pgram->shear_grad) * (elem->height +
+      dia_text_get_height (pgram->text) *
+        dia_text_get_n_lines (pgram->text)));
+  if (pgram->text_fitting == DIA_TEXT_FIT_ALWAYS ||
+      (pgram->text_fitting == DIA_TEXT_FIT_WHEN_NEEDED &&
+       avail_width < dia_text_get_max_width (pgram->text))) {
+    elem->width = (elem->width-avail_width) +
+      dia_text_get_max_width (pgram->text);
+    avail_width = dia_text_get_max_width (pgram->text);
   }
 
   /*
   width = pgram->text->max_width + pgram->padding*2 + pgram->border_width +
     fabs(pgram->shear_grad) * (elem->height + pgram->text->height
-			       * pgram->text->numlines);
+			       * dia_text_get_n_lines (pgram->text));
   if (width > elem->width) elem->width = width;
   */
 
@@ -478,9 +484,11 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
 
   p = elem->corner;
   p.x += elem->width / 2.0;
-  p.y += elem->height / 2.0 - pgram->text->height * pgram->text->numlines / 2 +
-      pgram->text->ascent;
-  switch (pgram->text->alignment) {
+  p.y += elem->height / 2.0 -
+    dia_text_get_height (pgram->text) *
+      dia_text_get_n_lines (pgram->text) / 2 +
+        dia_text_get_ascent (pgram->text);
+  switch (dia_text_get_alignment (pgram->text)) {
     case DIA_ALIGN_LEFT:
       p.x -= avail_width / 2;
       break;
@@ -493,7 +501,7 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
       g_return_if_reached ();
   }
 
-  text_set_position (pgram->text, &p);
+  dia_text_set_position (pgram->text, &p);
 
   /* 1/4 of how much more to the left the bottom line is */
   offs = -(elem->height / 4.0 * pgram->shear_grad);
@@ -623,12 +631,12 @@ pgram_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + font_height / 2;
-  pgram->text = new_text ("",
-                          font,
-                          font_height,
-                          &p,
-                          &pgram->border_color,
-                          DIA_ALIGN_CENTRE);
+  pgram->text = dia_text_new ("",
+                              font,
+                              font_height,
+                              &p,
+                              &pgram->border_color,
+                              DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   /* new default: let the user decide the size */
@@ -651,12 +659,13 @@ pgram_create(Point *startpoint,
   return &pgram->element.object;
 }
 
-static void
-pgram_destroy(Pgram *pgram)
-{
-  text_destroy(pgram->text);
 
-  element_destroy(&pgram->element);
+static void
+pgram_destroy (Pgram *pgram)
+{
+  dia_clear_part (&pgram->text);
+
+  element_destroy (&pgram->element);
 }
 
 
@@ -780,9 +789,9 @@ pgram_load (ObjectNode obj_node, int version, DiaContext *ctx)
     pgram->text = data_text (attribute_first_data (attr), ctx);
   } else {
     /* paranoid */
-    pgram->text = new_text_default (&obj->position,
-                                    &pgram->border_color,
-                                    DIA_ALIGN_CENTRE);
+    pgram->text = dia_text_new_default (&obj->position,
+                                        &pgram->border_color,
+                                        DIA_ALIGN_CENTRE);
   }
 
   /* old default: only growth, manual shrink */

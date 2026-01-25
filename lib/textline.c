@@ -26,14 +26,16 @@
 #include <glib.h>
 #include <math.h>
 
-#include "propinternals.h"
-#include "text.h"
+#include "dia-text.h"
 #include "message.h"
+#include "propinternals.h"
+
 #include "textline.h"
 
-static void text_line_dirty_cache(TextLine *text_line);
-static void text_line_cache_values(TextLine *text_line);
-static void clear_layout_offset (TextLine *text_line);
+
+static void text_line_dirty_cache  (TextLine *text_line);
+static void text_line_cache_values (TextLine *text_line);
+static void clear_layout_offset    (TextLine *text_line);
 
 
 /**

@@ -26,9 +26,9 @@
 
 #include "object.h"
 #include "element.h"
+#include "dia-text.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "properties.h"
 
 #include "uml.h"
@@ -46,11 +46,11 @@ struct _Classicon {
 
   int stereotype;
   int is_object;
-  Text *text;
-  Color line_color;
-  Color fill_color;
+  DiaText *text;
+  DiaColour line_color;
+  DiaColour fill_color;
 
-  real line_width;
+  double line_width;
 };
 
 enum CLassIconStereotype {
@@ -164,10 +164,10 @@ static PropOffset classicon_offsets[] = {
   { "type", PROP_TYPE_ENUM, offsetof(Classicon, stereotype) },
   { "is_object", PROP_TYPE_BOOL, offsetof(Classicon, is_object) },
   { "text",PROP_TYPE_TEXT,offsetof(Classicon,text)},
-  { "text_font",PROP_TYPE_FONT,offsetof(Classicon,text),offsetof(Text,font)},
-  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Classicon,text),offsetof(Text,height)},
+  { "text_font",PROP_TYPE_FONT,offsetof(Classicon,text), DIA_TEXT_FONT_OFFSET},
+  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Classicon,text), DIA_TEXT_HEIGHT_OFFSET},
   { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Classicon, line_width) },
-  { "text_colour",PROP_TYPE_COLOUR,offsetof(Classicon,text),offsetof(Text,color)},
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Classicon,text), DIA_TEXT_COLOUR_OFFSET},
   { "line_colour",PROP_TYPE_COLOUR,offsetof(Classicon,line_color) },
   { "fill_colour",PROP_TYPE_COLOUR,offsetof(Classicon,fill_color) },
   { NULL, 0, 0 },
@@ -195,13 +195,15 @@ classicon_distance_from(Classicon *cicon, Point *point)
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
+
 static void
-classicon_select(Classicon *cicon, Point *clicked_point,
-		 DiaRenderer *interactive_renderer)
+classicon_select (Classicon   *cicon,
+                  Point       *clicked_point,
+                  DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(cicon->text, clicked_point, interactive_renderer);
-  text_grab_focus(cicon->text, &cicon->element.object);
-  element_update_handles(&cicon->element);
+  dia_text_set_cursor (cicon->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (cicon->text, &cicon->element.object);
+  element_update_handles (&cicon->element);
 }
 
 
@@ -240,13 +242,13 @@ classicon_move(Classicon *cicon, Point *to)
   return NULL;
 }
 
+
 static void
 classicon_draw (Classicon *icon, DiaRenderer *renderer)
 {
   Element *elem;
   double r, x, y, w;
   Point center, p1, p2;
-  int i;
 
   g_return_if_fail (icon != NULL);
   g_return_if_fail (renderer != NULL);
@@ -318,21 +320,23 @@ classicon_draw (Classicon *icon, DiaRenderer *renderer)
       g_return_if_reached ();
   }
 
-  text_draw (icon->text, renderer);
+  dia_text_draw (icon->text, renderer);
 
   if (icon->is_object) {
+    Point text_position;
     dia_renderer_set_linewidth (renderer, 0.01);
     if (icon->stereotype==CLASSICON_BOUNDARY) {
       x += r/2.0;
     }
-    p1.y = p2.y = icon->text->position.y + text_get_descent (icon->text);
-    for (i=0; i<icon->text->numlines; i++) {
-      p1.x = x + (w - text_get_line_width (icon->text, i))/2;
-      p2.x = p1.x + text_get_line_width (icon->text, i);
+    dia_text_get_position (icon->text, &text_position);
+    p1.y = p2.y = text_position.y + dia_text_get_descent (icon->text);
+    for (size_t i = 0; i < dia_text_get_n_lines (icon->text); i++) {
+      p1.x = x + (w - dia_text_get_line_width (icon->text, i)) / 2;
+      p2.x = p1.x + dia_text_get_line_width (icon->text, i);
       dia_renderer_draw_line (renderer,
                               &p1, &p2,
                               &icon->line_color);
-      p1.y = p2.y += icon->text->height;
+      p1.y = p2.y += dia_text_get_height (icon->text);
     }
   }
 }
@@ -346,11 +350,11 @@ classicon_update_data(Classicon *cicon)
   real h, wt, w = 0;
   int is_boundary = (cicon->stereotype==CLASSICON_BOUNDARY);
 
-  text_calc_boundingbox(cicon->text, NULL);
+  dia_text_calc_boundingbox (cicon->text, NULL);
   h = CLASSICON_AIR + CLASSICON_MARGIN + CLASSICON_ARROW + 2*CLASSICON_RADIOUS;
 
-  w = 2*CLASSICON_RADIOUS;
-  wt = cicon->text->max_width;
+  w = 2 * CLASSICON_RADIOUS;
+  wt = dia_text_get_max_width (cicon->text);
 
   if (cicon->stereotype==CLASSICON_BOUNDARY) {
       w += 2*CLASSICON_RADIOUS;
@@ -360,13 +364,15 @@ classicon_update_data(Classicon *cicon)
   w = MAX(w, wt) + CLASSICON_AIR;
 
   p1.y = h + elem->corner.y;
-  h += cicon->text->height*cicon->text->numlines + CLASSICON_AIR;
+  h += (dia_text_get_height (cicon->text) *
+    dia_text_get_n_lines (cicon->text)) + CLASSICON_AIR;
 
-  p1.y += cicon->text->ascent;
+  p1.y += dia_text_get_ascent (cicon->text);
   p1.x = elem->corner.x + w/2.0;
-  if (cicon->stereotype==CLASSICON_BOUNDARY)
-      p1.x += CLASSICON_RADIOUS/2.0;
-  text_set_position(cicon->text, &p1);
+  if (cicon->stereotype == CLASSICON_BOUNDARY) {
+    p1.x += CLASSICON_RADIOUS / 2.0;
+  }
+  dia_text_set_position (cicon->text, &p1);
 
   elem->width = w;
   elem->height = h;
@@ -455,7 +461,12 @@ classicon_create(Point *startpoint,
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  cicon->text = new_text ("", font, 0.8, &p, &DIA_COLOUR_BLACK, DIA_ALIGN_CENTRE);
+  cicon->text = dia_text_new ("",
+                              font,
+                              0.8,
+                              &p,
+                              &DIA_COLOUR_BLACK,
+                              DIA_ALIGN_CENTRE);
 
   g_clear_object (&font);
 
@@ -480,12 +491,15 @@ classicon_create(Point *startpoint,
   return &cicon->element.object;
 }
 
+
 static void
-classicon_destroy(Classicon *cicon)
+classicon_destroy (Classicon *cicon)
 {
-  text_destroy(cicon->text);
-  element_destroy(&cicon->element);
+  dia_clear_part (&cicon->text);
+
+  element_destroy (&cicon->element);
 }
+
 
 static DiaObject *
 classicon_load(ObjectNode obj_node, int version,DiaContext *ctx)

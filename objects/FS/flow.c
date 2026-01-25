@@ -32,7 +32,7 @@
 #include "handle.h"
 #include "arrows.h"
 #include "diamenu.h"
-#include "text.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "pixmaps/flow.xpm"
@@ -53,7 +53,7 @@ struct _Flow {
 
   Handle text_handle;
 
-  Text* text;
+  DiaText *text;
   FlowType type;
   Point textpos; /* This is the master position, but overridden in load */
 };
@@ -163,10 +163,10 @@ static PropOffset flow_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
   { "type", PROP_TYPE_ENUM, offsetof(Flow, type) },
   { "text", PROP_TYPE_TEXT, offsetof (Flow, text) },
-  { "text_alignment", PROP_TYPE_ENUM, offsetof(Flow,text),offsetof(Text,alignment) },
-  { "text_font", PROP_TYPE_FONT, offsetof(Flow,text),offsetof(Text,font) },
-  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Flow,text),offsetof(Text,height) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof(Flow,text),offsetof(Text,color) },
+  { "text_alignment", PROP_TYPE_ENUM, offsetof(Flow,text), DIA_TEXT_ALIGNMENT_OFFSET },
+  { "text_font", PROP_TYPE_FONT, offsetof(Flow,text), DIA_TEXT_FONT_OFFSET },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Flow,text), DIA_TEXT_HEIGHT_OFFSET },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Flow,text), DIA_TEXT_COLOUR_OFFSET },
   { NULL, 0, 0 }
 };
 
@@ -186,31 +186,35 @@ flow_set_props(Flow *flow, GPtrArray *props)
 }
 
 
-static real
-flow_distance_from(Flow *flow, Point *point)
+static double
+flow_distance_from (Flow *flow, Point *point)
 {
   Point *endpoints;
-  real linedist;
-  real textdist;
+  double linedist;
+  double textdist;
 
   endpoints = &flow->connection.endpoints[0];
 
-  linedist = distance_line_point(&endpoints[0], &endpoints[1],
-				 flow->type == FLOW_MATERIAL ? FLOW_MATERIAL_WIDTH : FLOW_WIDTH,
-				 point);
-  textdist = text_distance_from( flow->text, point ) ;
+  linedist = distance_line_point (&endpoints[0],
+                                  &endpoints[1],
+                                  flow->type == FLOW_MATERIAL ?
+                                    FLOW_MATERIAL_WIDTH : FLOW_WIDTH,
+                                  point);
+  textdist = dia_text_distance_from (flow->text, point);
 
   return linedist > textdist ? textdist : linedist ;
 }
 
-static void
-flow_select(Flow *flow, Point *clicked_point,
-	    DiaRenderer *interactive_renderer)
-{
-  text_set_cursor(flow->text, clicked_point, interactive_renderer);
-  text_grab_focus(flow->text, &flow->connection.object);
 
-  connection_update_handles(&flow->connection);
+static void
+flow_select (Flow        *flow,
+             Point       *clicked_point,
+             DiaRenderer *interactive_renderer)
+{
+  dia_text_set_cursor (flow->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (flow->text, &flow->connection.object);
+
+  connection_update_handles (&flow->connection);
 }
 
 
@@ -360,7 +364,7 @@ flow_draw (Flow *flow, DiaRenderer *renderer)
                                       &arrow,
                                       NULL);
 
-  text_draw (flow->text, renderer);
+  dia_text_draw (flow->text, renderer);
 }
 
 static DiaObject *
@@ -411,12 +415,12 @@ flow_create(Point *startpoint,
 
   font = dia_font_new_from_style (DIA_FONT_SANS, FLOW_FONTHEIGHT);
 
-  flow->text = new_text ("",
-                         font,
-                         FLOW_FONTHEIGHT,
-                         &p,
-                         &DIA_COLOUR_BLACK,
-                         DIA_ALIGN_CENTRE);
+  flow->text = dia_text_new ("",
+                             font,
+                             FLOW_FONTHEIGHT,
+                             &p,
+                             &DIA_COLOUR_BLACK,
+                             DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   flow->text_handle.id = HANDLE_MOVE_TEXT;
@@ -439,11 +443,12 @@ flow_create(Point *startpoint,
 
 
 static void
-flow_destroy(Flow *flow)
+flow_destroy (Flow *flow)
 {
-  connection_destroy(&flow->connection);
-  text_destroy(flow->text) ;
+  connection_destroy (&flow->connection);
+  dia_clear_part (&flow->text) ;
 }
+
 
 static DiaObject *
 flow_copy(Flow *flow)
@@ -464,7 +469,7 @@ flow_copy(Flow *flow)
   newflow->text_handle.connected_to = NULL;
   newobj->handles[2] = &newflow->text_handle;
   newflow->textpos = flow->textpos;
-  newflow->text = text_copy(flow->text);
+  newflow->text = dia_text_copy (flow->text);
   newflow->type = flow->type;
 
   flow_update_data(newflow);
@@ -499,19 +504,20 @@ flow_update_data(Flow *flow)
     default:
       g_return_if_reached ();
   }
-  text_set_color (flow->text, color);
 
-  flow->text->position = flow->textpos;
+  dia_text_set_colour (flow->text, color);
+  dia_text_set_position (flow->text, &flow->textpos);
+
   flow->text_handle.pos = flow->textpos;
 
   connection_update_handles(conn);
 
   /* Boundingbox: */
-  connection_update_boundingbox(conn);
+  connection_update_boundingbox (conn);
 
   /* Add boundingbox for text: */
-  text_calc_boundingbox(flow->text, &rect) ;
-  rectangle_union(&obj->bounding_box, &rect);
+  dia_text_calc_boundingbox (flow->text, &rect) ;
+  rectangle_union (&obj->bounding_box, &rect);
 }
 
 
@@ -555,12 +561,12 @@ flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   else { /* pathologic */
     DiaFont *font = dia_font_new_from_style (DIA_FONT_SANS, FLOW_FONTHEIGHT);
 
-    flow->text = new_text ("",
-                           font,
-                           FLOW_FONTHEIGHT,
-                           &obj->position,
-                           &DIA_COLOUR_BLACK,
-                           DIA_ALIGN_CENTRE);
+    flow->text = dia_text_new ("",
+                               font,
+                               FLOW_FONTHEIGHT,
+                               &obj->position,
+                               &DIA_COLOUR_BLACK,
+                               DIA_ALIGN_CENTRE);
     g_clear_object (&font);
   }
 
@@ -572,7 +578,7 @@ flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   flow->text_handle.type = HANDLE_MINOR_CONTROL;
   flow->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   flow->text_handle.connected_to = NULL;
-  flow->text_handle.pos = flow->text->position;
+  dia_text_get_position (flow->text, &flow->text_handle.pos);
   obj->handles[2] = &flow->text_handle;
 
   extra->start_long =
@@ -580,8 +586,8 @@ flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
     extra->start_trans = FLOW_WIDTH/2.0;
   extra->end_trans = MAX(FLOW_WIDTH, FLOW_ARROWLEN) / 2.0;
 
-  flow->textpos = flow->text->position;
-  flow_update_data(flow);
+  dia_text_get_position (flow->text, &flow->textpos);
+  flow_update_data (flow);
 
   return &flow->connection.object;
 }

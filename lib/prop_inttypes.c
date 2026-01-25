@@ -570,12 +570,19 @@ enumprop_save(EnumProperty *prop, AttributeNode attr, DiaContext *ctx)
   data_add_enum(attr, prop->enum_data, ctx);
 }
 
+
 static void
-enumprop_get_from_offset(EnumProperty *prop,
-                         void *base, guint offset, guint offset2)
+enumprop_get_from_offset (EnumProperty *prop,
+                          void         *base,
+                          guint         offset,
+                          guint         offset2)
 {
   if (offset2 == 0) {
     prop->enum_data = struct_member(base,offset,gint);
+  } else if (offset2 == DIA_TEXT_ALIGNMENT_OFFSET) {
+    DiaText *text = struct_member (base, offset, DiaText *);
+
+    prop->enum_data = dia_text_get_alignment (text);
   } else {
     void *base2 = struct_member(base,offset,void*);
     g_return_if_fail (base2 != NULL);
@@ -583,20 +590,24 @@ enumprop_get_from_offset(EnumProperty *prop,
   }
 }
 
+
 static void
-enumprop_set_from_offset(EnumProperty *prop,
-                         void *base, guint offset, guint offset2)
+enumprop_set_from_offset (EnumProperty *prop,
+                          void         *base,
+                          guint         offset,
+                          guint         offset2)
 {
   if (offset2 == 0) {
-    struct_member(base,offset,gint) = prop->enum_data;
+    struct_member (base, offset, int) = prop->enum_data;
+  } else if (offset2 == DIA_TEXT_ALIGNMENT_OFFSET) {
+    DiaText *text = struct_member (base, offset, DiaText *);
+
+    dia_text_set_alignment (text, prop->enum_data);
   } else {
-    void *base2 = struct_member(base,offset,void*);
-    g_return_if_fail (base2 != NULL);
-    struct_member(base2,offset2,gint) = prop->enum_data;
-    g_return_if_fail (offset2 == offsetof(Text, alignment));
-    text_set_alignment (base2, prop->enum_data);
+    g_return_if_reached ();
   }
 }
+
 
 static const PropertyOps enumprop_ops = {
   (PropertyType_New) enumprop_new,

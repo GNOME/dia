@@ -69,7 +69,6 @@ ShellExecuteA (long        hwnd,
                int         nShowCmd);
 #endif
 
-#include "commands.h"
 #include "app_procs.h"
 #include "diagram.h"
 #include "display.h"
@@ -86,7 +85,6 @@ ShellExecuteA (long        hwnd,
 #include "connectionpoint_ops.h"
 #include "undo.h"
 #include "pagesetup.h"
-#include "text.h"
 #include "dia_dirs.h"
 #include "focus.h"
 #include <gdk/gdk.h>
@@ -97,7 +95,10 @@ ShellExecuteA (long        hwnd,
 #include "authors.h"                /* master contributors data */
 #include "object.h"
 #include "dia-guide-dialog.h"
+#include "dia-text.h"
 #include "dia-version-info.h"
+
+#include "commands.h"
 
 
 void
@@ -906,7 +907,7 @@ edit_cut_text_callback (GtkAction *action)
 
   prop_list_free (textprops);
 
-  if (text_delete_all (focus->text, &change, obj)) {
+  if (dia_text_delete_all (focus->text, &change, obj)) {
     object_add_updates (obj, ddisp->diagram);
     dia_object_change_change_new (ddisp->diagram, obj, change);
     undo_set_transactionpoint (ddisp->diagram->undo);

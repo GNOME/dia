@@ -31,7 +31,6 @@
 #include "handle.h"
 #include "diamenu.h"
 #include "dia_xml.h"
-#include "text.h"
 #include "diacontext.h"
 #include "diarenderer.h"
 #include "dia-object-change.h"

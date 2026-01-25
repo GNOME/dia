@@ -29,7 +29,7 @@
 #include "geometry.h"
 #include "dia_xml.h"
 #include "object.h"
-#include "text.h"
+#include "dia-text.h"
 #include "properties.h"
 #include "dia_svg.h"
 
@@ -100,7 +100,7 @@ struct _GraphicElementText {
   SHAPE_INFO_COMMON;
   Point anchor;
   char *string;
-  Text *object;
+  DiaText *object;
   DiaRectangle text_bounds;
 };
 

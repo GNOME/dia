@@ -28,9 +28,9 @@
 
 #include "object.h"
 #include "element.h"
+#include "dia-text.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "properties.h"
 
 #include "pixmaps/activity.xpm"
@@ -45,10 +45,10 @@ struct _State {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
 
-  Text *text;
+  DiaText *text;
 
-  Color line_color;
-  Color fill_color;
+  DiaColour line_color;
+  DiaColour fill_color;
 };
 
 
@@ -142,9 +142,9 @@ static PropOffset state_offsets[] = {
   {"line_colour",PROP_TYPE_COLOUR,offsetof(State,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(State,fill_color)},
   {"text",PROP_TYPE_TEXT,offsetof(State,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(State,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(State,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(State,text),offsetof(Text,color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(State,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(State,text), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(State,text), DIA_TEXT_COLOUR_OFFSET},
   { NULL, 0, 0 },
 };
 
@@ -170,13 +170,15 @@ state_distance_from(State *state, Point *point)
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
+
 static void
-state_select(State *state, Point *clicked_point,
-	       DiaRenderer *interactive_renderer)
+state_select (State       *state,
+              Point       *clicked_point,
+              DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(state->text, clicked_point, interactive_renderer);
-  text_grab_focus(state->text, &state->element.object);
-  element_update_handles(&state->element);
+  dia_text_set_cursor (state->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (state->text, &state->element.object);
+  element_update_handles (&state->element);
 }
 
 
@@ -239,28 +241,31 @@ state_draw (State *state, DiaRenderer *renderer)
                                   &state->fill_color,
                                   &state->line_color,
                                   1.0);
-  text_draw (state->text, renderer);
+  dia_text_draw (state->text, renderer);
 }
 
 
 static void
-state_update_data(State *state)
+state_update_data (State *state)
 {
-  real w, h;
-
+  double w, h;
   Element *elem = &state->element;
   ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
   Point p;
 
-  text_calc_boundingbox(state->text, NULL);
-  w = state->text->max_width + 2*STATE_MARGIN_X;
-  h = state->text->height*state->text->numlines +2*STATE_MARGIN_Y;
-  if (w < STATE_WIDTH)
+  dia_text_calc_boundingbox (state->text, NULL);
+  w = dia_text_get_max_width (state->text) + (2 * STATE_MARGIN_X);
+  h = dia_text_get_height (state->text) *
+    dia_text_get_n_lines (state->text) + (2 * STATE_MARGIN_Y);
+
+  if (w < STATE_WIDTH) {
     w = STATE_WIDTH;
+  }
+
   p.x = elem->corner.x + w/2.0;
-  p.y = elem->corner.y + STATE_MARGIN_Y + state->text->ascent;
-  text_set_position(state->text, &p);
+  p.y = elem->corner.y + STATE_MARGIN_Y + dia_text_get_ascent (state->text);
+  dia_text_set_position (state->text, &p);
 
   elem->width = w;
   elem->height = h;
@@ -308,12 +313,12 @@ state_create_activity(Point *startpoint,
   p.x += STATE_WIDTH/2.0;
   p.y += STATE_HEIGHT/2.0;
 
-  state->text = new_text ("",
-                          font,
-                          0.8,
-                          &p,
-                          &DIA_COLOUR_BLACK,
-                          DIA_ALIGN_CENTRE);
+  state->text = dia_text_new ("",
+                              font,
+                              0.8,
+                              &p,
+                              &DIA_COLOUR_BLACK,
+                              DIA_ALIGN_CENTRE);
   g_clear_object (&font);
   element_init (elem, 8, NUM_CONNECTIONS);
 
@@ -335,13 +340,15 @@ state_create_activity(Point *startpoint,
   return &state->element.object;;
 }
 
-static void
-state_destroy(State *state)
-{
-  text_destroy(state->text);
 
-  element_destroy(&state->element);
+static void
+state_destroy (State *state)
+{
+  dia_clear_part (&state->text);
+
+  element_destroy (&state->element);
 }
+
 
 static DiaObject *
 state_load(ObjectNode obj_node, int version,DiaContext *ctx)

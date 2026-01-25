@@ -26,9 +26,9 @@
 
 #include "object.h"
 #include "element.h"
+#include "dia-text.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "properties.h"
 
 #include "uml.h"
@@ -46,14 +46,14 @@ struct _Objet {
   ConnectionPoint connections[NUM_CONNECTIONS];
 
   char *stereotype;
-  Text *text;
+  DiaText *text;
   char *exstate;  /* used for explicit state */
-  Text *attributes;
+  DiaText *attributes;
 
   TextAttributes text_attrs; /* for both text objects */
-  real line_width;
-  Color line_color;
-  Color fill_color;
+  double line_width;
+  DiaColour line_color;
+  DiaColour fill_color;
 
   Point ex_pos, st_pos;
   int is_active;
@@ -200,11 +200,11 @@ static PropOffset objet_offsets[] = {
 static void
 objet_get_props (Objet * objet, GPtrArray *props)
 {
-  text_get_attributes (objet->text, &objet->text_attrs);
+  dia_text_get_attributes (objet->text, &objet->text_attrs);
   /* the aligement is _not_ part of the deal */
   objet->text_attrs.alignment = DIA_ALIGN_CENTRE;
   g_clear_pointer (&objet->attrib, g_free);
-  objet->attrib = text_get_string_copy (objet->attributes);
+  objet->attrib = dia_text_get_string_copy (objet->attributes);
 
   object_get_props_from_offsets (&objet->element.object,
                                  objet_offsets,
@@ -236,15 +236,19 @@ objet_distance_from(Objet *ob, Point *point)
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
+
 static void
-objet_select(Objet *ob, Point *clicked_point,
-	       DiaRenderer *interactive_renderer)
+objet_select (Objet       *ob,
+              Point       *clicked_point,
+              DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(ob->text, clicked_point, interactive_renderer);
-  text_grab_focus(ob->text, &ob->element.object);
-  if (ob->show_attributes) /* second focus: allows to <tab> between them */
-    text_grab_focus(ob->attributes, &ob->element.object);
-  element_update_handles(&ob->element);
+  dia_text_set_cursor (ob->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (ob->text, &ob->element.object);
+  if (ob->show_attributes) {
+    /* second focus: allows to <tab> between them */
+    dia_text_grab_focus (ob->attributes, &ob->element.object);
+  }
+  element_update_handles (&ob->element);
 }
 
 
@@ -282,7 +286,7 @@ objet_draw (Objet *ob, DiaRenderer *renderer)
   Element *elem;
   double bw, x, y, w, h;
   Point p1, p2;
-  int i;
+  Point text_position;
 
   g_return_if_fail (ob != NULL);
   g_return_if_fail (renderer != NULL);
@@ -325,9 +329,11 @@ objet_draw (Objet *ob, DiaRenderer *renderer)
                           &ob->line_color);
 
 
-  text_draw (ob->text, renderer);
+  dia_text_draw (ob->text, renderer);
 
-  dia_renderer_set_font (renderer, ob->text->font, ob->text->height);
+  dia_renderer_set_font (renderer,
+                         dia_text_get_font (ob->text),
+                         dia_text_get_height (ob->text));
 
   if ((ob->st_stereotype != NULL) && (ob->st_stereotype[0] != '\0')) {
     dia_renderer_draw_string (renderer,
@@ -346,26 +352,29 @@ objet_draw (Objet *ob, DiaRenderer *renderer)
   }
 
   /* Is there a better way to underline? */
-  p1.x = x + (w - text_get_max_width (ob->text))/2;
-  p1.y = ob->text->position.y + text_get_descent (ob->text);
-  p2.x = p1.x + text_get_max_width (ob->text);
+  p1.x = x + (w - dia_text_get_max_width (ob->text)) / 2;
+  dia_text_get_position (ob->text, &text_position);
+  p1.y = text_position.y + dia_text_get_descent (ob->text);
+  p2.x = p1.x + dia_text_get_max_width (ob->text);
   p2.y = p1.y;
 
   dia_renderer_set_linewidth (renderer, ob->line_width/2);
 
-  for (i=0; i<ob->text->numlines; i++) {
-    p1.x = x + (w - text_get_line_width (ob->text, i))/2;
-    p2.x = p1.x + text_get_line_width (ob->text, i);
+  for (size_t i = 0; i < dia_text_get_n_lines (ob->text); i++) {
+    p1.x = x + (w - dia_text_get_line_width (ob->text, i))/2;
+    p2.x = p1.x + dia_text_get_line_width (ob->text, i);
     dia_renderer_draw_line (renderer,
                             &p1,
                             &p2,
                             &ob->text_attrs.color);
-    p1.y = p2.y += ob->text->height;
+    p1.y = p2.y += dia_text_get_height (ob->text);
   }
 
   if (ob->show_attributes) {
     p1.x = x; p2.x = x + w;
-    p1.y = p2.y = ob->attributes->position.y - ob->attributes->ascent - OBJET_MARGIN_Y (ob);
+    dia_text_get_position (ob->attributes, &text_position);
+    p1.y = p2.y = text_position.y - dia_text_get_ascent (ob->attributes) -
+      OBJET_MARGIN_Y (ob);
 
     dia_renderer_set_linewidth (renderer, bw);
     dia_renderer_draw_line (renderer,
@@ -373,7 +382,7 @@ objet_draw (Objet *ob, DiaRenderer *renderer)
                             &p2,
                             &ob->line_color);
 
-    text_draw (ob->attributes, renderer);
+    dia_text_draw (ob->attributes, renderer);
   }
 }
 
@@ -384,16 +393,16 @@ objet_update_data(Objet *ob)
   DiaObject *obj = &elem->object;
   DiaFont *font;
   Point p1, p2;
-  real h, w = 0;
+  double h, w = 0;
 
-  text_calc_boundingbox(ob->text, NULL);
-  ob->stereotype = remove_stereotype_from_string(ob->stereotype);
+  dia_text_calc_boundingbox (ob->text, NULL);
+  ob->stereotype = remove_stereotype_from_string (ob->stereotype);
   if (!ob->st_stereotype) {
-    ob->st_stereotype =  string_to_stereotype(ob->stereotype);
+    ob->st_stereotype =  string_to_stereotype (ob->stereotype);
   }
 
-  font = ob->text->font;
-  h = elem->corner.y + OBJET_MARGIN_Y(ob);
+  font = dia_text_get_font (ob->text);
+  h = elem->corner.y + OBJET_MARGIN_Y (ob);
 
   if (ob->is_multiple) {
     h += OBJET_MARGIN_M(ob);
@@ -406,35 +415,38 @@ objet_update_data(Objet *ob)
       h += OBJET_MARGIN_Y(ob)/2.0;
   }
 
-  w = MAX(w, ob->text->max_width);
-  p1.y = h + ob->text->ascent;  /* position of text */
+  w = MAX (w, dia_text_get_max_width (ob->text));
+  p1.y = h + dia_text_get_ascent (ob->text);  /* position of text */
 
-  h += ob->text->height*ob->text->numlines;
+  h += dia_text_get_height (ob->text) * dia_text_get_n_lines (ob->text);
 
   if ((ob->exstate != NULL) && (ob->exstate[0] != '\0')) {
-      w = MAX(w, dia_font_string_width(ob->exstate, font, OBJET_FONTHEIGHT(ob)));
-      h += OBJET_FONTHEIGHT(ob);
-      ob->ex_pos.y = h;
+    w = MAX (w, dia_font_string_width (ob->exstate,
+                                       font,
+                                       OBJET_FONTHEIGHT (ob)));
+    h += OBJET_FONTHEIGHT (ob);
+    ob->ex_pos.y = h;
   }
 
   h += OBJET_MARGIN_Y(ob);
 
   if (ob->show_attributes) {
-      h += OBJET_MARGIN_Y(ob) + ob->attributes->ascent;
-      p2.x = elem->corner.x + OBJET_MARGIN_X(ob);
-      p2.y = h;
-      text_set_position(ob->attributes, &p2);
+    h += OBJET_MARGIN_Y (ob) + dia_text_get_ascent (ob->attributes);
+    p2.x = elem->corner.x + OBJET_MARGIN_X (ob);
+    p2.y = h;
+    dia_text_set_position (ob->attributes, &p2);
 
-      h += ob->attributes->height*ob->attributes->numlines;
+    h += dia_text_get_height (ob->attributes) *
+      dia_text_get_n_lines (ob->attributes);
 
-      text_calc_boundingbox(ob->attributes, NULL);
-      w = MAX(w, ob->attributes->max_width);
+    dia_text_calc_boundingbox (ob->attributes, NULL);
+    w = MAX (w, dia_text_get_max_width (ob->attributes));
   }
 
   w += 2*OBJET_MARGIN_X(ob);
 
   p1.x = elem->corner.x + w/2.0;
-  text_set_position(ob->text, &p1);
+  dia_text_set_position(ob->text, &p1);
 
   ob->ex_pos.x = ob->st_pos.x = p1.x;
 
@@ -495,15 +507,20 @@ objet_create(Point *startpoint,
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  ob->attributes = new_text ("",
-                             font,
-                             0.8,
-                             &p,
-                             &DIA_COLOUR_BLACK,
-                             DIA_ALIGN_LEFT);
+  ob->attributes = dia_text_new ("",
+                                 font,
+                                 0.8,
+                                 &p,
+                                 &DIA_COLOUR_BLACK,
+                                 DIA_ALIGN_LEFT);
   ob->attrib = NULL;
-  ob->text = new_text ("", font, 0.8, &p, &DIA_COLOUR_BLACK, DIA_ALIGN_CENTRE);
-  text_get_attributes(ob->text,&ob->text_attrs);
+  ob->text = dia_text_new ("",
+                           font,
+                           0.8,
+                           &p,
+                           &DIA_COLOUR_BLACK,
+                           DIA_ALIGN_CENTRE);
+  dia_text_get_attributes (ob->text, &ob->text_attrs);
 
   g_clear_object (&font);
 
@@ -532,8 +549,8 @@ objet_create(Point *startpoint,
 static void
 objet_destroy (Objet *ob)
 {
-  text_destroy (ob->text);
-  text_destroy (ob->attributes);
+  dia_clear_part (&ob->text);
+  dia_clear_part (&ob->attributes);
 
   g_clear_pointer (&ob->stereotype, g_free);
   g_clear_pointer (&ob->st_stereotype, g_free);

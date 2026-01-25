@@ -181,9 +181,9 @@ static PropOffset aadlbox_offsets[] = {
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,fill_color)},
   {"name",PROP_TYPE_TEXT,offsetof(Aadlbox,name)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Aadlbox,name),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Aadlbox,name),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,name),offsetof(Text,color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Aadlbox,name), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Aadlbox,name), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,name), DIA_TEXT_COLOUR_OFFSET},
   { NULL, 0, 0 },
 };
 
@@ -705,20 +705,25 @@ aadlbox_delete_connection_callback (DiaObject *obj,
  **          "CLASSIC FUNCTIONS"              **
  ***********************************************/
 
-real
-aadlbox_distance_from(Aadlbox *aadlbox, Point *point)
+double
+aadlbox_distance_from (Aadlbox *aadlbox, Point *point)
 {
   DiaObject *obj = &aadlbox->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+
+  return distance_rectangle_point (&obj->bounding_box, point);
 }
 
+
 void
-aadlbox_select(Aadlbox *aadlbox, Point *clicked_point,
-		    DiaRenderer *interactive_renderer)
+aadlbox_select (Aadlbox     *aadlbox,
+                Point       *clicked_point,
+                DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(aadlbox->name, clicked_point, interactive_renderer);
-  text_grab_focus(aadlbox->name, &aadlbox->element.object);
-  element_update_handles(&aadlbox->element);
+  dia_text_set_cursor (aadlbox->name,
+                       clicked_point,
+                       interactive_renderer);
+  dia_text_grab_focus (aadlbox->name, &aadlbox->element.object);
+  element_update_handles (&aadlbox->element);
 }
 
 
@@ -816,7 +821,7 @@ aadlbox_move (Aadlbox *aadlbox, Point *to)
 
   p = *to;
   p.x += AADLBOX_TEXT_MARGIN;
-  p.y += aadlbox->name->ascent + AADLBOX_TEXT_MARGIN;
+  p.y += dia_text_get_ascent (aadlbox->name) + AADLBOX_TEXT_MARGIN;
 
   aadlbox_update_data (aadlbox);
 
@@ -824,26 +829,27 @@ aadlbox_move (Aadlbox *aadlbox, Point *to)
 }
 
 
-void aadlbox_draw(Aadlbox *aadlbox, DiaRenderer *renderer)
+void
+aadlbox_draw (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  int i;
-
-  text_draw(aadlbox->name, renderer);
+  dia_text_draw (aadlbox->name, renderer);
 
   /* draw ports */
-  for (i=0;i<aadlbox->num_ports;i++)
-    aadlbox_draw_port(aadlbox->ports[i], renderer);
+  for (int i = 0; i < aadlbox->num_ports; i++) {
+    aadlbox_draw_port (aadlbox->ports[i], renderer);
+  }
 }
 
 
 static void
-aadlbox_update_text_position(Aadlbox *aadlbox)
+aadlbox_update_text_position (Aadlbox *aadlbox)
 {
   Point p;
 
-  aadlbox->specific->text_position(aadlbox, &p);
-  text_set_position(aadlbox->name, &p);
+  aadlbox->specific->text_position (aadlbox, &p);
+  dia_text_set_position (aadlbox->name, &p);
 }
+
 
 static void
 aadlbox_update_data(Aadlbox *aadlbox)
@@ -917,12 +923,12 @@ DiaObject *aadlbox_create(Point *startpoint, void *user_data,
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  aadlbox->name = new_text ("",
-                            font,
-                            0.8,
-                            &p,
-                            &DIA_COLOUR_BLACK,
-                            DIA_ALIGN_LEFT);
+  aadlbox->name = dia_text_new ("",
+                                font,
+                                0.8,
+                                &p,
+                                &DIA_COLOUR_BLACK,
+                                DIA_ALIGN_LEFT);
   g_clear_object (&font);
 
   element_init(elem, 8, 0);  /* 8 handles and 0 connection */
@@ -939,7 +945,7 @@ DiaObject *aadlbox_create(Point *startpoint, void *user_data,
 void
 aadlbox_destroy (Aadlbox *aadlbox)
 {
-  g_clear_pointer (&aadlbox->name, text_destroy);
+  dia_clear_part (&aadlbox->name);
 
   /* object_unconnect needs valid handles (from ports) */
   element_destroy (&aadlbox->element);

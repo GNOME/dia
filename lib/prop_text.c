@@ -30,9 +30,10 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
+
 #include "properties.h"
 #include "propinternals.h"
-#include "text.h"
+#include "dia-text.h"
 #include "group.h"
 #include "attributes.h"
 
@@ -421,49 +422,63 @@ textprop_free (TextProperty *prop)
   g_clear_pointer (&prop, g_free);
 }
 
+
 static void
-textprop_load(TextProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
+textprop_load (TextProperty  *prop,
+               AttributeNode  attr,
+               DataNode       data,
+               DiaContext    *ctx)
 {
-  Text *text;
+  DiaText *text;
   g_clear_pointer (&prop->text_data, g_free);
-  text = data_text(data, ctx);
-  text_get_attributes(text,&prop->attr);
-  prop->text_data = text_get_string_copy(text);
-  text_destroy(text);
+  text = data_text (data, ctx);
+  dia_text_get_attributes (text, &prop->attr);
+  prop->text_data = dia_text_get_string_copy (text);
+  dia_clear_part (&text);
 }
 
-static void
-textprop_save(TextProperty *prop, AttributeNode attr, DiaContext *ctx)
-{
-  Text *text = new_text(prop->text_data,
-                        prop->attr.font,
-                        prop->attr.height,
-                        &prop->attr.position,
-                        &prop->attr.color,
-                        prop->attr.alignment);
-  data_add_text(attr, text, ctx);
-  text_destroy(text);
-}
 
 static void
-textprop_get_from_offset(TextProperty *prop,
-                         void *base, guint offset, guint offset2)
+textprop_save (TextProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
-  Text *text = struct_member(base,offset,Text *);
+  DiaText *text = dia_text_new (prop->text_data,
+                                prop->attr.font,
+                                prop->attr.height,
+                                &prop->attr.position,
+                                &prop->attr.color,
+                                prop->attr.alignment);
+  data_add_text (attr, text, ctx);
+  dia_clear_part (&text);
+}
+
+
+static void
+textprop_get_from_offset (TextProperty *prop,
+                          void         *base,
+                          guint         offset,
+                          guint         offset2)
+{
+  DiaText *text = struct_member (base, offset, DiaText *);
   g_clear_pointer (&prop->text_data, g_free);
-  prop->text_data = text_get_string_copy(text);
-  text_get_attributes(text,&prop->attr);
+  prop->text_data = dia_text_get_string_copy (text);
+  dia_text_get_attributes (text, &prop->attr);
 }
 
+
 static void
-textprop_set_from_offset(TextProperty *prop,
-                         void *base, guint offset, guint offset2)
+textprop_set_from_offset (TextProperty *prop,
+                          void         *base,
+                          guint         offset,
+                          guint         offset2)
 {
-  Text *text = struct_member(base,offset,Text *);
-  text_set_string(text,prop->text_data);
-  if (prop->attr.color.alpha != 0.0) /* HACK */
-    text_set_attributes(text,&prop->attr);
+  DiaText *text = struct_member (base, offset, DiaText *);
+  dia_text_set_string (text, prop->text_data);
+  if (prop->attr.color.alpha != 0.0) {
+    /* HACK */
+    dia_text_set_attributes (text, &prop->attr);
+  }
 }
+
 
 static const PropertyOps textprop_ops = {
   (PropertyType_New) textprop_new,

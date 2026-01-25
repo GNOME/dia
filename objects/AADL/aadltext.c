@@ -27,34 +27,42 @@
 /* functions useful for text positionning */
 
 /* DATA */
-void aadldata_text_position(Aadlbox *aadlbox, Point *p)
+void
+aadldata_text_position (Aadlbox *aadlbox, Point *p)
 {
   Element *elem = &aadlbox->element;
 
-  text_calc_boundingbox(aadlbox->name, NULL);
+  dia_text_calc_boundingbox (aadlbox->name, NULL);
   p->x = elem->corner.x + AADLBOX_TEXT_MARGIN;
-  p->y = elem->corner.y + AADLBOX_TEXT_MARGIN + aadlbox->name->ascent;
+  p->y = elem->corner.y + AADLBOX_TEXT_MARGIN +
+    dia_text_get_ascent (aadlbox->name);
 }
 
-void aadldata_minsize(Aadlbox *aadlbox, Point *size)
+
+void
+aadldata_minsize (Aadlbox *aadlbox, Point *size)
 {
-  text_calc_boundingbox(aadlbox->name, NULL);
-  size->x = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
-  size->y = aadlbox->name->height * aadlbox->name->numlines
-                                   + 2*AADLBOX_TEXT_MARGIN;
+  dia_text_calc_boundingbox (aadlbox->name, NULL);
+  size->x = dia_text_get_max_width (aadlbox->name) +
+    (2 * AADLBOX_TEXT_MARGIN);
+  size->y = dia_text_get_height (aadlbox->name) *
+    dia_text_get_n_lines (aadlbox->name) + (2 * AADLBOX_TEXT_MARGIN);
 }
 
 
 /* PROCESS */
-void aadlprocess_text_position(Aadlbox *aadlbox, Point *p)
+void
+aadlprocess_text_position(Aadlbox *aadlbox, Point *p)
 {
   Element *elem = &aadlbox->element;
 
-  text_calc_boundingbox(aadlbox->name, NULL);
-  p->x = elem->corner.x + elem->width * AADLBOX_INCLINE_FACTOR
-                        + AADLBOX_TEXT_MARGIN;
-  p->y = elem->corner.y + AADLBOX_TEXT_MARGIN + aadlbox->name->ascent;
+  dia_text_calc_boundingbox (aadlbox->name, NULL);
+  p->x = elem->corner.x + elem->width * AADLBOX_INCLINE_FACTOR +
+    AADLBOX_TEXT_MARGIN;
+  p->y = elem->corner.y + AADLBOX_TEXT_MARGIN +
+    dia_text_get_ascent (aadlbox->name);
 }
+
 
 void aadlprocess_minsize(Aadlbox *aadlbox, Point *size)
 {
@@ -72,39 +80,43 @@ void aadlprocess_minsize(Aadlbox *aadlbox, Point *size)
      L == 2d + w   and   d == L*Factor   <===>  L == w / (1 - 2*Factor)
 
   */
-  real w, L;
+  double w, L;
 
-  text_calc_boundingbox(aadlbox->name, NULL);
-  w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
+  dia_text_calc_boundingbox (aadlbox->name, NULL);
+  w = dia_text_get_max_width (aadlbox->name) + (2 * AADLBOX_TEXT_MARGIN);
   L = w / (1 - 2 * AADLBOX_INCLINE_FACTOR);
 
   size->x = L;
-  size->y = aadlbox->name->height * aadlbox->name->numlines
-              + 2*AADLBOX_TEXT_MARGIN;
+  size->y = dia_text_get_height (aadlbox->name) *
+    dia_text_get_n_lines (aadlbox->name) + (2 * AADLBOX_TEXT_MARGIN);
 }
 
+
 /* BUS */
-void aadlbus_text_position(Aadlbox *aadlbox, Point *p)
+void
+aadlbus_text_position (Aadlbox *aadlbox, Point *p)
 {
   Element *elem = &aadlbox->element;
 
-  text_calc_boundingbox(aadlbox->name, NULL);
-  p->x = elem->corner.x + elem->width * AADL_BUS_ARROW_SIZE_FACTOR
-                        + AADLBOX_TEXT_MARGIN;
-  p->y = elem->corner.y + elem->height * AADL_BUS_HEIGHT_FACTOR
-                        + AADLBOX_TEXT_MARGIN + aadlbox->name->ascent;
+  dia_text_calc_boundingbox (aadlbox->name, NULL);
+  p->x = elem->corner.x + elem->width * AADL_BUS_ARROW_SIZE_FACTOR +
+    AADLBOX_TEXT_MARGIN;
+  p->y = elem->corner.y + elem->height * AADL_BUS_HEIGHT_FACTOR +
+    AADLBOX_TEXT_MARGIN + dia_text_get_ascent (aadlbox->name);
 }
 
-void aadlbus_minsize(Aadlbox *aadlbox, Point *size)
-{
-  real w, L, h, H;
 
-  text_calc_boundingbox(aadlbox->name, NULL);
-  w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
+void
+aadlbus_minsize (Aadlbox *aadlbox, Point *size)
+{
+  double w, L, h, H;
+
+  dia_text_calc_boundingbox (aadlbox->name, NULL);
+  w = dia_text_get_max_width (aadlbox->name) + (2 * AADLBOX_TEXT_MARGIN);
   L = w / (1 - 2 * AADL_BUS_ARROW_SIZE_FACTOR);
 
-  h = aadlbox->name->height * aadlbox->name->numlines
-                    + 2*AADLBOX_TEXT_MARGIN;
+  h = dia_text_get_height (aadlbox->name) *
+    dia_text_get_n_lines (aadlbox->name) + (2 * AADLBOX_TEXT_MARGIN);
   H = h / (1 - 2 * AADL_BUS_HEIGHT_FACTOR);
 
   size->x = L;
@@ -115,27 +127,30 @@ void aadlbus_minsize(Aadlbox *aadlbox, Point *size)
 /*  SYSTEM */
 #define SYSTEM_FACTOR (AADL_ROUNDEDBOX_CORNER_SIZE_FACTOR / 5)
 
-void aadlsystem_text_position(Aadlbox *aadlbox, Point *p)
+void
+aadlsystem_text_position (Aadlbox *aadlbox, Point *p)
 {
   Element *elem = &aadlbox->element;
 
-  text_calc_boundingbox(aadlbox->name, NULL);
-  p->x = elem->corner.x + elem->width * SYSTEM_FACTOR
-                        + AADLBOX_TEXT_MARGIN;
-  p->y = elem->corner.y + elem->height * SYSTEM_FACTOR
-                        + AADLBOX_TEXT_MARGIN + aadlbox->name->ascent;
+  dia_text_calc_boundingbox (aadlbox->name, NULL);
+  p->x = elem->corner.x + elem->width * SYSTEM_FACTOR +
+    AADLBOX_TEXT_MARGIN;
+  p->y = elem->corner.y + elem->height * SYSTEM_FACTOR +
+    AADLBOX_TEXT_MARGIN + dia_text_get_ascent (aadlbox->name);
 }
 
-void aadlsystem_minsize(Aadlbox *aadlbox, Point *size)
-{
-  real w, L, h, H;
 
-  text_calc_boundingbox(aadlbox->name, NULL);
-  w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
+void
+aadlsystem_minsize (Aadlbox *aadlbox, Point *size)
+{
+  double w, L, h, H;
+
+  dia_text_calc_boundingbox (aadlbox->name, NULL);
+  w = dia_text_get_max_width (aadlbox->name) + (2 * AADLBOX_TEXT_MARGIN);
   L = w / (1 - 2 * SYSTEM_FACTOR);
 
-  h = aadlbox->name->height * aadlbox->name->numlines
-                    + 2*AADLBOX_TEXT_MARGIN;
+  h = dia_text_get_height (aadlbox->name) *
+    dia_text_get_n_lines (aadlbox->name) + (2 * AADLBOX_TEXT_MARGIN);
   H = h / (1 - 2 * SYSTEM_FACTOR);
 
   size->x = L;
@@ -145,51 +160,58 @@ void aadlsystem_minsize(Aadlbox *aadlbox, Point *size)
 /* MEMORY */
 #define MEMORY_FACTOR (AADL_MEMORY_FACTOR)
 
-void aadlmemory_text_position(Aadlbox *aadlbox, Point *p)
+void
+aadlmemory_text_position (Aadlbox *aadlbox, Point *p)
 {
   Element *elem = &aadlbox->element;
 
-  text_calc_boundingbox(aadlbox->name, NULL);
+  dia_text_calc_boundingbox (aadlbox->name, NULL);
   p->x = elem->corner.x + AADLBOX_TEXT_MARGIN;
-  p->y = elem->corner.y + 2 * elem->height * MEMORY_FACTOR
-                        + AADLBOX_TEXT_MARGIN + aadlbox->name->ascent;
+  p->y = elem->corner.y + 2 * elem->height * MEMORY_FACTOR +
+    AADLBOX_TEXT_MARGIN + dia_text_get_ascent (aadlbox->name);
 }
 
-void aadlmemory_minsize(Aadlbox *aadlbox, Point *size)
+
+void
+aadlmemory_minsize (Aadlbox *aadlbox, Point *size)
 {
-  real w, h, H;
+  double w, h, H;
 
-  text_calc_boundingbox(aadlbox->name, NULL);
-  w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
+  dia_text_calc_boundingbox (aadlbox->name, NULL);
+  w = dia_text_get_max_width (aadlbox->name) + (2 * AADLBOX_TEXT_MARGIN);
 
-  h = aadlbox->name->height * aadlbox->name->numlines
-                    + 2*AADLBOX_TEXT_MARGIN;
+  h = dia_text_get_height (aadlbox->name) *
+    dia_text_get_n_lines (aadlbox->name) + (2 * AADLBOX_TEXT_MARGIN);
   H = h / (1 - 3 * MEMORY_FACTOR);
 
   size->x = w;
   size->y = H;
 }
 
+
 /* SUBPROGRAM */
-void aadlsubprogram_text_position(Aadlbox *aadlbox, Point *p)
+void
+aadlsubprogram_text_position (Aadlbox *aadlbox, Point *p)
 {
   Element *elem = &aadlbox->element;
 
-  text_calc_boundingbox(aadlbox->name, NULL);
+  dia_text_calc_boundingbox (aadlbox->name, NULL);
   p->x = elem->corner.x+ (2-sqrt(2))/4 * elem->width + AADLBOX_TEXT_MARGIN;
   p->y = elem->corner.y+ (2-sqrt(2))/4 * elem->height + AADLBOX_TEXT_MARGIN
-         + aadlbox->name->ascent;
+         + dia_text_get_ascent (aadlbox->name);
 }
 
-void aadlsubprogram_minsize(Aadlbox *aadlbox, Point *size)
+
+void
+aadlsubprogram_minsize (Aadlbox *aadlbox, Point *size)
 {
-  real w, h;
+  double w, h;
 
-  text_calc_boundingbox(aadlbox->name, NULL);
+  dia_text_calc_boundingbox (aadlbox->name, NULL);
 
-  w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
-  h = aadlbox->name->height * aadlbox->name->numlines
-                  + 2*AADLBOX_TEXT_MARGIN;
+  w = dia_text_get_max_width (aadlbox->name) + (2 * AADLBOX_TEXT_MARGIN);
+  h = dia_text_get_height (aadlbox->name) *
+    dia_text_get_n_lines (aadlbox->name) + (2 * AADLBOX_TEXT_MARGIN);
 
   size->x = w * sqrt(2);
   size->y = h * sqrt(2);

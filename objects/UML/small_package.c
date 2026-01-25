@@ -25,9 +25,9 @@
 
 #include "object.h"
 #include "element.h"
+#include "dia-text.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "properties.h"
 
 #include "stereotype.h"
@@ -43,13 +43,13 @@ struct _SmallPackage {
   ConnectionPoint connections[NUM_CONNECTIONS];
 
   char *stereotype;
-  Text *text;
+  DiaText *text;
 
   char *st_stereotype;
 
-  real line_width;
-  Color line_color;
-  Color fill_color;
+  double line_width;
+  DiaColour line_color;
+  DiaColour fill_color;
 };
 
 /* The old border width, kept for compatibility with dia files created with
@@ -143,9 +143,9 @@ static PropOffset smallpackage_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   {"stereotype", PROP_TYPE_STRING, offsetof(SmallPackage , stereotype) },
   {"text",PROP_TYPE_TEXT,offsetof(SmallPackage,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(SmallPackage,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(SmallPackage,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(SmallPackage,text),offsetof(Text,color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(SmallPackage,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(SmallPackage,text), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(SmallPackage,text), DIA_TEXT_COLOUR_OFFSET},
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(SmallPackage, line_width) },
   {"line_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, line_color) },
   {"fill_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, fill_color) },
@@ -191,13 +191,15 @@ smallpackage_distance_from (SmallPackage *pkg, Point *point)
   return MIN(d1, d2);
 }
 
+
 static void
-smallpackage_select(SmallPackage *pkg, Point *clicked_point,
-	       DiaRenderer *interactive_renderer)
+smallpackage_select (SmallPackage *pkg,
+                     Point        *clicked_point,
+                     DiaRenderer  *interactive_renderer)
 {
-  text_set_cursor(pkg->text, clicked_point, interactive_renderer);
-  text_grab_focus(pkg->text, &pkg->element.object);
-  element_update_handles(&pkg->element);
+  dia_text_set_cursor (pkg->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (pkg->text, &pkg->element.object);
+  element_update_handles (&pkg->element);
 }
 
 
@@ -228,8 +230,8 @@ smallpackage_move(SmallPackage *pkg, Point *to)
 
   p = *to;
   p.x += SMALLPACKAGE_MARGIN_X;
-  p.y += pkg->text->ascent + SMALLPACKAGE_MARGIN_Y;
-  text_set_position(pkg->text, &p);
+  p.y += dia_text_get_ascent (pkg->text) + SMALLPACKAGE_MARGIN_Y;
+  dia_text_set_position (pkg->text, &p);
 
   smallpackage_update_data(pkg);
 
@@ -275,18 +277,24 @@ smallpackage_draw (SmallPackage *pkg, DiaRenderer *renderer)
                           &pkg->fill_color,
                           &pkg->line_color);
 
-  text_draw(pkg->text, renderer);
+  dia_text_draw (pkg->text, renderer);
 
   if ((pkg->st_stereotype != NULL) && (pkg->st_stereotype[0] != '\0')) {
-    dia_renderer_set_font (renderer, pkg->text->font, pkg->text->height);
+    DiaColour text_colour;
 
-    p1 = pkg->text->position;
-    p1.y -= pkg->text->height;
+    dia_renderer_set_font (renderer,
+                           dia_text_get_font (pkg->text),
+                           dia_text_get_height (pkg->text));
+
+    dia_text_get_position (pkg->text, &p1);
+    p1.y -= dia_text_get_height (pkg->text);
+
+    dia_text_get_colour (pkg->text, &text_colour);
     dia_renderer_draw_string (renderer,
                               pkg->st_stereotype,
                               &p1,
                               DIA_ALIGN_LEFT,
-                              &pkg->text->color);
+                              &text_colour);
   }
 }
 
@@ -303,27 +311,30 @@ smallpackage_update_data(SmallPackage *pkg)
     pkg->st_stereotype =  string_to_stereotype(pkg->stereotype);
   }
 
-  text_calc_boundingbox(pkg->text, NULL);
-  elem->width = pkg->text->max_width + 2*SMALLPACKAGE_MARGIN_X;
-  elem->width = MAX(elem->width, SMALLPACKAGE_TOPWIDTH+1.0);
+  dia_text_calc_boundingbox (pkg->text, NULL);
+  elem->width = dia_text_get_max_width (pkg->text) +
+    (2 * SMALLPACKAGE_MARGIN_X);
+  elem->width = MAX (elem->width, SMALLPACKAGE_TOPWIDTH + 1.0);
   elem->height =
-    pkg->text->height*pkg->text->numlines + 2*SMALLPACKAGE_MARGIN_Y;
+    (dia_text_get_height (pkg->text) * dia_text_get_n_lines (pkg->text)) +
+      (2 * SMALLPACKAGE_MARGIN_Y);
 
   p = elem->corner;
   p.x += SMALLPACKAGE_MARGIN_X;
-  p.y += SMALLPACKAGE_MARGIN_Y + pkg->text->ascent;
+  p.y += SMALLPACKAGE_MARGIN_Y + dia_text_get_ascent (pkg->text);
 
   if ((pkg->stereotype != NULL) && (pkg->stereotype[0] != '\0')) {
-    font = pkg->text->font;
-    elem->height += pkg->text->height;
-    elem->width = MAX(elem->width,
-                      dia_font_string_width(pkg->st_stereotype,
-                                            font, pkg->text->height)+
-                      2*SMALLPACKAGE_MARGIN_X);
-    p.y += pkg->text->height;
+    font = dia_text_get_font (pkg->text);
+    elem->height += dia_text_get_height (pkg->text);
+    elem->width = MAX (elem->width,
+                       dia_font_string_width (pkg->st_stereotype,
+                                              font,
+                                              dia_text_get_height (pkg->text)) +
+                       2 * SMALLPACKAGE_MARGIN_X);
+    p.y += dia_text_get_height (pkg->text);
   }
 
-  pkg->text->position = p;
+  dia_text_set_position (pkg->text, &p);
 
   /* Update connections: */
   element_update_connections_rectangle(elem, pkg->connections);
@@ -365,7 +376,12 @@ smallpackage_create(Point *startpoint,
   p.x += SMALLPACKAGE_MARGIN_X;
   p.y += SMALLPACKAGE_MARGIN_Y+ dia_font_ascent("A",font, 0.8);
 
-  pkg->text = new_text ("", font, 0.8, &p, &DIA_COLOUR_BLACK, DIA_ALIGN_LEFT);
+  pkg->text = dia_text_new ("",
+                            font,
+                            0.8,
+                            &p,
+                            &DIA_COLOUR_BLACK,
+                            DIA_ALIGN_LEFT);
   g_clear_object (&font);
 
   element_init (elem, 8, NUM_CONNECTIONS);
@@ -400,7 +416,7 @@ smallpackage_create(Point *startpoint,
 static void
 smallpackage_destroy (SmallPackage *pkg)
 {
-  text_destroy (pkg->text);
+  dia_clear_part (&pkg->text);
 
   g_clear_pointer (&pkg->stereotype, g_free);
   g_clear_pointer (&pkg->st_stereotype, g_free);

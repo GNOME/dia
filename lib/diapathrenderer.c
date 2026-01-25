@@ -23,12 +23,13 @@
 
 #include <glib/gi18n-lib.h>
 
-#include "diapathrenderer.h"
-#include "text.h" /* just for text->color */
-#include "standard-path.h" /* for text_to_path() */
-#include "boundingbox.h"
-
 #include "attributes.h" /* attributes_get_foreground() */
+#include "boundingbox.h"
+#include "dia-text.h" /* just for text->color */
+#include "standard-path.h" /* for text_to_path() */
+
+#include "diapathrenderer.h"
+
 
 typedef enum {
   PATH_STROKE = (1<<0),
@@ -610,26 +611,29 @@ draw_beziergon (DiaRenderer *self,
 {
   _bezier(self, points, numpoints, fill, stroke);
 }
-/*!
- * \brief Convert the text object to a scaled path
- * \memberof _DiaPathRenderer
- */
+
+
 static void
 draw_text (DiaRenderer *self,
-	   Text        *text)
+           DiaText     *text)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
-  GArray *path = _get_current_path (renderer, NULL, &text->color);
-  int n0 = path->len;
+  DiaColour text_colour;
+  GArray *path;
+  int n0;
 
-  if (!text_is_empty (text) && text_to_path (text, path)) {
+  dia_text_get_colour (text, &text_colour);
+  path = _get_current_path (renderer, NULL, &text_colour);
+  n0 = path->len;
+
+  if (!dia_text_is_empty (text) && text_to_path (text, path)) {
     DiaRectangle bz_bb, tx_bb;
     PolyBBExtras extra = { 0, };
     real dx, dy, sx, sy;
     guint i;
 
     polybezier_bbox (&g_array_index (path, BezPoint, n0), path->len - n0, &extra, TRUE, &bz_bb);
-    text_calc_boundingbox (text, &tx_bb);
+    dia_text_calc_boundingbox (text, &tx_bb);
     sx = (tx_bb.right - tx_bb.left) / (bz_bb.right - bz_bb.left);
     sy = (tx_bb.bottom - tx_bb.top) / (bz_bb.bottom - bz_bb.top);
     dx = tx_bb.left - bz_bb.left * sx;
@@ -659,23 +663,23 @@ draw_string (DiaRenderer  *self,
              const char   *text,
              Point        *pos,
              DiaAlignment  alignment,
-             Color        *color)
+             DiaColour    *colour)
 {
   if (text && strlen (text)) {
-    Text *text_obj;
+    DiaText *text_obj;
     DiaFont *font;
     double font_height;
 
     font = dia_renderer_get_font (self, &font_height);
     /* it could have been so easy without the context switch */
-    text_obj = new_text (text,
-                         font,
-                         font_height,
-                         pos,
-                         color,
-                         alignment);
+    text_obj = dia_text_new (text,
+                             font,
+                             font_height,
+                             pos,
+                             colour,
+                             alignment);
     draw_text (self, text_obj);
-    text_destroy (text_obj);
+    dia_clear_part (&text_obj);
   }
 }
 

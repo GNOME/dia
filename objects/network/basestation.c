@@ -28,9 +28,9 @@
 
 #include "object.h"
 #include "element.h"
+#include "dia-text.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "properties.h"
 
 #include "pixmaps/basestation.xpm"
@@ -46,7 +46,7 @@ struct _Basestation {
   Color line_colour;
   Color fill_colour;
 
-  Text *text;
+  DiaText *text;
 
   int sectors;			/* oftenly 3 or 4, always >= 1, but
 				   check is missing */
@@ -148,11 +148,11 @@ static PropOffset basestation_offsets[] = {
   {"line_colour", PROP_TYPE_COLOUR, offsetof(Basestation, line_colour)},
   {"fill_colour", PROP_TYPE_COLOUR, offsetof(Basestation, fill_colour)},
   {"text", PROP_TYPE_TEXT, offsetof(Basestation, text)},
-  {"text_font", PROP_TYPE_FONT, offsetof(Basestation,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Basestation,text),offsetof(Text,height)},
-  {"text_colour", PROP_TYPE_COLOUR, offsetof(Basestation,text),offsetof(Text,color)},
+  {"text_font", PROP_TYPE_FONT, offsetof(Basestation,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Basestation,text), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour", PROP_TYPE_COLOUR, offsetof(Basestation,text), DIA_TEXT_COLOUR_OFFSET},
   {"text_alignment", PROP_TYPE_ENUM,
-   offsetof(Basestation,text),offsetof(Text,alignment)},
+   offsetof(Basestation,text), DIA_TEXT_ALIGNMENT_OFFSET},
   {"sectors", PROP_TYPE_INT, offsetof(Basestation, sectors)},
   { NULL, 0, 0 },
 };
@@ -179,13 +179,17 @@ basestation_distance_from(Basestation *basestation, Point *point)
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
+
 static void
-basestation_select(Basestation *basestation, Point *clicked_point,
-                   DiaRenderer *interactive_renderer)
+basestation_select (Basestation *basestation,
+                    Point       *clicked_point,
+                    DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(basestation->text, clicked_point, interactive_renderer);
-  text_grab_focus(basestation->text, &basestation->element.object);
-  element_update_handles(&basestation->element);
+  dia_text_set_cursor (basestation->text,
+                       clicked_point,
+                       interactive_renderer);
+  dia_text_grab_focus (basestation->text, &basestation->element.object);
+  element_update_handles (&basestation->element);
 }
 
 
@@ -328,7 +332,7 @@ basestation_draw (Basestation *basestation, DiaRenderer *renderer)
                              4,
                              &basestation->fill_colour,
                              &basestation->line_colour);
-  text_draw (basestation->text, renderer);
+  dia_text_draw (basestation->text, renderer);
 }
 
 static void
@@ -340,14 +344,14 @@ basestation_update_data(Basestation *basestation)
   Point p;
 
   elem->width = BASESTATION_WIDTH;
-  elem->height = BASESTATION_HEIGHT+basestation->text->height;
+  elem->height = BASESTATION_HEIGHT + dia_text_get_height (basestation->text);
 
   p = elem->corner;
-  p.x += elem->width/2;
-  p.y += elem->height + basestation->text->ascent;
-  text_set_position(basestation->text, &p);
+  p.x += elem->width / 2;
+  p.y += elem->height + dia_text_get_ascent (basestation->text);
+  dia_text_set_position (basestation->text, &p);
 
-  text_calc_boundingbox(basestation->text, &text_box);
+  dia_text_calc_boundingbox (basestation->text, &text_box);
 
   /* Update connections: */
   element_update_connections_rectangle (elem, basestation->connections);
@@ -391,12 +395,12 @@ basestation_create(Point *startpoint,
   p = *startpoint;
   p.y += BASESTATION_HEIGHT - dia_font_descent (_("Base Station"), font, 0.8);
 
-  basestation->text = new_text (_("Base Station"),
-                                font,
-                                0.8,
-                                &p,
-                                &DIA_COLOUR_BLACK,
-                                DIA_ALIGN_CENTRE);
+  basestation->text = dia_text_new (_("Base Station"),
+                                    font,
+                                    0.8,
+                                    &p,
+                                    &DIA_COLOUR_BLACK,
+                                    DIA_ALIGN_CENTRE);
   g_clear_object (&font);
   basestation->line_colour = DIA_COLOUR_BLACK;
   basestation->fill_colour = DIA_COLOUR_WHITE;
@@ -424,13 +428,15 @@ basestation_create(Point *startpoint,
   return &basestation->element.object;
 }
 
-static void
-basestation_destroy(Basestation *basestation)
-{
-  text_destroy(basestation->text);
 
-  element_destroy(&basestation->element);
+static void
+basestation_destroy (Basestation *basestation)
+{
+  dia_clear_part (&basestation->text);
+
+  element_destroy (&basestation->element);
 }
+
 
 static DiaObject *
 basestation_load(ObjectNode obj_node, int version,DiaContext *ctx)

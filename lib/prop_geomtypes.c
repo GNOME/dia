@@ -318,40 +318,51 @@ fontsizeprop_save(FontsizeProperty *prop, AttributeNode attr, DiaContext *ctx)
   data_add_real(attr, prop->fontsize_data, ctx);
 }
 
+
 static void
-fontsizeprop_get_from_offset(FontsizeProperty *prop,
-                         void *base, guint offset, guint offset2)
+fontsizeprop_get_from_offset (FontsizeProperty *prop,
+                              void             *base,
+                              guint             offset,
+                              guint             offset2)
 {
   if (offset2 == 0) {
-    prop->fontsize_data = struct_member(base,offset,real);
+    prop->fontsize_data = struct_member (base, offset, double);
+  } else if (offset2 == DIA_TEXT_HEIGHT_OFFSET) {
+    DiaText *text = struct_member (base, offset, DiaText *);
+
+    prop->fontsize_data = dia_text_get_height (text);
   } else {
-    void *base2 = struct_member(base,offset,void*);
-    prop->fontsize_data = struct_member(base2,offset2,real);
+    void *base2 = struct_member (base, offset, void *);
+
+    prop->fontsize_data = struct_member (base2, offset2, double);
   }
 }
 
+
 static void
-fontsizeprop_set_from_offset(FontsizeProperty *prop,
-                         void *base, guint offset, guint offset2)
+fontsizeprop_set_from_offset (FontsizeProperty *prop,
+                              void             *base,
+                              guint             offset,
+                              guint             offset2)
 {
   PropNumData *numdata = prop->common.descr->extra_data;
-  real value = prop->fontsize_data;
+  double value = prop->fontsize_data;
 
   if (numdata) {
-    if (value < numdata->min)
-      value = numdata->min;
-    else if (value > numdata->max)
-      value = numdata->max;
+    value = CLAMP (value, numdata->min, numdata->max);
   }
+
   if (offset2 == 0) {
-    struct_member(base,offset,real) = value;
+    struct_member (base, offset, double) = value;
+  } else if (offset2 == DIA_TEXT_HEIGHT_OFFSET) {
+    DiaText *text = struct_member (base, offset, DiaText *);
+
+    dia_text_set_height (text, value);
   } else {
-    void *base2 = struct_member(base,offset,void*);
-    struct_member(base2,offset2,real) = value;
-    g_return_if_fail (offset2 == offsetof(Text, height));
-    text_set_height ((Text*)base2, value);
+    g_return_if_reached ();
   }
 }
+
 
 static int
 fontsizeprop_get_data_size(void)

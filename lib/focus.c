@@ -31,11 +31,13 @@
 
 #include <glib/gi18n-lib.h>
 
-#include "text.h"
-#include "focus.h"
+#include "dia-layer.h"
+#include "dia-text.h"
 #include "diagramdata.h"
 #include "object.h"
-#include "dia-layer.h"
+
+#include "focus.h"
+
 
 /** Returns the list of foci for the given diagram */
 static GList *

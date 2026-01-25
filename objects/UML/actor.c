@@ -25,9 +25,9 @@
 
 #include "object.h"
 #include "element.h"
+#include "dia-text.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "properties.h"
 
 #include "pixmaps/actor.xpm"
@@ -40,11 +40,11 @@ struct _Actor {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
 
-  Text *text;
+  DiaText *text;
 
-  real line_width;
-  Color line_color;
-  Color fill_color;
+  double line_width;
+  DiaColour line_color;
+  DiaColour fill_color;
 };
 
 #define ACTOR_WIDTH 2.2
@@ -138,9 +138,9 @@ actor_describe_props(Actor *actor)
 static PropOffset actor_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Actor,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Actor,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Actor,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Actor,text),offsetof(Text,color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Actor,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Actor,text), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Actor,text), DIA_TEXT_COLOUR_OFFSET},
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Actor, line_width) },
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Actor,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Actor,fill_color)},
@@ -169,13 +169,15 @@ actor_distance_from(Actor *actor, Point *point)
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
+
 static void
-actor_select(Actor *actor, Point *clicked_point,
-	       DiaRenderer *interactive_renderer)
+actor_select (Actor       *actor,
+              Point       *clicked_point,
+              DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(actor->text, clicked_point, interactive_renderer);
-  text_grab_focus(actor->text, &actor->element.object);
-  element_update_handles(&actor->element);
+  dia_text_set_cursor (actor->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (actor->text, &actor->element.object);
+  element_update_handles (&actor->element);
 }
 
 
@@ -239,7 +241,7 @@ actor_draw (Actor *actor, DiaRenderer *renderer)
   x = elem->corner.x;
   y = elem->corner.y;
   w = elem->width;
-  actor_height = elem->height - actor->text->height;
+  actor_height = elem->height - dia_text_get_height (actor->text);
 
   dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, actor->line_width);
@@ -290,26 +292,31 @@ actor_draw (Actor *actor, DiaRenderer *renderer)
                           &p2,
                           &actor->line_color);
 
-  text_draw (actor->text, renderer);
+  dia_text_draw (actor->text, renderer);
 }
 
+
 static void
-actor_update_data(Actor *actor)
+actor_update_data (Actor *actor)
 {
   Element *elem = &actor->element;
   DiaObject *obj = &elem->object;
   DiaRectangle text_box;
   Point p;
-  real actor_height;
+  double actor_height;
 
-  text_calc_boundingbox(actor->text, &text_box);
+  dia_text_calc_boundingbox (actor->text, &text_box);
 
   /* minimum size */
-  if (elem->width < ACTOR_WIDTH + ACTOR_MARGIN_X)
+  if (elem->width < ACTOR_WIDTH + ACTOR_MARGIN_X) {
     elem->width = ACTOR_WIDTH + ACTOR_MARGIN_X;
-  if (elem->height < ACTOR_HEIGHT + actor->text->height)
-    elem->height = ACTOR_HEIGHT + actor->text->height;
-  actor_height = elem->height - actor->text->height;
+  }
+
+  if (elem->height < ACTOR_HEIGHT + dia_text_get_height (actor->text)) {
+    elem->height = ACTOR_HEIGHT + dia_text_get_height (actor->text);
+  }
+
+  actor_height = elem->height - dia_text_get_height (actor->text);
 
   /* Update connections: */
   element_update_connections_rectangle(elem, actor->connections);
@@ -318,10 +325,10 @@ actor_update_data(Actor *actor)
 
   p = elem->corner;
   p.x += elem->width/2;
-  p.y +=  actor_height + actor->text->ascent;
-  text_set_position(actor->text, &p);
+  p.y += actor_height + dia_text_get_ascent (actor->text);
+  dia_text_set_position (actor->text, &p);
   /* may have moved */
-  text_calc_boundingbox(actor->text, &text_box);
+  dia_text_calc_boundingbox (actor->text, &text_box);
 
   /* Add bounding box for text: */
   rectangle_union(&obj->bounding_box, &text_box);
@@ -365,12 +372,12 @@ actor_create(Point *startpoint,
   p.x += ACTOR_MARGIN_X;
   p.y += ACTOR_HEIGHT - dia_font_descent(_("Actor"),font, 0.8);
 
-  actor->text = new_text (_("Actor"),
-                          font,
-                          0.8,
-                          &p,
-                          &DIA_COLOUR_BLACK,
-                          DIA_ALIGN_CENTRE);
+  actor->text = dia_text_new (_("Actor"),
+                              font,
+                              0.8,
+                              &p,
+                              &DIA_COLOUR_BLACK,
+                              DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   element_init(elem, 8, NUM_CONNECTIONS);
@@ -393,13 +400,15 @@ actor_create(Point *startpoint,
   return &actor->element.object;
 }
 
-static void
-actor_destroy(Actor *actor)
-{
-  text_destroy(actor->text);
 
-  element_destroy(&actor->element);
+static void
+actor_destroy (Actor *actor)
+{
+  dia_clear_part (&actor->text);
+
+  element_destroy (&actor->element);
 }
+
 
 static DiaObject *
 actor_load(ObjectNode obj_node, int version,DiaContext *ctx)

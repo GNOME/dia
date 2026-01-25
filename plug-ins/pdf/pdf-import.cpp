@@ -23,13 +23,13 @@
 #include <glib/gi18n-lib.h>
 
 // Dia includes before poppler to avoid getting the wrong 'object.h'
-#include "create.h"
-#include "properties.h"
 #include "attributes.h"
-#include "object.h"
-#include "diagramdata.h"
-#include "pattern.h"
+#include "create.h"
 #include "dia-layer.h"
+#include "diagramdata.h"
+#include "object.h"
+#include "pattern.h"
+#include "properties.h"
 
 // namespacing poppler to avoid conflict on Object
 //#undef OBJECT_H /* should be fixed in POPPLER I think */

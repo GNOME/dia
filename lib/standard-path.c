@@ -1134,7 +1134,7 @@ stdpath_transform(StdPath *stdpath, const DiaMatrix *m)
 }
 
 gboolean
-text_to_path (Text *text, GArray *points)
+text_to_path (DiaText *text, GArray *points)
 {
   cairo_t *cr;
   cairo_surface_t *surface;
@@ -1147,15 +1147,16 @@ text_to_path (Text *text, GArray *points)
     return FALSE;
 
   layout = pango_layout_new(dia_font_get_context());
-  pango_layout_set_font_description (layout, dia_font_get_description (text->font));
+  pango_layout_set_font_description (layout,
+                                     dia_font_get_description (dia_text_get_font (text)));
   pango_layout_set_indent (layout, 0);
   pango_layout_set_justify (layout, FALSE);
   pango_layout_set_alignment (layout,
-                              text->alignment == DIA_ALIGN_LEFT ?
-                                PANGO_ALIGN_LEFT : text->alignment == DIA_ALIGN_RIGHT ?
+                              dia_text_get_alignment (text) == DIA_ALIGN_LEFT ?
+                                PANGO_ALIGN_LEFT : dia_text_get_alignment (text) == DIA_ALIGN_RIGHT ?
                                   PANGO_ALIGN_RIGHT : PANGO_ALIGN_CENTER);
 
-  str = text_get_string_copy (text);
+  str = dia_text_get_string_copy (text);
   pango_layout_set_text (layout, str, -1);
   g_clear_pointer (&str, g_free);
 
@@ -1215,7 +1216,7 @@ text_to_path (Text *text, GArray *points)
 }
 
 DiaObject *
-create_standard_path_from_text (Text *text)
+create_standard_path_from_text (DiaText *text)
 {
   DiaObject *obj = NULL;
   GArray *points = g_array_new (FALSE, FALSE, sizeof(BezPoint));
@@ -1229,14 +1230,15 @@ create_standard_path_from_text (Text *text)
     StdPath *path = (StdPath *)obj;
     DiaRectangle text_box;
     const DiaRectangle *pbb = &path->object.bounding_box;
-    real sx, sy;
+    double sx, sy;
     Point pos;
 
     path->stroke_or_fill = PDO_FILL;
-    path->fill_color = text->color;
+
+    dia_text_get_colour (text, &path->fill_color);
 
     /* scale to fit the original size */
-    text_calc_boundingbox ((Text *)text, &text_box);
+    dia_text_calc_boundingbox (text, &text_box);
     pos.x = text_box.left; pos.y = text_box.top;
     sx = (text_box.right - text_box.left) / (pbb->right - pbb->left);
     sy = (text_box.bottom - text_box.top) / (pbb->bottom - pbb->top);

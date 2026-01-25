@@ -44,7 +44,7 @@
 #include "highlight.h"
 #include "textedit.h"
 #include "object_ops.h"
-#include "text.h"
+#include "dia-text.h"
 
 static void textedit_end_edit (DDisplay *ddisp, Focus *focus);
 
@@ -234,7 +234,7 @@ textedit_activate_focus (DDisplay *ddisp, Focus *focus, Point *clicked)
   }
 
   if (clicked) {
-      text_set_cursor (focus->text, clicked, ddisp->renderer);
+    dia_text_set_cursor (focus->text, clicked, ddisp->renderer);
   }
 
   textedit_begin_edit (ddisp, focus);
@@ -260,21 +260,21 @@ textedit_activate_object (DDisplay *ddisp, DiaObject *obj, Point *clicked)
 {
   Focus *new_focus;
 
-  new_focus = focus_get_first_on_object(obj);
+  new_focus = focus_get_first_on_object (obj);
   if (new_focus != NULL) {
-    Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
+    Focus *focus = get_active_focus ((DiagramData *) ddisp->diagram);
     if (focus != NULL) {
-      textedit_end_edit(ddisp, focus);
+      textedit_end_edit (ddisp, focus);
     }
-    give_focus(new_focus);
+    give_focus (new_focus);
     if (clicked) {
-      text_set_cursor(new_focus->text, clicked, ddisp->renderer);
+      dia_text_set_cursor (new_focus->text, clicked, ddisp->renderer);
     }
-    textedit_begin_edit(ddisp, new_focus);
-    diagram_flush(ddisp->diagram);
+    textedit_begin_edit (ddisp, new_focus);
+    diagram_flush (ddisp->diagram);
     return TRUE;
   } else {
-    textedit_exit(ddisp);
+    textedit_exit (ddisp);
     return FALSE;
   }
 }

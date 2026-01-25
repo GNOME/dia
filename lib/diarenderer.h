@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*! \file diarenderer.h -- the basic renderer interface definition */
-#ifndef DIA_RENDERER_H
-#define DIA_RENDERER_H
+#pragma once
 
 #include <glib-object.h>
 
@@ -28,6 +26,7 @@
 /* HACK: Work around circular deps */
 typedef struct _DiaRenderer DiaRenderer;
 
+#include "dia-text.h"
 #include "diagramdata.h"
 
 G_BEGIN_DECLS
@@ -200,7 +199,7 @@ struct _DiaRendererClass
                                                  int               num_points,
                                                  Color            *color);
   void     (*draw_text)                         (DiaRenderer      *renderer,
-                                                 Text             *text);
+                                                 DiaText          *text);
   void     (*draw_text_line)                    (DiaRenderer      *renderer,
                                                  TextLine         *text_line,
                                                  Point            *pos,
@@ -269,7 +268,7 @@ struct _DiaRendererClass
   void     (*set_pattern)                       (DiaRenderer      *renderer,
                                                  DiaPattern       *pat);
   void     (*draw_rotated_text)                 (DiaRenderer      *renderer,
-                                                 Text             *text,
+                                                 DiaText          *text,
                                                  Point            *center,
                                                  real              angle);
   void     (*draw_rotated_image)                (DiaRenderer      *renderer,
@@ -362,7 +361,7 @@ void     dia_renderer_draw_polyline                     (DiaRenderer      *self,
                                                          int               num_points,
                                                          Color            *color);
 void     dia_renderer_draw_text                         (DiaRenderer      *self,
-                                                         Text             *text);
+                                                         DiaText          *text);
 void     dia_renderer_draw_text_line                    (DiaRenderer      *self,
                                                          TextLine         *text_line,
                                                          Point            *pos,
@@ -426,7 +425,7 @@ gboolean dia_renderer_is_capable_of                     (DiaRenderer      *self,
 void     dia_renderer_set_pattern                       (DiaRenderer      *self,
                                                          DiaPattern       *pat);
 void     dia_renderer_draw_rotated_text                 (DiaRenderer      *self,
-                                                         Text             *text,
+                                                         DiaText          *text,
                                                          Point            *center,
                                                          real              angle);
 void     dia_renderer_draw_rotated_image                (DiaRenderer      *self,
@@ -449,5 +448,3 @@ void     dia_renderer_bezier_stroke                     (DiaRenderer      *self,
 int render_bounding_boxes (void);
 
 G_END_DECLS
-
-#endif /* DIA_RENDERER_H */

@@ -35,9 +35,9 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "connpoint_line.h"
 #include "dia-colour.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "pixmaps/sadtbox.xpm"
@@ -59,7 +59,7 @@ typedef struct _Box {
 
   ConnPointLine *north,*south,*east,*west;
 
-  Text *text;
+  DiaText *text;
   char *id;
   double padding;
 
@@ -163,10 +163,10 @@ static PropOffset box_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "padding",PROP_TYPE_REAL,offsetof(Box,padding)},
   { "text", PROP_TYPE_TEXT, offsetof(Box,text)},
-  { "text_alignment",PROP_TYPE_ENUM,offsetof(Box,text),offsetof(Text,alignment)},
-  { "text_font",PROP_TYPE_FONT,offsetof(Box,text),offsetof(Text,font)},
-  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,text),offsetof(Text,height)},
-  { "text_colour",PROP_TYPE_COLOUR,offsetof(Box,text),offsetof(Text,color)},
+  { "text_alignment",PROP_TYPE_ENUM,offsetof(Box,text), DIA_TEXT_ALIGNMENT_OFFSET },
+  { "text_font",PROP_TYPE_FONT,offsetof(Box,text), DIA_TEXT_FONT_OFFSET },
+  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,text), DIA_TEXT_HEIGHT_OFFSET },
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Box,text), DIA_TEXT_COLOUR_OFFSET },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Box, line_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Box, fill_color) },
   { "id", PROP_TYPE_STRING, offsetof(Box,id)},
@@ -211,8 +211,8 @@ sadtbox_select (Box         *box,
                 Point       *clicked_point,
                 DiaRenderer *interactive_renderer)
 {
-  text_set_cursor (box->text, clicked_point, interactive_renderer);
-  text_grab_focus (box->text, &box->element.object);
+  dia_text_set_cursor (box->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (box->text, &box->element.object);
   element_update_handles (&box->element);
 }
 
@@ -294,7 +294,8 @@ sadtbox_draw (Box *box, DiaRenderer *renderer)
 {
   Point lr_corner,pos;
   Element *elem;
-  real idfontheight;
+  double idfontheight;
+  DiaColour text_colour;
 
   g_return_if_fail (box != NULL);
   g_return_if_fail (renderer != NULL);
@@ -316,18 +317,22 @@ sadtbox_draw (Box *box, DiaRenderer *renderer)
                           &box->line_color);
 
 
-  text_draw (box->text, renderer);
+  dia_text_draw (box->text, renderer);
 
-  idfontheight = .75 * box->text->height;
-  dia_renderer_set_font (renderer, box->text->font, idfontheight);
+  idfontheight = .75 * dia_text_get_height (box->text);
+  dia_renderer_set_font (renderer,
+                         dia_text_get_font (box->text),
+                         idfontheight);
   pos = lr_corner;
   pos.x -= .3 * idfontheight;
   pos.y -= .3 * idfontheight;
+
+  dia_text_get_colour (box->text, &text_colour);
   dia_renderer_draw_string (renderer,
                             box->id,
                             &pos,
                             DIA_ALIGN_RIGHT,
-                            &box->text->color);
+                            &text_colour);
 }
 
 
@@ -349,9 +354,10 @@ sadtbox_update_data (Box *box, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  text_calc_boundingbox (box->text, NULL);
-  width = box->text->max_width + box->padding*2;
-  height = box->text->height * box->text->numlines + box->padding*2;
+  dia_text_calc_boundingbox (box->text, NULL);
+  width = dia_text_get_max_width (box->text) + (box->padding * 2);
+  height = dia_text_get_height (box->text) *
+    dia_text_get_n_lines (box->text) + (box->padding * 2);
 
   if (width > elem->width) elem->width = width;
   if (height > elem->height) elem->height = height;
@@ -383,9 +389,9 @@ sadtbox_update_data (Box *box, AnchorShape horiz, AnchorShape vert)
 
   p = elem->corner;
   p.x += elem->width / 2.0;
-  p.y += elem->height / 2.0 - box->text->height * box->text->numlines / 2 +
-    box->text->ascent;
-  text_set_position (box->text, &p);
+  p.y += elem->height / 2.0 - dia_text_get_height (box->text) *
+    dia_text_get_n_lines (box->text) / 2 + dia_text_get_ascent (box->text);
+  dia_text_set_position (box->text, &p);
 
   extra->border_trans = SADTBOX_LINE_WIDTH / 2.0;
   element_update_boundingbox (elem);
@@ -555,12 +561,12 @@ sadtbox_create(Point *startpoint,
 
   font = dia_font_new_from_style (DIA_FONT_SANS|DIA_FONT_BOLD, 0.8);
 
-  box->text = new_text ("",
-                        font,
-                        0.8,
-                        &p,
-                        &DIA_COLOUR_BLACK,
-                        DIA_ALIGN_CENTRE);
+  box->text = dia_text_new ("",
+                            font,
+                            0.8,
+                            &p,
+                            &DIA_COLOUR_BLACK,
+                            DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   box->id = g_strdup("A0"); /* should be made better.
@@ -581,19 +587,20 @@ sadtbox_create(Point *startpoint,
   return &box->element.object;
 }
 
-static void
-sadtbox_destroy(Box *box)
-{
-  text_destroy(box->text);
 
-  connpointline_destroy(box->east);
-  connpointline_destroy(box->south);
-  connpointline_destroy(box->west);
-  connpointline_destroy(box->north);
+static void
+sadtbox_destroy (Box *box)
+{
+  dia_clear_part (&box->text);
+
+  connpointline_destroy (box->east);
+  connpointline_destroy (box->south);
+  connpointline_destroy (box->west);
+  connpointline_destroy (box->north);
 
   g_clear_pointer (&box->id, g_free);
 
-  element_destroy(&box->element);
+  element_destroy (&box->element);
 }
 
 

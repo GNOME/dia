@@ -40,7 +40,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
 #include "sheet.h"
 #include "properties.h"
 #include "dia_image.h"
@@ -105,7 +105,7 @@ struct _Custom {
 
   gboolean flip_h, flip_v;
 
-  Text *text;
+  DiaText *text;
   double padding;
 
   DiaTextFitting text_fitting;
@@ -280,10 +280,10 @@ static PropOffset custom_offsets_text[] = {
   { "subscale", PROP_TYPE_REAL, offsetof(Custom, subscale) },
   { "padding", PROP_TYPE_REAL, offsetof(Custom, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Custom,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Custom,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Custom,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Custom,text),offsetof(Text,color)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Custom,text),offsetof(Text,alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Custom,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Custom,text), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Custom,text), DIA_TEXT_COLOUR_OFFSET},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Custom,text), DIA_TEXT_ALIGNMENT_OFFSET},
   {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Custom,text_fitting)},
   { NULL, 0, 0 }
 };
@@ -648,11 +648,11 @@ custom_distance_from (Custom *custom, Point *point)
         dist = distance_rectangle_point (&rect, point);
         break;
       case GE_TEXT:
-        text_set_height (el->text.object,
-                         custom_transform_length (custom, el->text.s.font_height));
+        dia_text_set_height (el->text.object,
+                             custom_transform_length (custom, el->text.s.font_height));
         custom_reposition_text (custom, &el->text);
-        dist = text_distance_from (el->text.object, point);
-        text_set_position (el->text.object, &el->text.anchor);
+        dist = dia_text_distance_from (el->text.object, point);
+        dia_text_set_position (el->text.object, &el->text.anchor);
         break;
       case GE_ELLIPSE:
         transform_coord (custom, &el->ellipse.center, &p1);
@@ -723,23 +723,29 @@ custom_distance_from (Custom *custom, Point *point)
     if (min_dist == 0.0)
       break;
   }
+
   if (custom->info->has_text && min_dist != 0.0) {
-    dist = text_distance_from(custom->text, point);
-    min_dist = MIN(min_dist, dist);
+    dist = dia_text_distance_from (custom->text, point);
+    min_dist = MIN (min_dist, dist);
   }
+
   return min_dist;
 }
 
+
 static void
-custom_select(Custom *custom, Point *clicked_point,
-	      DiaRenderer *interactive_renderer)
+custom_select (Custom      *custom,
+               Point       *clicked_point,
+               DiaRenderer *interactive_renderer)
 {
   if (custom->info->has_text) {
-    text_set_cursor(custom->text, clicked_point, interactive_renderer);
-    text_grab_focus(custom->text, &custom->element.object);
+    dia_text_set_cursor (custom->text,
+                         clicked_point,
+                         interactive_renderer);
+    dia_text_grab_focus (custom->text, &custom->element.object);
   }
 
-  element_update_handles(&custom->element);
+  element_update_handles (&custom->element);
 }
 
 
@@ -888,7 +894,7 @@ custom_move (Custom *custom, Point *to)
 
 
 static void
-get_colour (Custom *custom, Color *colour, gint32 c, double opacity)
+get_colour (Custom *custom, DiaColour *colour, gint32 c, double opacity)
 {
   switch (c) {
     case DIA_SVG_COLOUR_NONE:
@@ -900,7 +906,7 @@ get_colour (Custom *custom, Color *colour, gint32 c, double opacity)
       *colour = custom->inner_color;
       break;
     case DIA_SVG_COLOUR_TEXT:
-      *colour = custom->text->color;
+      dia_text_get_colour (custom->text, colour);
       break;
     default:
       colour->alpha = opacity;
@@ -953,7 +959,7 @@ custom_draw (Custom *custom, DiaRenderer *renderer)
                            &cur_style);
 
   if (custom->info->has_text) {
-    text_draw (custom->text, renderer);
+    dia_text_draw (custom->text, renderer);
   }
 }
 
@@ -1104,15 +1110,19 @@ custom_draw_element (GraphicElement *el,
                                       radius);
       break;
     case GE_TEXT:
-      text_set_height (el->text.object,
-                       custom_transform_length (custom, el->text.s.font_height));
-      custom_reposition_text (custom, &el->text);
-      get_colour (custom,
-                  &el->text.object->color,
-                  el->any.s.fill,
-                  el->any.s.fill_opacity);
-      text_draw (el->text.object, renderer);
-      text_set_position (el->text.object, &el->text.anchor);
+      {
+        DiaColour text_colour;
+        dia_text_set_height (el->text.object,
+                             custom_transform_length (custom, el->text.s.font_height));
+        custom_reposition_text (custom, &el->text);
+        get_colour (custom,
+                    &text_colour,
+                    el->any.s.fill,
+                    el->any.s.fill_opacity);
+        dia_text_set_colour (el->text.object, &text_colour);
+        dia_text_draw (el->text.object, renderer);
+        dia_text_set_position (el->text.object, &el->text.anchor);
+      }
       break;
     case GE_ELLIPSE:
       transform_coord (custom, &el->ellipse.center, &p1);
@@ -1339,11 +1349,12 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     real xscale = 0.0, yscale = 0.0;
     DiaRectangle tb;
 
-    text_calc_boundingbox(custom->text, NULL);
-    text_width =
-      custom->text->max_width + 2*custom->padding+custom->border_width;
-    text_height = custom->text->height * custom->text->numlines +
-      2 * custom->padding + custom->border_width;
+    dia_text_calc_boundingbox (custom->text, NULL);
+    text_width = dia_text_get_max_width (custom->text) +
+      (2 * custom->padding) + custom->border_width;
+    text_height = dia_text_get_height (custom->text) *
+      dia_text_get_n_lines (custom->text) + (2 * custom->padding) +
+        custom->border_width;
 
     transform_rect(custom, &info->text_bounds, &tb);
     xscale = text_width / (tb.right - tb.left);
@@ -1448,7 +1459,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   if (info->has_text) {
     DiaRectangle tb;
     transform_rect (custom, &info->text_bounds, &tb);
-    switch (custom->text->alignment) {
+    switch (dia_text_get_alignment (custom->text)) {
       case DIA_ALIGN_LEFT:
         p.x = tb.left+custom->padding;
         break;
@@ -1462,17 +1473,22 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
         g_return_if_reached ();
     }
     /* align the text to be close to the shape ... */
-    txs = text_get_string_copy(custom->text);
-    if ((tb.bottom+tb.top)/2 > elem->corner.y + elem->height)
-      p.y = tb.top +
-	dia_font_ascent(txs,custom->text->font, custom->text->height);
-    else if ((tb.bottom+tb.top)/2 < elem->corner.y)
-      p.y = tb.bottom + custom->text->height * (custom->text->numlines - 1);
-    else
-      p.y = (tb.top + tb.bottom -
-	     custom->text->height * custom->text->numlines) / 2 +
-	dia_font_ascent(txs,custom->text->font, custom->text->height);
-    text_set_position(custom->text, &p);
+    txs = dia_text_get_string_copy (custom->text);
+    if ((tb.bottom + tb.top) / 2 > elem->corner.y + elem->height) {
+      p.y = tb.top + dia_font_ascent (txs,
+                                      dia_text_get_font (custom->text),
+                                      dia_text_get_height (custom->text));
+    } else if ((tb.bottom + tb.top) / 2 < elem->corner.y) {
+      p.y = tb.bottom + dia_text_get_height (custom->text) *
+        (dia_text_get_n_lines (custom->text) - 1);
+    } else {
+      p.y = (tb.top + tb.bottom - dia_text_get_height (custom->text) *
+        dia_text_get_n_lines (custom->text)) / 2 +
+          dia_font_ascent (txs,
+                           dia_text_get_font (custom->text),
+                           dia_text_get_height (custom->text));
+    }
+    dia_text_set_position (custom->text, &p);
     g_clear_pointer (&txs, g_free);
   }
 
@@ -1601,12 +1617,13 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       break;
     }
     case GE_TEXT:
-      text_set_height (el->text.object, custom_transform_length (custom, el->text.s.font_height));
-      custom_reposition_text(custom, &el->text);
-      text_calc_boundingbox(el->text.object,&rect);
+      dia_text_set_height (el->text.object,
+                           custom_transform_length (custom, el->text.s.font_height));
+      custom_reposition_text (custom, &el->text);
+      dia_text_calc_boundingbox (el->text.object, &rect);
       /* padding only to be applied on the users text box */
       /* but we need to restore the original position of the 'constant' object */
-      text_set_position(el->text.object, &el->text.anchor);
+      dia_text_set_position (el->text.object, &el->text.anchor);
       break;
     default :
       g_assert_not_reached();
@@ -1618,7 +1635,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   /* extend bounding box to include text bounds ... */
   if (info->has_text) {
     DiaRectangle tb;
-    text_calc_boundingbox(custom->text, &tb);
+    dia_text_calc_boundingbox(custom->text, &tb);
     tb.left -= custom->padding;
     tb.top -= custom->padding;
     tb.right += custom->padding;
@@ -1641,7 +1658,7 @@ custom_reposition_text (Custom *custom, GraphicElementText *text)
   DiaRectangle tb;
 
   transform_rect (custom, &text->text_bounds, &tb);
-  switch (text->object->alignment) {
+  switch (dia_text_get_alignment (text->object)) {
     case DIA_ALIGN_LEFT:
       p.x = tb.left;
       break;
@@ -1656,26 +1673,30 @@ custom_reposition_text (Custom *custom, GraphicElementText *text)
   }
   /* align the text to be close to the shape ... */
 
-  if ((tb.bottom+tb.top)/2 > elem->corner.y + elem->height)
-    p.y = tb.top +
-      dia_font_ascent(text->string,
-		      text->object->font, text->object->height);
-  else if ((tb.bottom+tb.top)/2 < elem->corner.y)
-    p.y = tb.bottom + text->object->height * (text->object->numlines - 1);
-  else
-    p.y = (tb.top + tb.bottom -
-	   text->object->height * text->object->numlines) / 2 +
-      dia_font_ascent(text->string,
-		      text->object->font, text->object->height);
-  text_set_position(text->object, &p);
+  if ((tb.bottom + tb.top) / 2 > elem->corner.y + elem->height) {
+    p.y = tb.top + dia_font_ascent (text->string,
+                                    dia_text_get_font (text->object),
+                                    dia_text_get_height (text->object));
+  } else if ((tb.bottom + tb.top) / 2 < elem->corner.y) {
+    p.y = tb.bottom + dia_text_get_height (text->object) *
+      (dia_text_get_n_lines (text->object) - 1);
+  } else {
+    p.y = (tb.top + tb.bottom - dia_text_get_height (text->object) *
+      dia_text_get_n_lines (text->object)) / 2 +
+        dia_font_ascent (text->string,
+                         dia_text_get_font (text->object),
+                         dia_text_get_height (text->object));
+  }
+  dia_text_set_position (text->object, &p);
   return;
 }
 
+
 static DiaObject *
-custom_create(Point *startpoint,
-	      void *user_data,
-	      Handle **handle1,
-	      Handle **handle2)
+custom_create (Point   *startpoint,
+               void    *user_data,
+               Handle **handle1,
+               Handle **handle2)
 {
   Custom *custom;
   Element *elem;
@@ -1726,8 +1747,12 @@ custom_create(Point *startpoint,
     p = *startpoint;
     p.x += elem->width / 2.0;
     p.y += elem->height / 2.0 + font_height / 2;
-    custom->text = new_text("", font, font_height, &p, &custom->border_color,
-                            info->text_align);
+    custom->text = dia_text_new ("",
+                                 font,
+                                 font_height,
+                                 &p,
+                                 &custom->border_color,
+                                 info->text_align);
     g_clear_object (&font);
 
     /* _no_ new default: does not shrink with textbox automatically. */
@@ -1770,11 +1795,13 @@ custom_create(Point *startpoint,
   return &custom->element.object;
 }
 
+
 static void
-custom_destroy(Custom *custom)
+custom_destroy (Custom *custom)
 {
-  if (custom->info->has_text)
-    text_destroy(custom->text);
+  if (custom->info->has_text) {
+    dia_clear_part (&custom->text);
+  }
 
   /*
    * custom_destroy is called per object. It _must not_ destroy class stuff
@@ -1814,7 +1841,7 @@ custom_copy(Custom *custom)
   newcustom->subscale = custom->subscale;
 
   if (custom->info->has_text) {
-    newcustom->text = text_copy(custom->text);
+    newcustom->text = dia_text_copy (custom->text);
   }
 
   newcustom->connections = g_new0(ConnectionPoint, custom->info->nconnections);

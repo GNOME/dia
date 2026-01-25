@@ -30,7 +30,7 @@
 #include "element.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "uml.h"

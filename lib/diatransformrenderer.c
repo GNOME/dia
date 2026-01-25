@@ -24,10 +24,12 @@
 
 #include <glib/gi18n-lib.h>
 
-#include "diatransformrenderer.h"
-#include "text.h"
-#include "object.h"
+#include "dia-text.h"
 #include "diapathrenderer.h"
+#include "object.h"
+
+#include "diatransformrenderer.h"
+
 
 /*!
  * \brief Renderer which does affine transform rendering
@@ -400,47 +402,48 @@ draw_beziergon (DiaRenderer *self,
 {
   _bezier(self, points, numpoints, fill, stroke, TRUE);
 }
-/*!
- * \brief Transform the text object while drawing
- * \memberof _DiaTransformRenderer
- */
+
+
 static void
-draw_text (DiaRenderer *self,
-	   Text        *text)
+draw_text (DiaRenderer *self, DiaText *text)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
-  Point pos = text->position;
-  real angle, sx, sy;
-  int i;
+  Point pos;
+  double angle, sx, sy;
 
-  pos = text->position;
+  dia_text_get_position (text, &pos);
+
   if (m && dia_matrix_get_angle_and_scales (m, &angle, &sx, &sy)) {
-    Text *tc = text_copy (text);
+    DiaText *tc = dia_text_copy (text);
     transform_point (&pos, m);
-    text_set_position (tc, &pos);
-    text_set_height (tc, text_get_height (text) * MIN(sx,sy));
+    dia_text_set_position (tc, &pos);
+    dia_text_set_height (tc, dia_text_get_height (text) * MIN (sx, sy));
     dia_renderer_draw_rotated_text (renderer->worker,
                                     tc,
                                     NULL,
                                     180.0 * angle / G_PI);
-    text_destroy (tc);
+    dia_clear_part (&tc);
   } else {
-    for (i=0;i<text->numlines;i++) {
-      TextLine *text_line = text->lines[i];
-      Point pt;
+    size_t n_lines;
+    TextLine **lines = dia_text_get_lines (text, &n_lines);
 
-      pt = pos;
+    for (size_t i = 0; i < n_lines; i++) {
+      Point pt = pos;
+      DiaColour text_colour;
+
       if (m) {
         transform_point (&pt, m);
         /* ToDo: font-size and angle */
       }
+
+      dia_text_get_colour (text, &text_colour);
       dia_renderer_draw_text_line (renderer->worker,
-                                   text_line,
+                                   lines[i],
                                    &pt,
-                                   text->alignment,
-                                   &text->color);
-      pos.y += text->height;
+                                   dia_text_get_alignment (text),
+                                   &text_colour);
+      pos.y += dia_text_get_height (text);
     }
   }
 }
@@ -453,11 +456,16 @@ draw_text (DiaRenderer *self,
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
+draw_rotated_text (DiaRenderer *self,
+                   DiaText     *text,
+                   Point       *center,
+                   double       angle)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
-  Point pos = text->position;
+  Point pos;
+
+  dia_text_get_position (text, &pos);
 
   if (m) {
     real angle2, sx, sy;
@@ -474,16 +482,16 @@ draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
     dia_matrix_multiply (&m2, &t, &m2);
     dia_matrix_multiply (&m2, m, &m2);
     if (dia_matrix_get_angle_and_scales (&m2, &angle2, &sx, &sy)) {
-      Text *tc = text_copy (text);
+      DiaText *tc = dia_text_copy (text);
       /* text position is independent of the rotation matrix */
       transform_point (&pos, m);
-      text_set_position (tc, &pos);
-      text_set_height (tc, text_get_height (text) * MIN(sx,sy));
+      dia_text_set_position (tc, &pos);
+      dia_text_set_height (tc, dia_text_get_height (text) * MIN (sx, sy));
       dia_renderer_draw_rotated_text (renderer->worker,
                                       tc,
                                       NULL,
                                       180.0 * angle2 / G_PI);
-      text_destroy (tc);
+      dia_clear_part (&tc);
     } else {
       g_warning ("DiaTransformRenderer::draw_rotated_text() bad matrix.");
     }
@@ -505,26 +513,27 @@ draw_string (DiaRenderer  *self,
              const char   *text,
              Point        *pos,
              DiaAlignment  alignment,
-             Color        *color)
+             DiaColour    *colour)
 {
   if (text && strlen (text)) {
-    Text *text_obj;
+    DiaText *text_obj;
     DiaFont *font;
     double font_height;
 
     font = dia_renderer_get_font (self, &font_height);
 
     /* it could have been so easy without the context switch */
-    text_obj = new_text (text,
-                         font,
-                         font_height,
-                         pos,
-                         color,
-                         alignment);
+    text_obj = dia_text_new (text,
+                             font,
+                             font_height,
+                             pos,
+                             colour,
+                             alignment);
     draw_text (self, text_obj);
-    text_destroy (text_obj);
+    dia_clear_part (&text_obj);
   }
 }
+
 
 /*!
  * \brief Draw a potentially transformed image

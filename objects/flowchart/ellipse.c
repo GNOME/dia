@@ -32,7 +32,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "pixmaps/ellipse.xpm"
@@ -63,7 +63,7 @@ struct _Ellipse {
   DiaLineStyle line_style;
   double dashlength;
 
-  Text *text;
+  DiaText *text;
   double padding;
 
   DiaTextFitting text_fitting;
@@ -176,11 +176,10 @@ static PropOffset ellipse_offsets[] = {
     offsetof (Ellipse, line_style), offsetof (Ellipse, dashlength) },
   { "padding", PROP_TYPE_REAL, offsetof (Ellipse, padding) },
   { "text", PROP_TYPE_TEXT, offsetof (Ellipse, text) },
-  { "text_font", PROP_TYPE_FONT, offsetof (Ellipse, text), offsetof(Text, font) },
-  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,
-    offsetof (Ellipse, text), offsetof (Text, height) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof (Ellipse, text), offsetof (Text, color) },
-  { "text_alignment", PROP_TYPE_ENUM, offsetof (Ellipse, text), offsetof(Text, alignment) },
+  { "text_font", PROP_TYPE_FONT, offsetof (Ellipse, text), DIA_TEXT_FONT_OFFSET },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof (Ellipse, text), DIA_TEXT_HEIGHT_OFFSET },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof (Ellipse, text), DIA_TEXT_COLOUR_OFFSET },
+  { "text_alignment", PROP_TYPE_ENUM, offsetof (Ellipse, text), DIA_TEXT_ALIGNMENT_OFFSET },
   { PROP_STDNAME_TEXT_FITTING, PROP_TYPE_ENUM, offsetof (Ellipse, text_fitting) },
   { NULL, 0, 0 },
 };
@@ -266,8 +265,8 @@ ellipse_select (Ellipse     *ellipse,
                 Point       *clicked_point,
                 DiaRenderer *interactive_renderer)
 {
-  text_set_cursor (ellipse->text, clicked_point, interactive_renderer);
-  text_grab_focus (ellipse->text, &ellipse->element.object);
+  dia_text_set_cursor (ellipse->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (ellipse->text, &ellipse->element.object);
 
   element_update_handles (&ellipse->element);
 }
@@ -389,7 +388,7 @@ ellipse_draw (Ellipse *ellipse, DiaRenderer *renderer)
                              (ellipse->show_background) ? &ellipse->inner_color : NULL,
                              &ellipse->border_color);
 
-  text_draw (ellipse->text, renderer);
+  dia_text_draw (ellipse->text, renderer);
 }
 
 
@@ -413,10 +412,10 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  text_calc_boundingbox(ellipse->text, NULL);
-  width = ellipse->text->max_width + 2 * ellipse->padding;
-  height = ellipse->text->height * ellipse->text->numlines +
-    2 * ellipse->padding;
+  dia_text_calc_boundingbox (ellipse->text, NULL);
+  width = dia_text_get_max_width (ellipse->text) + 2 * ellipse->padding;
+  height = dia_text_get_height (ellipse->text) *
+    dia_text_get_n_lines (ellipse->text) + 2 * ellipse->padding;
 
   /* stop ellipse from getting infinite width/height */
   if (elem->width / elem->height > 4)
@@ -466,9 +465,11 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
 
   p = elem->corner;
   p.x += elem->width / 2.0;
-  p.y += elem->height / 2.0 - ellipse->text->height*ellipse->text->numlines/2 +
-    ellipse->text->ascent;
-  switch (ellipse->text->alignment) {
+  p.y += elem->height / 2.0 -
+    ((dia_text_get_height (ellipse->text) *
+      dia_text_get_n_lines (ellipse->text)) / 2) +
+        dia_text_get_ascent (ellipse->text);
+  switch (dia_text_get_alignment (ellipse->text)) {
     case DIA_ALIGN_LEFT:
       p.x -= (elem->width - 2*(ellipse->padding + ellipse->border_width))/2;
       break;
@@ -480,7 +481,7 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
     default:
       g_return_if_reached ();
   }
-  text_set_position (ellipse->text, &p);
+  dia_text_set_position (ellipse->text, &p);
 
   /* Update connections: */
   c.x = elem->corner.x + elem->width / 2;
@@ -548,12 +549,12 @@ ellipse_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + font_height / 2;
-  ellipse->text = new_text ("",
-                            font,
-                            font_height,
-                            &p,
-                            &ellipse->border_color,
-                            DIA_ALIGN_CENTRE);
+  ellipse->text = dia_text_new ("",
+                                font,
+                                font_height,
+                                &p,
+                                &ellipse->border_color,
+                                DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   /* new default: let the user decide the size */
@@ -576,12 +577,13 @@ ellipse_create(Point *startpoint,
   return &ellipse->element.object;
 }
 
-static void
-ellipse_destroy(Ellipse *ellipse)
-{
-  text_destroy(ellipse->text);
 
-  element_destroy(&ellipse->element);
+static void
+ellipse_destroy (Ellipse *ellipse)
+{
+  dia_clear_part (&ellipse->text);
+
+  element_destroy (&ellipse->element);
 }
 
 
@@ -695,9 +697,9 @@ ellipse_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL) {
     ellipse->text = data_text (attribute_first_data (attr), ctx);
   } else {
-    ellipse->text = new_text_default (&obj->position,
-                                      &ellipse->border_color,
-                                      DIA_ALIGN_CENTRE);
+    ellipse->text = dia_text_new_default (&obj->position,
+                                          &ellipse->border_color,
+                                          DIA_ALIGN_CENTRE);
   }
 
   /* old default: only growth, manual shrink */

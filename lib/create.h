@@ -112,7 +112,7 @@ DiaObject *create_standard_path(int num_points, BezPoint *points);
  * \brief Create a \ref _StdPath from the given _Text
  * \ingroup ObjectCreate
  */
-DiaObject *create_standard_path_from_text (Text *text);
+DiaObject *create_standard_path_from_text (DiaText *text);
 
 /*!
  * \brief Create an \ref _Arc with arrows

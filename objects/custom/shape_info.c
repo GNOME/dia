@@ -126,14 +126,14 @@ shape_info_realise(ShapeInfo* info)
       if (el->text.s.alignment == -1)
         el->text.s.alignment = TEXT_ALIGNMENT_DEFAULT;
       if (!el->text.object) {
-        el->text.object = new_text(el->text.string,
-                                   el->text.s.font,
-                                   el->text.s.font_height,
-                                   &el->text.anchor,
-                                   &DIA_COLOUR_BLACK,
-                                   el->text.s.alignment);
+        el->text.object = dia_text_new (el->text.string,
+                                        el->text.s.font,
+                                        el->text.s.font_height,
+                                        &el->text.anchor,
+                                        &DIA_COLOUR_BLACK,
+                                        el->text.s.alignment);
       }
-      text_calc_boundingbox(el->text.object, &el->text.text_bounds);
+      dia_text_calc_boundingbox (el->text.object, &el->text.text_bounds);
     }
   }
 }

@@ -34,7 +34,7 @@
 #include "handle.h"
 #include "arrows.h"
 #include "diamenu.h"
-#include "text.h"
+#include "dia-text.h"
 #include "orth_conn.h"
 #include "element.h"
 #include "properties.h"
@@ -55,7 +55,7 @@ struct _Orthflow {
 
   Handle text_handle;
 
-  Text* text;
+  DiaText *text;
   OrthflowType type;
   Point textpos; /* This is the master position, only overridden in load */
 };
@@ -198,10 +198,10 @@ static PropOffset orthflow_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { "type", PROP_TYPE_ENUM, offsetof(Orthflow, type) },
   { "text", PROP_TYPE_TEXT, offsetof (Orthflow, text) },
-  { "text_alignment", PROP_TYPE_ENUM, offsetof(Orthflow,text),offsetof(Text,alignment) },
-  { "text_font", PROP_TYPE_FONT, offsetof(Orthflow,text),offsetof(Text,font) },
-  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Orthflow,text),offsetof(Text,height) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof(Orthflow,text),offsetof(Text,color) },
+  { "text_alignment", PROP_TYPE_ENUM, offsetof(Orthflow,text), DIA_TEXT_ALIGNMENT_OFFSET },
+  { "text_font", PROP_TYPE_FONT, offsetof(Orthflow,text), DIA_TEXT_FONT_OFFSET },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Orthflow,text), DIA_TEXT_HEIGHT_OFFSET },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Orthflow,text), DIA_TEXT_COLOUR_OFFSET },
   { NULL, 0, 0 }
 };
 
@@ -235,8 +235,8 @@ dia_fs_orthflow_object_change_apply_revert (DiaFSOrthflowObjectChange *change,
   }
 
   if (change->change_type & TEXT_EDIT || change->change_type == BOTH) {
-    char *tmp = text_get_string_copy (oflow->text);
-    text_set_string (oflow->text, change->text);
+    char *tmp = dia_text_get_string_copy (oflow->text);
+    dia_text_set_string (oflow->text, change->text);
     g_clear_pointer (&change->text, g_free);
     change->text = tmp;
   }
@@ -270,10 +270,10 @@ dia_fs_orthflow_object_change_free (DiaObjectChange *objchg)
 }
 
 
-static DiaObjectChange*
+static DiaObjectChange *
 orthflow_create_change (enum OrthflowChangeType  change_type,
                         OrthflowType             type,
-                        Text                    *text )
+                        DiaText                 *text )
 {
   DiaFSOrthflowObjectChange *change;
 
@@ -283,7 +283,7 @@ orthflow_create_change (enum OrthflowChangeType  change_type,
 
   change->type = type;
   if (text) {
-    change->text = text_get_string_copy (text);
+    change->text = dia_text_get_string_copy (text);
   }
 
   return DIA_OBJECT_CHANGE (change);
@@ -300,20 +300,21 @@ orthflow_distance_from(Orthflow *orthflow, Point *point)
                                      orthflow->type == ORTHFLOW_MATERIAL ?
                                         ORTHFLOW_MATERIAL_WIDTH :
                                         ORTHFLOW_WIDTH);
-  textdist = text_distance_from (orthflow->text, point);
+  textdist = dia_text_distance_from (orthflow->text, point);
 
   return linedist > textdist ? textdist : linedist;
 }
 
 
 static void
-orthflow_select(Orthflow *orthflow, Point *clicked_point,
-		DiaRenderer *interactive_renderer)
+orthflow_select (Orthflow    *orthflow,
+                 Point       *clicked_point,
+                 DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(orthflow->text, clicked_point, interactive_renderer);
-  text_grab_focus(orthflow->text, &orthflow->orth.object);
+  dia_text_set_cursor (orthflow->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (orthflow->text, &orthflow->orth.object);
 
-  orthconn_update_data(&orthflow->orth);
+  orthconn_update_data (&orthflow->orth);
 }
 
 
@@ -423,7 +424,7 @@ orthflow_draw (Orthflow *orthflow, DiaRenderer *renderer)
                                           NULL,
                                           &arrow);
 
-  text_draw (orthflow->text, renderer);
+  dia_text_draw (orthflow->text, renderer);
 }
 
 static DiaObject *
@@ -455,18 +456,18 @@ orthflow_create(Point *startpoint,
   orthflow->textpos = p;
   font = dia_font_new_from_style(DIA_FONT_SANS, ORTHFLOW_FONTHEIGHT);
 
-  orthflow->text = new_text ("",
-                             font,
-                             ORTHFLOW_FONTHEIGHT,
-                             &p,
-                             &DIA_COLOUR_BLACK,
-                             DIA_ALIGN_CENTRE);
+  orthflow->text = dia_text_new ("",
+                                 font,
+                                 ORTHFLOW_FONTHEIGHT,
+                                 &p,
+                                 &DIA_COLOUR_BLACK,
+                                 DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
 #if 0
   if ( orthflow_default_label ) {
-    orthflow->text = text_copy( orthflow_default_label ) ;
-    text_set_position( orthflow->text, &p ) ;
+    orthflow->text = dia_text_copy ( orthflow_default_label ) ;
+    dia_text_set_position( orthflow->text, &p ) ;
   } else {
     Color* color = &orthflow_color_signal;
 
@@ -507,11 +508,13 @@ orthflow_create(Point *startpoint,
 
 
 static void
-orthflow_destroy(Orthflow *orthflow)
+orthflow_destroy (Orthflow *orthflow)
 {
-  orthconn_destroy( &orthflow->orth ) ;
-  text_destroy( orthflow->text ) ;
+  dia_clear_part (&orthflow->text);
+
+  orthconn_destroy (&orthflow->orth);
 }
+
 
 static DiaObject *
 orthflow_copy(Orthflow *orthflow)
@@ -532,7 +535,7 @@ orthflow_copy(Orthflow *orthflow)
   neworthflow->text_handle.connected_to = NULL;
   newobj->handles[orth->numpoints-1] = &neworthflow->text_handle;
 
-  neworthflow->text = text_copy(orthflow->text);
+  neworthflow->text = dia_text_copy (orthflow->text);
   neworthflow->type = orthflow->type;
 
   orthflow_update_data(neworthflow);
@@ -561,9 +564,9 @@ orthflow_update_data (Orthflow *orthflow)
     default:
       g_return_if_reached ();
   }
-  text_set_color (orthflow->text, color) ;
+  dia_text_set_colour (orthflow->text, color) ;
 
-  text_set_position (orthflow->text, &orthflow->textpos) ;
+  dia_text_set_position (orthflow->text, &orthflow->textpos);
   orthflow->text_handle.pos = orthflow->textpos;
 
   orthconn_update_data (orth);
@@ -573,7 +576,7 @@ orthflow_update_data (Orthflow *orthflow)
   orthconn_update_boundingbox (orth);
 
   /* Add boundingbox for text: */
-  text_calc_boundingbox (orthflow->text, &rect) ;
+  dia_text_calc_boundingbox (orthflow->text, &rect) ;
   rectangle_union (&obj->bounding_box, &rect);
 }
 
@@ -617,12 +620,12 @@ orthflow_load(ObjectNode obj_node, int version, DiaContext *ctx)
     DiaFont *font = dia_font_new_from_style (DIA_FONT_SANS,
                                              ORTHFLOW_FONTHEIGHT);
 
-    orthflow->text = new_text ("",
-                               font,
-                               ORTHFLOW_FONTHEIGHT,
-                               &obj->position,
-                               &DIA_COLOUR_BLACK,
-                               DIA_ALIGN_CENTRE);
+    orthflow->text = dia_text_new ("",
+                                   font,
+                                   ORTHFLOW_FONTHEIGHT,
+                                   &obj->position,
+                                   &DIA_COLOUR_BLACK,
+                                   DIA_ALIGN_CENTRE);
     g_clear_object (&font);
   }
 
@@ -643,7 +646,7 @@ orthflow_load(ObjectNode obj_node, int version, DiaContext *ctx)
     extra->middle_trans = ORTHFLOW_WIDTH/2.0;
   extra->end_long =
     extra->end_trans = ORTHFLOW_WIDTH/2 + ORTHFLOW_ARROWLEN;
-  orthflow->textpos = orthflow->text->position;
+  dia_text_get_position (orthflow->text, &orthflow->textpos);
 
   orthflow_update_data(orthflow);
 

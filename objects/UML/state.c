@@ -25,9 +25,9 @@
 
 #include "object.h"
 #include "element.h"
+#include "dia-text.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "properties.h"
 #include "message.h"
 
@@ -56,11 +56,11 @@ struct _State {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
 
-  Text *text;
+  DiaText *text;
   int state_type;
 
-  Color line_color;
-  Color fill_color;
+  DiaColour line_color;
+  DiaColour fill_color;
 
   double line_width;
 
@@ -178,9 +178,9 @@ static PropOffset state_offsets[] = {
   { "type", PROP_TYPE_INT, offsetof(State, state_type) },
 
   {"text",PROP_TYPE_TEXT,offsetof(State,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(State,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(State,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(State,text),offsetof(Text,color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(State,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(State,text), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(State,text), DIA_TEXT_COLOUR_OFFSET},
 
   { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(State, line_width) },
   {"line_colour",PROP_TYPE_COLOUR,offsetof(State,line_color)},
@@ -211,13 +211,15 @@ state_distance_from(State *state, Point *point)
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
+
 static void
-state_select(State *state, Point *clicked_point,
-	       DiaRenderer *interactive_renderer)
+state_select (State       *state,
+              Point       *clicked_point,
+              DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(state->text, clicked_point, interactive_renderer);
-  text_grab_focus(state->text, &state->element.object);
-  element_update_handles(&state->element);
+  dia_text_set_cursor (state->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (state->text, &state->element.object);
+  element_update_handles (&state->element);
 }
 
 
@@ -254,16 +256,21 @@ state_draw_action_string (State       *state,
                           DiaRenderer *renderer,
                           StateAction  action)
 {
-  Point pos;
   char *action_text = state_get_action_text (state, action);
+  Point pos;
+  DiaColour text_colour;
 
   state_calc_action_text_pos (state, action, &pos);
-  dia_renderer_set_font (renderer, state->text->font, state->text->height);
+  dia_renderer_set_font (renderer,
+                         dia_text_get_font (state->text),
+                         dia_text_get_height (state->text));
+  dia_text_get_colour (state->text, &text_colour);
   dia_renderer_draw_string (renderer,
                             action_text,
                             &pos,
                             DIA_ALIGN_LEFT,
-                            &state->text->color);
+                            &text_colour);
+
   g_clear_pointer (&action_text, g_free);
 }
 
@@ -321,7 +328,7 @@ state_draw (State *state, DiaRenderer *renderer)
                                     &state->line_color,
                                     0.5);
 
-    text_draw (state->text, renderer);
+    dia_text_draw (state->text, renderer);
     has_actions = FALSE;
     if (state->entry_action && strlen (state->entry_action) != 0) {
       state_draw_action_string (state, renderer, ENTRY_ACTION);
@@ -339,9 +346,10 @@ state_draw (State *state, DiaRenderer *renderer)
     if (has_actions) {
       split_line_left.x = x;
       split_line_right.x = x+w;
-      split_line_left.y = split_line_right.y
-                        = state->element.corner.y + STATE_MARGIN_Y +
-                          state->text->numlines*state->text->height;
+      split_line_left.y = split_line_right.y =
+        state->element.corner.y + STATE_MARGIN_Y +
+          dia_text_get_n_lines (state->text) *
+            dia_text_get_height (state->text);
       dia_renderer_draw_line (renderer,
                               &split_line_left,
                               &split_line_right,
@@ -360,10 +368,11 @@ state_update_width_and_height_with_action_text (State       *state,
   char *action_text = state_get_action_text (state, action);
   *width = MAX (*width,
                 dia_font_string_width (action_text,
-                                       state->text->font,
-                                       state->text->height) + 2 * STATE_MARGIN_X);
+                                       dia_text_get_font (state->text),
+                                       dia_text_get_height (state->text)) +
+                  2 * STATE_MARGIN_X);
   g_clear_pointer (&action_text, g_free);
-  *height += state->text->height;
+  *height += dia_text_get_height (state->text);
 }
 
 
@@ -377,13 +386,18 @@ state_update_data (State *state)
   DiaObject *obj = &elem->object;
   Point p;
 
-  text_calc_boundingbox(state->text, NULL);
-  if (state->state_type==STATE_NORMAL) {
-      /* First consider the state description text */
-      w = state->text->max_width + 2*STATE_MARGIN_X;
-      h = state->text->height*state->text->numlines +2*STATE_MARGIN_Y;
-      if (w < STATE_WIDTH)
-	  w = STATE_WIDTH;
+  dia_text_calc_boundingbox (state->text, NULL);
+
+  if (state->state_type == STATE_NORMAL) {
+    /* First consider the state description text */
+    w = dia_text_get_max_width (state->text) + (2 * STATE_MARGIN_X);
+    h = dia_text_get_height (state->text) *
+      dia_text_get_n_lines (state->text) + (2 * STATE_MARGIN_Y);
+
+    if (w < STATE_WIDTH) {
+      w = STATE_WIDTH;
+    }
+
       /* Then consider the actions texts */
       if (state->entry_action && strlen(state->entry_action) != 0) {
         state_update_width_and_height_with_action_text(state, ENTRY_ACTION, &w, &h);
@@ -396,8 +410,9 @@ state_update_data (State *state)
       }
 
       p.x = elem->corner.x + w/2.0;
-      p.y = elem->corner.y + STATE_MARGIN_Y + state->text->ascent;
-      text_set_position(state->text, &p);
+      p.y = elem->corner.y + STATE_MARGIN_Y +
+        dia_text_get_ascent (state->text);
+      dia_text_set_position (state->text, &p);
   } else {
       w = h = (state->state_type==STATE_END) ? STATE_ENDRATIO: STATE_RATIO;
   }
@@ -451,7 +466,12 @@ state_create(Point *startpoint,
   p.x += STATE_WIDTH/2.0;
   p.y += STATE_HEIGHT/2.0;
 
-  state->text = new_text ("", font, 0.8, &p, &DIA_COLOUR_BLACK, DIA_ALIGN_CENTRE);
+  state->text = dia_text_new ("",
+                              font,
+                              0.8,
+                              &p,
+                              &DIA_COLOUR_BLACK,
+                              DIA_ALIGN_CENTRE);
 
   g_clear_object (&font);
 
@@ -484,7 +504,7 @@ state_destroy (State *state)
   g_clear_pointer (&state->do_action, g_free);
   g_clear_pointer (&state->exit_action, g_free);
 
-  text_destroy (state->text);
+  dia_clear_part (&state->text);
 
   element_destroy (&state->element);
 }
@@ -517,9 +537,13 @@ state_calc_action_text_pos (State* state, StateAction action, Point* pos)
                            strlen (state->entry_action) != 0;
   int do_action_valid = state->do_action &&
                         strlen (state->do_action) != 0;
+  Point text_position;
+  double first_action_y;
 
-  real first_action_y = state->text->numlines*state->text->height +
-                        state->text->position.y;
+  dia_text_get_position (state->text, &text_position);
+
+  first_action_y = (dia_text_get_n_lines (state->text) *
+    dia_text_get_height (state->text)) + text_position.y;
 
   pos->x = state->element.corner.x + STATE_MARGIN_X;
 
@@ -530,13 +554,19 @@ state_calc_action_text_pos (State* state, StateAction action, Point* pos)
 
     case DO_ACTION:
       pos->y = first_action_y;
-      if (entry_action_valid) pos->y += state->text->height;
+      if (entry_action_valid) {
+        pos->y += dia_text_get_height (state->text);
+      }
       break;
 
     case EXIT_ACTION:
       pos->y = first_action_y;
-      if (entry_action_valid) pos->y += state->text->height;
-      if (do_action_valid) pos->y += state->text->height;
+      if (entry_action_valid) {
+        pos->y += dia_text_get_height (state->text);
+      }
+      if (do_action_valid) {
+        pos->y += dia_text_get_height (state->text);
+      }
       break;
 
     default:

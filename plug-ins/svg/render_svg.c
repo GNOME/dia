@@ -119,8 +119,12 @@ static void draw_text_line     (DiaRenderer  *self,
                                 Point        *pos,
                                 DiaAlignment  alignment,
                                 Color        *colour);
-static void draw_text         (DiaRenderer *self, Text *text);
-static void draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle);
+static void draw_text          (DiaRenderer  *self,
+                                DiaText      *text);
+static void draw_rotated_text  (DiaRenderer  *self,
+                                DiaText      *text,
+                                Point        *center,
+                                double        angle);
 static void draw_rotated_image (DiaRenderer *self, Point *point,
 				real width, real height,
 				real angle, DiaImage *image);
@@ -576,23 +580,40 @@ draw_text_line (DiaRenderer  *self,
  * \memberof _SvgRenderer
  */
 static void
-draw_text (DiaRenderer *self, Text *text)
+draw_text (DiaRenderer *self, DiaText *text)
 {
   draw_rotated_text (self, text, NULL, 0.0);
 }
 
+
 static void
-draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
+draw_rotated_text (DiaRenderer *self,
+                   DiaText     *text,
+                   Point       *center,
+                   double       angle)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-  Point pos = text->position;
-  int i;
+  Point pos;
   xmlNodePtr node_text, node_tspan;
   char d_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  size_t n_lines;
+  TextLine **lines = dia_text_get_lines (text, &n_lines);
+  DiaColour text_colour;
 
-  node_text = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text", NULL);
+  dia_text_get_position (text, &pos);
+
+  node_text = xmlNewChild (renderer->root,
+                           renderer->svg_name_space,
+                           (const xmlChar *) "text",
+                           NULL);
+  dia_text_get_colour (text, &text_colour);
   /* text 'global' properties  */
-  node_set_text_style(node_text, renderer, text->font, text->height, text->alignment, &text->color);
+  node_set_text_style (node_text,
+                       renderer,
+                       dia_text_get_font (text),
+                       dia_text_get_height (text),
+                       dia_text_get_alignment (text),
+                       &text_colour);
 
   if (angle != 0) {
     char x_buf0[G_ASCII_DTOSTR_BUF_SIZE];
@@ -617,21 +638,24 @@ draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
     dia_svg_dtostr(d_buf, pos.y);
     xmlSetProp(node_text, (const xmlChar *)"y", (xmlChar *) d_buf);
   }
-  pos = text->position;
-  for (i=0;i<text->numlines;i++) {
-    TextLine *text_line = text->lines[i];
 
-    node_tspan = xmlNewTextChild(node_text, renderer->svg_name_space, (const xmlChar *)"tspan",
-                                 (const xmlChar *)text_line_get_string(text_line));
-    _adjust_space_preserve (node_tspan, text_line_get_string(text_line));
+  dia_text_get_position (text, &pos);
+
+  for (size_t i = 0; i < n_lines; i++) {
+    node_tspan = xmlNewTextChild (node_text,
+                                  renderer->svg_name_space,
+                                  (const xmlChar *) "tspan",
+                                  (const xmlChar *) text_line_get_string (lines[i]));
+    _adjust_space_preserve (node_tspan, text_line_get_string (lines[i]));
     dia_svg_dtostr(d_buf, pos.x);
     xmlSetProp(node_tspan, (const xmlChar *)"x", (xmlChar *) d_buf);
     dia_svg_dtostr(d_buf, pos.y);
     xmlSetProp(node_tspan, (const xmlChar *)"y", (xmlChar *) d_buf);
 
-    pos.y += text->height;
+    pos.y += dia_text_get_height (text);
   }
 }
+
 
 static void
 draw_rotated_image (DiaRenderer *self,

@@ -33,7 +33,7 @@
 #include "dia-colour.h"
 #include "properties.h"
 #include "geometry.h"
-#include "text.h"
+#include "dia-text.h"
 #include "connpoint_line.h"
 
 #include "grafcet.h"
@@ -49,7 +49,7 @@
 typedef struct _Action {
   Connection connection;
 
-  Text *text;
+  DiaText *text;
   gboolean macro_call;
 
   /* computed values : */
@@ -142,10 +142,10 @@ action_describe_props(Action *action)
 static PropOffset action_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Action,text)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Action,text),offsetof(Text,alignment)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Action,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Action,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Action,text),offsetof(Text,color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Action,text), DIA_TEXT_ALIGNMENT_OFFSET},
+  {"text_font",PROP_TYPE_FONT,offsetof(Action,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Action,text), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Action,text), DIA_TEXT_COLOUR_OFFSET},
   {"macro_call",PROP_TYPE_BOOL,offsetof(Action,macro_call)},
   { NULL,0,0 }
 };
@@ -182,22 +182,28 @@ action_distance_from(Action *action, Point *point)
   return dist;
 }
 
+
 static void
-action_select(Action *action, Point *clicked_point,
-		  DiaRenderer *interactive_renderer)
+action_select (Action      *action,
+               Point       *clicked_point,
+               DiaRenderer *interactive_renderer)
 {
-  action_update_data(action);
-  text_grab_focus(action->text, &action->connection.object);
+  action_update_data (action);
+  dia_text_grab_focus (action->text, &action->connection.object);
 }
 
-static DiaObjectChange*
-action_move_handle(Action *action, Handle *handle,
-		   Point *to, ConnectionPoint *cp,
-		   HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+action_move_handle (Action           *action,
+                    Handle           *handle,
+                    Point            *to,
+                    ConnectionPoint  *cp,
+                    HandleMoveReason  reason,
+                    ModifierKeys      modifiers)
 {
-  g_assert(action!=NULL);
-  g_assert(handle!=NULL);
-  g_assert(to!=NULL);
+  g_assert (action != NULL);
+  g_assert (handle != NULL);
+  g_assert (to != NULL);
 
 #if 0
   if (handle->id == HANDLE_MOVE_STARTPOINT) {
@@ -235,14 +241,14 @@ action_move(Action *action, Point *to)
   return NULL;
 }
 
+
 static void
-action_update_data(Action *action)
+action_update_data (Action *action)
 {
   Point p1,p2;
-  real x,x1;
-  real left,right;
-  int i;
-  real chunksize;
+  double x,x1;
+  double left,right;
+  double chunksize;
   Connection *conn = &action->connection;
   DiaObject *obj = &conn->object;
 
@@ -254,12 +260,12 @@ action_update_data(Action *action)
 
   action->labelstart = conn->endpoints[1];
   action->labelbb.left = action->labelstart.x;
-  action->labelstart.y += .3 * action->text->height;
+  action->labelstart.y += .3 * dia_text_get_height (action->text);
   action->labelstart.x = action->labelbb.left + action->space_width;
   if (action->macro_call) {
     action->labelstart.x += 2.0 * action->space_width;
   }
-  text_set_position(action->text,&action->labelstart);
+  dia_text_set_position (action->text, &action->labelstart);
 
   action_text_calc_boundingbox(action->text,&action->labelbb);
 
@@ -281,10 +287,12 @@ action_update_data(Action *action)
   p1.x = conn->endpoints[1].x;
   p1.y = conn->endpoints[1].y - .5 * ACTION_HEIGHT;
   p2.y = p1.y + ACTION_HEIGHT;
-  connpointline_adjust_count(action->cps,2+(2 * action->text->numlines), &p1);
+  connpointline_adjust_count (action->cps,
+                              2 + (2 * dia_text_get_n_lines (action->text)),
+                              &p1);
 
-  for (i=0; i<action->text->numlines; i++) {
-    chunksize = text_get_line_width(action->text, i);
+  for (size_t i = 0; i < dia_text_get_n_lines (action->text); i++) {
+    chunksize = dia_text_get_line_width (action->text, i);
     x1 = x + 1.0;
     if (x1 >= right) {
       x1 = right - ACTION_LINE_WIDTH;
@@ -321,8 +329,7 @@ action_draw (Action *action, DiaRenderer *renderer)
 {
   Connection *conn = &action->connection;
   Point ul,br,p1,p2;
-  int i;
-  real chunksize;
+  double chunksize;
   Color cl;
 
   dia_renderer_set_linewidth (renderer, ACTION_LINE_WIDTH);
@@ -363,8 +370,8 @@ action_draw (Action *action, DiaRenderer *renderer)
   p1.x = p2.x = ul.x;
   p1.y = ul.y; p2.y = br.y;
 
-  for (i=0; i<action->text->numlines-1; i++) {
-    chunksize = text_get_line_width (action->text, i);
+  for (size_t i = 0; i < dia_text_get_n_lines (action->text) - 1; i++) {
+    chunksize = dia_text_get_line_width (action->text, i);
     p1.x = p2.x = p1.x + chunksize + 2 * action->space_width;
     dia_renderer_draw_line (renderer, &p1, &p2, &DIA_COLOUR_BLACK);
   }
@@ -411,12 +418,12 @@ action_create(Point *startpoint,
 
   pos = conn->endpoints[1];
   action_font = dia_font_new_from_style (ACTION_FONT, ACTION_FONT_HEIGHT);
-  action->text = new_text ("",
-                           action_font,
-                           ACTION_FONT_HEIGHT,
-                           &pos, /* never used */
-                           &DIA_COLOUR_BLACK,
-                           DIA_ALIGN_LEFT);
+  action->text = dia_text_new ("",
+                               action_font,
+                               ACTION_FONT_HEIGHT,
+                               &pos, /* never used */
+                               &DIA_COLOUR_BLACK,
+                               DIA_ALIGN_LEFT);
   g_clear_object (&action_font);
 
   action->macro_call = FALSE;
@@ -436,13 +443,15 @@ action_create(Point *startpoint,
   return &action->connection.object;
 }
 
+
 static void
-action_destroy(Action *action)
+action_destroy (Action *action)
 {
-  text_destroy(action->text);
-  connpointline_destroy(action->cps);
-  connection_destroy(&action->connection);
+  dia_clear_part (&action->text);
+  connpointline_destroy (action->cps);
+  connection_destroy (&action->connection);
 }
+
 
 static DiaObject *
 action_load(ObjectNode obj_node, int version,DiaContext *ctx)

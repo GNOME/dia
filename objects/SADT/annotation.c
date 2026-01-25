@@ -35,7 +35,7 @@
 #include "handle.h"
 #include "arrows.h"
 #include "properties.h"
-#include "text.h"
+#include "dia-text.h"
 
 #include "pixmaps/annotation.xpm"
 
@@ -44,7 +44,7 @@ typedef struct _Annotation {
 
   Handle text_handle;
 
-  Text *text;
+  DiaText *text;
 
   Color line_color;
 } Annotation;
@@ -161,10 +161,10 @@ annotation_describe_props(Annotation *annotation)
 static PropOffset annotation_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Annotation,text)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Annotation,text),offsetof(Text,alignment)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Annotation,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Annotation,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Annotation,text),offsetof(Text,color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Annotation,text), DIA_TEXT_ALIGNMENT_OFFSET},
+  {"text_font",PROP_TYPE_FONT,offsetof(Annotation,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Annotation,text), DIA_TEXT_HEIGHT_OFFSET },
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Annotation,text), DIA_TEXT_COLOUR_OFFSET},
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Annotation, line_color) },
   {"pos", PROP_TYPE_POINT, offsetof(Annotation,text_handle.pos)},
   { NULL,0,0 }
@@ -185,91 +185,121 @@ annotation_set_props(Annotation *annotation, GPtrArray *props)
   annotation_update_data(annotation);
 }
 
-static real
-annotation_distance_from(Annotation *annotation, Point *point)
+
+static double
+annotation_distance_from (Annotation *annotation, Point *point)
 {
   Point *endpoints;
   DiaRectangle bbox;
   endpoints = &annotation->connection.endpoints[0];
 
-  text_calc_boundingbox(annotation->text,&bbox);
-  return MIN(distance_line_point(&endpoints[0], &endpoints[1],
-				 ANNOTATION_LINE_WIDTH, point),
-	     distance_rectangle_point(&bbox,point));
+  dia_text_calc_boundingbox (annotation->text, &bbox);
+  return MIN (distance_line_point (&endpoints[0],
+                                   &endpoints[1],
+                                   ANNOTATION_LINE_WIDTH,
+                                   point),
+              distance_rectangle_point (&bbox, point));
 }
+
 
 static void
-annotation_select(Annotation *annotation, Point *clicked_point,
-	    DiaRenderer *interactive_renderer)
+annotation_select (Annotation  *annotation,
+                   Point       *clicked_point,
+                   DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(annotation->text, clicked_point, interactive_renderer);
-  text_grab_focus(annotation->text, &annotation->connection.object);
+  dia_text_set_cursor (annotation->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (annotation->text, &annotation->connection.object);
 
-  connection_update_handles(&annotation->connection);
+  connection_update_handles (&annotation->connection);
 }
 
-static DiaObjectChange*
-annotation_move_handle(Annotation *annotation, Handle *handle,
-		       Point *to, ConnectionPoint *cp,
-		       HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+annotation_move_handle (Annotation       *annotation,
+                        Handle           *handle,
+                        Point            *to,
+                        ConnectionPoint  *cp,
+                        HandleMoveReason  reason,
+                        ModifierKeys      modifiers)
 {
   Point p1, p2;
   Point *endpoints;
   Connection *conn = (Connection *)annotation;
 
-  g_assert(annotation!=NULL);
-  g_assert(handle!=NULL);
-  g_assert(to!=NULL);
+  g_assert (annotation != NULL);
+  g_assert (handle != NULL);
+  g_assert (to != NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
-    annotation->text->position = *to;
+    dia_text_set_position (annotation->text, to);
   } else  {
     endpoints = &(conn->endpoints[0]);
     if (handle->id == HANDLE_MOVE_STARTPOINT) {
+      Point text_position;
+
       p1 = endpoints[0];
-      connection_move_handle(conn, handle->id, to, cp, reason, modifiers);
-      connection_adjust_for_autogap(conn);
+      connection_move_handle (conn, handle->id, to, cp, reason, modifiers);
+      connection_adjust_for_autogap (conn);
+
       p2 = endpoints[0];
-      point_sub(&p2, &p1);
-      point_add(&annotation->text->position, &p2);
-      point_add(&p2,&(endpoints[1]));
-      connection_move_handle(conn, HANDLE_MOVE_ENDPOINT, &p2, NULL, reason, 0);
+      point_sub (&p2, &p1);
+      dia_text_get_position (annotation->text, &text_position);
+      point_add (&text_position, &p2);
+      dia_text_set_position (annotation->text, &text_position);
+      point_add (&p2,&(endpoints[1]));
+
+      connection_move_handle (conn,
+                              HANDLE_MOVE_ENDPOINT,
+                              &p2,
+                              NULL,
+                              reason,
+                              0);
     } else {
+      Point text_position;
+
       p1 = endpoints[1];
-      connection_move_handle(conn, handle->id, to, cp, reason, modifiers);
-      connection_adjust_for_autogap(conn);
+      connection_move_handle (conn, handle->id, to, cp, reason, modifiers);
+      connection_adjust_for_autogap (conn);
+
       p2 = endpoints[1];
-      point_sub(&p2, &p1);
-      point_add(&annotation->text->position, &p2);
+      point_sub (&p2, &p1);
+      dia_text_get_position (annotation->text, &text_position);
+      point_add (&text_position, &p2);
+      dia_text_set_position (annotation->text, &text_position);
     }
   }
-  annotation_update_data(annotation);
+  annotation_update_data (annotation);
 
   return NULL;
 }
 
-static DiaObjectChange*
-annotation_move(Annotation *annotation, Point *to)
+
+static DiaObjectChange *
+annotation_move (Annotation *annotation, Point *to)
 {
   Point start_to_end;
   Point *endpoints = &annotation->connection.endpoints[0];
   Point delta;
+  Point text_position;
 
   delta = *to;
-  point_sub(&delta, &endpoints[0]);
+  point_sub (&delta, &endpoints[0]);
 
   start_to_end = endpoints[1];
-  point_sub(&start_to_end, &endpoints[0]);
+  point_sub (&start_to_end, &endpoints[0]);
 
   endpoints[1] = endpoints[0] = *to;
-  point_add(&endpoints[1], &start_to_end);
+  point_add (&endpoints[1], &start_to_end);
 
-  point_add(&annotation->text->position, &delta);
+  dia_text_get_position (annotation->text, &text_position);
+  point_add (&text_position, &delta);
+  dia_text_set_position (annotation->text, &text_position);
 
-  annotation_update_data(annotation);
+  annotation_update_data (annotation);
 
   return NULL;
 }
+
 
 static void
 annotation_draw (Annotation *annotation, DiaRenderer *renderer)
@@ -315,14 +345,15 @@ annotation_draw (Annotation *annotation, DiaRenderer *renderer)
                                 sizeof(pts) / sizeof(pts[0]),
                                 &annotation->line_color);
   }
-  text_draw (annotation->text,renderer);
+  dia_text_draw (annotation->text,renderer);
 }
 
+
 static DiaObject *
-annotation_create(Point *startpoint,
-		  void *user_data,
-		  Handle **handle1,
-		  Handle **handle2)
+annotation_create (Point   *startpoint,
+                   void    *user_data,
+                   Handle **handle1,
+                   Handle **handle2)
 {
   Annotation *annotation;
   Connection *conn;
@@ -330,7 +361,8 @@ annotation_create(Point *startpoint,
   DiaObject *obj;
   Point offs;
   Point defaultlen = { 1.0, 1.0 };
-  DiaFont* font;
+  DiaFont *font;
+  Point text_position;
 
   annotation = g_new0 (Annotation, 1);
 
@@ -350,20 +382,24 @@ annotation_create(Point *startpoint,
   annotation->line_color = DIA_COLOUR_BLACK;
 
   font = dia_font_new_from_style (DIA_FONT_SANS, ANNOTATION_FONTHEIGHT);
-  annotation->text = new_text ("",
-                               font,
-                               ANNOTATION_FONTHEIGHT,
-                               &conn->endpoints[1],
-                               &DIA_COLOUR_BLACK,
-                               DIA_ALIGN_CENTRE);
+  annotation->text = dia_text_new ("",
+                                   font,
+                                   ANNOTATION_FONTHEIGHT,
+                                   &conn->endpoints[1],
+                                   &DIA_COLOUR_BLACK,
+                                   DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   offs.x = .3 * ANNOTATION_FONTHEIGHT;
-  if (conn->endpoints[1].y < conn->endpoints[0].y)
+  if (conn->endpoints[1].y < conn->endpoints[0].y) {
     offs.y = 1.3 * ANNOTATION_FONTHEIGHT;
-  else
+  } else {
     offs.y = -.3 * ANNOTATION_FONTHEIGHT;
-  point_add(&annotation->text->position,&offs);
+  }
+
+  dia_text_get_position (annotation->text, &text_position);
+  point_add (&text_position, &offs);
+  dia_text_set_position (annotation->text, &text_position);
 
   annotation->text_handle.id = HANDLE_MOVE_TEXT;
   annotation->text_handle.type = HANDLE_MINOR_CONTROL;
@@ -384,12 +420,13 @@ annotation_create(Point *startpoint,
 
 
 static void
-annotation_destroy(Annotation *annotation)
+annotation_destroy (Annotation *annotation)
 {
   connection_destroy(&annotation->connection);
 
-  text_destroy(annotation->text);
+  dia_clear_part (&annotation->text);
 }
+
 
 static void
 annotation_update_data(Annotation *annotation)
@@ -404,18 +441,19 @@ annotation_update_data(Annotation *annotation)
   }
   obj->position = conn->endpoints[0];
 
-  annotation->text_handle.pos = annotation->text->position;
+  dia_text_get_position (annotation->text, &annotation->text_handle.pos);
 
-  connection_update_handles(conn);
+  connection_update_handles (conn);
 
-  connection_update_boundingbox(conn);
-  text_calc_boundingbox(annotation->text,&textrect);
-  rectangle_union(&obj->bounding_box, &textrect);
+  connection_update_boundingbox (conn);
+  dia_text_calc_boundingbox (annotation->text, &textrect);
+  rectangle_union (&obj->bounding_box, &textrect);
 }
 
+
 static DiaObject *
-annotation_load(ObjectNode obj_node, int version,DiaContext *ctx)
+annotation_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
-  return object_load_using_properties(&sadtannotation_type,
-                                      obj_node,version,ctx);
+  return object_load_using_properties (&sadtannotation_type,
+                                       obj_node,version,ctx);
 }

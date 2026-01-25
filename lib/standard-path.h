@@ -42,6 +42,6 @@ G_DECLARE_FINAL_TYPE (DiaPathTransformObjectChange,
 /* there should be no need to use DIAVAR */
 extern DiaObjectType stdpath_type;
 
-gboolean text_to_path (Text *text, GArray *points);
+gboolean text_to_path (DiaText *text, GArray *points);
 
 G_END_DECLS

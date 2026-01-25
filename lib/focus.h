@@ -18,12 +18,15 @@
 
 #pragma once
 
-#include "diatypes.h"
 #include "dia-object-change.h"
+#include "dia-text.h"
+#include "diatypes.h"
+
+G_BEGIN_DECLS
 
 struct _Focus {
   DiaObject *obj;
-  Text *text;
+  DiaText *text;
   int has_focus;
 
   /* return TRUE if modified object.
@@ -46,3 +49,9 @@ void remove_focus_on_diagram(DiagramData *dia);
 gboolean remove_focus_object(DiaObject *obj);
 void reset_foci_on_diagram(DiagramData *dia);
 DiaObject* focus_get_object(Focus *focus);
+
+/** Exposing this is a hack, but currently GTK still captures the key
+ * events of insensitive clods^H^H^H^H^Hmenu items. LC 21/10 2007*/
+gboolean text_delete_key_handler(Focus *focus, DiaObjectChange **change);
+
+G_END_DECLS

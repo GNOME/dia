@@ -30,7 +30,7 @@
 #include "element.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "uml.h"
@@ -41,16 +41,15 @@ typedef struct _Node Node;
 
 #define NUM_CONNECTIONS 9
 
-struct _Node
-{
+struct _Node {
   Element element;
   ConnectionPoint connections[NUM_CONNECTIONS];
-  Text *name;
+  DiaText *name;
 
-  Color line_color;
-  Color fill_color;
+  DiaColour line_color;
+  DiaColour fill_color;
 
-  real  line_width;
+  double line_width;
 };
 
 static const double NODE_BORDERWIDTH = 0.1;
@@ -147,9 +146,9 @@ static PropOffset node_offsets[] = {
   {"name",PROP_TYPE_TEXT,offsetof(Node,name)},
   /* new name matching "same name, same type"  rule */
   {"text",PROP_TYPE_TEXT,offsetof(Node,name)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Node,name),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Node,name),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Node,name),offsetof(Text,color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Node,name), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Node,name), DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Node,name), DIA_TEXT_COLOUR_OFFSET},
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Node, line_width) },
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Node,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Node,fill_color)},
@@ -179,13 +178,15 @@ node_distance_from(Node *node, Point *point)
   return distance_rectangle_point(&obj->bounding_box, point);
 }
 
+
 static void
-node_select(Node *node, Point *clicked_point,
-		    DiaRenderer *interactive_renderer)
+node_select (Node        *node,
+             Point       *clicked_point,
+             DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(node->name, clicked_point, interactive_renderer);
-  text_grab_focus(node->name, &node->element.object);
-  element_update_handles(&node->element);
+  dia_text_set_cursor (node->name, clicked_point, interactive_renderer);
+  dia_text_grab_focus (node->name, &node->element.object);
+  element_update_handles (&node->element);
 }
 
 
@@ -211,7 +212,7 @@ node_move_handle (Node             *node,
 
 
 static DiaObjectChange*
-node_move(Node *node, Point *to)
+node_move (Node *node, Point *to)
 {
   Point p;
 
@@ -219,10 +220,10 @@ node_move(Node *node, Point *to)
 
   p = *to;
   p.x += NODE_TEXT_MARGIN;
-  p.y += node->name->ascent + NODE_TEXT_MARGIN;
-  text_set_position(node->name, &p);
+  p.y += dia_text_get_ascent (node->name) + NODE_TEXT_MARGIN;
+  dia_text_set_position (node->name, &p);
 
-  node_update_data(node);
+  node_update_data (node);
 
   return NULL;
 }
@@ -234,7 +235,7 @@ node_draw (Node *node, DiaRenderer *renderer)
   Element *elem;
   double x, y, w, h;
   Point points[7];
-  int i;
+  Point text_position;
 
   g_return_if_fail (node != NULL);
   g_return_if_fail (renderer != NULL);
@@ -275,37 +276,47 @@ node_draw (Node *node, DiaRenderer *renderer)
   dia_renderer_draw_line (renderer, &points[0], &points[1], &node->line_color);
 
   /* Draw text */
-  text_draw (node->name, renderer);
+  dia_text_draw (node->name, renderer);
 
   /* Draw underlines (!) */
   dia_renderer_set_linewidth (renderer, NODE_LINEWIDTH);
-  points[0].x = node->name->position.x;
-  points[0].y = points[1].y = node->name->position.y + node->name->descent;
-  for (i = 0; i < node->name->numlines; i++) {
-    points[1].x = points[0].x + text_get_line_width (node->name, i);
-    dia_renderer_draw_line (renderer, points, points + 1, &node->name->color);
-    points[0].y = points[1].y += node->name->height;
+  dia_text_get_position (node->name, &text_position);
+  points[0].x = text_position.x;
+  points[0].y = points[1].y = text_position.y +
+    dia_text_get_descent (node->name);
+  for (size_t i = 0; i < dia_text_get_n_lines (node->name); i++) {
+    DiaColour text_colour;
+    points[1].x = points[0].x + dia_text_get_line_width (node->name, i);
+    dia_text_get_colour (node->name, &text_colour);
+    dia_renderer_draw_line (renderer, points, points + 1, &text_colour);
+    points[0].y = points[1].y += dia_text_get_height (node->name);
   }
 }
 
+
 static void
-node_update_data(Node *node)
+node_update_data (Node *node)
 {
   Element *elem = &node->element;
   DiaObject *obj = &node->element.object;
   Point p1;
-  real h;
+  double h;
 
-  text_calc_boundingbox(node->name, NULL);
+  dia_text_calc_boundingbox (node->name, NULL);
 
   h = elem->corner.y + NODE_TEXT_MARGIN;
 
   p1.x = elem->corner.x + NODE_TEXT_MARGIN;
-  p1.y = h + node->name->ascent;  /* position of text */
-  text_set_position(node->name, &p1);
+  p1.y = h + dia_text_get_ascent (node->name);  /* position of text */
+  dia_text_set_position (node->name, &p1);
 
-  elem->width = MAX(elem->width, node->name->max_width + 2*NODE_TEXT_MARGIN);
-  elem->height = MAX(elem->height, node->name->height * node->name->numlines + 2*NODE_TEXT_MARGIN);
+  elem->width = MAX (elem->width,
+                     dia_text_get_max_width (node->name) +
+                       (2 * NODE_TEXT_MARGIN));
+  elem->height = MAX (elem->height,
+                      (dia_text_get_height (node->name) *
+                        dia_text_get_n_lines (node->name)) +
+                          (2 * NODE_TEXT_MARGIN));
 
   /* Update connections: */
   element_update_connections_rectangle(elem, node->connections);
@@ -350,12 +361,12 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  node->name = new_text ("",
-                         font,
-                         NODE_FONTHEIGHT,
-                         &p,
-                         &DIA_COLOUR_BLACK,
-                         DIA_ALIGN_LEFT);
+  node->name = dia_text_new ("",
+                             font,
+                             NODE_FONTHEIGHT,
+                             &p,
+                             &DIA_COLOUR_BLACK,
+                             DIA_ALIGN_LEFT);
   g_clear_object (&font);
 
   element_init(elem, 8, NUM_CONNECTIONS);
@@ -374,14 +385,17 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
   return &node->element.object;
 }
 
-static void node_destroy(Node *node)
+
+static void
+node_destroy (Node *node)
 {
-  text_destroy(node->name);
-  element_destroy(&node->element);
+  dia_clear_part (&node->name);
+  element_destroy (&node->element);
 }
 
-static DiaObject *node_load(ObjectNode obj_node, int version,DiaContext *ctx)
+
+static DiaObject *
+node_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
-  return object_load_using_properties(&node_type,
-                                      obj_node,version,ctx);
+  return object_load_using_properties (&node_type, obj_node, version, ctx);
 }

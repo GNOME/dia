@@ -38,9 +38,9 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "connpoint_line.h"
 #include "dia-colour.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "pixmaps/resource.xpm"
@@ -75,7 +75,7 @@ typedef struct _Other {
   Element element;
   ConnPointLine *north,*south,*east,*west;
 
-  Text *text;
+  DiaText *text;
   real padding;
   OtherType type;
 
@@ -215,8 +215,8 @@ other_select (Other       *other,
               Point       *clicked_point,
               DiaRenderer *interactive_renderer)
 {
-  text_set_cursor (other->text, clicked_point, interactive_renderer);
-  text_grab_focus (other->text, &other->element.object);
+  dia_text_set_cursor (other->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (other->text, &other->element.object);
   element_update_handles (&other->element);
 }
 
@@ -365,7 +365,7 @@ other_draw (Other *other, DiaRenderer *renderer)
   }
 
   /* drawing text */
-  text_draw (other->text, renderer);
+  dia_text_draw (other->text, renderer);
 }
 
 
@@ -387,9 +387,10 @@ other_update_data (Other *other, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  text_calc_boundingbox (other->text, NULL);
-  width = other->text->max_width + other->padding*2;
-  height = other->text->height * other->text->numlines + other->padding*2;
+  dia_text_calc_boundingbox (other->text, NULL);
+  width = dia_text_get_max_width (other->text) + (other->padding * 2);
+  height = dia_text_get_height (other->text) *
+    dia_text_get_n_lines (other->text) + (other->padding * 2);
 
   /* autoscale here */
   if (width > elem->width) {
@@ -432,9 +433,9 @@ other_update_data (Other *other, AnchorShape horiz, AnchorShape vert)
   p = elem->corner;
   p.x += elem->width / 2.0;
 
-  p.y += elem->height / 2.0 - other->text->height * other->text->numlines / 2 +
-    other->text->ascent;
-  text_set_position (other->text, &p);
+  p.y += elem->height / 2.0 - dia_text_get_height (other->text) *
+    dia_text_get_n_lines (other->text) / 2 + dia_text_get_ascent (other->text);
+  dia_text_set_position (other->text, &p);
 
   extra->border_trans = OTHER_LINE_WIDTH / 2.0;
   element_update_boundingbox (elem);
@@ -589,12 +590,12 @@ other_create(Point *startpoint,
 
   font = dia_font_new_from_style( DIA_FONT_SANS, DEFAULT_FONT);
 
-  other->text = new_text ("",
-                          font,
-                          DEFAULT_FONT,
-                          &p,
-                          &DIA_COLOUR_BLACK,
-                          DIA_ALIGN_CENTRE);
+  other->text = dia_text_new ("",
+                              font,
+                              DEFAULT_FONT,
+                              &p,
+                              &DIA_COLOUR_BLACK,
+                              DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   element_init(elem, 8, 0);
@@ -620,17 +621,18 @@ other_create(Point *startpoint,
   return &other->element.object;
 }
 
+
 static void
-other_destroy(Other *other)
+other_destroy (Other *other)
 {
-  text_destroy(other->text);
+  dia_clear_part (&other->text);
 
-  connpointline_destroy(other->east);
-  connpointline_destroy(other->south);
-  connpointline_destroy(other->west);
-  connpointline_destroy(other->north);
+  connpointline_destroy (other->east);
+  connpointline_destroy (other->south);
+  connpointline_destroy (other->west);
+  connpointline_destroy (other->north);
 
-  element_destroy(&other->element);
+  element_destroy (&other->element);
 }
 
 

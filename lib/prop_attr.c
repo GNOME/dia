@@ -338,33 +338,44 @@ colorprop_save(ColorProperty *prop, AttributeNode attr, DiaContext *ctx)
   data_add_color(attr,&prop->color_data, ctx);
 }
 
+
 static void
-colorprop_get_from_offset(ColorProperty *prop,
-                          void *base, guint offset, guint offset2)
+colorprop_get_from_offset (ColorProperty *prop,
+                           void          *base,
+                           guint          offset,
+                           guint          offset2)
 {
   if (offset2 == 0) {
-    prop->color_data = struct_member(base,offset,Color);
+    prop->color_data = struct_member (base, offset, DiaColour);
+  } else if (offset2 == DIA_TEXT_COLOUR_OFFSET) {
+    DiaText *text = struct_member (base, offset, DiaText *);
+
+    dia_text_get_colour (text, &prop->color_data);
   } else {
-    void *base2 = struct_member(base,offset,void*);
+    void *base2 = struct_member (base, offset, void*);
     g_return_if_fail (base2 != NULL);
-    prop->color_data = struct_member(base2,offset2,Color);
+    prop->color_data = struct_member (base2, offset2, DiaColour);
   }
 }
 
+
 static void
-colorprop_set_from_offset(ColorProperty *prop,
-                          void *base, guint offset, guint offset2)
+colorprop_set_from_offset (ColorProperty *prop,
+                           void          *base,
+                           guint          offset,
+                           guint          offset2)
 {
   if (offset2 == 0) {
-    struct_member(base,offset,Color) = prop->color_data;
+    struct_member (base, offset, DiaColour) = prop->color_data;
+  } else if (offset2 == DIA_TEXT_COLOUR_OFFSET) {
+    DiaText *text = struct_member (base, offset, DiaText *);
+
+    dia_text_set_colour (text, &prop->color_data);
   } else {
-    void *base2 = struct_member(base,offset,void*);
-    g_return_if_fail (base2 != NULL);
-    struct_member(base2,offset2,Color) = prop->color_data;
-    g_return_if_fail (offset2 == offsetof(Text, color));
-    text_set_color ((Text *)base2, &prop->color_data);
+    g_return_if_reached ();
   }
 }
+
 
 static const PropertyOps colorprop_ops = {
   (PropertyType_New) colorprop_new,
@@ -412,8 +423,7 @@ fontprop_copy(FontProperty *src)
                                                 src->common.reason);
   copy_init_property (&prop->common, &src->common);
 
-  g_clear_object (&prop->font_data);
-  prop->font_data = g_object_ref (src->font_data);
+  g_set_object (&prop->font_data, src->font_data);
 
   return prop;
 }
@@ -433,40 +443,51 @@ fontprop_reset_widget(FontProperty *prop, WIDGET *widget)
                               prop->font_data);
 }
 
-static void
-fontprop_set_from_widget(FontProperty *prop, WIDGET *widget)
-{
-  prop->font_data = dia_font_selector_get_font (DIA_FONT_SELECTOR (widget));
-}
 
 static void
-fontprop_load(FontProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
+fontprop_set_from_widget (FontProperty *prop, WIDGET *widget)
 {
-  g_clear_object (&prop->font_data);
-  prop->font_data = data_font(data, ctx);
+  g_set_object (&prop->font_data,
+                dia_font_selector_get_font (DIA_FONT_SELECTOR (widget)));
 }
 
-static void
-fontprop_save(FontProperty *prop, AttributeNode attr, DiaContext *ctx)
-{
-  data_add_font(attr,prop->font_data, ctx);
-}
 
 static void
-fontprop_get_from_offset(FontProperty *prop,
-                         void *base, guint offset, guint offset2)
+fontprop_load (FontProperty  *prop,
+               AttributeNode  attr,
+               DataNode       data,
+               DiaContext    *ctx)
 {
-  /* if we get the same font dont unref before reuse */
-  DiaFont *old_font = prop->font_data;
+  g_set_object (&prop->font_data, data_font (data, ctx));
+}
+
+
+static void
+fontprop_save (FontProperty *prop, AttributeNode attr, DiaContext *ctx)
+{
+  data_add_font (attr, prop->font_data, ctx);
+}
+
+
+static void
+fontprop_get_from_offset (FontProperty *prop,
+                          void         *base,
+                          guint         offset,
+                          guint         offset2)
+{
   if (offset2 == 0) {
-    prop->font_data = g_object_ref (struct_member (base, offset, DiaFont *));
+    g_set_object (&prop->font_data, struct_member (base, offset, DiaFont *));
+  } else if (offset2 == DIA_TEXT_FONT_OFFSET) {
+    DiaText *text = struct_member (base, offset, DiaText *);
+
+    g_set_object (&prop->font_data, dia_text_get_font (text));
   } else {
-    void *base2 = struct_member(base,offset,void*);
+    void *base2 = struct_member (base, offset, void *);
     g_return_if_fail (base2 != NULL);
-    prop->font_data = g_object_ref (struct_member (base2, offset2, DiaFont *));
+    g_set_object (&prop->font_data, struct_member (base2, offset2, DiaFont *));
   }
-  g_clear_object (&old_font);
 }
+
 
 static void
 fontprop_set_from_offset (FontProperty *prop,
@@ -474,23 +495,17 @@ fontprop_set_from_offset (FontProperty *prop,
                           guint         offset,
                           guint         offset2)
 {
-  if (prop->font_data) {
-    DiaFont *old_font;
+  if (offset2 == 0) {
+    g_set_object (&struct_member (base, offset, DiaFont *), prop->font_data);
+  } else if (offset2 == DIA_TEXT_FONT_OFFSET) {
+    DiaText *text = struct_member (base, offset, DiaText *);
 
-    if (offset2 == 0) {
-      old_font = struct_member (base, offset, DiaFont *);
-      struct_member (base, offset, DiaFont *) = g_object_ref (prop->font_data);
-    } else {
-      void *base2 = struct_member (base, offset, void*);
-      g_return_if_fail (base2 != NULL);
-      old_font = struct_member (base2, offset2, DiaFont *);
-      struct_member (base2, offset2, DiaFont *) = g_object_ref (prop->font_data);
-      g_return_if_fail (offset2 == offsetof(Text, font));
-      text_set_font ((Text *) base2, prop->font_data);
-    }
-    g_clear_object (&old_font);
+    dia_text_set_font (text, prop->font_data);
+  } else {
+    g_return_if_reached ();
   }
 }
+
 
 static const PropertyOps fontprop_ops = {
   (PropertyType_New) fontprop_new,

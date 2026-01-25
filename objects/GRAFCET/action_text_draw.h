@@ -20,16 +20,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#pragma once
 
-#ifndef __ACTION_TEXT_DRAW_H
-#define __ACTION_TEXT_DRAW_H
-
-#include "geometry.h"
+#include "dia-text.h"
 #include "diarenderer.h"
-#include "text.h"
+#include "geometry.h"
 
-extern void action_text_draw             (Text *text, DiaRenderer  *renderer);
-extern void action_text_calc_boundingbox (Text *text, DiaRectangle *box);
-extern real action_text_spacewidth       (Text *text);
+G_BEGIN_DECLS
 
-#endif /* __ACTION_TEXT_DRAW_H */
+void   action_text_draw             (DiaText *text, DiaRenderer  *renderer);
+void   action_text_calc_boundingbox (DiaText *text, DiaRectangle *box);
+double action_text_spacewidth       (DiaText *text);
+
+G_END_DECLS

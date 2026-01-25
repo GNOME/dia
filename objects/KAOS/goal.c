@@ -39,9 +39,9 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "connpoint_line.h"
 #include "dia-colour.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "pixmaps/goal.xpm"
@@ -88,7 +88,7 @@ typedef struct _Goal {
   Element element;
   ConnPointLine *north,*south,*east,*west;
 
-  Text *text;
+  DiaText *text;
   real padding;
   GoalType type;
 } Goal;
@@ -236,8 +236,8 @@ goal_select (Goal        *goal,
              Point       *clicked_point,
              DiaRenderer *interactive_renderer)
 {
-  text_set_cursor (goal->text, clicked_point, interactive_renderer);
-  text_grab_focus (goal->text, &goal->element.object);
+  dia_text_set_cursor (goal->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (goal->text, &goal->element.object);
   element_update_handles (&goal->element);
 }
 
@@ -484,7 +484,7 @@ goal_draw (Goal *goal, DiaRenderer *renderer)
   }
 
   /* drawing text */
-  text_draw (goal->text, renderer);
+  dia_text_draw (goal->text, renderer);
 }
 
 
@@ -506,9 +506,10 @@ goal_update_data (Goal *goal, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  text_calc_boundingbox (goal->text, NULL);
-  width = goal->text->max_width + goal->padding*2;
-  height = goal->text->height * goal->text->numlines + goal->padding*2;
+  dia_text_calc_boundingbox (goal->text, NULL);
+  width = dia_text_get_max_width (goal->text) + (goal->padding * 2);
+  height = dia_text_get_height (goal->text) *
+    dia_text_get_n_lines (goal->text) + (goal->padding * 2);
 
   if (width < 2 * GOAL_OFFSET) width = 2 * GOAL_OFFSET;
   if (width > elem->width) elem->width = width;
@@ -541,9 +542,9 @@ goal_update_data (Goal *goal, AnchorShape horiz, AnchorShape vert)
 
   p = elem->corner;
   p.x += elem->width / 2.0;
-  p.y += elem->height / 2.0 - goal->text->height * goal->text->numlines / 2 +
-    goal->text->ascent;
-  text_set_position (goal->text, &p);
+  p.y += elem->height / 2.0 - dia_text_get_height (goal->text) *
+    dia_text_get_n_lines (goal->text) / 2 + dia_text_get_ascent (goal->text);
+  dia_text_set_position (goal->text, &p);
 
   extra->border_trans = GOAL_LINE_DOUBLE_WIDTH / 2.0;
   element_update_boundingbox (elem);
@@ -710,10 +711,12 @@ goal_create(Point *startpoint,
 
   font = dia_font_new_from_style( DIA_FONT_SANS , DEFAULT_FONT);
 
-  goal->text = new_text ("", font,
-                         DEFAULT_FONT, &p,
-                         &DIA_COLOUR_BLACK,
-                         DIA_ALIGN_CENTRE);
+  goal->text = dia_text_new ("",
+                             font,
+                             DEFAULT_FONT,
+                             &p,
+                             &DIA_COLOUR_BLACK,
+                             DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   element_init(elem, 8, 0);
@@ -742,17 +745,18 @@ goal_create(Point *startpoint,
   return &goal->element.object;
 }
 
+
 static void
-goal_destroy(Goal *goal)
+goal_destroy (Goal *goal)
 {
-  text_destroy(goal->text);
+  dia_clear_part (&goal->text);
 
-  connpointline_destroy(goal->east);
-  connpointline_destroy(goal->south);
-  connpointline_destroy(goal->west);
-  connpointline_destroy(goal->north);
+  connpointline_destroy (goal->east);
+  connpointline_destroy (goal->south);
+  connpointline_destroy (goal->west);
+  connpointline_destroy (goal->north);
 
-  element_destroy(&goal->element);
+  element_destroy (&goal->element);
 }
 
 

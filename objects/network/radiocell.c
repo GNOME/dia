@@ -30,7 +30,7 @@
 #include "polyshape.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "network.h"
@@ -49,7 +49,7 @@ struct _RadioCell {
   double line_width;
   gboolean show_background;
   Color fill_colour;
-  Text *text;
+  DiaText *text;
 };
 
 #define RADIOCELL_LINEWIDTH  0.1
@@ -153,11 +153,11 @@ static PropOffset radiocell_offsets[] = {
   { "show_background", PROP_TYPE_BOOL,
     offsetof(RadioCell, show_background) },
   { "text", PROP_TYPE_TEXT, offsetof(RadioCell, text) },
-  { "text_font", PROP_TYPE_FONT, offsetof(RadioCell,text),offsetof(Text,font) },
-  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(RadioCell,text),offsetof(Text,height) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof(RadioCell,text),offsetof(Text,color) },
+  { "text_font", PROP_TYPE_FONT, offsetof(RadioCell,text), DIA_TEXT_FONT_OFFSET },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(RadioCell,text), DIA_TEXT_HEIGHT_OFFSET },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(RadioCell,text), DIA_TEXT_COLOUR_OFFSET },
   { "text_alignment", PROP_TYPE_ENUM,
-    offsetof(RadioCell,text),offsetof(Text,alignment) },
+    offsetof(RadioCell,text), DIA_TEXT_ALIGNMENT_OFFSET },
   { NULL, 0, 0 },
 };
 
@@ -183,14 +183,17 @@ radiocell_distance_from(RadioCell *radiocell, Point *point)
 				 radiocell->line_width);
 }
 
+
 static void
-radiocell_select(RadioCell *radiocell, Point *clicked_point,
-		 DiaRenderer *interactive_renderer)
+radiocell_select (RadioCell   *radiocell,
+                  Point       *clicked_point,
+                  DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(radiocell->text, clicked_point, interactive_renderer);
-  text_grab_focus(radiocell->text, &radiocell->poly.object);
-  radiocell_update_data(radiocell);
+  dia_text_set_cursor (radiocell->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (radiocell->text, &radiocell->poly.object);
+  radiocell_update_data (radiocell);
 }
+
 
 static DiaObjectChange*
 radiocell_move_handle(RadioCell *radiocell, Handle *handle,
@@ -266,7 +269,7 @@ radiocell_draw (RadioCell *radiocell, DiaRenderer *renderer)
                              (radiocell->show_background) ? &radiocell->fill_colour : NULL,
                              &radiocell->line_colour);
 
-  text_draw (radiocell->text, renderer);
+  dia_text_draw (radiocell->text, renderer);
 }
 
 static void
@@ -292,19 +295,20 @@ radiocell_update_data(RadioCell *radiocell)
   }
 
   /* Add bounding box for text: */
-  text_calc_boundingbox(radiocell->text, NULL);
+  dia_text_calc_boundingbox (radiocell->text, NULL);
   textpos.x = (poly->points[0].x + poly->points[3].x) / 2.;
-  textpos.y = poly->points[0].y -
-    (radiocell->text->height * (radiocell->text->numlines - 1) +
-     radiocell->text->descent) / 2.;
-  text_set_position(radiocell->text, &textpos);
-  text_calc_boundingbox(radiocell->text, &text_box);
-  polyshape_update_data(poly);
+  textpos.y = poly->points[0].y - (dia_text_get_height (radiocell->text) *
+    (dia_text_get_n_lines (radiocell->text) - 1) +
+      dia_text_get_descent (radiocell->text)) / 2.;
+  dia_text_set_position (radiocell->text, &textpos);
+  dia_text_calc_boundingbox (radiocell->text, &text_box);
+  polyshape_update_data (poly);
   extra->border_trans = radiocell->line_width / 2.0;
-  polyshape_update_boundingbox(poly);
-  rectangle_union(&obj->bounding_box, &text_box);
+  polyshape_update_boundingbox (poly);
+  rectangle_union (&obj->bounding_box, &text_box);
   obj->position = poly->points[0];
 }
+
 
 static DiaObject *
 radiocell_create(Point *startpoint,
@@ -335,12 +339,12 @@ radiocell_create(Point *startpoint,
                                      &radiocell->dashlength);
 
   font = dia_font_new_from_style (DIA_FONT_MONOSPACE, RADIOCELL_FONTHEIGHT);
-  radiocell->text = new_text ("",
-                              font,
-                              RADIOCELL_FONTHEIGHT,
-                              startpoint,
-                              &DIA_COLOUR_BLACK,
-                              DIA_ALIGN_CENTRE);
+  radiocell->text = dia_text_new ("",
+                                  font,
+                                  RADIOCELL_FONTHEIGHT,
+                                  startpoint,
+                                  &DIA_COLOUR_BLACK,
+                                  DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   polyshape_init(poly, 6);
@@ -363,12 +367,15 @@ radiocell_create(Point *startpoint,
   return &radiocell->poly.object;
 }
 
+
 static void
-radiocell_destroy(RadioCell *radiocell)
+radiocell_destroy (RadioCell *radiocell)
 {
-  text_destroy(radiocell->text);
-  polyshape_destroy(&radiocell->poly);
+  dia_clear_part (&radiocell->text);
+
+  polyshape_destroy (&radiocell->poly);
 }
+
 
 static DiaObject *
 radiocell_load(ObjectNode obj_node, int version,DiaContext *ctx)

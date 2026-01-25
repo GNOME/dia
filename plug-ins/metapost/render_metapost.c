@@ -49,8 +49,8 @@
 #include "filter.h"
 #include "dia_image.h"
 #include "font.h"
-#include "text.h"
 #include "textline.h"
+#include "dia-text.h"
 #include "dia-version-info.h"
 
 #define POINTS_in_INCH 28.346
@@ -847,23 +847,25 @@ draw_string (DiaRenderer  *self,
 
 static void
 draw_text (DiaRenderer *self,
-           Text        *text)
+           DiaText     *text)
 {
   Point pos;
-  int i;
-  pos = text->position;
+  size_t n_lines;
+  TextLine **lines = dia_text_get_lines (text, &n_lines);
+  DiaColour text_colour;
 
-  set_font (self, text->font, text->height);
+  dia_text_get_position (text, &pos);
+  dia_text_get_colour (text, &text_colour);
 
-  for (i = 0; i < text->numlines; i++) {
-    TextLine *text_line = text->lines[i];
+  set_font (self, dia_text_get_font (text), dia_text_get_height (text));
 
+  for (size_t i = 0; i < n_lines; i++) {
     draw_string (self,
-                 text_line_get_string (text_line),
+                 text_line_get_string (lines[i]),
                  &pos,
-                 text->alignment,
-                 &text->color);
-    pos.y += text->height;
+                 dia_text_get_alignment (text),
+                 &text_colour);
+    pos.y += dia_text_get_height (text);
   }
 }
 

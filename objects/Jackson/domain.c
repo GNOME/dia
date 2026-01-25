@@ -39,9 +39,9 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "connpoint_line.h"
 #include "dia-colour.h"
+#include "dia-text.h"
 #include "properties.h"
 
 #include "pixmaps/given_domain.xpm"
@@ -101,7 +101,7 @@ typedef struct _Box {
 
   ConnPointLine *north,*south,*east,*west;
 
-  Text *text;
+  DiaText *text;
   real padding;
   DomainType domtype;
   DomainKind domkind;
@@ -219,10 +219,10 @@ static PropOffset box_offsets[] = {
   { "domtype", PROP_TYPE_ENUM, offsetof(Box,domtype)},
   { "domkind", PROP_TYPE_ENUM, offsetof(Box,domkind)},
   { "text", PROP_TYPE_TEXT, offsetof(Box,text)},
-  { "text_alignment",PROP_TYPE_ENUM,offsetof(Box,text),offsetof(Text,alignment)},
-  { "text_font",PROP_TYPE_FONT,offsetof(Box,text),offsetof(Text,font)},
-  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,text),offsetof(Text,height)},
-  { "text_colour",PROP_TYPE_COLOUR,offsetof(Box,text),offsetof(Text,color)},
+  { "text_alignment",PROP_TYPE_ENUM,offsetof(Box,text), DIA_TEXT_ALIGNMENT_OFFSET},
+  { "text_font",PROP_TYPE_FONT,offsetof(Box,text), DIA_TEXT_FONT_OFFSET},
+  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,text), DIA_TEXT_HEIGHT_OFFSET},
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Box,text), DIA_TEXT_COLOUR_OFFSET},
   { "cpl_north",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,north)},
   { "cpl_west",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,west)},
   { "cpl_south",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,south)},
@@ -270,8 +270,8 @@ jackson_box_select (Box         *box,
                     Point       *clicked_point,
                     DiaRenderer *interactive_renderer)
 {
-  text_set_cursor (box->text, clicked_point, interactive_renderer);
-  text_grab_focus (box->text, &box->element.object);
+  dia_text_set_cursor (box->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (box->text, &box->element.object);
   element_update_handles (&box->element);
 }
 
@@ -404,8 +404,10 @@ jackson_box_draw (Box *box, DiaRenderer *renderer)
   }
 
   /* adding corner for optional qualifier */
-  idfontheight = box->text->height;
-  dia_renderer_set_font (renderer, box->text->font, idfontheight);
+  idfontheight = dia_text_get_height (box->text);
+  dia_renderer_set_font (renderer,
+                         dia_text_get_font (box->text),
+                         idfontheight);
   b2 = b3 = b1;
   b2.x -= .2 * idfontheight;
   b2.y -= .2 * idfontheight;
@@ -428,16 +430,19 @@ jackson_box_draw (Box *box, DiaRenderer *renderer)
   }
 
   if (s != NULL) {
+    DiaColour text_colour;
+
     dia_renderer_draw_rect (renderer, &b3, &b1,
                             NULL, &JACKSON_BOX_FG_COLOR);
+    dia_text_get_colour (box->text, &text_colour);
     dia_renderer_draw_string (renderer,
                               s,
                               &b2,
                               DIA_ALIGN_RIGHT,
-                              &box->text->color);
+                              &text_colour);
   }
 
-  text_draw (box->text, renderer);
+  dia_text_draw (box->text, renderer);
 }
 
 
@@ -460,9 +465,11 @@ jackson_box_update_data (Box *box, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  text_calc_boundingbox(box->text, NULL);
-  width = LEFT_SPACE + box->text->max_width + box->padding*2 + RIGHT_SPACE;
-  height = box->text->height * box->text->numlines + box->padding*2;
+  dia_text_calc_boundingbox (box->text, NULL);
+  width = LEFT_SPACE + dia_text_get_max_width (box->text) +
+    (box->padding * 2) + RIGHT_SPACE;
+  height = dia_text_get_height (box->text) *
+    dia_text_get_n_lines (box->text) + (box->padding * 2);
 
   if (width > elem->width) elem->width = width;
   if (height > elem->height) elem->height = height;
@@ -494,8 +501,9 @@ jackson_box_update_data (Box *box, AnchorShape horiz, AnchorShape vert)
 
   p = elem->corner;
   p.x += (LEFT_SPACE+elem->width-RIGHT_SPACE) / 2.0;
-  p.y += elem->height / 2.0 - box->text->height * box->text->numlines / 2 + box->text->ascent;
-  text_set_position (box->text, &p);
+  p.y += elem->height / 2.0 - dia_text_get_height (box->text) *
+    dia_text_get_n_lines (box->text) / 2 + dia_text_get_ascent (box->text);
+  dia_text_set_position (box->text, &p);
 
   extra->border_trans = JACKSON_BOX_LINE_WIDTH / 2.0;
   element_update_boundingbox (elem);
@@ -677,10 +685,12 @@ jackson_box_create (Point   *startpoint,
 
   font = dia_font_new_from_style (DIA_FONT_SANS, DEFAULT_FONT);
 
-  box->text = new_text ("", font,
-                        DEFAULT_FONT, &p,
-                        &DIA_COLOUR_BLACK,
-                        DIA_ALIGN_CENTRE);
+  box->text = dia_text_new ("",
+                            font,
+                            DEFAULT_FONT,
+                            &p,
+                            &DIA_COLOUR_BLACK,
+                            DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   element_init (elem, 8, 0);
@@ -710,17 +720,18 @@ jackson_box_create (Point   *startpoint,
   return &box->element.object;
 }
 
+
 static void
-jackson_box_destroy(Box *box)
+jackson_box_destroy (Box *box)
 {
-  text_destroy(box->text);
+  dia_clear_part (&box->text);
 
-  connpointline_destroy(box->east);
-  connpointline_destroy(box->south);
-  connpointline_destroy(box->west);
-  connpointline_destroy(box->north);
+  connpointline_destroy (box->east);
+  connpointline_destroy (box->south);
+  connpointline_destroy (box->west);
+  connpointline_destroy (box->north);
 
-  element_destroy(&box->element);
+  element_destroy (&box->element);
 }
 
 

@@ -27,7 +27,7 @@
 
 #include "properties.h"
 #include "dia_xml.h"
-#include "text.h"
+#include "dia-text.h"
 
 
 typedef struct {

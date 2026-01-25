@@ -182,8 +182,9 @@ _dia_font_adjust_size (DiaFont *font, double height, gboolean recalc_alwways)
 
     dia_pfd_set_height (font->pfd, height);
     /* need to load a font to get it's metrics */
-    loaded = font->loaded;
-    font->loaded = pango_context_load_font (dia_font_get_context (), font->pfd);
+    loaded = pango_context_load_font (dia_font_get_context (), font->pfd);
+
+    g_set_object (&font->loaded, loaded);
 
     g_clear_object (&loaded);
 

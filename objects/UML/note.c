@@ -25,9 +25,9 @@
 
 #include "object.h"
 #include "element.h"
+#include "dia-text.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "text.h"
 #include "properties.h"
 
 #include "pixmaps/note.xpm"
@@ -40,11 +40,11 @@ struct _Note {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
 
-  Text *text;
+  DiaText *text;
 
-  real line_width;
-  Color line_color;
-  Color fill_color;
+  double line_width;
+  DiaColour line_color;
+  DiaColour fill_color;
 };
 
 #define NOTE_BORDERWIDTH 0.1
@@ -131,9 +131,9 @@ note_describe_props(Note *note)
 static PropOffset note_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Note,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Note,text),offsetof(Text,font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Note,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Note,text),offsetof(Text,color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Note,text), DIA_TEXT_FONT_OFFSET},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Note,text),DIA_TEXT_HEIGHT_OFFSET},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Note,text), DIA_TEXT_COLOUR_OFFSET},
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Note, line_width)},
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Note,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Note,fill_color)},
@@ -174,13 +174,15 @@ note_distance_from(Note *note, Point *point)
   return distance_polygon_point(pts, G_N_ELEMENTS(pts), 0.0, point);
 }
 
+
 static void
-note_select(Note *note, Point *clicked_point,
-	       DiaRenderer *interactive_renderer)
+note_select (Note        *note,
+             Point       *clicked_point,
+             DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(note->text, clicked_point, interactive_renderer);
-  text_grab_focus(note->text, &note->element.object);
-  element_update_handles(&note->element);
+  dia_text_set_cursor (note->text, clicked_point, interactive_renderer);
+  dia_text_grab_focus (note->text, &note->element.object);
+  element_update_handles (&note->element);
 }
 
 
@@ -262,26 +264,29 @@ note_draw (Note *note, DiaRenderer *renderer)
                               3,
                               &note->line_color);
 
-  text_draw (note->text, renderer);
+  dia_text_draw (note->text, renderer);
 }
 
+
 static void
-note_update_data(Note *note)
+note_update_data (Note *note)
 {
   Element *elem = &note->element;
   DiaObject *obj = &elem->object;
   Point p;
 
-  text_calc_boundingbox(note->text, NULL);
+  dia_text_calc_boundingbox (note->text, NULL);
 
-  elem->width = note->text->max_width + NOTE_MARGIN_X + NOTE_CORNER;
-  elem->height =
-    note->text->height*note->text->numlines + NOTE_MARGIN_Y + NOTE_CORNER;
+  elem->width = dia_text_get_max_width (note->text) + NOTE_MARGIN_X +
+    NOTE_CORNER;
+  elem->height = (dia_text_get_height (note->text) *
+    dia_text_get_n_lines (note->text)) + NOTE_MARGIN_Y + NOTE_CORNER;
 
   p = elem->corner;
-  p.x += note->line_width/2.0 + NOTE_MARGIN_X;
-  p.y += note->line_width/2.0 + NOTE_CORNER + note->text->ascent;
-  text_set_position(note->text, &p);
+  p.x += (note->line_width / 2.0) + NOTE_MARGIN_X;
+  p.y += (note->line_width / 2.0) + NOTE_CORNER +
+    dia_text_get_ascent (note->text);
+  dia_text_set_position (note->text, &p);
 
   /* Update connections: */
   element_update_connections_rectangle(elem, note->connections);
@@ -324,7 +329,12 @@ note_create(Point *startpoint,
   p.x += note->line_width/2.0 + NOTE_MARGIN_X;
   p.y += note->line_width/2.0 + NOTE_CORNER + dia_font_ascent("A",font, 0.8);
 
-  note->text = new_text ("", font, 0.8, &p, &DIA_COLOUR_BLACK, DIA_ALIGN_LEFT);
+  note->text = dia_text_new ("",
+                             font,
+                             0.8,
+                             &p,
+                             &DIA_COLOUR_BLACK,
+                             DIA_ALIGN_LEFT);
   g_clear_object (&font);
 
   element_init(elem, 8, NUM_CONNECTIONS);
@@ -348,13 +358,15 @@ note_create(Point *startpoint,
   return &note->element.object;
 }
 
+
 static void
 note_destroy(Note *note)
 {
-  text_destroy(note->text);
+  dia_clear_part (&note->text);
 
-  element_destroy(&note->element);
+  element_destroy (&note->element);
 }
+
 
 static DiaObject *
 note_load(ObjectNode obj_node, int version,DiaContext *ctx)
