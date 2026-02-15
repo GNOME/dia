@@ -33,7 +33,6 @@ subdir('xfig')
 subdir('xslt')
 
 foreach p : install_plugins_desc
-    message(p.get('name'))
     library(
         p.get('name'),
         p.get('sources'),

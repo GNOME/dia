@@ -179,9 +179,24 @@ if doc_feature.allowed()
 endif
 subdir('docs')
 
+filter_names = []
+foreach p : install_plugins_desc
+  filter_names += p.get('name')
+endforeach
+
+object_names = []
+foreach p : dia_object_desc
+  object_names += p.get('name')
+endforeach
+
+summary(
+  {'Filters': filter_names, 'Objects': object_names},
+  section: 'Features',
+)
+
 gnome.post_install(
-    gtk_update_icon_cache: true,
-    update_desktop_database: true
+  gtk_update_icon_cache: true,
+  update_desktop_database: true,
 )
 
 if build_machine.system() == 'windows' and get_option('buildtype') == 'release'
