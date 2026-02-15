@@ -120,7 +120,11 @@ public :
     return FALSE;
   }
   //! Apparently no effect at all - so we translate everything to Dia space ouself
+#if POPPLER_VERSION_MAJOR > 26 || (POPPLER_VERSION_MAJOR == 26 && POPPLER_VERSION_MINOR >= 2)
+  void setDefaultCTM(const std::array<double, 6> &ctm)
+#else
   void setDefaultCTM(double *ctm)
+#endif
   {
     DiaMatrix mat;
 
@@ -879,7 +883,7 @@ DiaOutputDev::drawImage (GfxState         *state,
   GdkPixbuf *pixbuf;
   Point pos;
   DiaObjectChange *change;
-  const double *ctm = state->getCTM();
+  const auto ctm = state->getCTM();
 
   pos.x = ctm[4] * scale;
   // there is some undocumented magic done with the ctm for drawImage
