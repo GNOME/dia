@@ -1133,7 +1133,7 @@ draw_integral (DiaRenderer *renderer,
   else {
     vl.x = 1.0; vl.y = 0.0;
   }
-  if (!finite(vl.x)) {
+  if (!isfinite (vl.x)) {
     vl.x = 1.0; vl.y = 0.0;
   }
   point_get_perp (&vt,&vl);
