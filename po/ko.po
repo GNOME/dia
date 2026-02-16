@@ -8585,7 +8585,7 @@ msgstr "시스코 - 스위치(Cisco - Switch)"
 
 #: sheets/ciscohub.sheet:4
 msgid "Router and switch shapes by Cisco"
-msgstr "라우터 & 스위치 모양(시스코)"
+msgstr "라우터 &amp; 스위치 모양(시스코)"
 
 #: sheets/ciscohub.sheet:6
 msgid "Router"
@@ -9031,7 +9031,7 @@ msgstr "양성인"
 
 #: sheets/ciscomisc.sheet:51
 msgid "Lock and Key"
-msgstr "자물쇠 & 키"
+msgstr "자물쇠 &amp; 키"
 
 #: sheets/ciscomisc.sheet:52
 msgid "Satellite dish"
@@ -11311,11 +11311,11 @@ msgstr "흐름 라벨"
 
 #: sheets/SDL.sheet:3
 msgid "SDL"
-msgstr "상술 & 기술 언어(SDL)"
+msgstr "상술 &amp; 기술 언어(SDL)"
 
 #: sheets/SDL.sheet:4
 msgid "Specification and Description Language."
-msgstr "상술 & 기술 언어."
+msgstr "상술 &amp; 기술 언어."
 
 #: sheets/SDL.sheet:7
 msgid "Block type reference"
