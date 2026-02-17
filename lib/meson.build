@@ -165,6 +165,7 @@ libdia_sources = stdprop_sources + [
     'dia-arrow-selector.h',
     'dia-colour-cell-renderer.c',
     'dia-colour-cell-renderer.h',
+    'dia-colour-selector-private.h',
     'dia-colour-selector.c',
     'dia-colour-selector.h',
     'dia-font-selector.c',
@@ -206,6 +207,13 @@ libdia_sources += gnome.mkenums_simple('dia-lib-enums',
                                                  'font.h',
                                                  'units.h',
                                             ]
+)
+
+libdia_sources += gnome.mkenums_simple(
+  'dia-lib-private-enums',
+  sources: [
+    'dia-colour-selector-private.h',
+  ],
 )
 
 diamarshal = gnome.genmarshal(

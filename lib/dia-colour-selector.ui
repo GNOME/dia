@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="DiaColourSelector" parent="GtkBox">
+    <child>
+      <object class="GtkComboBox" id="combo">
+        <property name="model">colour_store</property>
+        <property name="visible">True</property>
+        <property name="hexpand">True</property>
+        <signal name="changed" handler="changed" swapped="no" />
+        <child>
+          <object class="DiaColourCellRenderer" />
+          <attributes>
+            <attribute name="colour">0</attribute>
+            <attribute name="text">1</attribute>
+          </attributes>
+        </child>
+      </object>
+    </child>
+  </template>
+  <object class="GtkListStore" id="colour_store">
+    <columns>
+      <column type="DiaColour" />
+      <column type="gchararray" />
+      <column type="DiaColourSelectorItem" />
+    </columns>
+  </object>
+</interface>

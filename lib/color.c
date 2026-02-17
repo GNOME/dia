@@ -16,16 +16,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
-#include <stdio.h>
+#include <glib/gstdio.h>
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
 #include "color.h"
 
 
-G_DEFINE_BOXED_TYPE (Color, dia_colour, dia_colour_copy, dia_colour_free)
+G_DEFINE_BOXED_TYPE (DiaColour, dia_colour, dia_colour_copy, dia_colour_free)
 
 
 /**
@@ -132,42 +132,45 @@ dia_colour_to_string (Color *self)
 
 
 /**
- * color_new_rgb:
+ * dia_colour_new_rgb:
  * @r: Red component (0 <= r <= 1)
  * @g: Green component (0 <= g <= 1)
  * @b: Blue component (0 <= b <= 1)
  *
- * Allocate a new color object with the given values.
+ * Allocate a new colour object with the given values.
  * Initializes alpha component to 1.0
  *
- * Returns: A newly allocated color object.  This should be freed after use.
+ * Returns: (transfer full): A newly allocated colour object.
  */
-Color *
-color_new_rgb (float r, float g, float b)
+DiaColour *
+dia_colour_new_rgb (float r, float g, float b)
 {
-  Color *col = g_new (Color, 1);
+  DiaColour *col = g_new0 (DiaColour, 1);
+
   col->red = r;
   col->green = g;
   col->blue = b;
   col->alpha = 1.0;
+
   return col;
 }
 
+
 /**
- * color_new_rgba:
+ * dia_colour_new_rgba:
  * @r: Red component (0 <= r <= 1)
  * @g: Green component (0 <= g <= 1)
  * @b: Blue component (0 <= b <= 1)
  * @alpha: Alpha component (0 <= alpha <= 1)
  *
- * Allocate a new color object with the given values.
+ * Allocate a new colour object with the given values.
  *
- * Returns: A newly allocated color object.  This should be freed after use.
+ * Returns: (transfer full): A newly allocated colour object.
  */
-Color *
-color_new_rgba (float r, float g, float b, float alpha)
+DiaColour *
+dia_colour_new_rgba (float r, float g, float b, float alpha)
 {
-  Color *col = g_new (Color, 1);
+  DiaColour *col = g_new (DiaColour, 1);
   col->red = r;
   col->green = g;
   col->blue = b;
@@ -175,21 +178,42 @@ color_new_rgba (float r, float g, float b, float alpha)
   return col;
 }
 
+
 /**
- * color_convert:
- * @color: A #Color object. This will not be kept by this function.
- * @gdkcolor: (out): GDK RGBA object to fill in.
+ * dia_colour_as_gdk:
+ * @self: A #DiaColour object.
+ * @rgba: (out): #GdkRGBA to fill in.
  *
- * Convert a Dia color object to GDK style.
+ * Convert a Dia colour object to GDK style.
  */
 void
-color_convert (const Color *color, GdkRGBA *gdkcolor)
+dia_colour_as_gdk (DiaColour   *self,
+                   GdkRGBA     *rgba)
 {
-  gdkcolor->red = color->red;
-  gdkcolor->green = color->green;
-  gdkcolor->blue = color->blue;
-  gdkcolor->alpha = color->alpha;
+  rgba->red = self->red;
+  rgba->green = self->green;
+  rgba->blue = self->blue;
+  rgba->alpha = self->alpha;
 }
+
+
+/**
+ * dia_colour_from_gdk:
+ * @self: A #DiaColour object.
+ * @rgba: #GdkRGBA to copy from.
+ *
+ * Set a Dia colour object to match a #GdkRGBA.
+ */
+void
+dia_colour_from_gdk (DiaColour   *self,
+                     GdkRGBA     *rgba)
+{
+  self->red = rgba->red;
+  self->green = rgba->green;
+  self->blue = rgba->blue;
+  self->alpha = rgba->alpha;
+}
+
 
 /**
  * color_equals:

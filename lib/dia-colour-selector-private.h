@@ -20,21 +20,16 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <glib.h>
 
-#include "color.h"
 
 G_BEGIN_DECLS
 
-#define DIA_TYPE_COLOUR_SELECTOR (dia_colour_selector_get_type ())
-G_DECLARE_FINAL_TYPE (DiaColourSelector, dia_colour_selector, DIA, COLOUR_SELECTOR, GtkBox)
-
-GtkWidget *dia_colour_selector_new                (void);
-void       dia_colour_selector_get_colour         (DiaColourSelector    *self,
-                                                   DiaColour            *color);
-void       dia_colour_selector_set_colour         (DiaColourSelector    *self,
-                                                   DiaColour            *color);
-void       dia_colour_selector_set_use_alpha      (DiaColourSelector    *self,
-                                                   gboolean              use_alpha);
+typedef enum /*< enum,prefix=KGX >*/ {
+  DIA_SELECTOR_ITEM_COLOUR,
+  DIA_SELECTOR_ITEM_SEPARATOR,
+  DIA_SELECTOR_ITEM_MORE,
+  DIA_SELECTOR_ITEM_RESET,
+} DiaColourSelectorItem;
 
 G_END_DECLS

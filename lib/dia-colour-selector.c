@@ -19,31 +19,24 @@
 #include "config.h"
 
 #include <glib/gi18n-lib.h>
+
 #include <gtk/gtk.h>
 
-#include "dia-colour-selector.h"
 #include "dia-colour-cell-renderer.h"
+#include "dia-colour-selector-private.h"
+#include "dia-lib-private-enums.h"
+#include "diamarshal.h"
 #include "persistence.h"
+
+#include "dia-colour-selector.h"
 
 #define PERSIST_NAME "color-menu"
 
-enum {
-  SPECIAL_NOT,
-  SPECIAL_SEPARATOR,
-  SPECIAL_MORE,
-  SPECIAL_RESET,
-};
-
-enum {
-  COL_COLOUR,
-  COL_TEXT,
-  COL_SPECIAL,
-  N_COL
-};
 
 struct _DiaColourSelector {
   GtkBox          hbox;
 
+  DiaColour      *current;
   gboolean        use_alpha;
 
   GtkWidget      *combo;
@@ -53,65 +46,110 @@ struct _DiaColourSelector {
   GtkTreeIter     colour_other;
   GtkTreeIter     colour_reset;
 
-  Color          *current;
-
-  const Color    *looking_for;
-  gboolean        found;
-
   GtkWidget      *dialog;
 };
 
+
 G_DEFINE_TYPE (DiaColourSelector, dia_colour_selector, GTK_TYPE_BOX)
 
+
 enum {
-  DIA_COLORSEL_VALUE_CHANGED,
-  DIA_COLORSEL_LAST_SIGNAL
+  PROP_0,
+  PROP_CURRENT,
+  PROP_USE_ALPHA,
+  N_PROPS,
 };
-static guint dia_colorsel_signals[DIA_COLORSEL_LAST_SIGNAL] = { 0 };
+static GParamSpec *pspecs[N_PROPS];
+
+
+enum {
+  VALUE_CHANGED,
+  N_SIGNALS,
+};
+static guint signals[N_SIGNALS] = { 0 };
+
+
+enum {
+  COL_COLOUR,
+  COL_TEXT,
+  COL_SPECIAL,
+  N_COL
+};
 
 
 static void
-dia_colour_selector_finalize (GObject *object)
+dia_colour_selector_dispose (GObject *object)
 {
   DiaColourSelector *self = DIA_COLOUR_SELECTOR (object);
 
-  g_clear_object (&self->colour_store);
+  if (self->dialog) {
+    gtk_widget_destroy (self->dialog);
+    g_clear_weak_pointer (&self->dialog);
+  }
+
   g_clear_pointer (&self->current, dia_colour_free);
 
-  G_OBJECT_CLASS (dia_colour_selector_parent_class)->finalize (object);
+  G_OBJECT_CLASS (dia_colour_selector_parent_class)->dispose (object);
 }
 
 
 static void
-dia_colour_selector_class_init (DiaColourSelectorClass *klass)
+dia_colour_selector_get_property (GObject    *object,
+                                  guint       property_id,
+                                  GValue     *value,
+                                  GParamSpec *pspec)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaColourSelector *self = DIA_COLOUR_SELECTOR (object);
+  DiaColour colour;
 
-  object_class->finalize = dia_colour_selector_finalize;
-
-  dia_colorsel_signals[DIA_COLORSEL_VALUE_CHANGED]
-      = g_signal_new ("value_changed",
-                      G_TYPE_FROM_CLASS (klass),
-                      G_SIGNAL_RUN_FIRST,
-                      0, NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
+  switch (property_id) {
+    case PROP_CURRENT:
+      dia_colour_selector_get_colour (self, &colour);
+      g_value_set_boxed (value, &colour);
+      break;
+    case PROP_USE_ALPHA:
+      g_value_set_boolean (value, self->use_alpha);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+  }
 }
 
 
 static void
-add_colour (DiaColourSelector *cs, char *hex)
+dia_colour_selector_set_property (GObject      *object,
+                                  guint         property_id,
+                                  const GValue *value,
+                                  GParamSpec   *pspec)
+{
+  DiaColourSelector *self = DIA_COLOUR_SELECTOR (object);
+
+  switch (property_id) {
+    case PROP_CURRENT:
+      dia_colour_selector_set_colour (self, g_value_get_boxed (value));
+      break;
+    case PROP_USE_ALPHA:
+      dia_colour_selector_set_use_alpha (self, g_value_get_boolean (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+  }
+}
+
+
+static void
+add_colour (DiaColourSelector *self, const char *hex)
 {
   GtkTreeIter iter;
-  Color colour;
+  DiaColour colour;
 
   dia_colour_parse (&colour, hex);
-  gtk_list_store_append (cs->colour_store, &iter);
-  gtk_list_store_set (cs->colour_store,
+  gtk_list_store_append (self->colour_store, &iter);
+  gtk_list_store_set (self->colour_store,
                       &iter,
                       COL_COLOUR, &colour,
                       COL_TEXT, hex,
-                      COL_SPECIAL, SPECIAL_NOT,
+                      COL_SPECIAL, DIA_SELECTOR_ITEM_COLOUR,
                       -1);
 }
 
@@ -119,45 +157,61 @@ add_colour (DiaColourSelector *cs, char *hex)
 static void
 colour_response (GtkDialog *dialog, int response, gpointer user_data)
 {
-  DiaColourSelector *cs = DIA_COLOUR_SELECTOR (user_data);
+  DiaColourSelector *self = DIA_COLOUR_SELECTOR (user_data);
 
   if (response == GTK_RESPONSE_OK) {
-    GdkRGBA gcol;
-    Color colour;
+    GdkRGBA rgba;
+    DiaColour colour;
 
-    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (cs->dialog), &gcol);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (self->dialog),
+                                &rgba);
+    dia_colour_from_gdk (&colour, &rgba);
 
-    GDK_COLOR_TO_DIA (gcol, colour);
-
-    dia_colour_selector_set_colour (cs, &colour);
+    dia_colour_selector_set_colour (self, &colour);
+  } else if (self->current) {
+    dia_colour_selector_set_colour (self, self->current);
   } else {
-    dia_colour_selector_set_colour (cs, cs->current);
+    DiaColour *colour = dia_colour_new_rgb (0, 0, 0);
+
+    g_critical ("Huh, how'd this happen?");
+
+    dia_colour_selector_set_colour (self, colour);
+
+    g_clear_pointer (&colour, dia_colour_free);
   }
 
-  gtk_widget_destroy (cs->dialog);
-  cs->dialog = NULL;
+  gtk_widget_destroy (self->dialog);
+  g_clear_weak_pointer (&self->dialog);
 }
 
 
-static void
-more_colours (DiaColourSelector *cs)
+static inline void
+more_colours (DiaColourSelector *self)
 {
   GString *palette = g_string_new ("");
+  GtkWidget *dialog;
   GtkWidget *parent;
   GList *tmplist;
-  GdkRGBA gdk_color;
+  GdkRGBA rgba;
 
-  parent = gtk_widget_get_toplevel (GTK_WIDGET (cs));
+  parent = gtk_widget_get_toplevel (GTK_WIDGET (self));
 
-  cs->dialog = gtk_color_chooser_dialog_new (_("Select color"), GTK_WINDOW(parent));
+  dialog = gtk_color_chooser_dialog_new (_("Select color"),
+                                         GTK_WINDOW (parent));
+  g_set_weak_pointer (&self->dialog, dialog);
 
-  color_convert (cs->current, &gdk_color);
-  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cs->dialog), &gdk_color);
+  g_object_bind_property (self, "use-alpha",
+                          dialog, "use-alpha",
+                          G_BINDING_SYNC_CREATE);
+
+  dia_colour_as_gdk (self->current, &rgba);
+  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (self->dialog), &rgba);
 
   /* avoid crashing if the property dialog is closed before the color dialog */
   if (parent) {
-    gtk_window_set_transient_for (GTK_WINDOW (cs->dialog), GTK_WINDOW (parent));
-    gtk_window_set_destroy_with_parent (GTK_WINDOW (cs->dialog), TRUE);
+    gtk_window_set_transient_for (GTK_WINDOW (self->dialog),
+                                  GTK_WINDOW (parent));
+    gtk_window_set_destroy_with_parent (GTK_WINDOW (self->dialog), TRUE);
   }
 
   // Default colours
@@ -173,16 +227,15 @@ more_colours (DiaColourSelector *cs)
   g_string_append (palette, ":");
 
   for (tmplist = persistent_list_get_glist (PERSIST_NAME);
-        tmplist != NULL;
-        tmplist = g_list_next (tmplist)) {
+       tmplist != NULL;
+       tmplist = g_list_next (tmplist)) {
     char *spec;
-    Color colour;
+    DiaColour colour;
 
     dia_colour_parse (&colour, tmplist->data);
+    dia_colour_as_gdk (&colour, &rgba);
 
-    DIA_COLOR_TO_GDK (colour, gdk_color);
-
-    spec = gdk_rgba_to_string (&gdk_color);
+    spec = gdk_rgba_to_string (&rgba);
 
     g_string_append (palette, spec);
     g_string_append (palette, ":");
@@ -196,87 +249,137 @@ more_colours (DiaColourSelector *cs)
 //                palette->str,
 //                NULL);
 //  gtk_color_selection_set_has_palette (GTK_COLOR_SELECTION (colorsel), TRUE);
-//  g_string_free (palette, TRUE);
+  g_string_free (palette, TRUE);
 
-  g_signal_connect (G_OBJECT (cs->dialog),
-                    "response",
-                    G_CALLBACK (colour_response),
-                    cs);
+  g_signal_connect_object (G_OBJECT (self->dialog),
+                           "response",
+                           G_CALLBACK (colour_response),
+                           self,
+                           G_CONNECT_DEFAULT);
 
-  gtk_widget_show (GTK_WIDGET (cs->dialog));
+  gtk_widget_show (GTK_WIDGET (self->dialog));
 }
 
 
 static void
 changed (GtkComboBox *widget, gpointer user_data)
 {
-  DiaColourSelector *cs = DIA_COLOUR_SELECTOR (user_data);
+  DiaColourSelector *self = DIA_COLOUR_SELECTOR (user_data);
   GtkTreeIter active;
   GtkTreeIter iter;
   GtkTreePath *path;
   GtkTreePath *end_path;
-  int special;
+  DiaColourSelectorItem special;
 
-  gtk_combo_box_get_active_iter (widget, &active);
+  if (!gtk_combo_box_get_active_iter (widget, &active)) {
+    return;
+  }
 
-  gtk_tree_model_get (GTK_TREE_MODEL (cs->colour_store),
+  gtk_tree_model_get (GTK_TREE_MODEL (self->colour_store),
                       &active,
                       COL_SPECIAL, &special,
                       -1);
 
   switch (special) {
-    case SPECIAL_NOT:
-      g_clear_pointer (&cs->current, dia_colour_free);
-      gtk_tree_model_get (GTK_TREE_MODEL (cs->colour_store),
+    case DIA_SELECTOR_ITEM_COLOUR:
+      g_clear_pointer (&self->current, dia_colour_free);
+      gtk_tree_model_get (GTK_TREE_MODEL (self->colour_store),
                           &active,
-                          COL_COLOUR, &cs->current,
+                          COL_COLOUR, &self->current,
                           -1);
 
-      // Normal colour
-      g_signal_emit (G_OBJECT (cs),
-                     dia_colorsel_signals[DIA_COLORSEL_VALUE_CHANGED],
-                     0);
+      /* Normal colour */
+      g_signal_emit (self, signals[VALUE_CHANGED], 0);
+      g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_CURRENT]);
       break;
-    case SPECIAL_MORE:
-      more_colours (cs);
+    case DIA_SELECTOR_ITEM_MORE:
+      more_colours (self);
       break;
-    case SPECIAL_RESET:
+    case DIA_SELECTOR_ITEM_RESET:
       persistent_list_clear (PERSIST_NAME);
 
-      path = gtk_tree_model_get_path (GTK_TREE_MODEL (cs->colour_store), &cs->colour_default_end);
+      path = gtk_tree_model_get_path (GTK_TREE_MODEL (self->colour_store),
+                                      &self->colour_default_end);
 
       // Move over the separator
       gtk_tree_path_next (path);
-      gtk_tree_model_get_iter (GTK_TREE_MODEL (cs->colour_store), &iter, path);
+      gtk_tree_model_get_iter (GTK_TREE_MODEL (self->colour_store), &iter, path);
 
-      end_path = gtk_tree_model_get_path (GTK_TREE_MODEL (cs->colour_store),
-                                          &cs->colour_custom_end);
+      end_path = gtk_tree_model_get_path (GTK_TREE_MODEL (self->colour_store),
+                                          &self->colour_custom_end);
 
       while (gtk_tree_path_compare (path, end_path) != 0) {
-        gtk_list_store_remove (cs->colour_store, &iter);
+        gtk_list_store_remove (self->colour_store, &iter);
 
-        gtk_tree_model_get_iter (GTK_TREE_MODEL (cs->colour_store), &iter, path);
+        gtk_tree_model_get_iter (GTK_TREE_MODEL (self->colour_store), &iter, path);
 
         gtk_tree_path_free (end_path);
-        end_path = gtk_tree_model_get_path (GTK_TREE_MODEL (cs->colour_store),
-                                            &cs->colour_custom_end);
+        end_path = gtk_tree_model_get_path (GTK_TREE_MODEL (self->colour_store),
+                                            &self->colour_custom_end);
       }
 
       gtk_tree_path_free (path);
       gtk_tree_path_free (end_path);
 
-      if (cs->current) {
-        dia_colour_selector_set_colour (cs, cs->current);
+      if (self->current) {
+        dia_colour_selector_set_colour (self, self->current);
       } else {
-        gtk_tree_model_get_iter_first (GTK_TREE_MODEL (cs->colour_store), &iter);
-        gtk_combo_box_set_active_iter (GTK_COMBO_BOX (cs->combo), &iter);
+        gtk_tree_model_get_iter_first (GTK_TREE_MODEL (self->colour_store), &iter);
+        gtk_combo_box_set_active_iter (GTK_COMBO_BOX (self), &iter);
       }
-
       return;
-    case SPECIAL_SEPARATOR:
+    case DIA_SELECTOR_ITEM_SEPARATOR:
     default:
       g_return_if_reached ();
   }
+}
+
+
+static void
+dia_colour_selector_class_init (DiaColourSelectorClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+  object_class->dispose = dia_colour_selector_dispose;
+  object_class->get_property = dia_colour_selector_get_property;
+  object_class->set_property = dia_colour_selector_set_property;
+
+  pspecs[PROP_CURRENT] =
+    g_param_spec_boxed ("current", NULL, NULL,
+                        DIA_TYPE_COLOUR,
+                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
+
+  pspecs[PROP_USE_ALPHA] =
+    g_param_spec_boolean ("use-alpha", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
+
+  g_object_class_install_properties (object_class, N_PROPS, pspecs);
+
+
+  signals[VALUE_CHANGED] =
+    g_signal_new ("value-changed",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  0, NULL, NULL,
+                  dia_marshal_VOID__VOID,
+                  G_TYPE_NONE, 0);
+  g_signal_set_va_marshaller (signals[VALUE_CHANGED],
+                              G_TYPE_FROM_CLASS (klass),
+                              dia_marshal_VOID__VOIDv);
+
+  gtk_widget_class_set_template_from_resource (widget_class,
+                                               DIA_APPLICATION_PATH "dia-colour-selector.ui");
+
+  gtk_widget_class_bind_template_child (widget_class, DiaColourSelector, combo);
+  gtk_widget_class_bind_template_child (widget_class, DiaColourSelector, colour_store);
+
+  gtk_widget_class_bind_template_callback (widget_class, changed);
+
+  g_type_ensure (DIA_TYPE_COLOUR_CELL_RENDERER);
+  g_type_ensure (DIA_TYPE_COLOUR_SELECTOR_ITEM);
+  g_type_ensure (DIA_TYPE_COLOUR);
 }
 
 
@@ -285,98 +388,188 @@ is_separator (GtkTreeModel *model,
               GtkTreeIter  *iter,
               gpointer      data)
 {
-  int result;
+  DiaColourSelectorItem result;
 
   gtk_tree_model_get (model, iter, COL_SPECIAL, &result, -1);
 
-  return result == SPECIAL_SEPARATOR;
+  return result == DIA_SELECTOR_ITEM_SEPARATOR;
 }
 
 
 static void
-dia_colour_selector_init (DiaColourSelector *cs)
+dia_colour_selector_init (DiaColourSelector *self)
 {
-  GtkCellRenderer *renderer;
   GList *tmplist;
 
-  cs->colour_store = gtk_list_store_new (N_COL,
-                                         DIA_TYPE_COLOUR,
-                                         G_TYPE_STRING,
-                                         G_TYPE_INT);
+  gtk_widget_init_template (GTK_WIDGET (self));
 
-  add_colour (cs, "#000000");
-  add_colour (cs, "#FFFFFF");
-  add_colour (cs, "#FF0000");
-  add_colour (cs, "#00FF00");
-  add_colour (cs, "#0000FF");
+  add_colour (self, "#000000");
+  add_colour (self, "#FFFFFF");
+  add_colour (self, "#FF0000");
+  add_colour (self, "#00FF00");
+  add_colour (self, "#0000FF");
 
-  gtk_list_store_append (cs->colour_store, &cs->colour_default_end);
-  gtk_list_store_set (cs->colour_store,
-                      &cs->colour_default_end,
+  gtk_list_store_append (self->colour_store, &self->colour_default_end);
+  gtk_list_store_set (self->colour_store,
+                      &self->colour_default_end,
                       COL_COLOUR, NULL,
                       COL_TEXT, NULL,
-                      COL_SPECIAL, SPECIAL_SEPARATOR,
+                      COL_SPECIAL, DIA_SELECTOR_ITEM_SEPARATOR,
                       -1);
 
   persistence_register_list (PERSIST_NAME);
 
   for (tmplist = persistent_list_get_glist (PERSIST_NAME);
        tmplist != NULL; tmplist = g_list_next (tmplist)) {
-    add_colour (cs, tmplist->data);
+    add_colour (self, tmplist->data);
   }
 
-  gtk_list_store_append (cs->colour_store, &cs->colour_custom_end);
-  gtk_list_store_set (cs->colour_store,
-                      &cs->colour_custom_end,
+  gtk_list_store_append (self->colour_store, &self->colour_custom_end);
+  gtk_list_store_set (self->colour_store,
+                      &self->colour_custom_end,
                       COL_COLOUR, NULL,
                       COL_TEXT, NULL,
-                      COL_SPECIAL, SPECIAL_SEPARATOR,
+                      COL_SPECIAL, DIA_SELECTOR_ITEM_SEPARATOR,
                       -1);
 
-
-  gtk_list_store_append (cs->colour_store, &cs->colour_other);
-  gtk_list_store_set (cs->colour_store,
-                      &cs->colour_other,
+  gtk_list_store_append (self->colour_store, &self->colour_other);
+  gtk_list_store_set (self->colour_store,
+                      &self->colour_other,
                       COL_COLOUR, NULL,
                       COL_TEXT, _("More Colors…"),
-                      COL_SPECIAL, SPECIAL_MORE,
+                      COL_SPECIAL, DIA_SELECTOR_ITEM_MORE,
                       -1);
 
-  gtk_list_store_append (cs->colour_store, &cs->colour_reset);
-  gtk_list_store_set (cs->colour_store,
-                      &cs->colour_reset,
+  gtk_list_store_append (self->colour_store, &self->colour_reset);
+  gtk_list_store_set (self->colour_store,
+                      &self->colour_reset,
                       COL_COLOUR, NULL,
                       COL_TEXT, _("Reset Menu"),
-                      COL_SPECIAL, SPECIAL_RESET,
+                      COL_SPECIAL, DIA_SELECTOR_ITEM_RESET,
                       -1);
 
-
-  cs->combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (cs->colour_store));
-  g_signal_connect (cs->combo,
-                    "changed",
-                    G_CALLBACK (changed),
-                    cs);
-  gtk_widget_set_hexpand (GTK_WIDGET (cs->combo), TRUE);
-  gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (cs->combo),
+  gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (self->combo),
                                         is_separator, NULL, NULL);
-
-  renderer = dia_colour_cell_renderer_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (cs->combo), renderer, TRUE);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (cs->combo),
-                                  renderer,
-                                  "colour", COL_COLOUR,
-                                  "text", COL_TEXT,
-                                  NULL);
-
-  gtk_box_pack_start (GTK_BOX (cs), cs->combo, FALSE, TRUE, 0);
-  gtk_widget_show (cs->combo);
 }
 
 
 void
-dia_colour_selector_set_use_alpha (DiaColourSelector *cs, gboolean use_alpha)
+dia_colour_selector_get_colour (DiaColourSelector  *self,
+                                DiaColour          *colour)
 {
-  cs->use_alpha = use_alpha;
+  g_return_if_fail (DIA_IS_COLOUR_SELECTOR (self));
+  g_return_if_fail (colour != NULL);
+
+  if (G_UNLIKELY (!self->current)) {
+    colour->red = colour->green = colour->blue = 0.0;
+    colour->alpha = 1.0;
+    return;
+  }
+
+  colour->red = self->current->red;
+  colour->blue = self->current->blue;
+  colour->green = self->current->green;
+  colour->alpha = self->current->alpha;
+}
+
+
+typedef struct _FindColour FindColour;
+struct _FindColour {
+  DiaColour *looking_for;
+  gboolean found;
+  GtkTreeIter iter;
+};
+
+
+static gboolean
+set_colour (GtkTreeModel *model,
+            GtkTreePath  *path,
+            GtkTreeIter  *iter,
+            gpointer      user_data)
+{
+  FindColour *data = user_data;
+  DiaColour *colour = NULL;
+  gboolean res = FALSE;
+
+  gtk_tree_model_get (model,
+                      iter,
+                      COL_COLOUR, &colour,
+                      -1);
+  if (!colour) {
+    goto out;
+  }
+
+  res = color_equals (colour, data->looking_for);
+  if (res) {
+    data->iter = *iter;
+    data->found = TRUE;
+  }
+
+out:
+  g_clear_pointer (&colour, dia_colour_free);
+
+  return res;
+}
+
+
+void
+dia_colour_selector_set_colour (DiaColourSelector  *self,
+                                DiaColour          *colour)
+{
+  FindColour data = { 0, };
+
+  g_return_if_fail (DIA_IS_COLOUR_SELECTOR (self));
+  g_return_if_fail (colour != NULL);
+
+  if (self->current && color_equals (self->current, colour)) {
+    return;
+  }
+
+  data.looking_for = colour;
+  data.found = FALSE;
+
+  gtk_tree_model_foreach (GTK_TREE_MODEL (self->colour_store),
+                          set_colour,
+                          &data);
+
+  if (G_LIKELY (data.found)) {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (self->combo),
+                                   &data.iter);
+  } else {
+    GtkTreeIter iter;
+    char *text = dia_colour_to_string (colour);
+
+    persistent_list_add (PERSIST_NAME, text);
+
+    gtk_list_store_insert_before (self->colour_store,
+                                  &iter,
+                                  &self->colour_custom_end);
+    gtk_list_store_set (self->colour_store,
+                        &iter,
+                        COL_COLOUR, colour,
+                        COL_SPECIAL, DIA_SELECTOR_ITEM_COLOUR,
+                        COL_TEXT, text,
+                        -1);
+
+    g_clear_pointer (&text, g_free);
+
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (self->combo), &iter);
+  }
+}
+
+
+void
+dia_colour_selector_set_use_alpha (DiaColourSelector *self,
+                                   gboolean           use_alpha)
+{
+  g_return_if_fail (DIA_IS_COLOUR_SELECTOR (self));
+
+  if (self->use_alpha == use_alpha) {
+    return;
+  }
+
+  self->use_alpha = use_alpha;
+  g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_USE_ALPHA]);
 }
 
 
@@ -384,95 +577,4 @@ GtkWidget *
 dia_colour_selector_new (void)
 {
   return g_object_new (DIA_TYPE_COLOUR_SELECTOR, NULL);
-}
-
-
-void
-dia_colour_selector_get_colour (DiaColourSelector *cs, Color *color)
-{
-  GtkTreeIter iter;
-  Color *colour;
-
-  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (cs->combo), &iter)) {
-    gtk_tree_model_get (GTK_TREE_MODEL (cs->colour_store),
-                        &iter,
-                        COL_COLOUR, &colour,
-                        -1);
-  } else {
-    g_warning ("No colour selected");
-
-    colour = color_new_rgb (0, 0, 0);
-  }
-
-  color->red = colour->red;
-  color->blue = colour->blue;
-  color->green = colour->green;
-  color->alpha = colour->alpha;
-
-  dia_colour_free (colour);
-}
-
-
-static gboolean
-set_colour (GtkTreeModel *model,
-            GtkTreePath  *path,
-            GtkTreeIter  *iter,
-            gpointer      data)
-{
-  DiaColourSelector *self = DIA_COLOUR_SELECTOR (data);
-  Color *colour;
-  gboolean res = FALSE;
-
-  gtk_tree_model_get (model,
-                      iter,
-                      COL_COLOUR, &colour,
-                      -1);
-
-  if (!colour) {
-    return FALSE;
-  }
-
-  res = color_equals (colour, self->looking_for);
-  if (res) {
-    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (self->combo), iter);
-
-    self->found = TRUE;
-  }
-
-  dia_colour_free (colour);
-
-  return res;
-}
-
-
-void
-dia_colour_selector_set_colour (DiaColourSelector *cs,
-                                const Color       *color)
-{
-  cs->looking_for = color;
-  cs->found = FALSE;
-  gtk_tree_model_foreach (GTK_TREE_MODEL (cs->colour_store), set_colour, cs);
-  if (!cs->found) {
-    GtkTreeIter iter;
-    char *text = dia_colour_to_string ((Color *) color);
-
-    persistent_list_add (PERSIST_NAME, text);
-
-    gtk_list_store_insert_before (cs->colour_store,
-                                  &iter,
-                                  &cs->colour_custom_end);
-    gtk_list_store_set (cs->colour_store,
-                        &iter,
-                        COL_COLOUR, color,
-                        COL_SPECIAL, SPECIAL_NOT,
-                        COL_TEXT, text,
-                        -1);
-
-    g_clear_pointer (&text, g_free);
-
-    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (cs->combo), &iter);
-  }
-
-  cs->looking_for = NULL;
-  cs->found = FALSE;
 }

@@ -23,10 +23,15 @@
 #include <gdk/gdk.h>
 #include "diavar.h"
 
-/*!
- * \brief Dia's internal color representation
- * \ingroup ObjectParts
+
+G_BEGIN_DECLS
+
+/**
+ * DiaColour:
+ *
+ * Dia's internal color representation
  */
+typedef struct _Color DiaColour;
 struct _Color {
   float red;   /*!< 0..1 */
   float green; /*!< 0..1 */
@@ -43,15 +48,17 @@ GType         dia_colour_get_type  (void);
 void          dia_colour_parse     (Color       *self,
                                     const char  *str);
 char         *dia_colour_to_string (Color       *self);
-Color        *color_new_rgb        (float        r,
+DiaColour    *dia_colour_new_rgb   (float        r,
                                     float        g,
                                     float        b);
-Color        *color_new_rgba       (float        r,
+DiaColour    *dia_colour_new_rgba  (float        r,
                                     float        g,
                                     float        b,
                                     float        alpha);
-void          color_convert        (const Color *color,
-                                    GdkRGBA     *gdkcolor);
+void          dia_colour_as_gdk    (DiaColour   *self,
+                                    GdkRGBA     *rgba);
+void          dia_colour_from_gdk  (DiaColour   *self,
+                                    GdkRGBA     *rgba);
 gboolean      color_equals         (const Color *color1,
                                     const Color *color2);
 
@@ -69,3 +76,5 @@ static G_GNUC_UNUSED Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
   (to).green = (from).green;            \
   (to).blue = (from).blue;    \
   (to).alpha = (from).alpha;
+
+G_END_DECLS
