@@ -403,7 +403,7 @@ message_create(Point *startpoint,
 
   connection_init(conn, 3, 0);
 
-  message->text_color = color_black;
+  message->text_color = DIA_COLOUR_BLACK;
   message->line_color = attributes_get_foreground();
   message->text = g_strdup("");
   message->text_width = 0.0;

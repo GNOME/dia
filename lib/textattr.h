@@ -15,21 +15,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef TEXTATTR_H
-#define TEXTATTR_H
 
+#pragma once
+
+#include <glib.h>
+
+#include "dia-colour.h"
 #include "diatypes.h"
 #include "font.h"
 #include "geometry.h"
-#include "color.h"
+
+G_BEGIN_DECLS
 
 struct _TextAttributes {
   DiaFont *font;
-  real height;
+  double height;
   Point position;
-  Color color;
+  DiaColour color;
   DiaAlignment alignment;
 };
 
-
-#endif /* TEXTATTR_H */
+G_END_DECLS

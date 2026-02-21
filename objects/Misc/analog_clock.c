@@ -33,7 +33,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "properties.h"
 #include "dynamic_obj.h"
 

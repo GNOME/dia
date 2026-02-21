@@ -447,7 +447,7 @@ realizes_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
 
-  realize->text_color = color_black;
+  realize->text_color = DIA_COLOUR_BLACK;
   realize->line_color = attributes_get_foreground();
 
   realize->name = NULL;

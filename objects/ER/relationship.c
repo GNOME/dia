@@ -319,12 +319,12 @@ relationship_draw (Relationship *relationship, DiaRenderer *renderer)
                             relationship->left_cardinality,
                             &lc,
                             left_align,
-                            &color_black);
+                            &DIA_COLOUR_BLACK);
   dia_renderer_draw_string (renderer,
                             relationship->right_cardinality,
                             &rc,
                             DIA_ALIGN_LEFT,
-                            &color_black);
+                            &DIA_COLOUR_BLACK);
 
   p.x = elem->corner.x + elem->width / 2.0;
   p.y = elem->corner.y + (elem->height - relationship->font_height) / 2.0 +
@@ -336,7 +336,7 @@ relationship_draw (Relationship *relationship, DiaRenderer *renderer)
                             relationship->name,
                             &p,
                             DIA_ALIGN_CENTRE,
-                            &color_black);
+                            &DIA_COLOUR_BLACK);
 }
 
 
@@ -615,14 +615,14 @@ relationship_load (ObjectNode obj_node, int version, DiaContext *ctx)
                                             ctx);
   }
 
-  relationship->border_color = color_black;
+  relationship->border_color = DIA_COLOUR_BLACK;
   attr = object_find_attribute (obj_node, "border_color");
   if (attr != NULL) {
     data_color (attribute_first_data (attr),
                 &relationship->border_color, ctx);
   }
 
-  relationship->inner_color = color_white;
+  relationship->inner_color = DIA_COLOUR_WHITE;
   attr = object_find_attribute (obj_node, "inner_color");
   if (attr != NULL) {
     data_color (attribute_first_data (attr),

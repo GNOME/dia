@@ -532,7 +532,7 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
                               font,
                               1.0,
                               &startpoint,
-                              &color_black,
+                              &DIA_COLOUR_BLACK,
                               DIA_ALIGN_CENTRE);
     g_clear_object (&font);
   }

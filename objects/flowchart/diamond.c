@@ -608,24 +608,31 @@ diamond_destroy(Diamond *diamond)
 
 
 static void
-diamond_save(Diamond *diamond, ObjectNode obj_node, DiaContext *ctx)
+diamond_save (Diamond *diamond, ObjectNode obj_node, DiaContext *ctx)
 {
-  element_save(&diamond->element, obj_node, ctx);
+  element_save (&diamond->element, obj_node, ctx);
 
-  if (diamond->border_width != 0.1)
-    data_add_real(new_attribute(obj_node, "border_width"),
-		  diamond->border_width, ctx);
+  if (diamond->border_width != 0.1) {
+    data_add_real (new_attribute (obj_node, "border_width"),
+                   diamond->border_width,
+                   ctx);
+  }
 
-  if (!color_equals(&diamond->border_color, &color_black))
-    data_add_color(new_attribute(obj_node, "border_color"),
-		   &diamond->border_color, ctx);
+  if (!dia_colour_is_black (&diamond->border_color)) {
+    data_add_color (new_attribute (obj_node, "border_color"),
+                    &diamond->border_color,
+                    ctx);
+  }
 
-  if (!color_equals(&diamond->inner_color, &color_white))
-    data_add_color(new_attribute(obj_node, "inner_color"),
-		   &diamond->inner_color, ctx);
+  if (!dia_colour_is_white (&diamond->inner_color)) {
+    data_add_color (new_attribute (obj_node, "inner_color"),
+                    &diamond->inner_color,
+                    ctx);
+  }
 
-  data_add_boolean(new_attribute(obj_node, "show_background"),
-		   diamond->show_background, ctx);
+  data_add_boolean (new_attribute (obj_node, "show_background"),
+                    diamond->show_background,
+                    ctx);
 
   if (diamond->line_style != DIA_LINE_STYLE_SOLID) {
     data_add_enum (new_attribute (obj_node, "line_style"),
@@ -674,15 +681,17 @@ diamond_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL)
     diamond->border_width =  data_real(attribute_first_data(attr), ctx);
 
-  diamond->border_color = color_black;
-  attr = object_find_attribute(obj_node, "border_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &diamond->border_color, ctx);
+  diamond->border_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "border_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr), &diamond->border_color, ctx);
+  }
 
-  diamond->inner_color = color_white;
-  attr = object_find_attribute(obj_node, "inner_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &diamond->inner_color, ctx);
+  diamond->inner_color = DIA_COLOUR_WHITE;
+  attr = object_find_attribute (obj_node, "inner_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr), &diamond->inner_color, ctx);
+  }
 
   diamond->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");

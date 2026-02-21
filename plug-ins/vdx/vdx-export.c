@@ -365,27 +365,34 @@ set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
   renderer->fillmode = mode;
 }
 
-/** Get colour number from colour table
- * @param renderer a renderer
- * @param color the colour
- * @returns a colour index (black=0)
+
+/**
+ * vdxCheckColor:
+ * @renderer: a renderer
+ * @color: the colour
+ *
+ * Get colour number from colour table
+ *
+ * Returns: a colour index (black=0)
  */
-
 static int
-vdxCheckColor(VDXRenderer *renderer, Color *color)
+vdxCheckColor (VDXRenderer *renderer, DiaColour *color)
 {
-    int i;
+  DiaColour cmp_color;
 
-    Color cmp_color;
-    for (i = 0; i < renderer->Colors->len; i++)
-    {
-        cmp_color = g_array_index(renderer->Colors, Color, i);
-        if (color_equals(color, &cmp_color)) return i;
+  for (int i = 0; i < renderer->Colors->len; i++) {
+    cmp_color = g_array_index (renderer->Colors, DiaColour, i);
+    if (dia_colour_equals (color, &cmp_color)) {
+      return i;
     }
-    /* Grow table */
-    g_array_append_val(renderer->Colors, *color);
-    return renderer->Colors->len;
+  }
+
+  /* Grow table */
+  g_array_append_val (renderer->Colors, *color);
+
+  return renderer->Colors->len;
 }
+
 
 /** Get font number from font table
  * @param renderer a renderer
@@ -1675,9 +1682,9 @@ write_header(DiagramData *data, VDXRenderer *renderer)
     Line.LineWeight = 0.01;
     Line.LinePattern = 1;
 
-    memset(&Fill, 0, sizeof(Fill));
+    memset (&Fill, 0, sizeof (Fill));
     Fill.any.type = vdx_types_Fill;
-    Fill.FillForegnd = color_black;
+    Fill.FillForegnd = DIA_COLOUR_BLACK;
     Fill.FillPattern = 1;
 
     memset(&TextBlock, 0, sizeof(TextBlock));

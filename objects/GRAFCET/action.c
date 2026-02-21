@@ -30,7 +30,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "properties.h"
 #include "geometry.h"
 #include "text.h"
@@ -336,7 +336,7 @@ action_draw (Action *action, DiaRenderer *renderer)
     dia_renderer_draw_line (renderer,
                             &conn->endpoints[0],
                             &conn->endpoints[1],
-                            &color_black);
+                            &DIA_COLOUR_BLACK);
   } else {
     Point pts[4];
     pts[0] = conn->endpoints[0];
@@ -348,7 +348,7 @@ action_draw (Action *action, DiaRenderer *renderer)
     dia_renderer_draw_polyline (renderer,
                                 pts,
                                 sizeof(pts)/sizeof(pts[0]),
-                                &color_black);
+                                &DIA_COLOUR_BLACK);
   }
 
   /* Now, draw the action label. */
@@ -357,7 +357,7 @@ action_draw (Action *action, DiaRenderer *renderer)
   br.x = ul.x + action->label_width;
   br.y = ul.y + ACTION_HEIGHT;
 
-  dia_renderer_draw_rect (renderer, &ul, &br, &color_white, NULL);
+  dia_renderer_draw_rect (renderer, &ul, &br, &DIA_COLOUR_WHITE, NULL);
 
   action_text_draw (action->text,renderer);
 
@@ -367,18 +367,18 @@ action_draw (Action *action, DiaRenderer *renderer)
   for (i=0; i<action->text->numlines-1; i++) {
     chunksize = text_get_line_width (action->text, i);
     p1.x = p2.x = p1.x + chunksize + 2 * action->space_width;
-    dia_renderer_draw_line (renderer, &p1, &p2, &color_black);
+    dia_renderer_draw_line (renderer, &p1, &p2, &DIA_COLOUR_BLACK);
   }
 
   if (action->macro_call) {
     p1.x = p2.x = ul.x + 2.0 * action->space_width;
-    dia_renderer_draw_line (renderer, &p1, &p2, &color_black);
+    dia_renderer_draw_line (renderer, &p1, &p2, &DIA_COLOUR_BLACK);
     p1.x = p2.x = br.x - 2.0 * action->space_width;
-    dia_renderer_draw_line (renderer, &p1, &p2, &color_black);
+    dia_renderer_draw_line (renderer, &p1, &p2, &DIA_COLOUR_BLACK);
   }
 
   cl.red = 1.0; cl.blue = cl.green = .2; cl.alpha = 1.0;
-  dia_renderer_draw_rect (renderer, &ul, &br, NULL, &color_black);
+  dia_renderer_draw_rect (renderer, &ul, &br, NULL, &DIA_COLOUR_BLACK);
 }
 
 static DiaObject *
@@ -416,7 +416,7 @@ action_create(Point *startpoint,
                            action_font,
                            ACTION_FONT_HEIGHT,
                            &pos, /* never used */
-                           &color_black,
+                           &DIA_COLOUR_BLACK,
                            DIA_ALIGN_LEFT);
   g_clear_object (&action_font);
 

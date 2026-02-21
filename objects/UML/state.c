@@ -452,7 +452,7 @@ state_create(Point *startpoint,
   p.x += STATE_WIDTH/2.0;
   p.y += STATE_HEIGHT/2.0;
 
-  state->text = new_text ("", font, 0.8, &p, &color_black, DIA_ALIGN_CENTRE);
+  state->text = new_text ("", font, 0.8, &p, &DIA_COLOUR_BLACK, DIA_ALIGN_CENTRE);
 
   g_clear_object (&font);
 

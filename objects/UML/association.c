@@ -848,7 +848,7 @@ association_create (Point   *startpoint,
   assoc->font = dia_font_new_from_style (DIA_FONT_MONOSPACE,
                                          assoc->font_height);
 
-  assoc->text_color = color_black;
+  assoc->text_color = DIA_COLOUR_BLACK;
   assoc->line_width = 0.1; /* old default */
   assoc->line_color = attributes_get_foreground ();
   assoc->name = NULL;

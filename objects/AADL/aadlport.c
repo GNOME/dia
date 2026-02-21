@@ -98,7 +98,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     dia_renderer_set_linejoin(renderer, DIA_LINE_JOIN_MITER);     \
     dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_SOLID, 0.0);   \
                                                                   \
-    dia_renderer_draw_polygon(renderer, p,  3, &color_black, &color_black);
+    dia_renderer_draw_polygon(renderer, p,  3, &DIA_COLOUR_BLACK, &DIA_COLOUR_BLACK);
 
 #define draw_in_event_port()                                      \
     p[0].x =  AADL_PORT_WIDTH_A;                                  \
@@ -122,7 +122,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     dia_renderer_set_linejoin(renderer, DIA_LINE_JOIN_MITER);     \
     dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_SOLID, 0.0);   \
                                                                   \
-    dia_renderer_draw_polyline(renderer, p,  3, &color_black);
+    dia_renderer_draw_polyline(renderer, p,  3, &DIA_COLOUR_BLACK);
 
 #define draw_out_data_port()                                      \
     p[0].x =  -AADL_PORT_WIDTH_A;                                 \
@@ -146,7 +146,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     dia_renderer_set_linejoin(renderer, DIA_LINE_JOIN_MITER);     \
     dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_SOLID, 0.0);   \
                                                                   \
-    dia_renderer_draw_polygon(renderer, p,  3, &color_black, &color_black);
+    dia_renderer_draw_polygon(renderer, p,  3, &DIA_COLOUR_BLACK, &DIA_COLOUR_BLACK);
 
 #define draw_out_event_port()                                     \
     p[0].x =  - AADL_PORT_WIDTH_A;                                \
@@ -170,7 +170,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     dia_renderer_set_linejoin(renderer, DIA_LINE_JOIN_MITER);     \
     dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_SOLID, 0.0);   \
                                                                   \
-    dia_renderer_draw_polyline(renderer, p,  3, &color_black);
+    dia_renderer_draw_polyline(renderer, p,  3, &DIA_COLOUR_BLACK);
 
 #define draw_in_out_data_port()                                   \
     p[0].x =  0;                                                  \
@@ -199,7 +199,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     dia_renderer_set_linejoin(renderer, DIA_LINE_JOIN_MITER);     \
     dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_SOLID, 0.0);   \
                                                                   \
-    dia_renderer_draw_polygon(renderer, p,  4, &color_black, &color_black);
+    dia_renderer_draw_polygon(renderer, p,  4, &DIA_COLOUR_BLACK, &DIA_COLOUR_BLACK);
 
 #define draw_in_out_event_port()                                  \
     p[0].x =  0;                                                  \
@@ -228,7 +228,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     dia_renderer_set_linejoin(renderer, DIA_LINE_JOIN_MITER);     \
     dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_SOLID, 0.0);   \
                                                                   \
-    dia_renderer_draw_polygon(renderer, p,  4, NULL, &color_black);
+    dia_renderer_draw_polygon(renderer, p,  4, NULL, &DIA_COLOUR_BLACK);
 
 
 /* FIXME: should i make methods from this function ? */
@@ -275,7 +275,7 @@ aadlbox_draw_port (Aadlport *port, DiaRenderer *renderer)
       dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
       dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
-      dia_renderer_draw_polygon (renderer, p,  5, &color_white, &color_black);
+      dia_renderer_draw_polygon (renderer, p,  5, &DIA_COLOUR_WHITE, &DIA_COLOUR_BLACK);
 
       break;
 
@@ -311,7 +311,7 @@ aadlbox_draw_port (Aadlport *port, DiaRenderer *renderer)
       dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
       dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
-      dia_renderer_draw_polygon (renderer, p,  5, &color_white, &color_black);
+      dia_renderer_draw_polygon (renderer, p,  5, &DIA_COLOUR_WHITE, &DIA_COLOUR_BLACK);
 
       break;
 
@@ -374,7 +374,7 @@ aadlbox_draw_port (Aadlport *port, DiaRenderer *renderer)
                                   p,
                                   6 * AADL_PORT_GROUP_SIZE,
                                   6 * AADL_PORT_GROUP_SIZE,
-                                  &color_black, &color_black);
+                                  &DIA_COLOUR_BLACK, &DIA_COLOUR_BLACK);
 
 
         b[0].type = BEZ_MOVE_TO;
@@ -419,7 +419,7 @@ aadlbox_draw_port (Aadlport *port, DiaRenderer *renderer)
           }
         }
 
-        dia_renderer_draw_beziergon (renderer, b, 5, &color_black, &color_black);
+        dia_renderer_draw_beziergon (renderer, b, 5, &DIA_COLOUR_BLACK, &DIA_COLOUR_BLACK);
       }
       break;
 

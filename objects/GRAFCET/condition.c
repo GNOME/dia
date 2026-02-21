@@ -30,7 +30,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "properties.h"
 #include "geometry.h"
 #include "text.h"
@@ -359,14 +359,14 @@ condition_draw (Condition *condition, DiaRenderer *renderer)
                                         &conn->endpoints[0],
                                         &conn->endpoints[1],
                                         CONDITION_LINE_WIDTH,
-                                        &color_black,
+                                        &DIA_COLOUR_BLACK,
                                         &arrow,
                                         NULL);
   } else {
     dia_renderer_draw_line (renderer,
                             &conn->endpoints[0],
                             &conn->endpoints[1],
-                            &color_black);
+                            &DIA_COLOUR_BLACK);
   }
 
   boolequation_draw (condition->cond, renderer);

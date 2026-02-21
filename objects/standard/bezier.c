@@ -414,7 +414,7 @@ bezierline_draw (Bezierline *bezierline, DiaRenderer *renderer)
 	       &bez->bezier.points[0].p1, &bez->bezier.points[1].p1,
 	       bezierline->start_arrow.length, bezierline->start_arrow.width,
 	       bezierline->line_width,
-	       &bezierline->line_color, &color_white);
+	       &bezierline->line_color, &DIA_COLOUR_WHITE);
   }
   if (bezierline->end_arrow.type != ARROW_NONE) {
     arrow_draw(renderer, bezierline->end_arrow.type,
@@ -422,7 +422,7 @@ bezierline_draw (Bezierline *bezierline, DiaRenderer *renderer)
 	       &bez->bezier.points[bez->bezier.num_points-1].p2,
 	       bezierline->end_arrow.length, bezierline->end_arrow.width,
 	       bezierline->line_width,
-	       &bezierline->line_color, &color_white);
+	       &bezierline->line_color, &DIA_COLOUR_WHITE);
   }
 #endif
 
@@ -613,9 +613,11 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
   }
   bezierconn_save(&bezierline->bez, obj_node, ctx);
 
-  if (!color_equals(&bezierline->line_color, &color_black))
-    data_add_color(new_attribute(obj_node, "line_color"),
-		   &bezierline->line_color, ctx);
+  if (!dia_colour_is_black (&bezierline->line_color)) {
+    data_add_color (new_attribute (obj_node, "line_color"),
+                    &bezierline->line_color,
+                    ctx);
+  }
 
   if (bezierline->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
@@ -672,15 +674,16 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
                  bezierline->absolute_end_gap, ctx);
 }
 
+
 static DiaObject *
-bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
+bezierline_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Bezierline *bezierline;
   BezierConn *bez;
   DiaObject *obj;
   AttributeNode attr;
 
-  bezierline = g_new0(Bezierline, 1);
+  bezierline = g_new0 (Bezierline, 1);
   bezierline->bez.object.enclosing_box = g_new0 (DiaRectangle, 1);
 
   bez = &bezierline->bez;
@@ -689,12 +692,15 @@ bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   obj->type = &bezierline_type;
   obj->ops = &bezierline_ops;
 
-  bezierconn_load(bez, obj_node, ctx);
+  bezierconn_load (bez, obj_node, ctx);
 
-  bezierline->line_color = color_black;
-  attr = object_find_attribute(obj_node, "line_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &bezierline->line_color, ctx);
+  bezierline->line_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "line_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &bezierline->line_color,
+                ctx);
+  }
 
   bezierline->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);

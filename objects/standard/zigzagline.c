@@ -491,14 +491,17 @@ zigzagline_get_object_menu(Zigzagline *zigzagline, Point *clickedpoint)
 
 
 static void
-zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
-		DiaContext *ctx)
+zigzagline_save (Zigzagline *zigzagline,
+                 ObjectNode  obj_node,
+                 DiaContext *ctx)
 {
-  orthconn_save(&zigzagline->orth, obj_node, ctx);
+  orthconn_save (&zigzagline->orth, obj_node, ctx);
 
-  if (!color_equals(&zigzagline->line_color, &color_black))
-    data_add_color(new_attribute(obj_node, "line_color"),
-		   &zigzagline->line_color, ctx);
+  if (!dia_colour_is_black (&zigzagline->line_color)) {
+    data_add_color (new_attribute (obj_node, "line_color"),
+                    &zigzagline->line_color,
+                    ctx);
+  }
 
   if (zigzagline->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
@@ -564,12 +567,15 @@ zigzagline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   obj->type = &zigzagline_type;
   obj->ops = &zigzagline_ops;
 
-  orthconn_load(orth, obj_node, ctx);
+  orthconn_load (orth, obj_node, ctx);
 
-  zigzagline->line_color = color_black;
-  attr = object_find_attribute(obj_node, "line_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &zigzagline->line_color, ctx);
+  zigzagline->line_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "line_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &zigzagline->line_color,
+                ctx);
+  }
 
   zigzagline->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);

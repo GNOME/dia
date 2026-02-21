@@ -44,7 +44,7 @@
 #include "diarenderer.h"
 #include "geometry.h"
 #include "arrows.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "font.h"
 #include "dia_xml.h"
 #include "textattr.h"

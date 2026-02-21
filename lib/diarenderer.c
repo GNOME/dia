@@ -1362,7 +1362,7 @@ draw_line_with_arrows(DiaRenderer *renderer,
                     endpoint,
                     line_width,
                     color,
-                    &color_white);
+                    &DIA_COLOUR_WHITE);
   }
 
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
@@ -1372,7 +1372,7 @@ draw_line_with_arrows(DiaRenderer *renderer,
                     startpoint,
                     line_width,
                     color,
-                    &color_white);
+                    &DIA_COLOUR_WHITE);
   }
 
   *startpoint = oldstart;
@@ -1451,7 +1451,7 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
                     &points[firstline+1],
                     line_width,
                     color,
-                    &color_white);
+                    &DIA_COLOUR_WHITE);
   }
 
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
@@ -1461,7 +1461,7 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
                     &points[lastline-2],
                     line_width,
                     color,
-                    &color_white);
+                    &DIA_COLOUR_WHITE);
   }
 
   points[firstline] = oldstart;
@@ -1538,7 +1538,7 @@ draw_rounded_polyline_with_arrows(DiaRenderer *renderer,
                     &start_arrow_head, &points[firstline+1],
                     line_width,
                     color,
-                    &color_white);
+                    &DIA_COLOUR_WHITE);
   }
 
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
@@ -1547,7 +1547,7 @@ draw_rounded_polyline_with_arrows(DiaRenderer *renderer,
                     &end_arrow_head, &points[lastline-2],
                     line_width,
                     color,
-                    &color_white);
+                    &DIA_COLOUR_WHITE);
   }
 
   points[firstline] = oldstart;
@@ -1834,7 +1834,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
                     &start_arrow_end,
                     line_width,
                     color,
-                    &color_white);
+                    &DIA_COLOUR_WHITE);
   }
 
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
@@ -1844,7 +1844,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
                     &end_arrow_end,
                     line_width,
                     color,
-                    &color_white);
+                    &DIA_COLOUR_WHITE);
   }
 }
 
@@ -1900,7 +1900,7 @@ draw_bezier_with_arrows(DiaRenderer *renderer,
                     &points[1].p1,
                     line_width,
                     color,
-                    &color_white);
+                    &DIA_COLOUR_WHITE);
   }
 
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
@@ -1910,7 +1910,7 @@ draw_bezier_with_arrows(DiaRenderer *renderer,
                     &points[num_points-1].p2,
                     line_width,
                     color,
-                    &color_white);
+                    &DIA_COLOUR_WHITE);
   }
 
   points[0].p1 = startpoint;
@@ -2103,7 +2103,11 @@ bezier_render_fill_old (DiaRenderer *renderer, BezPoint *pts, int total, Color *
       real dist = distance_bez_shape_point (&pts[s1],  n1 > 0 ? n1 : i - s1, 0, &pts[i].p1);
       if (s2 > s1) { /* blanking the previous one */
         n = i - s2 - 1;
-        dia_renderer_draw_beziergon (renderer, &pts[s2], n, &color_white, NULL);
+        dia_renderer_draw_beziergon (renderer,
+                                     &pts[s2],
+                                     n,
+                                     &DIA_COLOUR_WHITE,
+                                     NULL);
       } else { /* fill the outer shape */
         n1 = n = i - s1;
         dia_renderer_draw_beziergon (renderer, &pts[s1], n, color, NULL);
@@ -2120,7 +2124,11 @@ bezier_render_fill_old (DiaRenderer *renderer, BezPoint *pts, int total, Color *
   /* the last one is not drawn yet, i is pointing to the last element */
   if (s2 > s1) { /* blanking the previous one */
     if (i - s2 - 1 > 1) { /* depending on the above we may be ready */
-      dia_renderer_draw_beziergon (renderer, &pts[s2], i - s2, &color_white, NULL);
+      dia_renderer_draw_beziergon (renderer,
+                                   &pts[s2],
+                                   i - s2,
+                                   &DIA_COLOUR_WHITE,
+                                   NULL);
     }
   } else {
     if (i - s1 - 1 > 1) {

@@ -660,22 +660,29 @@ pgram_destroy(Pgram *pgram)
   element_destroy(&pgram->element);
 }
 
+
 static void
-pgram_save(Pgram *pgram, ObjectNode obj_node, DiaContext *ctx)
+pgram_save (Pgram *pgram, ObjectNode obj_node, DiaContext *ctx)
 {
-  element_save(&pgram->element, obj_node, ctx);
+  element_save (&pgram->element, obj_node, ctx);
 
-  if (pgram->border_width != 0.1)
-    data_add_real(new_attribute(obj_node, "border_width"),
-		  pgram->border_width, ctx);
+  if (pgram->border_width != 0.1) {
+    data_add_real (new_attribute (obj_node, "border_width"),
+                   pgram->border_width,
+                   ctx);
+  }
 
-  if (!color_equals(&pgram->border_color, &color_black))
-    data_add_color(new_attribute(obj_node, "border_color"),
-		   &pgram->border_color, ctx);
+  if (!dia_colour_is_black (&pgram->border_color)) {
+    data_add_color (new_attribute (obj_node, "border_color"),
+                    &pgram->border_color,
+                    ctx);
+  }
 
-  if (!color_equals(&pgram->inner_color, &color_white))
-    data_add_color(new_attribute(obj_node, "inner_color"),
-		   &pgram->inner_color, ctx);
+  if (!dia_colour_is_white (&pgram->inner_color)) {
+    data_add_color (new_attribute (obj_node, "inner_color"),
+                    &pgram->inner_color,
+                    ctx);
+  }
 
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   pgram->show_background, ctx);
@@ -706,8 +713,9 @@ pgram_save(Pgram *pgram, ObjectNode obj_node, DiaContext *ctx)
   }
 }
 
+
 static DiaObject *
-pgram_load(ObjectNode obj_node, int version,DiaContext *ctx)
+pgram_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Pgram *pgram;
   Element *elem;
@@ -722,22 +730,24 @@ pgram_load(ObjectNode obj_node, int version,DiaContext *ctx)
   obj->type = &pgram_type;
   obj->ops = &pgram_ops;
 
-  element_load(elem, obj_node, ctx);
+  element_load (elem, obj_node, ctx);
 
   pgram->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
     pgram->border_width =  data_real(attribute_first_data(attr), ctx);
 
-  pgram->border_color = color_black;
-  attr = object_find_attribute(obj_node, "border_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &pgram->border_color, ctx);
+  pgram->border_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "border_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr), &pgram->border_color, ctx);
+  }
 
-  pgram->inner_color = color_white;
-  attr = object_find_attribute(obj_node, "inner_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &pgram->inner_color, ctx);
+  pgram->inner_color = DIA_COLOUR_WHITE;
+  attr = object_find_attribute (obj_node, "inner_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr), &pgram->inner_color, ctx);
+  }
 
   pgram->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");

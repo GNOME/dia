@@ -396,11 +396,11 @@ basestation_create(Point *startpoint,
                                 font,
                                 0.8,
                                 &p,
-                                &color_black,
+                                &DIA_COLOUR_BLACK,
                                 DIA_ALIGN_CENTRE);
   g_clear_object (&font);
-  basestation->line_colour = color_black;
-  basestation->fill_colour = color_white;
+  basestation->line_colour = DIA_COLOUR_BLACK;
+  basestation->fill_colour = DIA_COLOUR_WHITE;
   basestation->sectors = 3;
 
   element_init(elem, 8, NUM_CONNECTIONS);

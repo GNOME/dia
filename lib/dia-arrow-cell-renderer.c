@@ -171,8 +171,8 @@ dia_arrow_cell_renderer_render (GtkCellRenderer      *cell,
   self = DIA_ARROW_CELL_RENDERER (cell);
   priv = dia_arrow_cell_renderer_get_instance_private (self);
 
-  GDK_COLOR_TO_DIA (bg, colour_bg);
-  GDK_COLOR_TO_DIA (fg, colour_fg);
+  dia_colour_from_gdk (&colour_bg, &bg);
+  dia_colour_from_gdk (&colour_fg, &fg);
 
   gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
 

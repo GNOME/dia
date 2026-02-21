@@ -18,12 +18,12 @@
 
 #pragma once
 
-#include "diatypes.h"
-#include "geometry.h"
-#include "color.h"
 #include "dia_xml.h"
+#include "dia-colour.h"
 #include "diacontext.h"
 #include "diarenderer.h"
+#include "diatypes.h"
+#include "geometry.h"
 
 /* NOTE: Add new arrow types at the end, or the enums
    will change order leading to file incompatibilities. */

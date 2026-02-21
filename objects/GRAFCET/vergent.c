@@ -30,7 +30,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "properties.h"
 #include "geometry.h"
 #include "connpoint_line.h"
@@ -288,21 +288,21 @@ vergent_draw (Vergent *vergent, DiaRenderer *renderer)
       dia_renderer_draw_line (renderer,
                               &conn->endpoints[0],
                               &conn->endpoints[1],
-                              &color_black);
+                              &DIA_COLOUR_BLACK);
       break;
     case VERGENT_AND:
       dia_renderer_set_linewidth (renderer, 2.0 * VERGENT_LINE_WIDTH);
       dia_renderer_draw_line (renderer,
                               &conn->endpoints[0],
                               &conn->endpoints[1],
-                              &color_white);
+                              &DIA_COLOUR_WHITE);
       dia_renderer_set_linewidth (renderer, VERGENT_LINE_WIDTH);
       p1.x = conn->endpoints[0].x;
       p2.x = conn->endpoints[1].x;
       p1.y = p2.y = conn->endpoints[0].y - VERGENT_LINE_WIDTH;
-      dia_renderer_draw_line (renderer, &p1, &p2, &color_black);
+      dia_renderer_draw_line (renderer, &p1, &p2, &DIA_COLOUR_BLACK);
       p1.y = p2.y = conn->endpoints[0].y + VERGENT_LINE_WIDTH;
-      dia_renderer_draw_line (renderer, &p1, &p2, &color_black);
+      dia_renderer_draw_line (renderer, &p1, &p2, &DIA_COLOUR_BLACK);
       break;
     default:
       g_return_if_reached ();

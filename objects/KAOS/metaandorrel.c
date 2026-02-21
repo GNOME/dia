@@ -75,8 +75,8 @@ struct _Maor {
 #define MAOR_ARROWLEN 0.8
 #define MAOR_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
-#define MAOR_FG_COLOR color_black
-#define MAOR_BG_COLOR color_white
+#define MAOR_FG_COLOR DIA_COLOUR_BLACK
+#define MAOR_BG_COLOR DIA_COLOUR_WHITE
 #define MAOR_ICON_WIDTH 1.0
 #define MAOR_ICON_HEIGHT 1.0
 #define MAOR_REF_WIDTH 1.0
@@ -503,7 +503,7 @@ maor_draw (Maor *maor, DiaRenderer *renderer)
                               mname,
                               &maor->text_pos,
                               DIA_ALIGN_CENTRE,
-                              &color_black);
+                              &DIA_COLOUR_BLACK);
   }
 
   g_clear_pointer (&mname, g_free);

@@ -41,7 +41,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "connpoint_line.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "properties.h"
 
 #include "pixmaps/given_domain.xpm"
@@ -52,8 +52,8 @@
 #define DEFAULT_PADDING 0.4
 #define DEFAULT_FONT 0.7
 #define JACKSON_BOX_LINE_WIDTH 0.09
-#define JACKSON_BOX_FG_COLOR color_black
-#define JACKSON_BOX_BG_COLOR color_white
+#define JACKSON_BOX_FG_COLOR DIA_COLOUR_BLACK
+#define JACKSON_BOX_BG_COLOR DIA_COLOUR_WHITE
 #define LEFT_SPACE 0.7
 #define RIGHT_SPACE 0.3
 
@@ -680,7 +680,7 @@ jackson_box_create (Point   *startpoint,
 
   box->text = new_text ("", font,
                         DEFAULT_FONT, &p,
-                        &color_black,
+                        &DIA_COLOUR_BLACK,
                         DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 

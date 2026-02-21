@@ -243,7 +243,12 @@ req_draw (Requirement *req, DiaRenderer *renderer)
 
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DASHED, REQ_DASHLEN);
 
-  dia_renderer_draw_ellipse (renderer, &c, w, h, &color_white, &color_black);
+  dia_renderer_draw_ellipse (renderer,
+                             &c,
+                             w,
+                             h,
+                             &DIA_COLOUR_WHITE,
+                             &DIA_COLOUR_BLACK);
 
   text_draw (req->text, renderer);
 }
@@ -363,7 +368,12 @@ req_create(Point *startpoint,
   p.x += REQ_WIDTH/2.0;
   p.y += REQ_HEIGHT/2.0;
 
-  req->text = new_text ("", font, REQ_FONT, &p, &color_black, DIA_ALIGN_CENTRE);
+  req->text = new_text ("",
+                        font,
+                        REQ_FONT,
+                        &p,
+                        &DIA_COLOUR_BLACK,
+                        DIA_ALIGN_CENTRE);
   g_clear_object (&font);
   element_init (elem, 8, NUM_CONNECTIONS);
 

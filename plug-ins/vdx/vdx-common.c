@@ -19,14 +19,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <stdio.h>
+#include "config.h"
+
+#include <glib/gstdio.h>
 #include <glib.h>
-#include "color.h"
+
+#include "dia-colour.h"
 
 #include "visio-types.h"
 
-char * vdx_Units[] =
-{
+char * vdx_Units[] = {
   "BOOL",
   "CM",
   "COLOR",

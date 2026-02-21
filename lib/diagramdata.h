@@ -23,7 +23,7 @@
 #include <string.h>
 
 #include "diatypes.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "geometry.h"
 #include "paper.h"
 #include "font.h"

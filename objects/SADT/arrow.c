@@ -30,7 +30,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "properties.h"
 
 #include "sadt.h"
@@ -413,7 +413,7 @@ sadtarrow_create(Point *startpoint,
 
   sadtarrow->style = SADT_ARROW_NORMAL; /* sadtarrow_defaults.style; */
   sadtarrow->autogray = TRUE; /* sadtarrow_defaults.autogray; */
-  sadtarrow->line_color = color_black;
+  sadtarrow->line_color = DIA_COLOUR_BLACK;
 
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];

@@ -456,7 +456,7 @@ classicon_create(Point *startpoint,
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  cicon->text = new_text ("", font, 0.8, &p, &color_black, DIA_ALIGN_CENTRE);
+  cicon->text = new_text ("", font, 0.8, &p, &DIA_COLOUR_BLACK, DIA_ALIGN_CENTRE);
 
   g_clear_object (&font);
 

@@ -355,7 +355,7 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
                          font,
                          NODE_FONTHEIGHT,
                          &p,
-                         &color_black,
+                         &DIA_COLOUR_BLACK,
                          DIA_ALIGN_LEFT);
   g_clear_object (&font);
 

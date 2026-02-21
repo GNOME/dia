@@ -300,7 +300,7 @@ message_draw (Message *message, DiaRenderer *renderer)
                                       &p1,
                                       &p2,
                                       MESSAGE_WIDTH,
-                                      &color_black,
+                                      &DIA_COLOUR_BLACK,
                                       &arrow,
                                       NULL);
 
@@ -312,7 +312,7 @@ message_draw (Message *message, DiaRenderer *renderer)
                               mname,
                               &message->text_pos,
                               DIA_ALIGN_CENTRE,
-                              &color_black);
+                              &DIA_COLOUR_BLACK);
   }
 
   g_clear_pointer (&mname, g_free);

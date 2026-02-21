@@ -95,22 +95,24 @@ skip_comments(FILE *file) {
     return FALSE;
 }
 
+
 static Color
-fig_color(int color_index, DiaContext *ctx)
+fig_color (int color_index, DiaContext *ctx)
 {
-    if (color_index <= -1)
-        return color_black; /* Default color */
-    else if (color_index < FIG_MAX_DEFAULT_COLORS)
-        return fig_default_colors[color_index];
-    else if (color_index < FIG_MAX_USER_COLORS)
-	return fig_colors[color_index-FIG_MAX_DEFAULT_COLORS];
-    else {
-        dia_context_add_message(ctx,
-	  _("Color index %d too high; only 512 colors allowed. Using black instead."),
-	  color_index);
-	return color_black;
-    }
+  if (color_index <= -1) {
+    return DIA_COLOUR_BLACK; /* Default color */
+  } else if (color_index < FIG_MAX_DEFAULT_COLORS) {
+    return fig_default_colors[color_index];
+  } else if (color_index < FIG_MAX_USER_COLORS) {
+    return fig_colors[color_index - FIG_MAX_DEFAULT_COLORS];
+  } else {
+    dia_context_add_message (ctx,
+                             _("Color index %d too high; only 512 colors allowed. Using black instead."),
+                             color_index);
+    return DIA_COLOUR_BLACK;
+  }
 }
+
 
 static Color
 fig_area_fill_color(int area_fill, int color_index, DiaContext *ctx)
@@ -1301,21 +1303,26 @@ fig_read_meta_data(FILE *file, DiagramData *dia, DiaContext *ctx)
     return TRUE;
 }
 
+
 /* imports the given fig-file, returns TRUE if successful */
 static gboolean
-import_fig(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
+import_fig (const char  *filename,
+            DiagramData *dia,
+            DiaContext  *ctx,
+            void        *user_data)
 {
-    FILE *figfile;
-    char buf[BUFLEN];
-    int figmajor, figminor;
-    int i;
+  FILE *figfile;
+  char buf[BUFLEN];
+  int figmajor, figminor;
+  int i;
 
-    for (i = 0; i < FIG_MAX_USER_COLORS; i++) {
-	fig_colors[i] = color_black;
-    }
-    for (i = 0; i < FIG_MAX_DEPTHS; i++) {
-	depths[i] = NULL;
-    }
+  for (i = 0; i < FIG_MAX_USER_COLORS; i++) {
+    fig_colors[i] = DIA_COLOUR_BLACK;
+  }
+
+  for (i = 0; i < FIG_MAX_DEPTHS; i++) {
+    depths[i] = NULL;
+  }
 
     figfile = g_fopen(filename,"r");
     if (figfile == NULL) {

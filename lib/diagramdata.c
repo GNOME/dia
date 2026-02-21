@@ -93,7 +93,7 @@ _diagram_data_selection_changed (DiagramData* dia, int n)
 static void
 dia_diagram_data_init (DiagramData *data)
 {
-  Color* color = persistence_register_color ("new_diagram_bgcolour", &color_white);
+  DiaColour *colour = persistence_register_color ("new_diagram_bgcolour", &DIA_COLOUR_WHITE);
   gboolean compress = persistence_register_boolean ("compress_save", TRUE);
   DiaLayer *first_layer;
 
@@ -102,7 +102,7 @@ dia_diagram_data_init (DiagramData *data)
   data->extents.top = 0.0;
   data->extents.bottom = 10.0;
 
-  data->bg_color = *color;
+  data->bg_color = *colour;
 
   get_paper_info (&data->paper, -1, NULL);
 

@@ -22,7 +22,7 @@
 
 #include <gtk/gtk.h>
 
-#include "color.h"
+#include "dia-colour.h"
 
 G_BEGIN_DECLS
 

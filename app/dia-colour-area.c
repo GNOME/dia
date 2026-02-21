@@ -111,6 +111,8 @@ dia_colour_area_target (DiaColourArea *self,
 static gboolean
 dia_colour_area_draw (GtkWidget *self, cairo_t *ctx)
 {
+  DiaColour fore = attributes_get_foreground ();
+  DiaColour back = attributes_get_background ();
   GdkRGBA fg, bg;
   int rect_w, rect_h;
   int img_width, img_height;
@@ -119,8 +121,8 @@ dia_colour_area_draw (GtkWidget *self, cairo_t *ctx)
 
   gtk_widget_get_allocation (GTK_WIDGET (self), &alloc);
 
-  DIA_COLOR_TO_GDK (attributes_get_foreground(), fg);
-  DIA_COLOR_TO_GDK (attributes_get_background(), bg);
+  dia_colour_as_gdk (&fore, &fg);
+  dia_colour_as_gdk (&back, &bg);
 
   rect_w = alloc.width * 0.65;
   rect_h = alloc.height * 0.65;
@@ -161,17 +163,17 @@ dia_colour_area_response (GtkDialog     *chooser,
                           DiaColourArea *self)
 {
   if (response == GTK_RESPONSE_OK) {
-    GdkRGBA gdk_color;
-    Color color;
+    GdkRGBA rgba;
+    DiaColour colour;
 
-    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (chooser), &gdk_color);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (chooser), &rgba);
 
-    GDK_COLOR_TO_DIA (gdk_color, color);
+    dia_colour_from_gdk (&colour, &rgba);
 
     if (self->edit_color == FOREGROUND) {
-      attributes_set_foreground (&color);
+      attributes_set_foreground (&colour);
     } else {
-      attributes_set_background (&color);
+      attributes_set_background (&colour);
     }
   } else {
     attributes_set_foreground (&self->stored_foreground);
@@ -188,8 +190,8 @@ dia_colour_area_response (GtkDialog     *chooser,
 static void
 dia_colour_area_edit (DiaColourArea *self)
 {
-  GdkRGBA gdk_color;
-  Color color;
+  GdkRGBA rgba;
+  DiaColour colour;
 
   if (!self->color_select || !gtk_widget_is_visible (self->color_select)) {
     self->stored_foreground = attributes_get_foreground ();
@@ -197,12 +199,12 @@ dia_colour_area_edit (DiaColourArea *self)
   }
 
   if (self->active_color == FOREGROUND) {
-    color = attributes_get_foreground ();
-    DIA_COLOR_TO_GDK (color, gdk_color);
+    colour = attributes_get_foreground ();
+    dia_colour_as_gdk (&colour, &rgba);
     self->edit_color = FOREGROUND;
   } else {
-    color = attributes_get_background ();
-    DIA_COLOR_TO_GDK (color, gdk_color);
+    colour = attributes_get_background ();
+    dia_colour_as_gdk (&colour, &rgba);
     self->edit_color = BACKGROUND;
   }
 
@@ -224,7 +226,7 @@ dia_colour_area_edit (DiaColourArea *self)
                         self->edit_color == FOREGROUND ?
                         _("Select foreground color") : _("Select background color"));
 
-  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (self->color_select), &gdk_color);
+  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (self->color_select), &rgba);
 
   gtk_window_present (GTK_WINDOW (self->color_select));
 }
@@ -288,9 +290,9 @@ dia_colour_area_class_init (DiaColourAreaClass *class)
   widget_class->button_press_event = dia_colour_area_button_press_event;
 
   attributes_set_foreground (persistence_register_color ("fg_color",
-                                                         &color_black));
+                                                         &DIA_COLOUR_BLACK));
   attributes_set_background (persistence_register_color ("bg_color",
-                                                         &color_white));
+                                                         &DIA_COLOUR_WHITE));
 }
 
 

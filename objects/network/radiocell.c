@@ -329,8 +329,8 @@ radiocell_create(Point *startpoint,
 
   /* do not use default_properties.show_background here */
   radiocell->show_background = FALSE;
-  radiocell->fill_colour = color_white;
-  radiocell->line_colour = color_black;
+  radiocell->fill_colour = DIA_COLOUR_WHITE;
+  radiocell->line_colour = DIA_COLOUR_BLACK;
   radiocell->line_width = RADIOCELL_LINEWIDTH;
   attributes_get_default_line_style (&radiocell->line_style,
                                      &radiocell->dashlength);
@@ -340,7 +340,7 @@ radiocell_create(Point *startpoint,
                               font,
                               RADIOCELL_FONTHEIGHT,
                               startpoint,
-                              &color_black,
+                              &DIA_COLOUR_BLACK,
                               DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 

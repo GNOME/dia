@@ -131,7 +131,7 @@ dia_line_cell_renderer_render (GtkCellRenderer      *cell,
   DiaLineCellRendererPrivate *priv;
   DiaRenderer *renderer;
   Point from, to;
-  Color colour_fg;
+  DiaColour colour_fg;
   GtkStyleContext *style = gtk_widget_get_style_context (widget);
   GdkRGBA fg;
   int x, y, width, height, xpad, ypad;
@@ -147,7 +147,7 @@ dia_line_cell_renderer_render (GtkCellRenderer      *cell,
 
   gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
 
-  GDK_COLOR_TO_DIA (fg, colour_fg);
+  dia_colour_from_gdk (&colour_fg, &fg);
 
   x = cell_area->x + xpad;
   y = cell_area->y + ypad;

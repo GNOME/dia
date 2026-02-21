@@ -22,7 +22,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
-#include "color.h"
+#include "dia-colour.h"
 
 
 G_DEFINE_BOXED_TYPE (DiaColour, dia_colour, dia_colour_copy, dia_colour_free)
@@ -30,20 +30,20 @@ G_DEFINE_BOXED_TYPE (DiaColour, dia_colour, dia_colour_copy, dia_colour_free)
 
 /**
  * dia_colour_copy:
- * @self: source #Color
+ * @self: source #DiaColour
  *
- * Allocate a new color equal to @self
+ * Allocate a new colour equal to @self
  *
  * Since: 0.98
  */
-Color *
-dia_colour_copy (Color *self)
+DiaColour *
+dia_colour_copy (DiaColour *self)
 {
-  Color *new;
+  DiaColour *new;
 
   g_return_val_if_fail (self != NULL, NULL);
 
-  new = g_new0 (Color, 1);
+  new = g_new0 (DiaColour, 1);
 
   new->red = self->red;
   new->green = self->green;
@@ -56,14 +56,14 @@ dia_colour_copy (Color *self)
 
 /**
  * dia_colour_free:
- * @self: the #Color
+ * @self: the #DiaColour
  *
  * Free a colour object
  *
  * Since: 0.98
  */
 void
-dia_colour_free (Color *self)
+dia_colour_free (DiaColour *self)
 {
   g_clear_pointer (&self, g_free);
 }
@@ -71,7 +71,7 @@ dia_colour_free (Color *self)
 
 /**
  * dia_colour_parse:
- * @self: the #Color
+ * @self: the #DiaColour
  * @str: string to parse
  *
  * Set @self according to @str
@@ -83,7 +83,7 @@ dia_colour_free (Color *self)
  * Since: 0.98
  */
 void
-dia_colour_parse (Color       *self,
+dia_colour_parse (DiaColour   *self,
                   const char  *str)
 {
   int r = 0, g = 0, b = 0, a = 255;
@@ -112,7 +112,7 @@ dia_colour_parse (Color       *self,
 
 /**
  * dia_colour_to_string:
- * @self: the #Color
+ * @self: the #DiaColour
  *
  * Generate a string representation of @self
  *
@@ -121,7 +121,7 @@ dia_colour_parse (Color       *self,
  * Returns: @self as \#RRGGBBAA
  */
 char *
-dia_colour_to_string (Color *self)
+dia_colour_to_string (DiaColour *self)
 {
   return g_strdup_printf ("#%02X%02X%02X%02X",
                           (guint) (CLAMP (self->red, 0.0, 1.0) * 255),
@@ -145,14 +145,7 @@ dia_colour_to_string (Color *self)
 DiaColour *
 dia_colour_new_rgb (float r, float g, float b)
 {
-  DiaColour *col = g_new0 (DiaColour, 1);
-
-  col->red = r;
-  col->green = g;
-  col->blue = b;
-  col->alpha = 1.0;
-
-  return col;
+  return dia_colour_new_rgba (r, g, b, 1.0);
 }
 
 
@@ -216,19 +209,45 @@ dia_colour_from_gdk (DiaColour   *self,
 
 
 /**
- * color_equals:
- * @color1: One #Color object
- * @color2: Another #Color object.
+ * dia_colour_equals:
+ * @colour_a: One #DiaColour object
+ * @colour_b: Another #DiaColour object.
  *
  * Compare two colour objects.
  *
  * Returns: %TRUE if the colour objects are the same colour.
  */
 gboolean
-color_equals (const Color *color1, const Color *color2)
+dia_colour_equals (DiaColour *colour_a, DiaColour *colour_b)
 {
-  return (color1->red == color2->red) &&
-         (color1->green == color2->green) &&
-         (color1->blue == color2->blue) &&
-         (color1->alpha == color2->alpha);
+  return G_APPROX_VALUE (colour_a->red, colour_b->red, FLT_EPSILON) &&
+         G_APPROX_VALUE (colour_a->green, colour_b->green, FLT_EPSILON) &&
+         G_APPROX_VALUE (colour_a->blue, colour_b->blue, FLT_EPSILON) &&
+         G_APPROX_VALUE (colour_a->alpha, colour_b->alpha, FLT_EPSILON);
+}
+
+
+/**
+ * dia_colour_is_black:
+ * @self: a #DiaColour object
+ *
+ * Returns: %TRUE if the colour is solid black.
+ */
+gboolean
+dia_colour_is_black (DiaColour *self)
+{
+  return dia_colour_equals (self, &DIA_COLOUR_BLACK);
+}
+
+
+/**
+ * dia_colour_is_white:
+ * @self: a #DiaColour object
+ *
+ * Returns: %TRUE if the colour is solid white.
+ */
+gboolean
+dia_colour_is_white (DiaColour *self)
+{
+  return dia_colour_equals (self, &DIA_COLOUR_WHITE);
 }

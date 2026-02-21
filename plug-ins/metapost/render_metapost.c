@@ -154,32 +154,34 @@ enum {
 };
 
 
-static void end_draw_op(MetapostRenderer *renderer);
-static void draw_with_linestyle(MetapostRenderer *renderer);
+static void draw_with_linestyle (MetapostRenderer *renderer);
+
 
 static void
-end_draw_op(MetapostRenderer *renderer)
+end_draw_op (MetapostRenderer *renderer)
 {
-    gchar d1_buf[DTOSTR_BUF_SIZE];
-    gchar d2_buf[DTOSTR_BUF_SIZE];
-    gchar d3_buf[DTOSTR_BUF_SIZE];
+  char d1_buf[DTOSTR_BUF_SIZE];
+  char d2_buf[DTOSTR_BUF_SIZE];
+  char d3_buf[DTOSTR_BUF_SIZE];
 
-    /* the following pencircle seems not to work well with line caps, but using
-     *	renderer->saved_line_cap == DIA_LINE_CAPS_ROUND ? "pencircle" : "pensquare",
-     * doesn't make it anz better
-     */
-    fprintf(renderer->file, "\n    withpen pencircle scaled %sx",
-            g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f", (gdouble) renderer->line_width) );
+  /* the following pencircle seems not to work well with line caps, but using
+   *   renderer->saved_line_cap == DIA_LINE_CAPS_ROUND ? "pencircle" : "pensquare",
+   * doesn't make it anz better
+   */
+  fprintf (renderer->file, "\n    withpen pencircle scaled %sx",
+           g_ascii_formatd(d1_buf, sizeof (d1_buf), "%5.4f", (double) renderer->line_width));
 
-    if (!color_equals(&renderer->color, &color_black))
-        fprintf(renderer->file, "\n    withcolor (%s, %s, %s)",
-                g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f", (gdouble) renderer->color.red),
-                g_ascii_formatd(d2_buf, sizeof(d2_buf), "%5.4f", (gdouble) renderer->color.green),
-                g_ascii_formatd(d3_buf, sizeof(d3_buf), "%5.4f", (gdouble) renderer->color.blue) );
+  if (!dia_colour_is_black (&renderer->color)) {
+    fprintf (renderer->file, "\n    withcolor (%s, %s, %s)",
+             g_ascii_formatd (d1_buf, sizeof (d1_buf), "%5.4f", (double) renderer->color.red),
+             g_ascii_formatd (d2_buf, sizeof (d2_buf), "%5.4f", (double) renderer->color.green),
+             g_ascii_formatd (d3_buf, sizeof (d3_buf), "%5.4f", (double) renderer->color.blue));
+  }
 
-    draw_with_linestyle(renderer);
-    fprintf(renderer->file, ";\n");
+  draw_with_linestyle (renderer);
+  fprintf (renderer->file, ";\n");
 }
+
 
 static void
 set_line_color(MetapostRenderer *renderer,Color *color)
@@ -832,11 +834,11 @@ draw_string (DiaRenderer  *self,
            mp_dtostr (px_buf, pos->x),
            mp_dtostr (py_buf, pos->y) );
 
-  if (!color_equals(&renderer->color, &color_black)) {
-      fprintf (renderer->file, "\n    withcolor (%s, %s, %s)",
-               g_ascii_formatd (red_buf, sizeof (red_buf), "%5.4f", (gdouble) renderer->color.red),
-               g_ascii_formatd (green_buf, sizeof (green_buf), "%5.4f", (gdouble) renderer->color.green),
-               g_ascii_formatd (blue_buf, sizeof (blue_buf), "%5.4f", (gdouble) renderer->color.blue) );
+  if (!dia_colour_is_black (&renderer->color)) {
+    fprintf (renderer->file, "\n    withcolor (%s, %s, %s)",
+             g_ascii_formatd (red_buf, sizeof (red_buf), "%5.4f", (double) renderer->color.red),
+             g_ascii_formatd (green_buf, sizeof (green_buf), "%5.4f", (double) renderer->color.green),
+             g_ascii_formatd (blue_buf, sizeof (blue_buf), "%5.4f", (double) renderer->color.blue) );
   }
 
   fprintf (renderer->file,";\n");

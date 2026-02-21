@@ -18,11 +18,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#include <config.h> 
-#include "diatypes.h"
-#include "pattern.h"
-#include "color.h"
+
+#include "config.h"
+
 #include <glib-object.h>
+
+#include "dia-colour.h"
+#include "diatypes.h"
+
+#include "pattern.h"
 
 typedef struct _DiaPatternClass DiaPatternClass;
 #define DIA_TYPE_PATTERN (_dia_pattern_get_type ())
@@ -160,7 +164,7 @@ dia_pattern_get_settings (DiaPattern *self, DiaPatternType *type, guint *flags)
 }
 /*!
  * \brief Get both points of the pattern definition
- * The meaning of p2 is gradient type specific. 
+ * The meaning of p2 is gradient type specific.
  * \ingroup DiaPattern
  */
 void
@@ -212,7 +216,7 @@ void
 dia_pattern_set_pattern (DiaPattern *self, DiaPattern *pat)
 {
   gsize i;
- 
+
   g_return_if_fail (self != NULL && pat != NULL);
 
   for (i = 0; i < pat->stops->len; ++i) {
@@ -221,18 +225,24 @@ dia_pattern_set_pattern (DiaPattern *self, DiaPattern *pat)
   }
 }
 
-/*!
- * \brief Get a good color to emulate the gradient with a solid fill
- * \ingroup DiaPattern
+
+/**
+ * dia_pattern_get_fallback_color:
+ * @colour: (out):
+ *
+ * Get a good colour to emulate the gradient with a solid fill
  */
 void
-dia_pattern_get_fallback_color (DiaPattern *self, Color *color)
+dia_pattern_get_fallback_color (DiaPattern *self,
+                                DiaColour  *colour)
 {
-  g_return_if_fail (self != NULL && color != NULL);
-  if (self->stops->len > 0)
-    *color = g_array_index (self->stops, ColorStop, 0).color;
-  else
-    *color = color_black;
+  g_return_if_fail (self != NULL && colour != NULL);
+
+  if (self->stops->len > 0) {
+    *colour = g_array_index (self->stops, ColorStop, 0).color;
+  } else {
+    *colour = DIA_COLOUR_BLACK;
+  }
 }
 
 /*!

@@ -320,7 +320,7 @@ attribute_draw (Attribute *attribute, DiaRenderer *renderer)
                             attribute->name,
                             &p,
                             DIA_ALIGN_CENTRE,
-                            &color_black);
+                            &DIA_COLOUR_BLACK);
 
   if (attribute->key || attribute->weakkey) {
     if (attribute->weakkey) {
@@ -335,7 +335,7 @@ attribute_draw (Attribute *attribute, DiaRenderer *renderer)
     start.y = center.y + 0.4;
     end.x = center.x + width / 2;
     end.y = center.y + 0.4;
-    dia_renderer_draw_line (renderer, &start, &end, &color_black);
+    dia_renderer_draw_line (renderer, &start, &end, &DIA_COLOUR_BLACK);
   }
 }
 
@@ -566,15 +566,21 @@ attribute_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL)
     attribute->border_width =  data_real(attribute_first_data(attr), ctx);
 
-  attribute->border_color = color_black;
-  attr = object_find_attribute(obj_node, "border_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &attribute->border_color, ctx);
+  attribute->border_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "border_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &attribute->border_color,
+                ctx);
+  }
 
-  attribute->inner_color = color_white;
-  attr = object_find_attribute(obj_node, "inner_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &attribute->inner_color, ctx);
+  attribute->inner_color = DIA_COLOUR_WHITE;
+  attr = object_find_attribute (obj_node, "inner_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &attribute->inner_color,
+                ctx);
+  }
 
   attribute->name = NULL;
   attr = object_find_attribute(obj_node, "name");

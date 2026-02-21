@@ -30,7 +30,6 @@
 #include "disp_callbacks.h"
 #include "interface.h"
 #include "focus.h"
-#include "color.h"
 #include "object.h"
 #include "handle_ops.h"
 #include "connectionpoint_ops.h"
@@ -41,12 +40,13 @@
 #include "app_procs.h"
 #include "layer-editor/layer_dialog.h"
 #include "load_save.h"
+#include "dia-colour.h"
 #include "dia-diagram-properties-dialog.h"
+#include "dia-layer.h"
 #include "renderer/diacairo.h"
 #include "diatransform.h"
 #include "recent_files.h"
 #include "filedlg.h"
-#include "dia-layer.h"
 #include "exit_dialog.h"
 
 

@@ -130,7 +130,7 @@ shape_info_realise(ShapeInfo* info)
                                    el->text.s.font,
                                    el->text.s.font_height,
                                    &el->text.anchor,
-                                   &color_black,
+                                   &DIA_COLOUR_BLACK,
                                    el->text.s.alignment);
       }
       text_calc_boundingbox(el->text.object, &el->text.text_bounds);

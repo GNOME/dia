@@ -39,8 +39,8 @@
 #include "pixmaps/actor.xpm"
 
 #define ACTOR_RADIUS 2.0
-#define ACTOR_FG_COLOR color_black
-#define ACTOR_BG_COLOR color_white
+#define ACTOR_FG_COLOR DIA_COLOUR_BLACK
+#define ACTOR_BG_COLOR DIA_COLOUR_WHITE
 #define ACTOR_BORDER_WIDTH 0.12
 #define ACTOR_FONT 0.7
 

@@ -379,7 +379,7 @@ largepackage_create(Point *startpoint,
   elem->height = 4.0;
 
   pkg->line_width = attributes_get_default_linewidth();
-  pkg->text_color = color_black;
+  pkg->text_color = DIA_COLOUR_BLACK;
   pkg->line_color = attributes_get_foreground();
   pkg->fill_color = attributes_get_background();
   /* old defaults */

@@ -478,7 +478,7 @@ objet_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  ob->text_attrs.color = color_black;
+  ob->text_attrs.color = DIA_COLOUR_BLACK;
   ob->line_width = attributes_get_default_linewidth();
   ob->line_color = attributes_get_foreground();
   ob->fill_color = attributes_get_background();
@@ -496,9 +496,14 @@ objet_create(Point *startpoint,
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  ob->attributes = new_text ("", font, 0.8, &p, &color_black, DIA_ALIGN_LEFT);
+  ob->attributes = new_text ("",
+                             font,
+                             0.8,
+                             &p,
+                             &DIA_COLOUR_BLACK,
+                             DIA_ALIGN_LEFT);
   ob->attrib = NULL;
-  ob->text = new_text ("", font, 0.8, &p, &color_black, DIA_ALIGN_CENTRE);
+  ob->text = new_text ("", font, 0.8, &p, &DIA_COLOUR_BLACK, DIA_ALIGN_CENTRE);
   text_get_attributes(ob->text,&ob->text_attrs);
 
   g_clear_object (&font);

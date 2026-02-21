@@ -19,7 +19,7 @@
 
 #include "handle_ops.h"
 #include "handle.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "diainteractiverenderer.h"
 
 /* This value is best left odd so that the handles are centered. */
@@ -85,7 +85,7 @@ handle_draw (Handle *handle, DDisplay *ddisp)
                                             y - HANDLE_SIZE/2,
                                             HANDLE_SIZE-1,
                                             HANDLE_SIZE-1,
-                                            &color_black);
+                                            &DIA_COLOUR_BLACK);
 
   if (handle->connect_type != HANDLE_NONCONNECTABLE) {
     dia_interactive_renderer_draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
@@ -93,13 +93,13 @@ handle_draw (Handle *handle, DDisplay *ddisp)
                                               y - HANDLE_SIZE/2,
                                               x + HANDLE_SIZE/2,
                                               y + HANDLE_SIZE/2,
-                                              &color_black);
+                                              &DIA_COLOUR_BLACK);
     dia_interactive_renderer_draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
                                               x - HANDLE_SIZE/2,
                                               y + HANDLE_SIZE/2,
                                               x + HANDLE_SIZE/2,
                                               y - HANDLE_SIZE/2,
-                                              &color_black);
+                                              &DIA_COLOUR_BLACK);
   }
 }
 

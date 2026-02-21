@@ -702,7 +702,7 @@ text_draw (Text *text, DiaRenderer *renderer)
 
     dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
     dia_renderer_set_linewidth (renderer, height / CURSOR_HEIGHT_RATIO);
-    dia_renderer_draw_line (renderer, &p1, &p2, &color_black);
+    dia_renderer_draw_line (renderer, &p1, &p2, &DIA_COLOUR_BLACK);
   }
 }
 
@@ -1279,7 +1279,7 @@ data_text (AttributeNode text_attr, DiaContext *ctx)
     data_point (attribute_first_data (attr), &pos, ctx);
   }
 
-  col = color_black;
+  col = DIA_COLOUR_BLACK;
   attr = composite_find_attribute (text_attr, "color");
   if (attr != NULL) {
     data_color (attribute_first_data (attr), &col, ctx);

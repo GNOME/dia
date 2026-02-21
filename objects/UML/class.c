@@ -1967,7 +1967,7 @@ umlclass_create(Point *startpoint,
   umlclass->stereotype_string = NULL;
 
   umlclass->line_width = attributes_get_default_linewidth();
-  umlclass->text_color = color_black;
+  umlclass->text_color = DIA_COLOUR_BLACK;
   umlclass->line_color = attributes_get_foreground();
   umlclass->fill_color = attributes_get_background();
 
@@ -2410,11 +2410,15 @@ umlclass_load (ObjectNode obj_node, int version, DiaContext *ctx)
   if(attr_node != NULL)
     umlclass->line_width = data_real(attribute_first_data(attr_node), ctx);
 
-  umlclass->line_color = color_black;
+  umlclass->line_color = DIA_COLOUR_BLACK;
   /* support the old name ... */
-  attr_node = object_find_attribute(obj_node, "foreground_color");
-  if(attr_node != NULL)
-    data_color(attribute_first_data(attr_node), &umlclass->line_color, ctx);
+  attr_node = object_find_attribute (obj_node, "foreground_color");
+  if (attr_node != NULL) {
+    data_color (attribute_first_data (attr_node),
+                &umlclass->line_color,
+                ctx);
+  }
+
   umlclass->text_color = umlclass->line_color;
   /* ... but prefer the new one */
   attr_node = object_find_attribute(obj_node, "line_color");
@@ -2424,11 +2428,14 @@ umlclass_load (ObjectNode obj_node, int version, DiaContext *ctx)
   if(attr_node != NULL)
     data_color(attribute_first_data(attr_node), &umlclass->text_color, ctx);
 
-  umlclass->fill_color = color_white;
+  umlclass->fill_color = DIA_COLOUR_WHITE;
   /* support the old name ... */
-  attr_node = object_find_attribute(obj_node, "background_color");
-  if(attr_node != NULL)
-    data_color(attribute_first_data(attr_node), &umlclass->fill_color, ctx);
+  attr_node = object_find_attribute (obj_node, "background_color");
+  if(attr_node != NULL) {
+    data_color (attribute_first_data (attr_node),
+                &umlclass->fill_color,
+                ctx);
+  }
   /* ... but prefer the new one */
   attr_node = object_find_attribute(obj_node, "fill_color");
   if(attr_node != NULL)

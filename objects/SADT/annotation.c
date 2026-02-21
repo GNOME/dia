@@ -348,14 +348,14 @@ annotation_create(Point *startpoint,
 
   connection_init(conn, 3, 0);
 
-  annotation->line_color = color_black;
+  annotation->line_color = DIA_COLOUR_BLACK;
 
   font = dia_font_new_from_style (DIA_FONT_SANS, ANNOTATION_FONTHEIGHT);
   annotation->text = new_text ("",
                                font,
                                ANNOTATION_FONTHEIGHT,
                                &conn->endpoints[1],
-                               &color_black,
+                               &DIA_COLOUR_BLACK,
                                DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 

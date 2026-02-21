@@ -22,7 +22,7 @@
 
 #include "connectionpoint_ops.h"
 #include "object_ops.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "object.h"
 #include "connectionpoint.h"
 #include "diainteractiverenderer.h"

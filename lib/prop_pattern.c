@@ -106,17 +106,21 @@ data_pattern (DataNode node, DiaContext *ctx)
       DataNode data = attribute_first_data(attr);
       guint nvals = attribute_num_data(attr);
       guint i;
-      real offset = 0.0;
-      Color color = color_black;
+      double offset = 0.0;
+      DiaColour colour = DIA_COLOUR_BLACK;
 
-      for (i=0; (i < nvals) && data; i++, data = data_next(data)) {
-	attr = composite_find_attribute(data, "offset");
-	if (attr)
-	  offset = data_real (attribute_first_data(attr), ctx);
-	attr = composite_find_attribute(data, "color");
-	if (attr)
-	  data_color (attribute_first_data(attr), &color, ctx);
-	dia_pattern_add_color (pattern, offset, &color);
+      for (i = 0; (i < nvals) && data; i++, data = data_next (data)) {
+        attr = composite_find_attribute (data, "offset");
+        if (attr) {
+          offset = data_real (attribute_first_data (attr), ctx);
+        }
+
+        attr = composite_find_attribute (data, "color");
+        if (attr) {
+          data_color (attribute_first_data (attr), &colour, ctx);
+        }
+
+        dia_pattern_add_color (pattern, offset, &colour);
       }
     }
   }

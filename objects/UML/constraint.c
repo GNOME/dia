@@ -321,7 +321,7 @@ constraint_create(Point *startpoint,
 
   connection_init(conn, 3, 0);
 
-  constraint->text_color = color_black;
+  constraint->text_color = DIA_COLOUR_BLACK;
   constraint->line_color = attributes_get_foreground();
   constraint->text = g_strdup("");
   constraint->text_pos.x = 0.5*(conn->endpoints[0].x + conn->endpoints[1].x);

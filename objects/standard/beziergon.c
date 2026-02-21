@@ -381,23 +381,31 @@ beziergon_update_data(Beziergon *beziergon)
   obj->position = bez->bezier.points[0].p1;
 }
 
+
 static void
-beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
-	       DiaContext *ctx)
+beziergon_save (Beziergon  *beziergon,
+                ObjectNode  obj_node,
+                DiaContext *ctx)
 {
-  beziershape_save(&beziergon->bezier, obj_node, ctx);
+  beziershape_save (&beziergon->bezier, obj_node, ctx);
 
-  if (!color_equals(&beziergon->line_color, &color_black))
-    data_add_color(new_attribute(obj_node, "line_color"),
-		   &beziergon->line_color, ctx);
+  if (!dia_colour_is_black (&beziergon->line_color)) {
+    data_add_color (new_attribute (obj_node, "line_color"),
+                    &beziergon->line_color,
+                    ctx);
+  }
 
-  if (beziergon->line_width != 0.1)
-    data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
-		  beziergon->line_width, ctx);
+  if (beziergon->line_width != 0.1) {
+    data_add_real (new_attribute (obj_node, PROP_STDNAME_LINE_WIDTH),
+                   beziergon->line_width,
+                   ctx);
+  }
 
-  if (!color_equals(&beziergon->inner_color, &color_white))
-    data_add_color(new_attribute(obj_node, "inner_color"),
-		   &beziergon->inner_color, ctx);
+  if (!dia_colour_is_white (&beziergon->inner_color)) {
+    data_add_color (new_attribute (obj_node, "inner_color"),
+                    &beziergon->inner_color,
+                    ctx);
+  }
 
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   beziergon->show_background, ctx);
@@ -422,8 +430,9 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
 		     beziergon->pattern, ctx);
 }
 
+
 static DiaObject *
-beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
+beziergon_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Beziergon *beziergon;
   BezierShape *bez;
@@ -439,22 +448,28 @@ beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   obj->type = &beziergon_type;
   obj->ops = &beziergon_ops;
 
-  beziershape_load(bez, obj_node, ctx);
+  beziershape_load (bez, obj_node, ctx);
 
-  beziergon->line_color = color_black;
-  attr = object_find_attribute(obj_node, "line_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &beziergon->line_color, ctx);
+  beziergon->line_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "line_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &beziergon->line_color,
+                ctx);
+  }
 
   beziergon->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
     beziergon->line_width = data_real(attribute_first_data(attr), ctx);
 
-  beziergon->inner_color = color_white;
-  attr = object_find_attribute(obj_node, "inner_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &beziergon->inner_color, ctx);
+  beziergon->inner_color = DIA_COLOUR_WHITE;
+  attr = object_find_attribute (obj_node, "inner_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &beziergon->inner_color,
+                ctx);
+  }
 
   beziergon->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");

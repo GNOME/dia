@@ -37,7 +37,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "connpoint_line.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "properties.h"
 
 #include "chronogram.h"
@@ -323,7 +323,7 @@ cld_onebit (Chronoline  *chronoline,
       dia_renderer_draw_polygon (renderer,
                                  pts,
                                  sizeof(pts)/sizeof(pts[0]),
-                                 &color_white,
+                                 &DIA_COLOUR_WHITE,
                                  NULL);
     }
   } else {
@@ -376,7 +376,7 @@ cld_multibit (Chronoline  *chronoline,
       dia_renderer_draw_polygon (renderer,
                                  pts,
                                  sizeof(pts)/sizeof(pts[0]),
-                                 &color_white,
+                                 &DIA_COLOUR_WHITE,
                                  NULL);
     }
   } else {
@@ -507,13 +507,18 @@ chronoline_draw (Chronoline *chronoline, DiaRenderer *renderer)
                             &chronoline->font_color);
 }
 
-inline static void grayify(Color *col,Color *src)
+
+inline static void
+grayify (DiaColour *col, DiaColour *src)
 {
-  col->red = .5 * (src->red + color_white.red);
-  col->green = .5 * (src->green + color_white.green);
-  col->blue = .5 * (src->blue + color_white.blue);
-  col->alpha = .5 * (src->alpha + color_white.alpha);
+  DiaColour white = DIA_COLOUR_WHITE;
+
+  col->red = .5 * (src->red + white.red);
+  col->green = .5 * (src->green + white.green);
+  col->blue = .5 * (src->blue + white.blue);
+  col->alpha = .5 * (src->alpha + white.alpha);
 }
+
 
 static void
 chronoline_update_data(Chronoline *chronoline)
@@ -658,12 +663,12 @@ chronoline_create(Point *startpoint,
 
   chronoline->font = dia_font_new_from_style (DIA_FONT_SANS,1.0);
   chronoline->font_size = 1.0;
-  chronoline->font_color = color_black;
+  chronoline->font_color = DIA_COLOUR_BLACK;
   chronoline->start_time = 0.0;
   chronoline->end_time = 20.0;
   chronoline->rise_time = .3;
   chronoline->fall_time = .3;
-  chronoline->color = color_black;
+  chronoline->color = DIA_COLOUR_BLACK;
   chronoline->main_lwidth = .1;
   chronoline->data_lwidth = .1;
   chronoline->data_color.red = 1.0;

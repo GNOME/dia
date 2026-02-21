@@ -170,23 +170,24 @@ hpgl_scale(HpglRenderer *renderer, real val)
     return (int)((val + renderer->offset) * renderer->scale);
 }
 
+
 /* render functions */
 static void
-begin_render(DiaRenderer *object, const DiaRectangle *update)
+begin_render (DiaRenderer *object, const DiaRectangle *update)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-    int i;
+  HpglRenderer *renderer = HPGL_RENDERER (object);
 
-    DIAG_NOTE(g_message("begin_render"));
+  DIAG_NOTE (g_message ("begin_render"));
 
-    /* initialize pens */
-    for (i = 0; i < HPGL_MAX_PENS; i++) {
-        renderer->pen[i].color = color_black;
-        renderer->pen[i].width = 0.0;
-        renderer->pen[i].has_it = 0;
-    }
-    renderer->last_pen = -1;
+  /* initialize pens */
+  for (int i = 0; i < HPGL_MAX_PENS; i++) {
+    renderer->pen[i].color = DIA_COLOUR_BLACK;
+    renderer->pen[i].width = 0.0;
+    renderer->pen[i].has_it = 0;
+  }
+  renderer->last_pen = -1;
 }
+
 
 static void
 end_render(DiaRenderer *object)

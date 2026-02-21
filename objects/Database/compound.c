@@ -526,11 +526,13 @@ compound_load (ObjectNode obj_node, int version, DiaContext *ctx)
     comp->line_width = 0.1;
   else
     comp->line_width = data_real (attribute_first_data (attr), ctx);
+
   attr = object_find_attribute (obj_node, "line_colour");
-  if (attr == NULL)
-    comp->line_color = color_black;
-  else
+  if (attr == NULL) {
+    comp->line_color = DIA_COLOUR_BLACK;
+  } else {
     data_color (attribute_first_data (attr), &comp->line_color, ctx);
+  }
 
   compound_update_data (comp);
   compound_sanity_check (comp, "Loaded");

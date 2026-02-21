@@ -22,6 +22,8 @@
 /* Generated Wed Jan 24 17:00:55 2007 */
 /* From: All.vdx animation_tests.vdx Arrows-2.vdx Arrow & Text samples.vdx BasicShapes.vdx basic_tests.vdx Beispiel 1.vdx Beispiel 2.vdx Beispiel 3.vdx cable loom EL axis.vdx Circle1.vdx Circle2.vdx circle with angles.vdx curve_tests.vdx Drawing2.vdx Electrical system SatMax.vdx Embedded-Pics-1.vdx emf_dump_test2.orig.vdx emf_dump_test2.vdx Entreprise_etat_desire.vdx IMU-DD Ver2.vdx ISAD_page1.vdx ISAD_page2.vdx Line1.vdx Line2.vdx Line3.vdx Line4.vdx Line5.vdx Line6.vdx LombardiWireframe.vdx London-Citibank-Network-detail-02-15-2006.vdx London-Citibank-Network Detail-11-07-2005.vdx London-Citibank-racks-11-04-2005.vdx London-colo-move.vdx London-Colo-Network-detail-11-01-2005.vdx London-Colo-Racks-11-03-2005.vdx Network DiagramV2.vdx pattern_tests.vdx Processflow.vdx Rectangle1.vdx Rectangle2.vdx Rectangle3.vdx Rectangle4.vdx render-test.vdx sample1.vdx Sample2.vdx samp_vdx.vdx Satmax RF path.vdx seq_test.vdx Servo block diagram V2.vdx Servo block diagram V3.vdx Servo block diagram.vdx Sigma-function.vdx SmithWireframe.vdx states.vdx Text1.vdx Text2.vdx Text3.vdx text_tests.vdx Tracking Array -  Level.vdx Tracking Array -  Phase.vdx Wayzata-WAN-Detail.vdx Wayzata-WAN-Overview.vdx WDS Cabling.vdx */
 
+#include "dia-colour.h"
+
 
 struct vdx_any
 {
@@ -75,7 +77,7 @@ struct vdx_Char
     struct vdx_any any;
     unsigned int AsianFont; /* F=Inh */
     gboolean Case; /* F=0,Inh =0 */
-    Color Color; /* F=0,0,0,19))",0,1,16))",1,14,15,2,4,GUARD(IF(Sheet.5!User.active,0,19)),HSL(0,0 */
+    DiaColour Color; /* F=0,0,0,19))",0,1,16))",1,14,15,2,4,GUARD(IF(Sheet.5!User.active,0,19)),HSL(0,0 */
     float ColorTrans; /* F=0%,Inh,No Formula */
     unsigned int ComplexScriptFont; /* F=Inh */
     float ComplexScriptSize; /* F=Inh Unit=DT */
@@ -335,9 +337,9 @@ struct vdx_Field
 struct vdx_Fill
 {
     struct vdx_any any;
-    Color FillBkgnd; /* F=0,1,14,15,18,2,8,HSL(0,0,128),HSL(0,0,181),HSL(0,0,210),HSL(0,0,240),HSL(0,0, */
+    DiaColour FillBkgnd; /* F=0,1,14,15,18,2,8,HSL(0,0,128),HSL(0,0,181),HSL(0,0,210),HSL(0,0,240),HSL(0,0, */
     float FillBkgndTrans; /* F=0%,Inh,No Formula */
-    Color FillForegnd; /* F=0,0,0,20)",0,1,17)",0,10,19))",1,10,11,12,13,14,15,17,18,19,2,20,21,23,3,4,5, */
+    DiaColour FillForegnd; /* F=0,0,0,20)",0,1,17)",0,10,19))",1,10,11,12,13,14,15,17,18,19,2,20,21,23,3,4,5, */
     float FillForegndTrans; /* F=0%,Inh,No Formula */
     unsigned int FillPattern; /* F=0,1,31,GUARD(0),GUARD(1),Guard(0),Inh */
     float ShapeShdwObliqueAngle; /* F=Inh */
@@ -347,7 +349,7 @@ struct vdx_Fill
     gboolean ShapeShdwType; /* F=Inh =0,1 */
     unsigned int ShdwBkgnd; /* F=1,GUARD(0),Inh */
     float ShdwBkgndTrans; /* F=0%,Inh,No Formula */
-    Color ShdwForegnd; /* F=0,15,8,GUARD(0),HSL(0,0,205),HSL(0,0,206),HSL(0,0,208),HSL(0,0,210),HSL(0,0,2 */
+    DiaColour ShdwForegnd; /* F=0,15,8,GUARD(0),HSL(0,0,205),HSL(0,0,206),HSL(0,0,208),HSL(0,0,210),HSL(0,0,2 */
     float ShdwForegndTrans; /* F=0%,Inh,No Formula */
     unsigned int ShdwPattern; /* F=0,0),1,0)',GUARD(0),Guard(0),Inh */
 };
@@ -561,7 +563,7 @@ struct vdx_Line
     unsigned int EndArrow; /* F=0,3,41,4)))',4,GUARD(0),Inh =0,1,10,11,12,13,14,15,16,4,5,9 */
     unsigned int EndArrowSize; /* F=1,2,IF(User.UMLError,0,2),Inh =0,1,2,3,4 */
     gboolean LineCap; /* F=0,1,Inh =0,1 */
-    Color LineColor; /* F=0,1,14,15,2,3,4,GUARD(Sheet.5!FillForegnd),HSL(0,0,0),HSL(0,0,240),HSL(0,0,60 */
+    DiaColour LineColor; /* F=0,1,14,15,2,3,4,GUARD(Sheet.5!FillForegnd),HSL(0,0,0),HSL(0,0,240),HSL(0,0,60 */
     float LineColorTrans; /* F=0%,Inh,No Formula */
     unsigned int LinePattern; /* F=0,1,1,0,1)',2,23,3,4,3,1)))',9,GUARD(1),Inh,Sheet.8!LinePattern */
     float LineWeight; /* F=0.0033333333333333DT,0.01DT,0.03DT,0.12PT,0.24PT,0.254MM,0.5MM,0PT,GUARD(0.24 Unit=IN,MM,PT */

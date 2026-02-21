@@ -655,19 +655,21 @@ line_update_data(Line *line)
 
 
 static void
-line_save(Line *line, ObjectNode obj_node, DiaContext *ctx)
+line_save (Line *line, ObjectNode obj_node, DiaContext *ctx)
 {
 #ifdef DEBUG
   dia_object_sanity_check((DiaObject*)line, "Saving line");
 #endif
 
-  connection_save(&line->connection, obj_node, ctx);
+  connection_save (&line->connection, obj_node, ctx);
 
-  connpointline_save(line->cpl, obj_node, "numcp", ctx);
+  connpointline_save (line->cpl, obj_node, "numcp", ctx);
 
-  if (!color_equals(&line->line_color, &color_black))
-    data_add_color(new_attribute(obj_node, "line_color"),
-		   &line->line_color, ctx);
+  if (!dia_colour_is_black (&line->line_color)) {
+    data_add_color (new_attribute (obj_node, "line_color"),
+                    &line->line_color,
+                    ctx);
+  }
 
   if (line->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
@@ -713,8 +715,9 @@ line_save(Line *line, ObjectNode obj_node, DiaContext *ctx)
 		  line->dashlength, ctx);
 }
 
+
 static DiaObject *
-line_load(ObjectNode obj_node, int version, DiaContext *ctx)
+line_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Line *line;
   Connection *conn;
@@ -729,12 +732,15 @@ line_load(ObjectNode obj_node, int version, DiaContext *ctx)
   obj->type = &line_type;
   obj->ops = &line_ops;
 
-  connection_load(conn, obj_node, ctx);
+  connection_load (conn, obj_node, ctx);
 
-  line->line_color = color_black;
-  attr = object_find_attribute(obj_node, "line_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &line->line_color, ctx);
+  line->line_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "line_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &line->line_color,
+                ctx);
+  }
 
   line->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);

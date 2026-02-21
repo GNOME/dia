@@ -711,22 +711,29 @@ image_copy(Image *image)
   return &newimage->element.object;
 }
 
+
 static void
-image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
+image_save (Image *image, ObjectNode obj_node, DiaContext *ctx)
 {
-  element_save(&image->element, obj_node, ctx);
+  element_save (&image->element, obj_node, ctx);
 
-  if (image->border_width != 0.1)
-    data_add_real(new_attribute(obj_node, "border_width"),
-		  image->border_width, ctx);
+  if (image->border_width != 0.1) {
+    data_add_real (new_attribute (obj_node, "border_width"),
+                   image->border_width,
+                   ctx);
+  }
 
-  if (!color_equals(&image->border_color, &color_black))
-    data_add_color(new_attribute(obj_node, "border_color"),
-		   &image->border_color, ctx);
+  if (!dia_colour_is_black (&image->border_color)) {
+    data_add_color (new_attribute (obj_node, "border_color"),
+                    &image->border_color,
+                    ctx);
+  }
 
-  if (image->line_style != DIA_LINE_STYLE_SOLID)
-    data_add_enum(new_attribute(obj_node, "line_style"),
-		  image->line_style, ctx);
+  if (image->line_style != DIA_LINE_STYLE_SOLID) {
+    data_add_enum (new_attribute (obj_node, "line_style"),
+                   image->line_style,
+                   ctx);
+  }
 
   if (image->line_style != DIA_LINE_STYLE_SOLID &&
       image->dashlength != DEFAULT_LINESTYLE_DASHLEN)
@@ -792,7 +799,7 @@ image_load (ObjectNode obj_node, int version, DiaContext *ctx)
     image->border_width = data_real (attribute_first_data (attr), ctx);
   }
 
-  image->border_color = color_black;
+  image->border_color = DIA_COLOUR_BLACK;
   attr = object_find_attribute (obj_node, "border_color");
   if (attr != NULL) {
     data_color (attribute_first_data (attr), &image->border_color, ctx);

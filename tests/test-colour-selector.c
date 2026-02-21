@@ -76,8 +76,8 @@ test_colour_selector_get_set_current (void)
   g_object_get (selector, "current", &colour_out_a, NULL);
   dia_colour_selector_get_colour (selector, &colour_out_b);
 
-  g_assert_true (color_equals (colour_out_a, &colour_out_b));
-  g_assert_true (color_equals (colour_out_a, &colour_b));
+  g_assert_true (dia_colour_equals (colour_out_a, &colour_out_b));
+  g_assert_true (dia_colour_equals (colour_out_a, &colour_b));
 
   g_assert_finalize_object (selector);
 
@@ -112,7 +112,7 @@ test_colour_selector_set_colour (void)
   dia_assert_expected_notifies (selector);
 
   dia_colour_selector_get_colour (selector, &colour_out);
-  g_assert_true (color_equals (&colour_out, &colour_a));
+  g_assert_true (dia_colour_equals (&colour_out, &colour_a));
 
   /* This time already A, so ignored */
   dia_expect_no_notify (selector);
@@ -125,7 +125,7 @@ test_colour_selector_set_colour (void)
   dia_assert_expected_notifies (selector);
 
   dia_colour_selector_get_colour (selector, &colour_out);
-  g_assert_true (color_equals (&colour_out, &colour_b));
+  g_assert_true (dia_colour_equals (&colour_out, &colour_b));
 
   /* Return to A, hopefully finding the old entry */
   dia_expect_property_notify (selector, "current");
@@ -133,7 +133,7 @@ test_colour_selector_set_colour (void)
   dia_assert_expected_notifies (selector);
 
   dia_colour_selector_get_colour (selector, &colour_out);
-  g_assert_true (color_equals (&colour_out, &colour_a));
+  g_assert_true (dia_colour_equals (&colour_out, &colour_a));
 
   g_assert_finalize_object (selector);
 

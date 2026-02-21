@@ -30,7 +30,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "properties.h"
 #include "geometry.h"
 #include "text.h"
@@ -400,12 +400,12 @@ transition_draw (Transition *transition, DiaRenderer *renderer)
   dia_renderer_draw_polyline (renderer,
                               pts,
                               sizeof(pts)/sizeof(pts[0]),
-                              &color_black);
+                              &DIA_COLOUR_BLACK);
 
   dia_renderer_draw_line (renderer,
                           &transition->C,
                           &transition->D,
-                          &color_black);
+                          &DIA_COLOUR_BLACK);
 
   boolequation_draw (transition->receptivity,renderer);
 }

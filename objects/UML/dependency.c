@@ -452,7 +452,7 @@ dependency_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
 
-  dep->text_color = color_black;
+  dep->text_color = DIA_COLOUR_BLACK;
   dep->line_color = attributes_get_foreground();
   dep->draw_arrow = TRUE;
   dep->name = NULL;

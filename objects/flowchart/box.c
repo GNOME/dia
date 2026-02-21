@@ -639,22 +639,29 @@ box_destroy(Box *box)
   element_destroy(&box->element);
 }
 
+
 static void
-box_save(Box *box, ObjectNode obj_node, DiaContext *ctx)
+box_save (Box *box, ObjectNode obj_node, DiaContext *ctx)
 {
-  element_save(&box->element, obj_node, ctx);
+  element_save (&box->element, obj_node, ctx);
 
-  if (box->border_width != 0.1)
-    data_add_real(new_attribute(obj_node, "border_width"),
-		  box->border_width, ctx);
+  if (box->border_width != 0.1) {
+    data_add_real (new_attribute (obj_node, "border_width"),
+                   box->border_width,
+                   ctx);
+  }
 
-  if (!color_equals(&box->border_color, &color_black))
-    data_add_color(new_attribute(obj_node, "border_color"),
-		   &box->border_color, ctx);
+  if (!dia_colour_is_black (&box->border_color)) {
+    data_add_color (new_attribute (obj_node, "border_color"),
+                    &box->border_color,
+                    ctx);
+  }
 
-  if (!color_equals(&box->inner_color, &color_white))
-    data_add_color(new_attribute(obj_node, "inner_color"),
-		   &box->inner_color, ctx);
+  if (!dia_colour_is_white (&box->inner_color)) {
+    data_add_color (new_attribute (obj_node, "inner_color"),
+                    &box->inner_color,
+                    ctx);
+  }
 
   data_add_boolean(new_attribute(obj_node, "show_background"),
                    box->show_background, ctx);
@@ -684,7 +691,7 @@ box_save(Box *box, ObjectNode obj_node, DiaContext *ctx)
 
 
 static DiaObject *
-box_load(ObjectNode obj_node, int version,DiaContext *ctx)
+box_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Box *box;
   Element *elem;
@@ -699,21 +706,25 @@ box_load(ObjectNode obj_node, int version,DiaContext *ctx)
   obj->type = &fc_box_type;
   obj->ops = &box_ops;
 
-  element_load(elem, obj_node, ctx);
+  element_load (elem, obj_node, ctx);
 
   box->border_width = 0.1;
-  attr = object_find_attribute(obj_node, "border_width");
-  if (attr != NULL)
-    box->border_width =  data_real(attribute_first_data(attr), ctx);
-  box->border_color = color_black;
-  attr = object_find_attribute(obj_node, "border_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &box->border_color, ctx);
+  attr = object_find_attribute (obj_node, "border_width");
+  if (attr != NULL) {
+    box->border_width = data_real(attribute_first_data(attr), ctx);
+  }
 
-  box->inner_color = color_white;
-  attr = object_find_attribute(obj_node, "inner_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &box->inner_color, ctx);
+  box->border_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "border_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr), &box->border_color, ctx);
+  }
+
+  box->inner_color = DIA_COLOUR_WHITE;
+  attr = object_find_attribute (obj_node, "inner_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr), &box->inner_color, ctx);
+  }
 
   box->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");

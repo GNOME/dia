@@ -28,7 +28,7 @@
 
 #include <gdk/gdk.h>
 
-#include "color.h"
+#include "dia-colour.h"
 #include "diatransform.h"
 #include "object.h"
 #include "textline.h"

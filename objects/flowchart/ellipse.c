@@ -585,22 +585,29 @@ ellipse_destroy(Ellipse *ellipse)
   element_destroy(&ellipse->element);
 }
 
+
 static void
-ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
+ellipse_save (Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
 {
   element_save(&ellipse->element, obj_node, ctx);
 
-  if (ellipse->border_width != 0.1)
-    data_add_real(new_attribute(obj_node, "border_width"),
-		  ellipse->border_width, ctx);
+  if (ellipse->border_width != 0.1) {
+    data_add_real (new_attribute (obj_node, "border_width"),
+                   ellipse->border_width,
+                   ctx);
+  }
 
-  if (!color_equals(&ellipse->border_color, &color_black))
-    data_add_color(new_attribute(obj_node, "border_color"),
-		   &ellipse->border_color, ctx);
+  if (!dia_colour_is_black (&ellipse->border_color)) {
+    data_add_color (new_attribute (obj_node, "border_color"),
+                    &ellipse->border_color,
+                    ctx);
+  }
 
-  if (!color_equals(&ellipse->inner_color, &color_white))
-    data_add_color(new_attribute(obj_node, "inner_color"),
-		   &ellipse->inner_color, ctx);
+  if (!dia_colour_is_white (&ellipse->inner_color)) {
+    data_add_color (new_attribute (obj_node, "inner_color"),
+                    &ellipse->inner_color,
+                    ctx);
+  }
 
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   ellipse->show_background, ctx);
@@ -652,15 +659,17 @@ ellipse_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL)
     ellipse->border_width =  data_real(attribute_first_data(attr), ctx);
 
-  ellipse->border_color = color_black;
-  attr = object_find_attribute(obj_node, "border_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &ellipse->border_color, ctx);
+  ellipse->border_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "border_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr), &ellipse->border_color, ctx);
+  }
 
-  ellipse->inner_color = color_white;
-  attr = object_find_attribute(obj_node, "inner_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &ellipse->inner_color, ctx);
+  ellipse->inner_color = DIA_COLOUR_WHITE;
+  attr = object_find_attribute (obj_node, "inner_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr), &ellipse->inner_color, ctx);
+  }
 
   ellipse->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");

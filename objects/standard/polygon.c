@@ -353,23 +353,31 @@ polygon_update_data(Polygon *polygon)
   obj->position = poly->points[0];
 }
 
+
 static void
-polygon_save(Polygon *polygon, ObjectNode obj_node,
-	     DiaContext *ctx)
+polygon_save (Polygon    *polygon,
+              ObjectNode  obj_node,
+              DiaContext *ctx)
 {
-  polyshape_save(&polygon->poly, obj_node, ctx);
+  polyshape_save (&polygon->poly, obj_node, ctx);
 
-  if (!color_equals(&polygon->line_color, &color_black))
-    data_add_color(new_attribute(obj_node, "line_color"),
-		   &polygon->line_color, ctx);
+  if (!dia_colour_is_black (&polygon->line_color)) {
+    data_add_color (new_attribute (obj_node, "line_color"),
+                    &polygon->line_color,
+                    ctx);
+  }
 
-  if (polygon->line_width != 0.1)
-    data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
-		  polygon->line_width, ctx);
+  if (polygon->line_width != 0.1) {
+    data_add_real (new_attribute (obj_node, PROP_STDNAME_LINE_WIDTH),
+                   polygon->line_width,
+                   ctx);
+  }
 
-  if (!color_equals(&polygon->inner_color, &color_white))
-    data_add_color(new_attribute(obj_node, "inner_color"),
-		   &polygon->inner_color, ctx);
+  if (!dia_colour_is_white (&polygon->inner_color)) {
+    data_add_color (new_attribute (obj_node, "inner_color"),
+                    &polygon->inner_color,
+                    ctx);
+  }
 
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   polygon->show_background, ctx);
@@ -394,8 +402,9 @@ polygon_save(Polygon *polygon, ObjectNode obj_node,
 		     polygon->pattern, ctx);
 }
 
+
 static DiaObject *
-polygon_load(ObjectNode obj_node, int version, DiaContext *ctx)
+polygon_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Polygon *polygon;
   PolyShape *poly;
@@ -412,20 +421,26 @@ polygon_load(ObjectNode obj_node, int version, DiaContext *ctx)
 
   polyshape_load(poly, obj_node, ctx);
 
-  polygon->line_color = color_black;
-  attr = object_find_attribute(obj_node, "line_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &polygon->line_color, ctx);
+  polygon->line_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "line_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &polygon->line_color,
+                ctx);
+  }
 
   polygon->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
     polygon->line_width = data_real(attribute_first_data(attr), ctx);
 
-  polygon->inner_color = color_white;
-  attr = object_find_attribute(obj_node, "inner_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &polygon->inner_color, ctx);
+  polygon->inner_color = DIA_COLOUR_WHITE;
+  attr = object_find_attribute (obj_node, "inner_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &polygon->inner_color,
+                ctx);
+  }
 
   polygon->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");

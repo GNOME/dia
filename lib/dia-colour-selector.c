@@ -499,7 +499,7 @@ set_colour (GtkTreeModel *model,
     goto out;
   }
 
-  res = color_equals (colour, data->looking_for);
+  res = dia_colour_equals (colour, data->looking_for);
   if (res) {
     data->iter = *iter;
     data->found = TRUE;
@@ -521,7 +521,7 @@ dia_colour_selector_set_colour (DiaColourSelector  *self,
   g_return_if_fail (DIA_IS_COLOUR_SELECTOR (self));
   g_return_if_fail (colour != NULL);
 
-  if (self->current && color_equals (self->current, colour)) {
+  if (self->current && dia_colour_equals (self->current, colour)) {
     return;
   }
 

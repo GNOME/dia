@@ -114,8 +114,8 @@ dia_arrow_preview_draw (GtkWidget *widget, cairo_t *ctx)
       gtk_style_context_get_background_color(style, state, &bg);
       gtk_style_context_get_color(style, state, &fg);
 
-      GDK_COLOR_TO_DIA (bg, colour_bg);
-      GDK_COLOR_TO_DIA (fg, colour_fg);
+      dia_colour_from_gdk (&colour_bg, &bg);
+      dia_colour_from_gdk (&colour_fg, &fg);
 
       dia_renderer_draw_line (DIA_RENDERER (renderer), &from, &to, &colour_fg);
       dia_arrow_draw (&arrow_type,

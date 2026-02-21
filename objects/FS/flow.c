@@ -416,7 +416,7 @@ flow_create(Point *startpoint,
                          font,
                          FLOW_FONTHEIGHT,
                          &p,
-                         &color_black,
+                         &DIA_COLOUR_BLACK,
                          DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
@@ -560,7 +560,7 @@ flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
                            font,
                            FLOW_FONTHEIGHT,
                            &obj->position,
-                           &color_black,
+                           &DIA_COLOUR_BLACK,
                            DIA_ALIGN_CENTRE);
     g_clear_object (&font);
   }

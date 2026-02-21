@@ -209,7 +209,7 @@ transition_create (Point   *startpoint,
 
   orthconn_init (orth, startpoint);
 
-  transition->text_color = color_black;
+  transition->text_color = DIA_COLOUR_BLACK;
   transition->line_color = attributes_get_foreground ();
   /* Prepare the handles for trigger and guard text */
   transition->trigger_text_handle.id = HANDLE_MOVE_TRIGGER_TEXT;

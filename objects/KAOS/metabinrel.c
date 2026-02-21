@@ -81,8 +81,8 @@ struct _Mbr {
 #define MBR_ARROWLEN 0.8
 #define MBR_ARROWWIDTH 0.5
 
-#define MBR_FG_COLOR color_black
-#define MBR_BG_COLOR color_white
+#define MBR_FG_COLOR DIA_COLOUR_BLACK
+#define MBR_BG_COLOR DIA_COLOUR_WHITE
 #define MBR_RED_COLOR color_red
 
 #define MBR_DEC_SIZE 1.0
@@ -466,7 +466,7 @@ mbr_draw (Mbr *mbr, DiaRenderer *renderer)
     pa1.y = mbr->pm.y - mbr->text_ascent + 0.1;  /* with some fix... */
     pa2.x = pa1.x + mbr->text_width;
     pa2.y = pa1.y + MBR_DECFONTHEIGHT + 0.1;  /* with some fix... */
-    dia_renderer_draw_rect (renderer, &pa1, &pa2, &color_white, NULL);
+    dia_renderer_draw_rect (renderer, &pa1, &pa2, &DIA_COLOUR_WHITE, NULL);
     dia_renderer_draw_string (renderer,
                               annot,
                               &mbr->pm,

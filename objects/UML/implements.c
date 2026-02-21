@@ -282,7 +282,7 @@ implements_draw (Implements *implements, DiaRenderer *renderer)
                              &implements->circle_center,
                              implements->circle_diameter,
                              implements->circle_diameter,
-                             &color_white,
+                             &DIA_COLOUR_WHITE,
                              &implements->line_color);
 
 
@@ -328,7 +328,7 @@ implements_create(Point *startpoint,
   connection_init(conn, 4, 0);
 
   implements->line_color = attributes_get_foreground();
-  implements->text_color = color_black;
+  implements->text_color = DIA_COLOUR_BLACK;
   implements->text = NULL;
   implements->text_width = 0.0;
   implements->text_pos = conn->endpoints[1];

@@ -16,20 +16,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-
 #pragma once
 
-#include "diatypes.h"
 #include <gdk/gdk.h>
-#include "diavar.h"
-
 
 G_BEGIN_DECLS
 
 /**
  * DiaColour:
  *
- * Dia's internal color representation
+ * Dia's internal colour representation
  */
 typedef struct _Color DiaColour;
 struct _Color {
@@ -42,12 +38,12 @@ struct _Color {
 #define DIA_TYPE_COLOUR (dia_colour_get_type ())
 
 
-Color        *dia_colour_copy      (Color       *self);
-void          dia_colour_free      (Color       *self);
+DiaColour    *dia_colour_copy      (DiaColour   *self);
+void          dia_colour_free      (DiaColour   *self);
 GType         dia_colour_get_type  (void);
-void          dia_colour_parse     (Color       *self,
+void          dia_colour_parse     (DiaColour   *self,
                                     const char  *str);
-char         *dia_colour_to_string (Color       *self);
+char         *dia_colour_to_string (DiaColour   *self);
 DiaColour    *dia_colour_new_rgb   (float        r,
                                     float        g,
                                     float        b);
@@ -59,22 +55,13 @@ void          dia_colour_as_gdk    (DiaColour   *self,
                                     GdkRGBA     *rgba);
 void          dia_colour_from_gdk  (DiaColour   *self,
                                     GdkRGBA     *rgba);
-gboolean      color_equals         (const Color *color1,
-                                    const Color *color2);
+gboolean      dia_colour_equals    (DiaColour   *colour_a,
+                                    DiaColour   *colour_b);
+gboolean      dia_colour_is_black  (DiaColour   *self);
+gboolean      dia_colour_is_white  (DiaColour   *self);
 
-static G_GNUC_UNUSED Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };
-static G_GNUC_UNUSED Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-#define DIA_COLOR_TO_GDK(from, to)      \
-  (to).red = (from).red;        \
-  (to).green = (from).green;    \
-  (to).blue = (from).blue;      \
-  (to).alpha = (from).alpha;
-
-#define GDK_COLOR_TO_DIA(from, to)      \
-  (to).red = (from).red;      \
-  (to).green = (from).green;            \
-  (to).blue = (from).blue;    \
-  (to).alpha = (from).alpha;
+#define DIA_COLOUR_BLACK ((DiaColour) { 0.0f, 0.0f, 0.0f, 1.0f })
+#define DIA_COLOUR_WHITE ((DiaColour) { 1.0f, 1.0f, 1.0f, 1.0f })
 
 G_END_DECLS

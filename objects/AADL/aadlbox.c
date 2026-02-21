@@ -918,7 +918,12 @@ DiaObject *aadlbox_create(Point *startpoint, void *user_data,
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  aadlbox->name = new_text ("", font, 0.8, &p, &color_black, DIA_ALIGN_LEFT);
+  aadlbox->name = new_text ("",
+                            font,
+                            0.8,
+                            &p,
+                            &DIA_COLOUR_BLACK,
+                            DIA_ALIGN_LEFT);
   g_clear_object (&font);
 
   element_init(elem, 8, 0);  /* 8 handles and 0 connection */

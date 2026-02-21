@@ -37,7 +37,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "connpoint_line.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "properties.h"
 
 #include "chronogram.h"
@@ -450,12 +450,12 @@ chronoref_create(Point *startpoint,
 
   chronoref->font = dia_font_new_from_style (DIA_FONT_SANS,1.0);
   chronoref->font_size = 1.0;
-  chronoref->font_color = color_black;
+  chronoref->font_color = DIA_COLOUR_BLACK;
   chronoref->start_time = 0.0;
   chronoref->end_time = 20.0;
   chronoref->time_step = 5.0;
   chronoref->time_lstep = 1.0;
-  chronoref->color = color_black;
+  chronoref->color = DIA_COLOUR_BLACK;
   chronoref->main_lwidth = .1;
   chronoref->light_lwidth = .05;
 

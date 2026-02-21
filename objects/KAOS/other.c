@@ -41,7 +41,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "connpoint_line.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "properties.h"
 
 #include "pixmaps/agent.xpm"
@@ -53,8 +53,8 @@
 #define DEFAULT_FONT 0.7
 #define OTHER_LINE_SIMPLE_WIDTH 0.09
 #define OTHER_LINE_DOUBLE_WIDTH 0.18
-#define OTHER_FG_COLOR color_black
-#define OTHER_BG_COLOR color_white
+#define OTHER_FG_COLOR DIA_COLOUR_BLACK
+#define OTHER_BG_COLOR DIA_COLOUR_WHITE
 #define AGENT_LEFT 0.5
 
 typedef enum {
@@ -657,7 +657,7 @@ other_create(Point *startpoint,
                           font,
                           DEFAULT_FONT,
                           &p,
-                          &color_black,
+                          &DIA_COLOUR_BLACK,
                           DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 

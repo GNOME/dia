@@ -81,7 +81,7 @@ dia_cairo_renderer_begin_render (DiaRenderer *self, const DiaRectangle *update)
   real lmargin = 0.0, tmargin = 0.0;
   gboolean paginated = renderer->surface && /* only with our own pagination, not GtkPrint */
     cairo_surface_get_type (renderer->surface) == CAIRO_SURFACE_TYPE_PDF && !renderer->skip_show_page;
-  Color background = color_white;
+  DiaColour background = DIA_COLOUR_WHITE;
 
   if (renderer->surface && !renderer->cr) {
     renderer->cr = cairo_create (renderer->surface);

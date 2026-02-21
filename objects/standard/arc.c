@@ -975,14 +975,17 @@ arc_update_data(Arc *arc)
   obj->position = conn->endpoints[0];
 }
 
-static void
-arc_save(Arc *arc, ObjectNode obj_node, DiaContext *ctx)
-{
-  connection_save(&arc->connection, obj_node, ctx);
 
-  if (!color_equals(&arc->arc_color, &color_black))
-    data_add_color(new_attribute(obj_node, "arc_color"),
-		   &arc->arc_color, ctx);
+static void
+arc_save (Arc *arc, ObjectNode obj_node, DiaContext *ctx)
+{
+  connection_save (&arc->connection, obj_node, ctx);
+
+  if (!dia_colour_is_black (&arc->arc_color)) {
+    data_add_color (new_attribute (obj_node, "arc_color"),
+                    &arc->arc_color,
+                    ctx);
+  }
 
   if (arc->curve_distance != 0.1)
     data_add_real(new_attribute(obj_node, "curve_distance"),
@@ -1044,12 +1047,13 @@ arc_load(ObjectNode obj_node, int version,DiaContext *ctx)
   obj->type = &arc_type;
   obj->ops = &arc_ops;
 
-  connection_load(conn, obj_node, ctx);
+  connection_load (conn, obj_node, ctx);
 
-  arc->arc_color = color_black;
-  attr = object_find_attribute(obj_node, "arc_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &arc->arc_color, ctx);
+  arc->arc_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "arc_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr), &arc->arc_color, ctx);
+  }
 
   arc->curve_distance = 0.1;
   attr = object_find_attribute(obj_node, "curve_distance");

@@ -30,7 +30,6 @@
 
 #include "dialib.h"
 #include "message.h"
-#include "color.h"
 #include "object.h"
 #include "dia_dirs.h"
 #include "properties.h" /* stdprops_init() */

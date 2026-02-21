@@ -370,7 +370,7 @@ actor_create(Point *startpoint,
                           font,
                           0.8,
                           &p,
-                          &color_black,
+                          &DIA_COLOUR_BLACK,
                           DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 

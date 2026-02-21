@@ -274,21 +274,22 @@ participation_draw (Participation *participation, DiaRenderer *renderer)
       right_points[i].y = points[i].y;
     }
 
-    dia_renderer_draw_polyline (renderer, left_points, n, &color_black);
-    dia_renderer_draw_polyline (renderer, right_points, n, &color_black);
+    dia_renderer_draw_polyline (renderer, left_points, n, &DIA_COLOUR_BLACK);
+    dia_renderer_draw_polyline (renderer, right_points, n, &DIA_COLOUR_BLACK);
     g_clear_pointer (&left_points, g_free);
     g_clear_pointer (&right_points, g_free);
   } else {
-    dia_renderer_draw_polyline (renderer, points, n, &color_black);
+    dia_renderer_draw_polyline (renderer, points, n, &DIA_COLOUR_BLACK);
   }
 }
 
+
 static void
-participation_update_data(Participation *participation)
+participation_update_data (Participation *participation)
 {
   OrthConn *orth = &participation->orth;
   PolyBBExtras *extra = &orth->extra_spacing;
-  real extra_width;
+  double extra_width;
 
   orthconn_update_data(orth);
 

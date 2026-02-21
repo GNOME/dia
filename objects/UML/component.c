@@ -413,7 +413,7 @@ component_create(Point *startpoint,
   p.x += COMPONENT_CWIDTH + COMPONENT_MARGIN_X;
   p.y += 2*COMPONENT_CHEIGHT;
 
-  cmp->text = new_text ("", font, 0.8, &p, &color_black, DIA_ALIGN_LEFT);
+  cmp->text = new_text ("", font, 0.8, &p, &DIA_COLOUR_BLACK, DIA_ALIGN_LEFT);
 
   g_clear_object (&font);
 

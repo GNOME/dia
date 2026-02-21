@@ -311,11 +311,12 @@ entity_draw (Entity *entity, DiaRenderer *renderer)
                             entity->name,
                             &p,
                             DIA_ALIGN_CENTRE,
-                            &color_black);
+                            &DIA_COLOUR_BLACK);
 }
 
+
 static void
-entity_update_data(Entity *entity)
+entity_update_data (Entity *entity)
 {
   Element *elem = &entity->element;
   DiaObject *obj = &elem->object;
@@ -528,15 +529,21 @@ entity_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL)
     entity->border_width =  data_real(attribute_first_data(attr), ctx);
 
-  entity->border_color = color_black;
-  attr = object_find_attribute(obj_node, "border_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &entity->border_color, ctx);
+  entity->border_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "border_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &entity->border_color,
+                ctx);
+  }
 
-  entity->inner_color = color_white;
-  attr = object_find_attribute(obj_node, "inner_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &entity->inner_color, ctx);
+  entity->inner_color = DIA_COLOUR_WHITE;
+  attr = object_find_attribute (obj_node, "inner_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &entity->inner_color,
+                ctx);
+  }
 
   entity->name = NULL;
   attr = object_find_attribute(obj_node, "name");

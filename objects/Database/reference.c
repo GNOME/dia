@@ -198,7 +198,7 @@ reference_create (Point *startpoint,
   ref->normal_font_height = 0.6;
   ref->line_width = attributes_get_default_linewidth ();
   attributes_get_default_line_style (&ref->line_style, &ref->dashlength);
-  ref->text_color = color_black;
+  ref->text_color = DIA_COLOUR_BLACK;
   ref->line_color = attributes_get_foreground ();
   ref->end_arrow = attributes_get_default_end_arrow ();
   ref->corner_radius = 0.0;

@@ -37,7 +37,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "connpoint_line.h"
-#include "color.h"
+#include "dia-colour.h"
 #include "properties.h"
 
 #include "pixmaps/sadtbox.xpm"
@@ -547,8 +547,8 @@ sadtbox_create(Point *startpoint,
 
   box->padding = 0.5; /* default_values.padding; */
 
-  box->line_color = color_black;
-  box->fill_color = color_white;
+  box->line_color = DIA_COLOUR_BLACK;
+  box->fill_color = DIA_COLOUR_WHITE;
 
   p = *startpoint;
   p.x += elem->width / 2.0;
@@ -560,7 +560,7 @@ sadtbox_create(Point *startpoint,
                         font,
                         0.8,
                         &p,
-                        &color_black,
+                        &DIA_COLOUR_BLACK,
                         DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 

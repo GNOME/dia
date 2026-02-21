@@ -220,7 +220,7 @@ arc_draw (Arc *arc, DiaRenderer *renderer)
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
   dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
-  dia_renderer_draw_polyline (renderer, points, n, &color_black);
+  dia_renderer_draw_polyline (renderer, points, n, &DIA_COLOUR_BLACK);
 
   if (arc->uparrow) {
     for (i=0;i<n-1; i++) {
@@ -235,8 +235,8 @@ arc_draw (Arc *arc, DiaRenderer *renderer)
                         &m,
                         &points[i],
                         ARC_LINE_WIDTH,
-                        &color_black,
-                        &color_white);
+                        &DIA_COLOUR_BLACK,
+                        &DIA_COLOUR_WHITE);
       }
     }
   }

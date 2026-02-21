@@ -465,15 +465,19 @@ polyline_update_data(Polyline *polyline)
   obj->position = poly->points[0];
 }
 
-static void
-polyline_save(Polyline *polyline, ObjectNode obj_node,
-	      DiaContext *ctx)
-{
-  polyconn_save(&polyline->poly, obj_node, ctx);
 
-  if (!color_equals(&polyline->line_color, &color_black))
-    data_add_color(new_attribute(obj_node, "line_color"),
-		   &polyline->line_color, ctx);
+static void
+polyline_save (Polyline   *polyline,
+               ObjectNode  obj_node,
+               DiaContext *ctx)
+{
+  polyconn_save (&polyline->poly, obj_node, ctx);
+
+  if (!dia_colour_is_black (&polyline->line_color)) {
+    data_add_color (new_attribute (obj_node, "line_color"),
+                    &polyline->line_color,
+                    ctx);
+  }
 
   if (polyline->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
@@ -528,8 +532,9 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
                   polyline->corner_radius, ctx);
 }
 
+
 static DiaObject *
-polyline_load(ObjectNode obj_node, int version, DiaContext *ctx)
+polyline_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Polyline *polyline;
   PolyConn *poly;
@@ -544,12 +549,15 @@ polyline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   obj->type = &polyline_type;
   obj->ops = &polyline_ops;
 
-  polyconn_load(poly, obj_node, ctx);
+  polyconn_load (poly, obj_node, ctx);
 
-  polyline->line_color = color_black;
-  attr = object_find_attribute(obj_node, "line_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &polyline->line_color, ctx);
+  polyline->line_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "line_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &polyline->line_color,
+                ctx);
+  }
 
   polyline->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);

@@ -28,12 +28,12 @@
 #include <glib/gi18n-lib.h>
 
 #include "geometry.h"
-#include "color.h"
 #include "diagramdata.h"
 #include "group.h"
-#include "diaimportrenderer.h"
+#include "dia-colour.h"
 #include "dia-io.h"
 #include "dia-layer.h"
+#include "diaimportrenderer.h"
 
 #include <libxml/tree.h>
 #include <libxml/parser.h>

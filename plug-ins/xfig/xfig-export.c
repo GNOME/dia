@@ -229,11 +229,15 @@ figCheckColor (DiaXfigRenderer *renderer, Color *color)
   int i;
 
   for (i = 0; i < FIG_MAX_DEFAULT_COLORS; i++) {
-    if (color_equals (color, &fig_default_colors[i])) return;
+    if (dia_colour_equals (color, &fig_default_colors[i])) {
+      return;
+    }
   }
 
   for (i = 0; i < renderer->max_user_color; i++) {
-    if (color_equals (color, &renderer->user_colors[i])) return;
+    if (dia_colour_equals (color, &renderer->user_colors[i])) {
+      return;
+    }
   }
 
   if (renderer->max_user_color == FIG_MAX_USER_COLORS) {
@@ -258,13 +262,13 @@ figColor (DiaXfigRenderer *renderer, Color *color)
   int i;
 
   for (i = 0; i < FIG_MAX_DEFAULT_COLORS; i++) {
-    if (color_equals (color, &fig_default_colors[i])) {
+    if (dia_colour_equals (color, &fig_default_colors[i])) {
       return i;
     }
   }
 
   for (i = 0; i < renderer->max_user_color; i++) {
-    if (color_equals (color, &renderer->user_colors[i])) {
+    if (dia_colour_equals (color, &renderer->user_colors[i])) {
       return i + FIG_MAX_DEFAULT_COLORS;
     }
   }

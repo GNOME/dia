@@ -194,8 +194,8 @@ wanlink_create(Point *startpoint,
 
   wanlink->width = FLASH_WIDTH;
   /* both colors where black at the time this was hardcoded ... */
-  wanlink->line_color = color_black;
-  wanlink->fill_color = color_black;
+  wanlink->line_color = DIA_COLOUR_BLACK;
+  wanlink->fill_color = DIA_COLOUR_BLACK;
 
   wanlink->line_color = attributes_get_foreground();
   wanlink->fill_color = attributes_get_foreground();
@@ -342,19 +342,25 @@ wanlink_load(ObjectNode obj_node, int version,DiaContext *ctx)
 	wanlink->width = data_real(data, ctx);
     }
 
-    wanlink->line_color = color_black;
-    attr = object_find_attribute(obj_node, "line_color");
-    if (attr != NULL)
-      data_color(attribute_first_data(attr), &wanlink->line_color, ctx);
-    /* both colors where black at the time this was hardcoded ... */
-    wanlink->fill_color = color_black;
-    attr = object_find_attribute(obj_node, "fill_color");
-    if (attr != NULL)
-      data_color(attribute_first_data(attr), &wanlink->fill_color, ctx);
+  wanlink->line_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "line_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &wanlink->line_color,
+                ctx);
+  }
+  /* both colors where black at the time this was hardcoded ... */
+  wanlink->fill_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "fill_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr),
+                &wanlink->fill_color,
+                ctx);
+  }
 
-    wanlink_update_data (wanlink);
+  wanlink_update_data (wanlink);
 
-    return obj;
+  return obj;
 }
 
 typedef real  Vector[3];

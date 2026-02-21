@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include "dia-enums.h"
-#include "color.h"
 #include "arrows.h"
+#include "dia-colour.h"
+#include "dia-enums.h"
 #include "font.h"
 
 G_BEGIN_DECLS

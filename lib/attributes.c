@@ -141,8 +141,8 @@ attributes_swap_fgbg (void)
 void
 attributes_default_fgbg (void)
 {
-  attributes_set_foreground (&color_black);
-  attributes_set_background (&color_white);
+  attributes_set_foreground (&DIA_COLOUR_BLACK);
+  attributes_set_background (&DIA_COLOUR_WHITE);
 }
 
 

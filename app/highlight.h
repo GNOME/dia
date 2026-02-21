@@ -15,14 +15,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef HIGHLIGHT_H
-#define HIGHLIGHT_H
 
-#include "glib.h"
+#pragma once
 
-#include "diatypes.h"
+#include <glib.h>
+
+#include "dia-colour.h"
 #include "diagram.h"
-#include "color.h"
+#include "diatypes.h"
+
+G_BEGIN_DECLS
 
 /* Each object holds the color it is highlighted with.
  */
@@ -40,4 +42,4 @@ void highlight_object_off(DiaObject *obj, Diagram *dia);
 /** Reset a diagram to have no highlighted objects */
 void highlight_reset_all(Diagram *dia);
 
-#endif
+G_END_DECLS

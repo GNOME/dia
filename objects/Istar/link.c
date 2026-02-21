@@ -70,8 +70,8 @@ struct _Link {
 #define LINK_ARROWLEN 0.8
 #define LINK_ARROWWIDTH 0.5
 
-#define LINK_FG_COLOR color_black
-#define LINK_BG_COLOR color_white
+#define LINK_FG_COLOR DIA_COLOUR_BLACK
+#define LINK_BG_COLOR DIA_COLOUR_WHITE
 #define LINK_DEP_WIDTH 0.8
 #define LINK_DEP_HEIGHT 0.6
 #define LINK_REF_WIDTH 1.0
@@ -527,7 +527,7 @@ link_draw (Link *link, DiaRenderer *renderer)
                               annot,
                               &pa,
                               DIA_ALIGN_CENTRE,
-                              &color_black);
+                              &DIA_COLOUR_BLACK);
   }
   g_clear_pointer (&annot, g_free);
 

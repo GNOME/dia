@@ -698,10 +698,11 @@ bus_load(ObjectNode obj_node, int version,DiaContext *ctx)
     data = data_next(data);
   }
 
-  bus->line_color = color_black;
-  attr = object_find_attribute(obj_node, "line_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &bus->line_color, ctx);
+  bus->line_color = DIA_COLOUR_BLACK;
+  attr = object_find_attribute (obj_node, "line_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr), &bus->line_color, ctx);
+  }
 
   extra->start_trans =
     extra->end_trans =

@@ -79,12 +79,14 @@ EXPORTS
  dia_object_change_list_new
  dia_object_change_list_add
 
- color_equals
  dia_colour_as_gdk
  dia_colour_copy
+ dia_colour_equals
  dia_colour_free
  dia_colour_from_gdk
  dia_colour_get_type
+ dia_colour_is_black
+ dia_colour_is_white
  dia_colour_new_rgb
  dia_colour_new_rgba
  dia_colour_parse

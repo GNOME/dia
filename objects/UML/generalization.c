@@ -449,7 +449,7 @@ generalization_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
 
-  genlz->text_color = color_black;
+  genlz->text_color = DIA_COLOUR_BLACK;
   genlz->line_color = attributes_get_foreground();
   genlz->name = NULL;
   genlz->stereotype = NULL;

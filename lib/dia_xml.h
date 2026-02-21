@@ -15,15 +15,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef DIA_XML_H
-#define DIA_XML_H
+
+#pragma once
 
 #include <glib.h>
-#include "geometry.h"
-#include "color.h"
-#include "font.h"
-#include "diacontext.h"
+
 #include <libxml/tree.h>
+
+#include "dia-colour.h"
+#include "diacontext.h"
+#include "font.h"
+#include "geometry.h"
+
+G_BEGIN_DECLS
 
 /*!
  * \note Dia's diagram namespace
@@ -116,6 +120,4 @@ void data_add_pattern(AttributeNode attr, DiaPattern *pat, DiaContext *ctx);
 
 #define dia_clear_xml_string(pointer) g_clear_pointer(pointer, xmlFree)
 
-
-#endif /* DIA_XML_H */
-
+G_END_DECLS

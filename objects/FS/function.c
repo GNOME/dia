@@ -359,8 +359,8 @@ function_draw (Function *pkg, DiaRenderer *renderer)
     dia_renderer_draw_rect (renderer,
                             &p1,
                             &p2,
-                            &color_white,
-                            &color_black);
+                            &DIA_COLOUR_WHITE,
+                            &DIA_COLOUR_BLACK);
     p1.x += font_height / FUNCTION_MARGIN_SCALE;
     p1.y += font_height / FUNCTION_MARGIN_SCALE;
     p2.y -= font_height / FUNCTION_MARGIN_SCALE;
@@ -370,8 +370,8 @@ function_draw (Function *pkg, DiaRenderer *renderer)
   dia_renderer_draw_rect (renderer,
                           &p1,
                           &p2,
-                          &color_white,
-                          &color_black);
+                          &DIA_COLOUR_WHITE,
+                          &DIA_COLOUR_BLACK);
 
 
   text_draw (pkg->text, renderer);
@@ -493,7 +493,7 @@ function_create(Point *startpoint,
                         font,
                         FUNCTION_FONTHEIGHT,
                         &p,
-                        &color_black,
+                        &DIA_COLOUR_BLACK,
                         DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
@@ -607,7 +607,7 @@ function_load(ObjectNode obj_node, int version, DiaContext *ctx)
                           font,
                           FUNCTION_FONTHEIGHT,
                           &obj->position,
-                          &color_black,
+                          &DIA_COLOUR_BLACK,
                           DIA_ALIGN_CENTRE);
     g_clear_object (&font);
   }

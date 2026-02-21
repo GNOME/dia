@@ -410,7 +410,7 @@ step_draw (Step *step, DiaRenderer *renderer)
   dia_renderer_draw_polyline (renderer,
                               pts,
                               sizeof(pts)/sizeof(pts[0]),
-                              &color_black);
+                              &DIA_COLOUR_BLACK);
   pts[0] = step->D;
   pts[1] = step->SD1;
   pts[2] = step->SD2;
@@ -418,22 +418,34 @@ step_draw (Step *step, DiaRenderer *renderer)
   dia_renderer_draw_polyline (renderer,
                               pts,
                               sizeof(pts)/sizeof(pts[0]),
-                              &color_black);
+                              &DIA_COLOUR_BLACK);
 
   if ((step->type == STEP_INITIAL) ||
       (step->type == STEP_MACROCALL) ||
       (step->type == STEP_SUBPCALL)) {
-    dia_renderer_draw_rect (renderer, &step->I, &step->J, &color_white, &color_black);
-    dia_renderer_draw_rect (renderer, &step->E, &step->F, NULL, &color_black);
+    dia_renderer_draw_rect (renderer,
+                            &step->I,
+                            &step->J,
+                            &DIA_COLOUR_WHITE,
+                            &DIA_COLOUR_BLACK);
+    dia_renderer_draw_rect (renderer,
+                            &step->E,
+                            &step->F,
+                            NULL,
+                            &DIA_COLOUR_BLACK);
   } else {
-    dia_renderer_draw_rect (renderer, &step->E, &step->F, &color_white, &color_black);
+    dia_renderer_draw_rect (renderer,
+                            &step->E,
+                            &step->F,
+                            &DIA_COLOUR_WHITE,
+                            &DIA_COLOUR_BLACK);
   }
 
   if (step->type != STEP_MACROENTRY) {
-    dia_renderer_draw_line (renderer,&step->A,&step->B,&color_black);
+    dia_renderer_draw_line (renderer,&step->A,&step->B,&DIA_COLOUR_BLACK);
   }
   if (step->type != STEP_MACROEXIT) {
-    dia_renderer_draw_line (renderer,&step->C,&step->D,&color_black);
+    dia_renderer_draw_line (renderer,&step->C,&step->D,&DIA_COLOUR_BLACK);
   }
 
   dia_renderer_set_font (renderer, step->font, step->font_size);
@@ -594,7 +606,7 @@ step_create (Point   *startpoint,
   step->active = 0;
   step->font = dia_font_new_from_style (STEP_FONT, STEP_FONT_HEIGHT);
   step->font_size = STEP_FONT_HEIGHT;
-  step->font_color = color_black;
+  step->font_color = DIA_COLOUR_BLACK;
 
   type = GPOINTER_TO_INT (user_data);
   switch (type) {
