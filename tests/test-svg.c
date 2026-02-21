@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <glib/gi18n-lib.h>
 
@@ -31,15 +31,13 @@
 #include "geometry.h"
 #include "dia_svg.h"
 
-typedef struct _PathData
-{
+
+struct path_parse_test {
   int         num_points; /* >1 to be valid */
   int         num_splits;
   gboolean    closed;
   const char* data;
-} PathData;
-
-PathData _test_path[] = {
+} path_parse_cases[] = {
   {  2, 0, FALSE, "M0,0L1,1" },
   {  3, 0, TRUE,  "M0,0L1,1z" },
   {  3, 1, TRUE,  "M0,0L1,1z z" },  /* ignore extra closing */
@@ -77,62 +75,51 @@ PathData _test_path[] = {
  */
 };
 
+
 static void
-_check_one_path (gconstpointer _p)
+test_svg_parse_path (gconstpointer _p)
 {
-  const PathData* pd = _p;
-  const gchar* p;
-  gchar* unparsed = NULL;
+  const struct path_parse_test *pd = _p;
+  const char *p;
+  char *unparsed = NULL;
   gboolean closed = FALSE;
   Point current_point = {0.0, 0.0};
-  GArray* points = g_array_new(FALSE, FALSE, sizeof(BezPoint));
+  GArray *points = g_array_new (FALSE, FALSE, sizeof (BezPoint));
   int calls = 0;
-  g_array_set_size(points, 0);
+  g_array_set_size (points, 0);
 
   p = pd->data;
-  while (dia_svg_parse_path (points, p, &unparsed, &closed, &current_point))
-    {
-      calls++;
-      if (!unparsed)
-	break;
-      p = unparsed;
+  while (dia_svg_parse_path (points, p, &unparsed, &closed, &current_point)) {
+    calls++;
+    if (!unparsed) {
+      break;
     }
+    p = unparsed;
+  }
 
-  g_assert (pd->num_points == points->len);
-  g_assert (pd->num_splits == calls - 1);
-  g_assert (pd->closed == closed);
+  g_assert_cmpint (pd->num_points, ==, points->len);
+  g_assert_cmpint (pd->num_splits, ==, calls - 1);
+  g_assert_cmpint (pd->closed, ==, closed);
 
   g_array_free (points, TRUE);
-}
-
-
-static void
-_add_path_tests (void)
-{
-  int i, num = sizeof (_test_path) / sizeof (PathData);
-
-  for (i = 0; i < num; ++i) {
-    char *testpath = g_strdup_printf ("/Dia/svg/test-path%d", i);
-
-    g_test_add_data_func (testpath, &_test_path[i], _check_one_path);
-
-    g_clear_pointer (&testpath, g_free);
-  }
 }
 
 
 int
 main (int argc, char** argv)
 {
-  int ret;
-
   g_test_init (&argc, &argv, NULL);
 
   libdia_init (DIA_MESSAGE_STDERR);
 
-  _add_path_tests ();
+  for (size_t i = 0; i < G_N_ELEMENTS (path_parse_cases); i++) {
+    char *path =
+      g_strdup_printf ("/dia/svg/parse_path/case_%" G_GSIZE_FORMAT, i);
 
-  ret = g_test_run ();
+    g_test_add_data_func (path, &path_parse_cases[i], test_svg_parse_path);
 
-  return ret;
+    g_clear_pointer (&path, g_free);
+  }
+
+  return g_test_run ();
 }

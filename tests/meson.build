@@ -20,6 +20,7 @@ tests = [
   'colour-selector',
   'colour',
   'graphene',
+  'svg',
 ]
 
 test_sources = files(
@@ -41,7 +42,7 @@ foreach test : tests
 endforeach
 
 test_exes = []
-foreach t : ['boundingbox', 'objects', 'svg', 'sizeof']
+foreach t : ['boundingbox', 'objects', 'sizeof']
   test_exes += [
     executable(
       'test-' + t,
@@ -68,10 +69,9 @@ test(
   args: [meson.global_build_root() / 'objects'],
   env: test_env,
 )
-test('testsvg', test_exes[2], env: test_env)
 
 # Not really a test, but just a helper program.
-run_target('sizeof', command: [test_exes[3]])
+run_target('sizeof', command: [test_exes[2]])
 
 xmllint_test = find_program('xmllint_test.sh')
 render_test_dia = dia_samples_dir / 'render-test.dia'
