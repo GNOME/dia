@@ -264,17 +264,21 @@ main (int argc, char *argv[])
                    test_colour_copy);
 
   for (size_t i = 0; i < G_N_ELEMENTS (parse_cases); i++) {
-    g_autofree char *path =
+    char *path =
       g_strdup_printf ("/dia/colour/parse/case_%" G_GSIZE_FORMAT, i);
 
     g_test_add_data_func (path, &parse_cases[i], test_colour_parse);
+
+    g_clear_pointer (&path, g_free);
   }
 
   for (size_t i = 0; i < G_N_ELEMENTS (string_cases); i++) {
-    g_autofree char *path =
+    char *path =
       g_strdup_printf ("/dia/colour/to_string/case_%" G_GSIZE_FORMAT, i);
 
     g_test_add_data_func (path, &string_cases[i], test_colour_to_string);
+
+    g_clear_pointer (&path, g_free);
   }
 
   g_test_add_func ("/dia/colour/gdk",
