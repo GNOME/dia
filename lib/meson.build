@@ -201,13 +201,18 @@ libdia_sources = stdprop_sources + [
 
 gnome = import('gnome')
 
-libdia_sources += gnome.mkenums_simple('dia-lib-enums',
-                                   sources: [
-                                                 'dia-enums.h',
-                                                 'font.h',
-                                                 'units.h',
-                                            ]
+libdia_generated_headers = []
+
+dia_lib_enums = gnome.mkenums_simple(
+  'dia-lib-enums',
+  sources: [
+    'dia-enums.h',
+    'font.h',
+    'units.h',
+  ],
 )
+libdia_sources += dia_lib_enums
+libdia_generated_headers += dia_lib_enums[1]
 
 libdia_sources += gnome.mkenums_simple(
   'dia-lib-private-enums',
@@ -217,14 +222,16 @@ libdia_sources += gnome.mkenums_simple(
 )
 
 diamarshal = gnome.genmarshal(
-    'diamarshal',
-    prefix: 'dia_marshal',
-    sources: 'diamarshal.list',
-    valist_marshallers: true,
+  'diamarshal',
+  prefix: 'dia_marshal',
+  sources: 'diamarshal.list',
+  valist_marshallers: true,
 )
+libdia_sources += diamarshal
 
 # TODO: This is used in app/, should we install / do anything else with it?
 diamarshal_h = diamarshal[1]
+libdia_generated_headers += diamarshal_h
 
 resources = gnome.compile_resources('libdia-resources', 'libdia.gresource.xml',
                                     source_dir : '.',
@@ -243,14 +250,18 @@ libdia_deps = [
 
 libdia_inc = include_directories('.')
 
-libdia_lib = library('dia',
-    libdia_sources + [diamarshal, resources],
-    dependencies: libdia_deps + [config_dep],
-    c_args: ['-Wall', '-DLIBDIA_COMPILATION'],
-    vs_module_defs: 'libdia.def',
-    install: true,
+libdia_lib = library(
+  'dia',
+  libdia_sources + [resources],
+  dependencies: libdia_deps + [config_dep],
+  c_args: ['-Wall', '-DLIBDIA_COMPILATION'],
+  vs_module_defs: 'libdia.def',
+  install: true,
 )
 
-libdia_dep = declare_dependency (include_directories: libdia_inc,
-                                 link_with: libdia_lib,
-                                 dependencies: libdia_deps)
+libdia_dep = declare_dependency(
+  include_directories: libdia_inc,
+  link_with: libdia_lib,
+  dependencies: libdia_deps,
+  sources: libdia_generated_headers,
+)
