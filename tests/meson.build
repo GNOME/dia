@@ -18,6 +18,7 @@ test_env = {
 
 tests = [
   'colour-selector',
+  'colour',
 ]
 
 test_sources = files(
