@@ -808,6 +808,11 @@ EXPORTS
  remove_focus_on_diagram
  remove_focus_object
 
+ dia_part_alloc
+ dia_part_get_type
+ dia_part_ref
+ dia_part_unref
+
  reset_foci_on_diagram
 
  new_text
