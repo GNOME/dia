@@ -135,7 +135,6 @@ static ObjectOps chronoline_ops = {
   (DescribePropsFunc)   chronoline_describe_props,
   (GetPropsFunc)        chronoline_get_props,
   (SetPropsFunc)        chronoline_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

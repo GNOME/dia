@@ -115,7 +115,6 @@ static ObjectOps component_ops = {
   (DescribePropsFunc)   component_describe_props,
   (GetPropsFunc)        component_get_props,
   (SetPropsFunc)        component_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

@@ -544,7 +544,6 @@ static ObjectOps _ngon_ops = {
   (DescribePropsFunc)   _ngon_describe_props,
   (GetPropsFunc)        _ngon_get_props,
   (SetPropsFunc)        _ngon_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

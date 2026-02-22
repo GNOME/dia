@@ -129,7 +129,6 @@ static ObjectOps chronoref_ops = {
   (DescribePropsFunc)   chronoref_describe_props,
   (GetPropsFunc)        chronoref_get_props,
   (SetPropsFunc)        chronoref_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

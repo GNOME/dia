@@ -123,7 +123,6 @@ static ObjectOps vergent_ops = {
   (DescribePropsFunc)   vergent_describe_props,
   (GetPropsFunc)        vergent_get_props,
   (SetPropsFunc)        vergent_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

@@ -124,7 +124,6 @@ static ObjectOps dependency_ops = {
   (DescribePropsFunc)   dependency_describe_props,
   (GetPropsFunc)        dependency_get_props,
   (SetPropsFunc)        dependency_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

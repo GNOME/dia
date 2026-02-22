@@ -143,7 +143,6 @@ static ObjectOps other_ops = {
   (DescribePropsFunc)   other_describe_props,
   (GetPropsFunc)        other_get_props,
   (SetPropsFunc)        other_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

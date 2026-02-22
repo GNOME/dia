@@ -143,7 +143,6 @@ static ObjectOps bus_ops = {
   (DescribePropsFunc)   bus_describe_props,
   (GetPropsFunc)        bus_get_props,
   (SetPropsFunc)        bus_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

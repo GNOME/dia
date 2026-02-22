@@ -136,7 +136,6 @@ static ObjectOps umlclass_ops = {
   (DescribePropsFunc)   umlclass_describe_props,
   (GetPropsFunc)        umlclass_get_props,
   (SetPropsFunc)        umlclass_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

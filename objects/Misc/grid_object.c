@@ -118,7 +118,6 @@ static ObjectOps grid_object_ops = {
   (DescribePropsFunc)   grid_object_describe_props,
   (GetPropsFunc)        grid_object_get_props,
   (SetPropsFunc)        grid_object_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

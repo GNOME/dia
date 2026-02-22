@@ -137,7 +137,6 @@ static ObjectOps transition_ops = {
   (DescribePropsFunc)   transition_describe_props,
   (GetPropsFunc)        transition_get_props,
   (SetPropsFunc)        transition_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

@@ -142,7 +142,6 @@ static ObjectOps link_ops = {
   (DescribePropsFunc)   link_describe_props,
   (GetPropsFunc)        link_get_props,
   (SetPropsFunc)        link_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

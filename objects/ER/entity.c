@@ -127,7 +127,6 @@ static ObjectOps entity_ops = {
   (DescribePropsFunc)   entity_describe_props,
   (GetPropsFunc)        entity_get_props,
   (SetPropsFunc)        entity_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

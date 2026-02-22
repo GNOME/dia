@@ -146,7 +146,6 @@ static ObjectOps maor_ops = {
   (DescribePropsFunc)   maor_describe_props,
   (GetPropsFunc)        maor_get_props,
   (SetPropsFunc)        maor_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

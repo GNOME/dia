@@ -192,7 +192,6 @@ static ObjectOps box_ops = {
   (DescribePropsFunc)   object_describe_props,
   (GetPropsFunc)        object_get_props,
   (SetPropsFunc)        box_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
   (TransformFunc)       box_transform,
 };

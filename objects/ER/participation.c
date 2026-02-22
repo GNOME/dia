@@ -108,7 +108,6 @@ static ObjectOps participation_ops = {
   (DescribePropsFunc)   participation_describe_props,
   (GetPropsFunc)        participation_get_props,
   (SetPropsFunc)        participation_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

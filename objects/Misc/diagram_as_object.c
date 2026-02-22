@@ -325,7 +325,6 @@ static ObjectOps _dae_ops = {
   (DescribePropsFunc)   _dae_describe_props,
   (GetPropsFunc)        _dae_get_props,
   (SetPropsFunc)        _dae_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

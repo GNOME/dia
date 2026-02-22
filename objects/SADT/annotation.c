@@ -109,7 +109,6 @@ static ObjectOps annotation_ops = {
   (DescribePropsFunc)   annotation_describe_props,
   (GetPropsFunc)        annotation_get_props,
   (SetPropsFunc)        annotation_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

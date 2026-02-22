@@ -114,7 +114,6 @@ static ObjectOps constraint_ops = {
   (DescribePropsFunc)   constraint_describe_props,
   (GetPropsFunc)        constraint_get_props,
   (SetPropsFunc)        constraint_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

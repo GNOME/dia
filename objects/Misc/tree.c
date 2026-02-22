@@ -142,7 +142,6 @@ static ObjectOps tree_ops = {
   (DescribePropsFunc)   tree_describe_props,
   (GetPropsFunc)        tree_get_props,
   (SetPropsFunc)        tree_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

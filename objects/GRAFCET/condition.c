@@ -126,7 +126,6 @@ static ObjectOps condition_ops = {
   (DescribePropsFunc)   condition_describe_props,
   (GetPropsFunc)        condition_get_props,
   (SetPropsFunc)        condition_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

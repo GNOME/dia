@@ -155,7 +155,6 @@ static ObjectOps polygon_ops = {
   (DescribePropsFunc)   object_describe_props,
   (GetPropsFunc)        object_get_props,
   (SetPropsFunc)        polygon_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
   (TransformFunc)       polygon_transform,
 };

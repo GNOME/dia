@@ -130,7 +130,6 @@ static ObjectOps sadtarrow_ops = {
   (DescribePropsFunc)   sadtarrow_describe_props,
   (GetPropsFunc)        sadtarrow_get_props,
   (SetPropsFunc)        sadtarrow_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

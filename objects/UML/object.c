@@ -131,7 +131,6 @@ static ObjectOps objet_ops = {
   (DescribePropsFunc)   objet_describe_props,
   (GetPropsFunc)        objet_get_props,
   (SetPropsFunc)        objet_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

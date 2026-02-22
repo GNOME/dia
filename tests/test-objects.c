@@ -95,8 +95,6 @@ _test_creation (gconstpointer user_data)
     g_assert (props != NULL);
     prop_list_free(props);
   }
-  /* not implemented anywhere */
-  g_assert (o->ops->edit_text == NULL);
   /* I think this is mandatory */
   g_assert (o->ops->apply_properties_list != NULL);
 

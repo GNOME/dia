@@ -89,7 +89,6 @@ static ObjectOps group_ops = {
   (DescribePropsFunc)   group_describe_props,
   (GetPropsFunc)        group_get_props,
   (SetPropsFunc)        group_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) group_apply_properties_list,
   (TransformFunc)       group_transform
 };

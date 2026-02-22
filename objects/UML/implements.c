@@ -115,7 +115,6 @@ static ObjectOps implements_ops = {
   (DescribePropsFunc)   implements_describe_props,
   (GetPropsFunc)        implements_get_props,
   (SetPropsFunc)        implements_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

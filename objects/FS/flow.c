@@ -127,7 +127,6 @@ static ObjectOps flow_ops = {
   (DescribePropsFunc)   flow_describe_props,
   (GetPropsFunc)        flow_get_props,
   (SetPropsFunc)        flow_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

@@ -114,7 +114,6 @@ static ObjectOps radiocell_ops = {
   (DescribePropsFunc)   radiocell_describe_props,
   (GetPropsFunc)        radiocell_get_props,
   (SetPropsFunc)        radiocell_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

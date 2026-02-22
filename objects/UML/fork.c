@@ -106,7 +106,6 @@ static ObjectOps fork_ops =
   (DescribePropsFunc)   fork_describe_props,
   (GetPropsFunc)        fork_get_props,
   (SetPropsFunc)        fork_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

@@ -121,7 +121,6 @@ static ObjectOps generalization_ops = {
   (DescribePropsFunc)   generalization_describe_props,
   (GetPropsFunc)        generalization_get_props,
   (SetPropsFunc)        generalization_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

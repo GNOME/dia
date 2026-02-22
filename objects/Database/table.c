@@ -168,7 +168,6 @@ static ObjectOps table_ops =
     (DescribePropsFunc)         table_describe_props,
     (GetPropsFunc)              table_get_props,
     (SetPropsFunc)              table_set_props,
-    (TextEditFunc) 0,
     (ApplyPropertiesListFunc) object_apply_props,
 };
 

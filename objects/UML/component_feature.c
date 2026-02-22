@@ -142,7 +142,6 @@ static ObjectOps compfeat_ops = {
   (DescribePropsFunc)   compfeat_describe_props,
   (GetPropsFunc)        compfeat_get_props,
   (SetPropsFunc)        compfeat_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

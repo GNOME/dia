@@ -117,7 +117,6 @@ static ObjectOps classicon_ops = {
   (DescribePropsFunc)   classicon_describe_props,
   (GetPropsFunc)        classicon_get_props,
   (SetPropsFunc)        classicon_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

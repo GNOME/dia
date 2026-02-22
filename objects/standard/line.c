@@ -177,7 +177,6 @@ static ObjectOps line_ops = {
   (DescribePropsFunc)   object_describe_props,
   (GetPropsFunc)        object_get_props,
   (SetPropsFunc)        line_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
   (TransformFunc)       line_transform,
 };

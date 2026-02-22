@@ -221,7 +221,6 @@ static ObjectOps association_ops = {
   (DescribePropsFunc)   association_describe_props,
   (GetPropsFunc)        association_get_props,
   (SetPropsFunc)        association_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

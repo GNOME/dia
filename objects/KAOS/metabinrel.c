@@ -149,7 +149,6 @@ static ObjectOps mbr_ops = {
   (DescribePropsFunc)   mbr_describe_props,
   (GetPropsFunc)        mbr_get_props,
   (SetPropsFunc)        mbr_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

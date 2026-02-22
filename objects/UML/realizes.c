@@ -121,7 +121,6 @@ static ObjectOps realizes_ops = {
   (DescribePropsFunc)   realizes_describe_props,
   (GetPropsFunc)        realizes_get_props,
   (SetPropsFunc)        realizes_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

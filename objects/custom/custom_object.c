@@ -200,7 +200,6 @@ static ObjectOps custom_ops = {
   (DescribePropsFunc)   custom_describe_props,
   (GetPropsFunc)        custom_get_props,
   (SetPropsFunc)        custom_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

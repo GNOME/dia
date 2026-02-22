@@ -109,7 +109,6 @@ static ObjectOps reference_ops = {
   (DescribePropsFunc)   reference_describe_props,
   (GetPropsFunc)        reference_get_props,
   (SetPropsFunc)        reference_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

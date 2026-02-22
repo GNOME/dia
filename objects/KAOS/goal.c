@@ -157,7 +157,6 @@ static ObjectOps goal_ops = {
   (DescribePropsFunc)   goal_describe_props,
   (GetPropsFunc)        goal_get_props,
   (SetPropsFunc)        goal_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

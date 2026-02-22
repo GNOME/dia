@@ -124,7 +124,6 @@ static ObjectOps largepackage_ops = {
   (DescribePropsFunc)   largepackage_describe_props,
   (GetPropsFunc)        largepackage_get_props,
   (SetPropsFunc)        largepackage_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

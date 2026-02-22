@@ -195,7 +195,6 @@ static ObjectOps compound_ops =
     (DescribePropsFunc)    compound_describe_props,
     (GetPropsFunc)         compound_get_props,
     (SetPropsFunc)         compound_set_props,
-    (TextEditFunc) 0,
     (ApplyPropertiesListFunc) object_apply_props,
 };
 

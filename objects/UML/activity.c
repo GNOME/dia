@@ -111,7 +111,6 @@ static ObjectOps state_ops = {
   (DescribePropsFunc)   state_describe_props,
   (GetPropsFunc)        state_get_props,
   (SetPropsFunc)        state_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

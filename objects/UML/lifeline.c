@@ -153,7 +153,6 @@ static ObjectOps lifeline_ops = {
   (DescribePropsFunc)   lifeline_describe_props,
   (GetPropsFunc)        lifeline_get_props,
   (SetPropsFunc)        lifeline_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

@@ -126,7 +126,6 @@ static ObjectOps relationship_ops = {
   (DescribePropsFunc)   relationship_describe_props,
   (GetPropsFunc)        relationship_get_props,
   (SetPropsFunc)        relationship_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

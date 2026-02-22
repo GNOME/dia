@@ -113,7 +113,6 @@ static ObjectOps measure_ops = {
   (DescribePropsFunc)   measure_describe_props,
   (GetPropsFunc)        measure_get_props,
   (SetPropsFunc)        measure_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

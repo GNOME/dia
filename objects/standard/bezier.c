@@ -128,7 +128,6 @@ static ObjectOps bezierline_ops = {
   (DescribePropsFunc)   bezierline_describe_props,
   (GetPropsFunc)        bezierline_get_props,
   (SetPropsFunc)        bezierline_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
   (TransformFunc)       bezierline_transform,
 };

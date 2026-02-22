@@ -115,7 +115,6 @@ static ObjectOps action_ops = {
   (DescribePropsFunc)   action_describe_props,
   (GetPropsFunc)        action_get_props,
   (SetPropsFunc)        action_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

@@ -106,7 +106,6 @@ static ObjectOps branch_ops =
   (DescribePropsFunc)   branch_describe_props,
   (GetPropsFunc)        branch_get_props,
   (SetPropsFunc)        branch_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

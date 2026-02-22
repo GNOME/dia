@@ -119,7 +119,6 @@ static ObjectOps arc_ops = {
   (DescribePropsFunc)   arc_describe_props,
   (GetPropsFunc)        arc_get_props,
   (SetPropsFunc)        arc_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

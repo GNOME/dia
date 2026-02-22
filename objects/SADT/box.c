@@ -124,7 +124,6 @@ static ObjectOps sadtbox_ops = {
   (DescribePropsFunc)   sadtbox_describe_props,
   (GetPropsFunc)        sadtbox_get_props,
   (SetPropsFunc)        sadtbox_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

@@ -114,7 +114,6 @@ static ObjectOps req_ops = {
   (DescribePropsFunc)   req_describe_props,
   (GetPropsFunc)        req_get_props,
   (SetPropsFunc)        req_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

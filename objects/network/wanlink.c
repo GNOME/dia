@@ -100,10 +100,9 @@ static ObjectOps wanlink_ops =
   (DescribePropsFunc)   wanlink_describe_props,
   (GetPropsFunc)        wanlink_get_props,
   (SetPropsFunc)        wanlink_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
-
 };
+
 
 DiaObjectType wanlink_type =
 {

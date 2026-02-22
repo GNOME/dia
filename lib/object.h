@@ -222,7 +222,6 @@ typedef const PropDescription *(*DescribePropsFunc)         (DiaObject        *o
 typedef void (* GetPropsFunc) (DiaObject *obj, GPtrArray *props);
 typedef void (* SetPropsFunc) (DiaObject *obj, GPtrArray *props);
 typedef DiaMenu *(*ObjectMenuFunc) (DiaObject* obj, Point *position);
-typedef gboolean (*TextEditFunc) (DiaObject *obj, Text *text, TextEditState state, gchar *textchange);
 typedef gboolean (*TransformFunc) (DiaObject *obj, const DiaMatrix *m);
 
 
@@ -319,10 +318,6 @@ struct _ObjectOps {
                                                           GPtrArray        *props);
   void                   (*set_props)                    (DiaObject        *obj,
                                                           GPtrArray        *props);
-  gboolean               (*edit_text)                    (DiaObject        *obj,
-                                                          Text             *text,
-                                                          TextEditState     state,
-                                                          gchar            *textchange);
   DiaObjectChange       *(*apply_properties_list)        (DiaObject        *obj,
                                                           GPtrArray        *props);
   gboolean               (*transform)                    (DiaObject        *obj,
@@ -523,10 +518,6 @@ void                   dia_object_set_properties      (DiaObject              *s
                                                        GPtrArray              *list);
 DiaObjectChange       *dia_object_apply_properties    (DiaObject              *self,
                                                        GPtrArray              *list);
-gboolean               dia_object_edit_text           (DiaObject              *self,
-                                                       Text                   *text,
-                                                       TextEditState           state,
-                                                       gchar                  *textchange);
 gboolean               dia_object_transform           (DiaObject              *self,
                                                        const DiaMatrix        *m);
 void                   dia_object_add_handle           (DiaObject               *self,

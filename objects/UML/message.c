@@ -126,7 +126,6 @@ static ObjectOps message_ops = {
   (DescribePropsFunc)   message_describe_props,
   (GetPropsFunc)        message_get_props,
   (SetPropsFunc)        message_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

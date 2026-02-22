@@ -1806,39 +1806,6 @@ dia_object_apply_properties (DiaObject *self,
   return self->ops->apply_properties_list (self, list);
 }
 
-/**
- * dia_object_edit_text:
- * @self: The self object
- * @text: The text entry being edited
- * @state: The state of the editing, either %TEXT_EDIT_START,
- * %TEXT_EDIT_INSERT, %TEXT_EDIT_DELETE, or %TEXT_EDIT_END.
- * @textchange: For %TEXT_EDIT_INSERT, the text about to be inserted.
- * For %TEXT_EDIT_DELETE, the text about to be deleted.
- *
- * Update the text part of an object
- *
- * This function, if not null, will be called every time the text is changed
- * or editing starts or stops.
- *
- * Returns: For %TEXT_EDIT_INSERT and %TEXT_EDIT_DELETE, %TRUE this change
- * will be allowed, %FALSE otherwise. For %TEXT_EDIT_START and %TEXT_EDIT_END,
- * the return value is ignored.
- *
- * Stability: Stable
- *
- * Since: 0.98
- */
-gboolean
-dia_object_edit_text (DiaObject     *self,
-                      Text          *text,
-                      TextEditState  state,
-                      gchar         *textchange)
-{
-  g_return_val_if_fail (self != NULL, FALSE);
-  g_return_val_if_fail (self->ops->edit_text != NULL, FALSE);
-
-  return self->ops->edit_text (self, text, state, textchange);
-}
 
 /**
  * dia_object_transform:

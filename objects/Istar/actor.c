@@ -134,7 +134,6 @@ static ObjectOps actor_ops = {
   (DescribePropsFunc)   actor_describe_props,
   (GetPropsFunc)        actor_get_props,
   (SetPropsFunc)        actor_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

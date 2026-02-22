@@ -151,7 +151,6 @@ static ObjectOps zigzagline_ops = {
   (DescribePropsFunc)   object_describe_props,
   (GetPropsFunc)        object_get_props,
   (SetPropsFunc)        zigzagline_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

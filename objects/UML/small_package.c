@@ -113,7 +113,6 @@ static ObjectOps smallpackage_ops = {
   (DescribePropsFunc)   smallpackage_describe_props,
   (GetPropsFunc)        smallpackage_get_props,
   (SetPropsFunc)        smallpackage_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

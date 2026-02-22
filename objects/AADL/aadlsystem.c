@@ -153,7 +153,6 @@ static ObjectOps aadlsystem_ops =
   (DescribePropsFunc)   aadlbox_describe_props,
   (GetPropsFunc)        aadlbox_get_props,
   (SetPropsFunc)        aadlbox_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

@@ -209,7 +209,6 @@ static ObjectOps stdpath_ops = {
   (DescribePropsFunc)   object_describe_props,
   (GetPropsFunc)        stdpath_get_props,
   (SetPropsFunc)        stdpath_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
   (TransformFunc)       stdpath_transform,
 };

@@ -135,7 +135,6 @@ static ObjectOps pgram_ops = {
   (DescribePropsFunc)   pgram_describe_props,
   (GetPropsFunc)        pgram_get_props,
   (SetPropsFunc)        pgram_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

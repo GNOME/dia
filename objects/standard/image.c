@@ -160,7 +160,6 @@ static ObjectOps image_ops = {
   (DescribePropsFunc)   object_describe_props,
   (GetPropsFunc)        image_get_props,
   (SetPropsFunc)        image_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
   (TransformFunc)       image_transform,
 };

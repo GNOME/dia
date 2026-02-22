@@ -162,7 +162,6 @@ static ObjectOps orthflow_ops = {
   (DescribePropsFunc)   orthflow_describe_props,
   (GetPropsFunc)        orthflow_get_props,
   (SetPropsFunc)        orthflow_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

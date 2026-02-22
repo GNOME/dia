@@ -104,7 +104,6 @@ static ObjectOps note_ops = {
   (DescribePropsFunc)   note_describe_props,
   (GetPropsFunc)        note_get_props,
   (SetPropsFunc)        note_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

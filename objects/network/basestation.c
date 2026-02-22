@@ -117,7 +117,6 @@ static ObjectOps basestation_ops = {
   (DescribePropsFunc)   basestation_describe_props,
   (GetPropsFunc)        basestation_get_props,
   (SetPropsFunc)        basestation_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

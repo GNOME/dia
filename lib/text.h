@@ -18,12 +18,6 @@
 
 #pragma once
 
-typedef enum {
-  TEXT_EDIT_START,
-  TEXT_EDIT_CHANGE,
-  TEXT_EDIT_END
-} TextEditState;
-
 #include <glib.h>
 #include "diatypes.h"
 #include "textattr.h"

@@ -118,7 +118,6 @@ static ObjectOps usecase_ops = {
   (DescribePropsFunc)   usecase_describe_props,
   (GetPropsFunc)        usecase_get_props,
   (SetPropsFunc)        usecase_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

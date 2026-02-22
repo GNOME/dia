@@ -134,7 +134,6 @@ static ObjectOps diamond_ops = {
   (DescribePropsFunc)   diamond_describe_props,
   (GetPropsFunc)        diamond_get_props,
   (SetPropsFunc)        diamond_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

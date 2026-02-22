@@ -133,7 +133,6 @@ static ObjectOps ellipse_ops = {
   (DescribePropsFunc)   ellipse_describe_props,
   (GetPropsFunc)        ellipse_get_props,
   (SetPropsFunc)        ellipse_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

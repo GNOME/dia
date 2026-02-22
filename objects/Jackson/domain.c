@@ -169,7 +169,6 @@ static ObjectOps jackson_box_ops = {
   (DescribePropsFunc)   jackson_box_describe_props,
   (GetPropsFunc)        jackson_box_get_props,
   (SetPropsFunc)        jackson_box_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

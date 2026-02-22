@@ -141,7 +141,6 @@ static ObjectOps attribute_ops = {
   (DescribePropsFunc)   attribute_describe_props,
   (GetPropsFunc)        attribute_get_props,
   (SetPropsFunc)        attribute_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

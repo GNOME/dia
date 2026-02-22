@@ -188,7 +188,6 @@ static ObjectOps textobj_ops = {
   (DescribePropsFunc)   object_describe_props,
   (GetPropsFunc)        textobj_get_props,
   (SetPropsFunc)        textobj_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
   (TransformFunc)       textobj_transform,
 };

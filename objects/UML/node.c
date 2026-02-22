@@ -112,7 +112,6 @@ static ObjectOps node_ops =
   (DescribePropsFunc)   node_describe_props,
   (GetPropsFunc)        node_get_props,
   (SetPropsFunc)        node_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 

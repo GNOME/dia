@@ -150,7 +150,6 @@ static ObjectOps step_ops = {
   (DescribePropsFunc)   step_describe_props,
   (GetPropsFunc)        step_get_props,
   (SetPropsFunc)        step_set_props,
-  (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
 
