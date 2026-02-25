@@ -27,11 +27,11 @@
 
 #include "diarenderer.h"
 #include "object.h"
-#include "textline.h"
 #include "diatransformrenderer.h"
 #include "standard-path.h" /* text_to_path */
 #include "boundingbox.h" /* PolyBBextra */
 #include "dia-layer.h"
+#include "dia-text-line.h"
 #include "dia-text.h"
 
 
@@ -120,10 +120,10 @@ static void draw_image           (DiaRenderer  *renderer,
 static void draw_text            (DiaRenderer  *renderer,
                                   DiaText      *text);
 static void draw_text_line       (DiaRenderer  *renderer,
-                                  TextLine     *text_line,
+                                  DiaTextLine  *text_line,
                                   Point        *pos,
                                   DiaAlignment  alignment,
-                                  Color        *color);
+                                  DiaColour    *colour);
 static void draw_rotated_text    (DiaRenderer  *renderer,
                                   DiaText      *text,
                                   Point        *center,
@@ -650,7 +650,7 @@ static void
 draw_text (DiaRenderer *renderer, DiaText *text)
 {
   size_t n_lines;
-  TextLine **lines = dia_text_get_lines (text, &n_lines);
+  DiaTextLine **lines = dia_text_get_lines (text, &n_lines);
   DiaColour text_colour;
   Point pos;
 
@@ -814,7 +814,7 @@ draw_rotated_image (DiaRenderer *renderer,
  * @text_line: the #TextLine to draw
  * @pos: where to draw @text_line
  * @alignment: text #DiaAlignment
- * @color: text #Color
+ * @colour: text #DiaColour
  *
  * Default implementation of draw_text_line
  *
@@ -823,20 +823,20 @@ draw_rotated_image (DiaRenderer *renderer,
  */
 static void
 draw_text_line (DiaRenderer  *renderer,
-                TextLine     *text_line,
+                DiaTextLine  *text_line,
                 Point        *pos,
                 DiaAlignment  alignment,
-                Color        *color)
+                DiaColour    *colour)
 {
   dia_renderer_set_font (renderer,
-                         text_line_get_font (text_line),
-                         text_line_get_height (text_line));
+                         dia_text_line_get_font (text_line),
+                         dia_text_line_get_height (text_line));
 
   dia_renderer_draw_string (renderer,
-                            text_line_get_string (text_line),
+                            dia_text_line_get_string (text_line),
                             pos,
                             alignment,
-                            color);
+                            colour);
 }
 
 /*
@@ -2484,10 +2484,10 @@ dia_renderer_draw_text (DiaRenderer *self,
 
 void
 dia_renderer_draw_text_line (DiaRenderer      *self,
-                             TextLine         *text_line,
+                             DiaTextLine      *text_line,
                              Point            *pos,
                              DiaAlignment      alignment,
-                             Color            *color)
+                             DiaColour        *colour)
 {
   g_return_if_fail (DIA_IS_RENDERER (self));
 
@@ -2495,7 +2495,7 @@ dia_renderer_draw_text_line (DiaRenderer      *self,
                                                  text_line,
                                                  pos,
                                                  alignment,
-                                                 color);
+                                                 colour);
 }
 
 

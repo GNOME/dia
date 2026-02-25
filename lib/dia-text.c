@@ -32,10 +32,10 @@
 #include "diarenderer.h"
 #include "diainteractiverenderer.h"
 #include "diagramdata.h"
-#include "textline.h"
 #include "attributes.h"
 #include "object.h"
 #include "dia-object-change-list.h"
+#include "dia-text-line.h"
 #include "focus.h"
 
 #include "dia-text.h"
@@ -162,7 +162,7 @@ dia_text_get_line (DiaText *self, int line)
 {
   g_return_val_if_fail (DIA_IS_TEXT (self), NULL);
 
-  return text_line_get_string (g_ptr_array_index (self->lines, line));
+  return dia_text_line_get_string (g_ptr_array_index (self->lines, line));
 }
 
 
@@ -176,7 +176,7 @@ dia_text_get_line (DiaText *self, int line)
 static void
 text_set_line (DiaText *self, int line_no, char *line)
 {
-  text_line_set_string (g_ptr_array_index (self->lines, line_no), line);
+  dia_text_line_set_string (g_ptr_array_index (self->lines, line_no), line);
 }
 
 
@@ -225,7 +225,7 @@ text_insert_line (DiaText *self, int line_no)
 {
   g_ptr_array_insert (self->lines,
                       line_no,
-                      text_line_new ("", self->font, self->height));
+                      dia_text_line_new ("", self->font, self->height));
 }
 
 
@@ -245,7 +245,7 @@ dia_text_get_line_width (DiaText *self, int line_no)
 {
   g_return_val_if_fail (DIA_IS_TEXT (self), 0.0);
 
-  return text_line_get_width (g_ptr_array_index (self->lines, line_no));
+  return dia_text_line_get_width (g_ptr_array_index (self->lines, line_no));
 }
 
 
@@ -265,7 +265,7 @@ dia_text_get_line_strlen (DiaText *self, int line_no)
 {
   g_return_val_if_fail (DIA_IS_TEXT (self), 0);
 
-  return g_utf8_strlen (text_line_get_string (g_ptr_array_index (self->lines, line_no)), -1);
+  return g_utf8_strlen (dia_text_line_get_string (g_ptr_array_index (self->lines, line_no)), -1);
 }
 
 
@@ -341,8 +341,8 @@ calc_ascent_descent (DiaText *self)
   double sig_a = 0.0, sig_d = 0.0;
 
   for (size_t i = 0; i < self->lines->len; i++) {
-    sig_a += text_line_get_ascent (g_ptr_array_index (self->lines, i));
-    sig_d += text_line_get_descent (g_ptr_array_index (self->lines, i));
+    sig_a += dia_text_line_get_ascent (g_ptr_array_index (self->lines, i));
+    sig_d += dia_text_line_get_descent (g_ptr_array_index (self->lines, i));
   }
 
   self->ascent = sig_a / (double) self->lines->len;
@@ -379,10 +379,10 @@ set_string (DiaText *self, const char *string)
 
   g_clear_pointer (&self->lines, g_ptr_array_unref);
   self->lines =
-    g_ptr_array_new_null_terminated (numlines, (GDestroyNotify) text_line_destroy, TRUE);
+    g_ptr_array_new_null_terminated (numlines, (GDestroyNotify) dia_part_unref, TRUE);
   for (int i = 0; i < numlines; i++) {
     g_ptr_array_add (self->lines,
-                     text_line_new ("", self->font, self->height));
+                     dia_text_line_new ("", self->font, self->height));
   }
 
   s = fallback ? fallback : string;
@@ -439,7 +439,7 @@ dia_text_new (const char   *string,
   DiaText *self = dia_part_alloc (DIA_TYPE_TEXT);
 
   self->lines =
-    g_ptr_array_new_null_terminated (4, (GDestroyNotify) text_line_destroy, TRUE);
+    g_ptr_array_new_null_terminated (4, (GDestroyNotify) dia_part_unref, TRUE);
 
   g_set_object (&self->font, font);
   self->height = height;
@@ -487,15 +487,6 @@ dia_text_new_default (Point *pos, DiaColour *colour, DiaAlignment align)
 }
 
 
-static TextLine *
-dup_textline (TextLine *source, gpointer user_data)
-{
-  return text_line_new (text_line_get_string (source),
-                        text_line_get_font (source),
-                        text_line_get_height (source));
-}
-
-
 DiaText *
 dia_text_copy (DiaText *self)
 {
@@ -505,7 +496,7 @@ dia_text_copy (DiaText *self)
 
   copy = dia_part_alloc (DIA_TYPE_TEXT);
   copy->lines =
-    g_ptr_array_copy (self->lines, (GCopyFunc) dup_textline, NULL);
+    g_ptr_array_copy (self->lines, (GCopyFunc) dia_text_line_copy, NULL);
 
   copy->font = dia_font_copy (self->font);
   copy->height = self->height;
@@ -535,7 +526,7 @@ dia_text_set_height (DiaText *self, double height)
 
   self->height = height;
   for (size_t i = 0; i < self->lines->len; i++) {
-    text_line_set_height (g_ptr_array_index (self->lines, i), height);
+    dia_text_line_set_height (g_ptr_array_index (self->lines, i), height);
   }
   calc_width (self);
   calc_ascent_descent (self);
@@ -559,7 +550,7 @@ dia_text_set_font (DiaText *self, DiaFont *font)
   g_set_object (&self->font, font);
 
   for (size_t i = 0; i < self->lines->len; i++) {
-    text_line_set_font (g_ptr_array_index (self->lines, i), font);
+    dia_text_line_set_font (g_ptr_array_index (self->lines, i), font);
   }
 
   calc_width (self);
@@ -869,7 +860,7 @@ static void
 text_move_cursor (DiaText *self, CursorMovement mv)
 {
   const char *str =
-    text_line_get_string (g_ptr_array_index (self->lines, self->cursor_row));
+    dia_text_line_get_string (g_ptr_array_index (self->lines, self->cursor_row));
   const char *p = str;
   int curmax = dia_text_get_line_strlen (self, self->cursor_row);
 
@@ -1719,7 +1710,7 @@ apply_textstr_properties (GPtrArray  *props,
 }
 
 
-TextLine **
+DiaTextLine **
 dia_text_get_lines (DiaText *self, size_t *n_lines)
 {
   g_return_val_if_fail (DIA_IS_TEXT (self), NULL);
@@ -1728,7 +1719,7 @@ dia_text_get_lines (DiaText *self, size_t *n_lines)
     *n_lines = self->lines->len;
   }
 
-  return (TextLine **) self->lines->pdata;
+  return (DiaTextLine **) self->lines->pdata;
 }
 
 

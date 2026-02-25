@@ -38,7 +38,7 @@
 #endif
 #include "font.h"
 #include "message.h"
-#include "textline.h"
+#include "dia-text-line.h"
 
 static PangoContext *pango_context = NULL;
 
@@ -684,9 +684,9 @@ dia_font_string_width (const char *string, DiaFont *font, double height)
   double result = 0;
 
   if (string && *string) {
-    TextLine *text_line = text_line_new (string, font, height);
-    result = text_line_get_width (text_line);
-    text_line_destroy (text_line);
+    DiaTextLine *text_line = dia_text_line_new (string, font, height);
+    result = dia_text_line_get_width (text_line);
+    dia_clear_part (&text_line);
   }
 
   return result;
@@ -706,9 +706,9 @@ dia_font_ascent (const char *string, DiaFont *font, double height)
     return ascent * (height / font->height);
   } else {
     /* previous, _expensive_ but string specific way */
-    TextLine *text_line = text_line_new (string, font, height);
-    double result = text_line_get_ascent (text_line);
-    text_line_destroy (text_line);
+    DiaTextLine *text_line = dia_text_line_new (string, font, height);
+    double result = dia_text_line_get_ascent (text_line);
+    dia_clear_part (&text_line);
     return result;
   }
 }
@@ -727,9 +727,9 @@ dia_font_descent (const char *string, DiaFont *font, double height)
     return descent * (height / font->height);
   } else {
     /* previous, _expensive_ but string specific way */
-    TextLine *text_line = text_line_new (string, font, height);
-    double result = text_line_get_descent (text_line);
-    text_line_destroy (text_line);
+    DiaTextLine *text_line = dia_text_line_new (string, font, height);
+    double result = dia_text_line_get_descent (text_line);
+    dia_clear_part (&text_line);
     return result;
   }
 }

@@ -21,6 +21,7 @@
 #include <glib-object.h>
 
 #include "dia-enums.h"
+#include "dia-text-line.h"
 #include "geometry.h"
 
 /* HACK: Work around circular deps */
@@ -201,7 +202,7 @@ struct _DiaRendererClass
   void     (*draw_text)                         (DiaRenderer      *renderer,
                                                  DiaText          *text);
   void     (*draw_text_line)                    (DiaRenderer      *renderer,
-                                                 TextLine         *text_line,
+                                                 DiaTextLine      *text_line,
                                                  Point            *pos,
                                                  DiaAlignment      alignment,
                                                  Color            *color);
@@ -363,7 +364,7 @@ void     dia_renderer_draw_polyline                     (DiaRenderer      *self,
 void     dia_renderer_draw_text                         (DiaRenderer      *self,
                                                          DiaText          *text);
 void     dia_renderer_draw_text_line                    (DiaRenderer      *self,
-                                                         TextLine         *text_line,
+                                                         DiaTextLine      *text_line,
                                                          Point            *pos,
                                                          DiaAlignment      alignment,
                                                          Color            *color);

@@ -162,9 +162,6 @@ typedef struct _SheetObject SheetObject;
 /* In dia-text.h: */
 typedef struct _DiaText DiaText;
 
-/* In textline.h: */
-typedef struct _TextLine TextLine;
-
 /* In textattr.h: */
 typedef struct _TextAttributes TextAttributes;
 

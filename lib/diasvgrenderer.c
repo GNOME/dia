@@ -47,10 +47,10 @@
 #include "dia_dirs.h"
 
 #include "diasvgrenderer.h"
-#include "textline.h"
 #include "prop_pixbuf.h" /* pixbuf_encode_base64() */
 #include "pattern.h"
 #include "dia-io.h"
+#include "dia-text-line.h"
 
 
 /**
@@ -68,7 +68,7 @@ G_DEFINE_TYPE (DiaSvgRenderer, dia_svg_renderer, DIA_TYPE_RENDERER)
 
 
 static void  draw_text_line      (DiaRenderer  *self,
-                                  TextLine     *text_line,
+                                  DiaTextLine  *text_line,
                                   Point        *pos,
                                   DiaAlignment  alignment,
                                   Color        *colour);
@@ -808,15 +808,15 @@ draw_string (DiaRenderer  *self,
              DiaAlignment  alignment,
              Color        *colour)
 {
-  TextLine *text_line;
+  DiaTextLine *text_line;
   DiaFont *font;
   double font_height;
 
   font = dia_renderer_get_font (self, &font_height);
-  text_line = text_line_new (text, font, font_height);
+  text_line = dia_text_line_new (text, font, font_height);
 
   draw_text_line (self, text_line, pos, alignment, colour);
-  text_line_destroy (text_line);
+  dia_clear_part (&text_line);
 }
 
 
@@ -825,10 +825,10 @@ draw_string (DiaRenderer  *self,
  */
 static void
 draw_text_line (DiaRenderer  *self,
-                TextLine     *text_line,
+                DiaTextLine  *text_line,
                 Point        *pos,
                 DiaAlignment  alignment,
-                Color        *colour)
+                DiaColour    *colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
@@ -837,8 +837,10 @@ draw_text_line (DiaRenderer  *self,
   DiaFont *font;
   GString *style;
 
-  node = xmlNewTextChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text",
-		         (xmlChar *) text_line_get_string(text_line));
+  node = xmlNewTextChild (renderer->root,
+                          renderer->svg_name_space,
+                          (const xmlChar *) "text",
+                          (xmlChar *) dia_text_line_get_string (text_line));
 
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;
@@ -846,7 +848,7 @@ draw_text_line (DiaRenderer  *self,
   renderer->linewidth = saved_width;
 #if 0 /* would need a unit: https://bugzilla.mozilla.org/show_bug.cgi?id=707071#c4 */
   style = g_strdup_printf("%s; font-size: %s", get_draw_style(renderer, colour, NULL),
-			dia_svg_dtostr(d_buf, text_line_get_height(text_line)));
+			dia_svg_dtostr(d_buf, dia_text_line_get_height(text_line)));
 #else
   /* get_draw_style: the return value of this function must not be saved
    * anywhere. And of course it must not be free'd */
@@ -868,11 +870,12 @@ draw_text_line (DiaRenderer  *self,
       break;
   }
 
-  font = text_line_get_font(text_line);
-  g_string_append_printf (style, "font-family: %s; font-style: %s; font-weight: %s",
-			  dia_font_get_family(font),
-			  dia_font_get_slant_string(font),
-			  dia_font_get_weight_string(font));
+  font = dia_text_line_get_font (text_line);
+  g_string_append_printf (style,
+                          "font-family: %s; font-style: %s; font-weight: %s",
+                          dia_font_get_family (font),
+                          dia_font_get_slant_string (font),
+                          dia_font_get_weight_string (font));
 
   xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) style->str);
   g_string_free (style, TRUE);
@@ -883,11 +886,11 @@ draw_text_line (DiaRenderer  *self,
   xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) d_buf);
 
   /* font-size as single attribute can work like the other length w/o unit */
-  dia_svg_dtostr(d_buf, text_line_get_height(text_line));
-  xmlSetProp(node, (const xmlChar *)"font-size", (xmlChar *) d_buf);
+  dia_svg_dtostr (d_buf, dia_text_line_get_height (text_line));
+  xmlSetProp (node, (const xmlChar *) "font-size", (xmlChar *) d_buf);
 
-  dia_svg_dtostr(d_buf, text_line_get_width(text_line));
-  xmlSetProp(node, (const xmlChar*)"textLength", (xmlChar *) d_buf);
+  dia_svg_dtostr (d_buf, dia_text_line_get_width (text_line));
+  xmlSetProp (node, (const xmlChar*) "textLength", (xmlChar *) d_buf);
 }
 
 /*!

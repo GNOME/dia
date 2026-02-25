@@ -852,20 +852,18 @@ EXPORTS
  dia_text_set_string
  text_delete_key_handler
 
- text_line_new
- text_line_destroy
- text_line_copy
- text_line_set_string
- text_line_set_height
- text_line_set_font
- text_line_get_string
- text_line_get_font
- text_line_get_height
- text_line_calc_boundingbox_size
- text_line_get_width
- text_line_get_ascent
- text_line_get_descent
- text_line_get_alignment_adjustment
+ dia_text_line_copy
+ dia_text_line_get_alignment_adjustment
+ dia_text_line_get_ascent
+ dia_text_line_get_descent
+ dia_text_line_get_font
+ dia_text_line_get_height
+ dia_text_line_get_string
+ dia_text_line_get_width
+ dia_text_line_new
+ dia_text_line_set_font
+ dia_text_line_set_height
+ dia_text_line_set_string
 
  dia_check_version
  dia_version_string
@@ -883,7 +881,6 @@ EXPORTS
 
 ; exported for libart renderer only
  dia_transform_coords_double
- text_line_adjust_layout_line
 
  libdia_init
  dia_log_message

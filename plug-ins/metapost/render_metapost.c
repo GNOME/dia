@@ -49,7 +49,7 @@
 #include "filter.h"
 #include "dia_image.h"
 #include "font.h"
-#include "textline.h"
+#include "dia-text-line.h"
 #include "dia-text.h"
 #include "dia-version-info.h"
 
@@ -851,7 +851,7 @@ draw_text (DiaRenderer *self,
 {
   Point pos;
   size_t n_lines;
-  TextLine **lines = dia_text_get_lines (text, &n_lines);
+  DiaTextLine **lines = dia_text_get_lines (text, &n_lines);
   DiaColour text_colour;
 
   dia_text_get_position (text, &pos);
@@ -861,7 +861,7 @@ draw_text (DiaRenderer *self,
 
   for (size_t i = 0; i < n_lines; i++) {
     draw_string (self,
-                 text_line_get_string (lines[i]),
+                 dia_text_line_get_string (lines[i]),
                  &pos,
                  dia_text_get_alignment (text),
                  &text_colour);

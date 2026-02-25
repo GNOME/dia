@@ -29,10 +29,10 @@
 #include <gdk/gdk.h>
 
 #include "dia-colour.h"
+#include "dia-text-line.h"
+#include "diainteractiverenderer.h"
 #include "diatransform.h"
 #include "object.h"
-#include "textline.h"
-#include "diainteractiverenderer.h"
 
 struct _DiaCairoInteractiveRenderer {
   DiaCairoRenderer parent_instance;
@@ -221,14 +221,15 @@ dia_cairo_interactive_renderer_end_render (DiaRenderer *self)
   g_clear_pointer (&base_renderer->cr, cairo_destroy);
 }
 
+
 /* Get the width of the given text in cm */
-static real
+static double
 dia_cairo_interactive_renderer_get_text_width (DiaRenderer *object,
-                                               const gchar *text,
+                                               const char  *text,
                                                int          length)
 {
-  real result;
-  TextLine *text_line;
+  double result;
+  DiaTextLine *text_line;
   DiaFont *font;
   double font_height;
 
@@ -242,16 +243,17 @@ dia_cairo_interactive_renderer_get_text_width (DiaRenderer *object,
       g_warning ("Text at char %d not valid\n", length);
     }
     shorter = g_strndup (text, ulen);
-    text_line = text_line_new (shorter, font, font_height);
+    text_line = dia_text_line_new (shorter, font, font_height);
     g_clear_pointer (&shorter, g_free);
   } else {
-    text_line = text_line_new (text, font, font_height);
+    text_line = dia_text_line_new (text, font, font_height);
   }
-  result = text_line_get_width (text_line);
-  text_line_destroy (text_line);
+  result = dia_text_line_get_width (text_line);
+  dia_clear_part (&text_line);
 
   return result;
 }
+
 
 static real
 calculate_relative_luminance (const Color *c)
@@ -267,10 +269,10 @@ calculate_relative_luminance (const Color *c)
 
 static void
 dia_cairo_interactive_renderer_draw_text_line (DiaRenderer  *self,
-                                               TextLine     *text_line,
+                                               DiaTextLine  *text_line,
                                                Point        *pos,
                                                DiaAlignment  alignment,
-                                               Color        *color)
+                                               DiaColour    *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   DiaCairoInteractiveRenderer *interactive = DIA_CAIRO_INTERACTIVE_RENDERER (self);
@@ -283,13 +285,13 @@ dia_cairo_interactive_renderer_draw_text_line (DiaRenderer  *self,
     real rl, cr1, cr2;
 
     /* just draw the box */
-    real h = text_line_get_height (text_line);
-    real w = text_line_get_width (text_line);
+    real h = dia_text_line_get_height (text_line);
+    real w = dia_text_line_get_width (text_line);
     real x = pos->x;
     real y = pos->y;
 
-    y -= text_line_get_ascent (text_line);
-    x -= text_line_get_alignment_adjustment (text_line, alignment);
+    y -= dia_text_line_get_ascent (text_line);
+    x -= dia_text_line_get_alignment_adjustment (text_line, alignment);
 
     rl = calculate_relative_luminance (color) + 0.05;
     cr1 = calculate_relative_luminance (interactive->highlight_color) + 0.05;

@@ -426,7 +426,7 @@ draw_text (DiaRenderer *self, DiaText *text)
     dia_clear_part (&tc);
   } else {
     size_t n_lines;
-    TextLine **lines = dia_text_get_lines (text, &n_lines);
+    DiaTextLine **lines = dia_text_get_lines (text, &n_lines);
 
     for (size_t i = 0; i < n_lines; i++) {
       Point pt = pos;

@@ -23,6 +23,7 @@
 #include "dia_xml.h" /* for AttributeNode */
 #include "dia-object-change.h"
 #include "dia-part.h"
+#include "dia-text-line.h"
 #include "diarenderer.h"
 #include "diatypes.h"
 #include "textattr.h"
@@ -92,7 +93,7 @@ void              dia_text_get_attributes      (DiaText          *self,
                                                 TextAttributes   *attr);
 void              dia_text_set_attributes      (DiaText          *self,
                                                 TextAttributes   *attr);
-TextLine        **dia_text_get_lines           (DiaText          *self,
+DiaTextLine     **dia_text_get_lines           (DiaText          *self,
                                                 size_t           *n_lines);
 size_t            dia_text_get_n_lines         (DiaText          *self);
 gboolean          dia_text_has_focus           (DiaText          *self);

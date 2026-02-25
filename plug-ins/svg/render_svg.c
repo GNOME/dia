@@ -45,10 +45,10 @@
 #include "diagramdata.h"
 #include "object.h"
 #include "group.h"
-#include "textline.h"
 #include "dia_svg.h"
-#include "dia-layer.h"
 #include "dia-graphene.h"
+#include "dia-layer.h"
+#include "dia-text-line.h"
 
 G_BEGIN_DECLS
 
@@ -113,12 +113,12 @@ static void draw_string        (DiaRenderer  *self,
                                 const char   *text,
                                 Point        *pos,
                                 DiaAlignment  alignment,
-                                Color        *colour);
+                                DiaColour    *colour);
 static void draw_text_line     (DiaRenderer  *self,
-                                TextLine     *text_line,
+                                DiaTextLine  *text_line,
                                 Point        *pos,
                                 DiaAlignment  alignment,
-                                Color        *colour);
+                                DiaColour    *colour);
 static void draw_text          (DiaRenderer  *self,
                                 DiaText      *text);
 static void draw_rotated_text  (DiaRenderer  *self,
@@ -544,30 +544,32 @@ draw_string (DiaRenderer  *self,
  */
 static void
 draw_text_line (DiaRenderer  *self,
-                TextLine     *text_line,
+                DiaTextLine  *text_line,
                 Point        *pos,
                 DiaAlignment  alignment,
-                Color        *colour)
+                DiaColour    *colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
-  DiaFont *font = text_line_get_font (text_line); /* no reference? */
-  double font_height = text_line_get_height (text_line);
+  DiaFont *font = dia_text_line_get_font (text_line); /* no reference? */
+  double font_height = dia_text_line_get_height (text_line);
   char d_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text",
-		     (xmlChar *) text_line_get_string(text_line));
-  _adjust_space_preserve (node, text_line_get_string(text_line));
+  node = xmlNewChild (renderer->root,
+                      renderer->svg_name_space,
+                      (const xmlChar *) "text",
+                      (xmlChar *) dia_text_line_get_string (text_line));
+  _adjust_space_preserve (node, dia_text_line_get_string (text_line));
 
   /* not using the renderers font but the textlines */
   node_set_text_style(node, renderer, font, font_height, alignment, colour);
 
-  dia_svg_dtostr(d_buf, pos->x);
-  xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) d_buf);
-  dia_svg_dtostr(d_buf, pos->y);
-  xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) d_buf);
-  dia_svg_dtostr(d_buf, text_line_get_width(text_line));
-  xmlSetProp(node, (const xmlChar*)"textLength", (xmlChar *) d_buf);
+  dia_svg_dtostr (d_buf, pos->x);
+  xmlSetProp (node, (const xmlChar *) "x", (xmlChar *) d_buf);
+  dia_svg_dtostr (d_buf, pos->y);
+  xmlSetProp (node, (const xmlChar *) "y", (xmlChar *) d_buf);
+  dia_svg_dtostr (d_buf, dia_text_line_get_width (text_line));
+  xmlSetProp (node, (const xmlChar*) "textLength", (xmlChar *) d_buf);
 }
 
 /*!
@@ -597,7 +599,7 @@ draw_rotated_text (DiaRenderer *self,
   xmlNodePtr node_text, node_tspan;
   char d_buf[G_ASCII_DTOSTR_BUF_SIZE];
   size_t n_lines;
-  TextLine **lines = dia_text_get_lines (text, &n_lines);
+  DiaTextLine **lines = dia_text_get_lines (text, &n_lines);
   DiaColour text_colour;
 
   dia_text_get_position (text, &pos);
@@ -645,12 +647,12 @@ draw_rotated_text (DiaRenderer *self,
     node_tspan = xmlNewTextChild (node_text,
                                   renderer->svg_name_space,
                                   (const xmlChar *) "tspan",
-                                  (const xmlChar *) text_line_get_string (lines[i]));
-    _adjust_space_preserve (node_tspan, text_line_get_string (lines[i]));
-    dia_svg_dtostr(d_buf, pos.x);
-    xmlSetProp(node_tspan, (const xmlChar *)"x", (xmlChar *) d_buf);
-    dia_svg_dtostr(d_buf, pos.y);
-    xmlSetProp(node_tspan, (const xmlChar *)"y", (xmlChar *) d_buf);
+                                  (const xmlChar *) dia_text_line_get_string (lines[i]));
+    _adjust_space_preserve (node_tspan, dia_text_line_get_string (lines[i]));
+    dia_svg_dtostr (d_buf, pos.x);
+    xmlSetProp (node_tspan, (const xmlChar *)"x", (xmlChar *) d_buf);
+    dia_svg_dtostr (d_buf, pos.y);
+    xmlSetProp (node_tspan, (const xmlChar *)"y", (xmlChar *) d_buf);
 
     pos.y += dia_text_get_height (text);
   }
