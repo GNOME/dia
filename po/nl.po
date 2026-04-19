@@ -5,10 +5,10 @@
 msgid ""
 msgstr "Project-Id-Version: dia 0.97.2\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
-"POT-Creation-Date: 2024-03-08 02:41+0000\n"
-"PO-Revision-Date: 2025-02-13 11:16+0200\n"
+"POT-Creation-Date: 2026-01-09 00:55+0000\n"
+"PO-Revision-Date: 2026-02-07 11:29+0100\n"
 "Last-Translator: Dick Groskamp <dikgro@yahoo.co.uk>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"Language-Team: GNOME-NL https://matrix.to/#/#nl:gnome.org\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -163,6 +163,7 @@ msgid "[FILE...]"
 msgstr "[BESTAND…]"
 
 #: app/app_procs.c:644
+#, c-format
 msgid "Invalid option?"
 msgstr "Ongeldige optie?"
 
@@ -237,7 +238,6 @@ msgstr "Dia afsluiten"
 #: app/layer-editor/dia-layer-properties.c:246 data/ui/sheets-edit-dialog.ui:23
 #: data/ui/sheets-new-dialog.ui:22 data/ui/sheets-remove-dialog.ui:22
 #: lib/dia-arrow-chooser.c:177 lib/dia-line-chooser.c:172
-#: plug-ins/xslt/xsltdialog.c:87
 msgid "_Cancel"
 msgstr "_Annuleren"
 
@@ -264,6 +264,7 @@ msgid "Objects and filters internal to Dia"
 msgstr "Dia's interne objecten en filters"
 
 #: app/app_procs.c:1146
+#, c-format
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -271,6 +272,7 @@ msgstr "De originele auteur van Dia was:\n"
 "\n"
 
 #: app/app_procs.c:1151
+#, c-format
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -280,6 +282,7 @@ msgstr "\n"
 "\n"
 
 #: app/app_procs.c:1156
+#, c-format
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -289,6 +292,7 @@ msgstr "\n"
 "\n"
 
 #: app/app_procs.c:1161
+#, c-format
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -465,7 +469,6 @@ msgstr "Toep_assen"
 #: data/ui/sheets-edit-dialog.ui:38 data/ui/sheets-new-dialog.ui:37
 #: data/ui/sheets-remove-dialog.ui:37 lib/dia-arrow-chooser.c:178
 #: lib/dia-line-chooser.c:173 objects/AADL/edit_port_declaration.c:176
-#: plug-ins/xslt/xsltdialog.c:88
 msgid "_OK"
 msgstr "_OK"
 
@@ -490,7 +493,7 @@ msgstr "Proberen te groeperen zonder geselecteerde objecten."
 msgid "Diagram"
 msgstr "Diagram"
 
-#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:522
+#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:523
 msgid "Layer"
 msgstr "Laag"
 
@@ -552,11 +555,11 @@ msgstr "Naam"
 msgid "Diagram Tree"
 msgstr "Boom diagram"
 
-#: app/dia-colour-area.c:180 app/dia-colour-area.c:188
+#: app/dia-colour-area.c:225
 msgid "Select foreground color"
 msgstr "Voorgrondkleur selecteren"
 
-#: app/dia-colour-area.c:180 app/dia-colour-area.c:188
+#: app/dia-colour-area.c:225
 msgid "Select background color"
 msgstr "Achtergrondkleur selecteren"
 
@@ -603,7 +606,7 @@ msgstr "Grootte hex-raster"
 msgid "Grid"
 msgstr "Raster"
 
-#: app/dia-diagram-properties-dialog.ui:310 lib/diagramdata.c:149
+#: app/dia-diagram-properties-dialog.ui:310 lib/diagramdata.c:119
 msgid "Background"
 msgstr "Achtergrond"
 
@@ -628,7 +631,7 @@ msgid "Add New Guide"
 msgstr "Nieuwe hulplijn toevoegen"
 
 #. orientation
-#: app/dia-guide-dialog.c:171 app/dia-page-layout.c:137
+#: app/dia-guide-dialog.c:171 app/dia-page-layout.c:139
 msgid "Orientation"
 msgstr "Oriëntatie"
 
@@ -665,54 +668,54 @@ msgid "Line width:"
 msgstr "Lijn breedte:"
 
 #. paper size
-#: app/dia-page-layout.c:105
+#: app/dia-page-layout.c:107
 msgid "Paper Size"
 msgstr "Papiergrootte"
 
 #. margins
-#: app/dia-page-layout.c:166
+#: app/dia-page-layout.c:168
 msgid "Margins"
 msgstr "Marges"
 
-#: app/dia-page-layout.c:177
+#: app/dia-page-layout.c:179
 msgid "Top:"
 msgstr "Boven:"
 
-#: app/dia-page-layout.c:191
+#: app/dia-page-layout.c:193
 msgid "Bottom:"
 msgstr "Onder:"
 
-#: app/dia-page-layout.c:205
+#: app/dia-page-layout.c:207
 msgid "Left:"
 msgstr "Links:"
 
-#: app/dia-page-layout.c:219
+#: app/dia-page-layout.c:221
 msgid "Right:"
 msgstr "Rechts:"
 
 #. Scaling
-#: app/dia-page-layout.c:234
+#: app/dia-page-layout.c:236
 msgid "Scaling"
 msgstr "Schalen"
 
-#: app/dia-page-layout.c:244
+#: app/dia-page-layout.c:246
 msgid "Scale:"
 msgstr "Schaal:"
 
-#: app/dia-page-layout.c:258
+#: app/dia-page-layout.c:260
 msgid "Fit to:"
 msgstr "Pas aan:"
 
-#: app/dia-page-layout.c:271
+#: app/dia-page-layout.c:273
 msgid "by"
 msgstr "bij"
 
-#: app/dia-page-layout.c:802
+#: app/dia-page-layout.c:804
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: app/dia-page-layout.c:906 app/pagesetup.c:77
+#: app/dia-page-layout.c:908 app/pagesetup.c:77
 msgid "Page Setup"
 msgstr "Pagina-instellingen"
 
@@ -759,7 +762,7 @@ msgstr "Selectie"
 msgid "Input _Methods"
 msgstr "Invoer_methoden"
 
-#: app/disp_callbacks.c:1306
+#: app/disp_callbacks.c:1317
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -1029,24 +1032,13 @@ msgstr "Fout bij laden van diagram.\n"
 msgid "Can't find parent %s of %s object\n"
 msgstr "Kan ouder %s van object %s niet vinden\n"
 
-#: app/load_save.c:417
-msgid "You must specify a file, not a directory."
-msgstr "U moet een bestand specificeren, niet een map."
-
-#: app/load_save.c:425 plug-ins/dxf/dxf-import.c:1327
-#: plug-ins/wpg/wpg-import.c:519 plug-ins/xfig/xfig-import.c:1320
-#: plug-ins/xslt/xslt.c:101
-#, c-format
-msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Kon '%s' niet openen voor lezen.\n"
-
 #. this was talking about unknown file type but it could as well be broken XML
-#: app/load_save.c:444
+#: app/load_save.c:418
 #, c-format
 msgid "Error loading diagram %s."
 msgstr "Fout bij laden van diagram %s."
 
-#: app/load_save.c:455
+#: app/load_save.c:429
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1054,7 +1046,7 @@ msgid ""
 msgstr "Fout bij laden van diagram %s.\n"
 "Onbekend bestandstype."
 
-#: app/load_save.c:463
+#: app/load_save.c:437
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1062,11 +1054,11 @@ msgid ""
 msgstr "Fout bij laden van diagram %s.\n"
 "Geen bestand van Dia."
 
-#: app/load_save.c:766
+#: app/load_save.c:742
 msgid "Error reading connections"
 msgstr "Error reading connections"
 
-#: app/load_save.c:789
+#: app/load_save.c:773
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1076,52 +1068,26 @@ msgstr "Fout bij laden van diagram:\n"
 "%s.\n"
 "Een geldig bestand van Dia definieert ten minste een laag."
 
-#: app/load_save.c:1116
+#: app/load_save.c:1100
 #, c-format
 msgid "Error saving connections to layer '%s'"
 msgstr "Fout bij het opslaan van verbindingen naar laag '%s'"
 
-#: app/load_save.c:1125
+#: app/load_save.c:1109
 #, c-format
 msgid "Connection saving is incomplete for layer '%s'"
 msgstr "Opslaan van verbinding is niet volledig voor laag '%s'"
 
-#: app/load_save.c:1182
-#, c-format
-msgid "Not allowed to write to output file %s\n"
-msgstr "Niet toegestaan om te schrijven naar uitvoerbestand %s\n"
-
-#: app/load_save.c:1214
-#, c-format
-msgid "Not allowed to write temporary files in %s\n"
-msgstr "Niet toegestaan om tijdelijke bestanden te schrijven in %s\n"
-
-#: app/load_save.c:1237 plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
-#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1362
-#: plug-ins/pstricks/render_pstricks.c:977 plug-ins/vdx/vdx-export.c:1781
-#: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
-#: plug-ins/xfig/xfig-export.c:1272
-#, c-format
-msgid "Can't open output file %s"
-msgstr "Kan uitvoerbestand %s niet openen"
-
-#. Save failed; we clean our stuff up, without touching the file named
-#. "filename" if it existed.
-#: app/load_save.c:1248
+#: app/load_save.c:1158
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Interne fout %d bij schrijven naar bestand %s\n"
 
-#: app/load_save.c:1259
-#, c-format
-msgid "Can't rename %s to final output file %s"
-msgstr "Kan %s niet hernoemen naar uiteindelijk uitvoerbestand %s"
-
-#: app/load_save.c:1384 app/load_save.c:1395
+#: app/load_save.c:1279 app/load_save.c:1290
 msgid "Auto save"
 msgstr "Automatisch opslaan"
 
-#: app/load_save.c:1419 app/load_save.c:1424
+#: app/load_save.c:1314 app/load_save.c:1319
 msgid "Dia Diagram File"
 msgstr "Dia diagrambestand"
 
@@ -1913,12 +1879,12 @@ msgstr "Gebruiker"
 msgid "Widget not found: %s"
 msgstr "Element niet gevonden: %s"
 
-#: app/sheet-editor/sheet-editor-button.c:114
+#: app/sheet-editor/sheet-editor-button.c:116
 #, c-format
 msgid "No icon for “%s”"
 msgstr "Geen pictogram voor “%s”"
 
-#: app/sheet-editor/sheet-editor-button.c:186
+#: app/sheet-editor/sheet-editor-button.c:188
 #: app/sheet-editor/sheets_dialog_callbacks.c:945
 #: data/ui/sheets-new-dialog.ui:142
 msgid "Line Break"
@@ -1989,31 +1955,30 @@ msgstr "Blad moet een naam hebben"
 msgid "Couldn't open '%s': %s"
 msgstr "Kon `%s' niet openen: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1469
-#, c-format
-msgid "Couldn't open: '%s' for writing"
-msgstr "Kon '%s' niet openen voor schrijven"
+#: app/sheet-editor/sheets_dialog_callbacks.c:1433
+msgid "Write Sheet"
+msgstr "Blad schrijven"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1479
+#: app/sheet-editor/sheets_dialog_callbacks.c:1470
 msgid "a user"
 msgstr "een gebruiker"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1494
+#: app/sheet-editor/sheets_dialog_callbacks.c:1485
 #, c-format
 msgid "File: %s"
 msgstr "Bestand: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1497
+#: app/sheet-editor/sheets_dialog_callbacks.c:1488
 #, c-format
 msgid "Date: %s"
 msgstr "Datum: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1501
+#: app/sheet-editor/sheets_dialog_callbacks.c:1492
 #, c-format
 msgid "For: %s"
 msgstr "Voor: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1518
+#: app/sheet-editor/sheets_dialog_callbacks.c:1509
 msgid "add shapes here"
 msgstr "vormen hier toevoegen"
 
@@ -2026,14 +1991,14 @@ msgstr "Laden…"
 msgid "Dia v%s"
 msgstr "Dia v%s"
 
-#: app/toolbox.c:104
+#: app/toolbox.c:107
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
 msgstr "Object(en) aanpassen\n"
 "Gebruik <Spatiebalk> om te schakelen tussen dit en andere gereedschappen"
 
-#: app/toolbox.c:110
+#: app/toolbox.c:113
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
@@ -2041,17 +2006,17 @@ msgstr "Tekst bewerken\n"
 "Gebruik <Esc> om dit gereedschap te verlaten"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/toolbox.c:116 objects/FS/function.c:1042
+#: app/toolbox.c:119 objects/FS/function.c:1042
 msgid "Magnify"
 msgstr "Vergroten"
 
-#: app/toolbox.c:122
+#: app/toolbox.c:125
 msgid "Scroll around the diagram"
 msgstr "Schuiven rond het diagram"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: app/toolbox.c:128 lib/properties.c:96 lib/properties.h:697
+#: app/toolbox.c:131 lib/properties.c:96 lib/properties.h:697
 #: objects/AADL/aadlbox.c:165 objects/custom/custom_object.c:244
 #: objects/Jackson/requirement.c:126 objects/network/basestation.c:132
 #: objects/network/radiocell.c:129 objects/UML/activity.c:127
@@ -2063,123 +2028,135 @@ msgstr "Schuiven rond het diagram"
 msgid "Text"
 msgstr "Tekst"
 
-#: app/toolbox.c:134
+#: app/toolbox.c:137
 msgid "Box"
 msgstr "Vierkant"
 
-#: app/toolbox.c:140
+#: app/toolbox.c:143
 msgid "Ellipse"
 msgstr "Ellips"
 
-#: app/toolbox.c:146
+#: app/toolbox.c:149
 msgid "Polygon"
 msgstr "Polygoon"
 
-#: app/toolbox.c:152
+#: app/toolbox.c:155
 msgid "Beziergon"
 msgstr "Béziergoon"
 
-#: app/toolbox.c:158 objects/standard/line.c:337
+#: app/toolbox.c:161 objects/standard/line.c:337
 msgid "Line"
 msgstr "Lijn"
 
-#: app/toolbox.c:164
+#: app/toolbox.c:167
 msgid "Arc"
 msgstr "Boog"
 
-#: app/toolbox.c:170
+#: app/toolbox.c:173
 msgid "Zigzagline"
 msgstr "Zigzaglijn"
 
-#: app/toolbox.c:176
+#: app/toolbox.c:179
 msgid "Polyline"
 msgstr "Polylijn"
 
-#: app/toolbox.c:182
+#: app/toolbox.c:185
 msgid "Bezierline"
 msgstr "Kromme lijn"
 
-#: app/toolbox.c:188
+#: app/toolbox.c:191
 msgid "Image"
 msgstr "Afbeelding"
 
-#: app/toolbox.c:194
+#: app/toolbox.c:197
 msgid "Outline"
 msgstr "Omtrek"
 
-#: app/toolbox.c:493
+#: app/toolbox.c:496
 #, c-format
 msgid "No sheet named %s"
 msgstr "Geen blad genaamd %s"
 
 #. Author: Alan Horkan, 2002, mailto:horkana@tcd.ie
 #. Please talk to me before making any changes to this sheet
-#: app/toolbox.c:617 sheets/Assorted.sheet:5
+#: app/toolbox.c:620 sheets/Assorted.sheet:5
 msgid "Assorted"
 msgstr "Gesorteerd"
 
-#: app/toolbox.c:624 app/toolbox.c:760 sheets/Flowchart.sheet:3
+#: app/toolbox.c:627 app/toolbox.c:763 sheets/Flowchart.sheet:3
 msgid "Flowchart"
 msgstr "Stroomdiagrammen"
 
-#: app/toolbox.c:631 sheets/UML.sheet:3
+#: app/toolbox.c:634 sheets/UML.sheet:3
 msgid "UML"
 msgstr "UML"
 
-#: app/toolbox.c:661
+#: app/toolbox.c:664
 msgid "All Sheets"
 msgstr "Alle bladen"
 
-#: app/toolbox.c:676 lib/dia-colour-selector.c:349 lib/dia-font-selector.c:483
+#: app/toolbox.c:679 lib/dia-colour-selector.c:349 lib/dia-font-selector.c:483
 msgid "Reset Menu"
 msgstr "Menu herstellen"
 
-#: app/toolbox.c:799
+#: app/toolbox.c:802
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double-click to change "
 "colors."
 msgstr "Voor- en achtergrondkleuren voor nieuwe objecten.  De kleine zwarte en witte vierkantjes herstellen de kleuren.  De kleine pijlen wisselen de kleuren.  Dubbelklik om de kleuren te wijzigen."
 
-#: app/toolbox.c:813
+#: app/toolbox.c:816
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr "Lijndiktes.  Klik op een lijn om de standaard lijndikte voor nieuwe objecten in te stellen.  Dubbelklik om de lijndikte met meer precisie in te stellen."
 
-#: app/toolbox.c:861
+#: app/toolbox.c:864
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details…"
 msgstr "Pijlstijl aan het begin van nieuwe lijnen.  Klik om een pijl uit te kiezen, of stel parameters voor de pijl in met Details…"
 
-#: app/toolbox.c:866
+#: app/toolbox.c:869
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details…"
 msgstr "Lijnstijl voor nieuwe lijnen.  Klik om een lijnstijl te kiezen, of stel parameters voor de lijnstijl in met Details…"
 
-#: app/toolbox.c:882
+#: app/toolbox.c:885
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details…"
 msgstr "Pijlstijl aan het einde van nieuwe lijnen.  Klik om een pijl uit te kiezen, of stel parameters voor de pijl in met Details…"
 
-#: data/org.gnome.Dia.appdata.xml.in:7 data/org.gnome.Dia.desktop.in:3
+#: data/org.gnome.Dia.desktop.in:2 data/org.gnome.Dia.metainfo.xml.in:7
 msgid "Dia"
 msgstr "Dia"
 
-#: data/org.gnome.Dia.appdata.xml.in:8
+#: data/org.gnome.Dia.desktop.in:3
+msgid "Diagram Editor"
+msgstr "Diagrambewerker"
+
+#: data/org.gnome.Dia.desktop.in:4
+msgid "Edit your Diagrams"
+msgstr "Uw diagrammen bewerken"
+
+#: data/org.gnome.Dia.desktop.in:15
+msgid "graphic;diagram;vector;layout;"
+msgstr "afbeelding;diagram;vector;lay-out;"
+
+#: data/org.gnome.Dia.metainfo.xml.in:8
 msgid "Dia is a program for drawing diagrams"
 msgstr "Dia is een programma voor het tekenen van diagrammen"
 
-#: data/org.gnome.Dia.appdata.xml.in:10
+#: data/org.gnome.Dia.metainfo.xml.in:10
 msgid ""
 "Dia is a GTK+ based diagram creation program for GNU/Linux, MacOS X, Unix, "
 "and Windows, and is released under the GPL license."
 msgstr "Dia is een op GTK+ gebaseerd programma voor het maken van diagrammen voor GNU/Linux, macOS, Unix en Windows en is uitgegeven onder de licentie van GPL."
 
-#: data/org.gnome.Dia.appdata.xml.in:12
+#: data/org.gnome.Dia.metainfo.xml.in:12
 msgid ""
 "Dia is roughly inspired by the commercial Windows program 'Visio,' though "
 "more geared towards informal diagrams for casual use. It can be used to draw "
@@ -2190,7 +2167,7 @@ msgid ""
 "shape."
 msgstr "Dia is ruwweg geïnspireerd op het commerciële programma voor Windows 'Visio,' hoewel het meer gericht is op informele diagrammen om af en toe te gebruiken. Het kan worden gebruikt om vele soorten diagrammen te tekenen. Het heeft momenteel speciale objecten om te helpen bij het tekenen van diagrammen voor relaties tussen entiteiten, UML-diagrammen, stroomdiagrammen, netwerkdiagrammen, en nog veel meer andere diagrammen. Het is ook mogelijk om ondersteuning toe te voegen voor nieuwe vormen door eenvoudige bestanden XML te schrijven, die een subset van SVG gebruiken om de vorm te tekenen."
 
-#: data/org.gnome.Dia.appdata.xml.in:14
+#: data/org.gnome.Dia.metainfo.xml.in:17
 msgid ""
 "It can load and save diagrams to a custom XML format (gzipped by default, to "
 "save space), can export diagrams to a number of formats, including EPS, SVG, "
@@ -2198,25 +2175,13 @@ msgid ""
 "pages)."
 msgstr "Het kan diagrammen laden en opslaan naar een aangepaste indeling van XML (standaard ge-gzipt, om ruimte te besparen), kan diagrammen exporteren naar een aantal indelingen, inclusief EPS, SVG, XFIG, WMF en PNG, en kan diagrammen afdrukken (inclusief die welke meerdere pagina's omvatten)."
 
-#: data/org.gnome.Dia.appdata.xml.in:19
+#: data/org.gnome.Dia.metainfo.xml.in:24
 msgid "Main Window"
 msgstr "Hoofdvenster"
 
-#: data/org.gnome.Dia.appdata.xml.in:44
+#: data/org.gnome.Dia.metainfo.xml.in:49
 msgid "The GNOME Project"
 msgstr "Het project GNOME"
-
-#: data/org.gnome.Dia.desktop.in:4
-msgid "Diagram Editor"
-msgstr "Diagrambewerker"
-
-#: data/org.gnome.Dia.desktop.in:5
-msgid "Edit your Diagrams"
-msgstr "Uw diagrammen bewerken"
-
-#: data/org.gnome.Dia.desktop.in:14
-msgid "graphic;diagram;vector;layout;"
-msgstr "afbeelding;diagram;vector;lay-out;"
 
 #: data/ui/preferences-dialog.ui:157
 msgid "_Reset tools after create"
@@ -2707,6 +2672,36 @@ msgstr "Kon bestand niet opslaan:\n"
 "%s\n"
 "%s\n"
 
+#: lib/dia-io.c:63
+#, c-format
+msgid "Unable to parse: %s"
+msgstr "Kan niet parsen: %s"
+
+#: lib/dia-io.c:120 lib/dia-io.c:235
+#, c-format
+msgid "Unable to read: %s"
+msgstr "Kan niet lezen: %s"
+
+#: lib/dia-io.c:144 lib/dia-io.c:335
+#, c-format
+msgid "Unable to close: %s"
+msgstr "Kan niet sluiten: %s"
+
+#: lib/dia-io.c:210 lib/dia-io.c:423
+#, c-format
+msgid "‘%s’ is a directory"
+msgstr "‘%s’ is een map"
+
+#: lib/dia-io.c:216 lib/dia-io.c:429
+#, c-format
+msgid "Unable to open: %s"
+msgstr "Kan niet openen: %s"
+
+#: lib/dia-io.c:311
+#, c-format
+msgid "Unable to write: %s"
+msgstr "Kan niet schrijven: %s"
+
 #: lib/diapatternselector.c:95 lib/prop_pixbuf.c:325
 msgid "Yes"
 msgstr "Ja"
@@ -2724,88 +2719,84 @@ msgstr "Diagonaal"
 msgid "Radial"
 msgstr "Radiaal"
 
-#: lib/dia_xml.c:206
-#, c-format
-msgid ""
-"The file %s has no encoding specification;\n"
-"assuming it is encoded in %s"
-msgstr "Het bestand %s heeft geen specificatie voor de codering;\n"
-"aangenomen wordt dat het gecodeerd is in %s"
+#: lib/diasvgrenderer.c:193
+msgid "SVG Export"
+msgstr "SVG exporteren"
 
-#: lib/dia_xml.c:512
+#: lib/dia_xml.c:221
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Onbekend type DataNode '%s'"
 
-#: lib/dia_xml.c:531
+#: lib/dia_xml.c:240
 msgid "Taking int value of non-int node."
 msgstr "Neemt de waarde int van niet-int node."
 
-#: lib/dia_xml.c:707
+#: lib/dia_xml.c:416
 msgid "Taking point value of non-point node."
 msgstr "Puntwaarde van niet-punt node wordt genomen."
 
-#: lib/dia_xml.c:718
+#: lib/dia_xml.c:427
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Incorrecte x puntwaarde \"%s\" %f; wordt verworpen."
 
-#: lib/dia_xml.c:725
+#: lib/dia_xml.c:434
 msgid "Error parsing point."
 msgstr "Fout bij ontleden van punt."
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:733
+#: lib/dia_xml.c:442
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Incorrecte y puntwaarde \"%s\" %f; wordt verworpen."
 
-#: lib/dia_xml.c:753
+#: lib/dia_xml.c:462
 msgid "Taking bezpoint value of non-point node."
 msgstr "Neemt de waarde bezpoint van niet-punt node."
 
-#: lib/dia_xml.c:771
+#: lib/dia_xml.c:480
 msgid "Error parsing bezpoint p1."
 msgstr "Fout bij parsen bezpoint p1."
 
-#: lib/dia_xml.c:785
+#: lib/dia_xml.c:494
 msgid "Error parsing bezpoint p2."
 msgstr "Fout bij parsen bezpoint p2."
 
-#: lib/dia_xml.c:799
+#: lib/dia_xml.c:508
 msgid "Error parsing bezpoint p3."
 msgstr "Fout bij parsen bezpoint p3."
 
-#: lib/dia_xml.c:826
+#: lib/dia_xml.c:535
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Neemt waarde rechthoek van niet-rechthoek node."
 
-#: lib/dia_xml.c:838 lib/dia_xml.c:849 lib/dia_xml.c:860
+#: lib/dia_xml.c:547 lib/dia_xml.c:558 lib/dia_xml.c:569
 msgid "Error parsing rectangle."
 msgstr "Fout bij parsen van rechthoek."
 
-#: lib/dia_xml.c:888
+#: lib/dia_xml.c:597
 msgid "Taking string value of non-string node."
 msgstr "Neemt waarde string van niet-string node."
 
-#: lib/dia_xml.c:916
+#: lib/dia_xml.c:625
 msgid "Error in string tag."
 msgstr "Fout in tag van string."
 
-#: lib/dia_xml.c:934
+#: lib/dia_xml.c:643
 msgid "Error in file, string not starting with #"
 msgstr "Fout in bestand, string begint niet met #"
 
-#: lib/dia_xml.c:1000
+#: lib/dia_xml.c:709
 msgid "Taking font value of non-font node."
 msgstr "Neemt waarde font van niet-font node."
 
-#: lib/filter.c:181
+#: lib/filter.c:184
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "Meerdere filters voor exporteren met unieke naam %s"
 
-#: lib/filter.c:199
+#: lib/filter.c:202
 #, c-format
 msgid "Multiple import filters with unique name %s"
 msgstr "Meerdere filters voor importeren met unieke naam %s"
@@ -2883,7 +2874,7 @@ msgstr "Symbool 'dia_plugin_init' ontbreekt"
 msgid "dia_plugin_init() call failed"
 msgstr "Aanroep dia_plugin_init() mislukt"
 
-#: lib/plug-ins.c:424
+#: lib/plug-ins.c:424 lib/plug-ins.c:597
 msgid "Plugin Configuration"
 msgstr "Plug-in configuratie"
 
@@ -3094,7 +3085,30 @@ msgid ""
 msgstr "DiaObject '%s', nodig in blad '%s', werd niet gevonden.\n"
 "Het zal niet beschikbaar zijn om te gebruiken."
 
-#: lib/sheet.c:358
+#: lib/sheet.c:212
+msgid "Load Sheet"
+msgstr "Blad laden"
+
+#: lib/sheet.c:235
+#, c-format
+msgid "Loading Sheet from %s failed"
+msgstr "Bladen laden van %s mislukt"
+
+#: lib/sheet.c:252
+msgid "Could not find sheet namespace"
+msgstr "Kon naamruimte voor blad niet vinden"
+
+#: lib/sheet.c:259
+#, c-format
+msgid "root element was %s — expecting sheet"
+msgstr "root-element was %s — verwachtte blad"
+
+#: lib/sheet.c:324
+#, c-format
+msgid "No <name> and/or <contents> in sheet %s — skipping"
+msgstr "Geen <name> en/of <contents> in blad %s — overgeslagen"
+
+#: lib/sheet.c:347
 #, c-format
 msgid ""
 "The system sheet '%s' appears to be more recent than your custom\n"
@@ -3108,7 +3122,7 @@ msgstr "Het systeemblad '%s' lijkt meer recent te zijn dan uw aangepaste\n"
 "Verplaats nieuwe objecten (indien aanwezig) vanuit '%s' naar uw aangepaste blad\n"
 "of verwijder '%s', met het dialoogvenster 'Bladen en objecten'."
 
-#: lib/sheet.c:425
+#: lib/sheet.c:414
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: u zou nu tags voor objecten moeten gebruiken in plaats van tags voor vormen"
@@ -3210,8 +3224,7 @@ msgstr "Zoom-aanwijzer"
 msgid "Visible rect pointer"
 msgstr "Zichtbare aanwijzer rechthoek"
 
-#: lib/renderer/diacairo.c:96 plug-ins/drs/dia-render-script.c:136
-#: plug-ins/hpgl/hpgl.c:743
+#: lib/renderer/diacairo.c:96 plug-ins/hpgl/hpgl.c:743
 #, c-format
 msgid "Can't open output file %s."
 msgstr "Kan uitvoerbestand %s niet openen."
@@ -3433,13 +3446,44 @@ msgstr "Lader aangepaste XML-lijnen"
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr "INTERN: AangepasteLijnen: Ongeldig lijntype in object LineInfo."
 
-#: objects/custom/shape_info.c:174
+#: objects/custom_lines/line_info.c:333
+msgid "Load Custom Line"
+msgstr "Aangepaste lijn laden"
+
+#: objects/custom_lines/line_info.c:343
+#, c-format
+msgid "Loading Custom Line from %s failed"
+msgstr "Laden van aangepaste lijn uit %s mislukt"
+
+#: objects/custom/shape_info.c:175
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
 "svg:path data must start with moveto."
 msgstr "Het bestand '%s' heeft ongeldige padgegevens.\n"
 "svg:padgegevens moeten beginnen met moveto."
+
+#: objects/custom/shape_info.c:718
+msgid "Load Custom Shape"
+msgstr "Aangepaste vorm laden"
+
+#: objects/custom/shape_info.c:730
+#, c-format
+msgid "Loading Custom Shape from %s failed"
+msgstr "Aangepaste vorm laden van %s mislukt"
+
+#: objects/custom/shape_info.c:746
+msgid "could not find shape namespace"
+msgstr "kon naamruimte voor vorm niet vinden"
+
+#: objects/custom/shape_info.c:754
+msgid "could not find svg namespace"
+msgstr "kon naamruimte svg niet vinden"
+
+#: objects/custom/shape_info.c:762
+#, c-format
+msgid "root element was %s — expecting shape"
+msgstr "root-element was %s — verwachtte vorm"
 
 #: objects/Database/compound.c:211
 msgid "Number of arms"
@@ -5867,19 +5911,19 @@ msgid "Abstract Class"
 msgstr "Abstracte klasse"
 
 #. should probably be refactored too.
-#: objects/UML/class_dialog.c:537
+#: objects/UML/class_dialog.c:539
 msgid "Line Width"
 msgstr "Lijndikte"
 
-#: objects/UML/class_dialog.c:548
+#: objects/UML/class_dialog.c:550
 msgid "Text Color"
 msgstr "Tekstkleur"
 
-#: objects/UML/class_dialog.c:559
+#: objects/UML/class_dialog.c:561
 msgid "Foreground Color"
 msgstr "Voorgrondkleur"
 
-#: objects/UML/class_dialog.c:570
+#: objects/UML/class_dialog.c:572
 msgid "Background Color"
 msgstr "Achtergrondkleur"
 
@@ -6262,6 +6306,15 @@ msgid ""
 msgstr "Rijlengte van afbeelding langer dan maximale celarray.\n"
 "Afbeelding niet geëxporteerd naar CGM."
 
+#: plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dia-dxf-renderer.c:593
+#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1384
+#: plug-ins/pstricks/render_pstricks.c:999 plug-ins/vdx/vdx-export.c:1781
+#: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
+#: plug-ins/xfig/xfig-export.c:1272
+#, c-format
+msgid "Can't open output file %s"
+msgstr "Kan uitvoerbestand %s niet openen"
+
 #: plug-ins/cgm/cgm.c:1362
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
@@ -6270,32 +6323,38 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile exportfilter"
 
-#: plug-ins/drs/dia-render-script.c:175 plug-ins/drs/dia-render-script.c:180
+#: plug-ins/drs/dia-render-script.c:161 plug-ins/drs/dia-render-script.c:166
 msgid "DiaRenderScript"
 msgstr "DiaRenderScript"
 
-#: plug-ins/drs/dia-render-script.c:204
+#: plug-ins/drs/dia-render-script.c:191
 msgid "DiaRenderScript filter"
 msgstr "DiaRenderScript filter"
 
-#: plug-ins/drs/dia-render-script-import.c:514
+#: plug-ins/drs/dia-render-script-import.c:515
 msgid "Broken file?"
 msgstr "Defect bestand?"
 
-#: plug-ins/dxf/dxf.c:52
-msgid "Drawing Interchange File import and export filters"
-msgstr "Drawing Interchange File import- en exportfilters"
-
-#: plug-ins/dxf/dxf-export.c:666 plug-ins/dxf/dxf-import.c:1429
+#: plug-ins/dxf/dia-dxf.c:52 plug-ins/dxf/dia-dxf-import.c:1441
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
-#: plug-ins/dxf/dxf-import.c:1338
+#: plug-ins/dxf/dia-dxf.c:80
+msgid "Drawing Interchange File import and export filters"
+msgstr "Drawing Interchange File import- en exportfilters"
+
+#: plug-ins/dxf/dia-dxf-import.c:1343 plug-ins/wpg/wpg-import.c:519
+#: plug-ins/xfig/xfig-import.c:1322
+#, c-format
+msgid "Couldn't open: '%s' for reading.\n"
+msgstr "Kon '%s' niet openen voor lezen.\n"
+
+#: plug-ins/dxf/dia-dxf-import.c:1354
 #, c-format
 msgid "read_dxf_codes failed on '%s'"
 msgstr "read_dxf_codes mislukt voor '%s'"
 
-#: plug-ins/dxf/dxf-import.c:1345
+#: plug-ins/dxf/dia-dxf-import.c:1361
 #, c-format
 msgid "Binary DXF from '%s' not supported"
 msgstr "Binaire DXF van '%s' niet ondersteund"
@@ -6382,7 +6441,7 @@ msgid "TeX Metapost export filter"
 msgstr "TeX Metapost exportfilter"
 
 #: plug-ins/metapost/render_metapost.c:909
-#: plug-ins/pstricks/render_pstricks.c:879 plug-ins/wpg/wpg.c:920
+#: plug-ins/pstricks/render_pstricks.c:901 plug-ins/wpg/wpg.c:920
 msgid "Not enough memory for image drawing."
 msgstr "Niet voldoende geheugen voor tekenen van afbeelding."
 
@@ -6402,12 +6461,12 @@ msgstr "Portable Document File"
 msgid "PDF import filter"
 msgstr "PDF importfilter"
 
-#: plug-ins/pdf/pdf-import.cpp:436
+#: plug-ins/pdf/pdf-import.cpp:479
 #, c-format
 msgid "Page %d"
 msgstr "Pagina %d"
 
-#: plug-ins/pdf/pdf-import.cpp:915
+#: plug-ins/pdf/pdf-import.cpp:984
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6423,7 +6482,7 @@ msgstr "LaTeX PGF exportfilter"
 msgid "Not valid UTF-8"
 msgstr "Geen geldige UTF-8"
 
-#: plug-ins/pgf/render_pgf.c:1422
+#: plug-ins/pgf/render_pgf.c:1444
 msgid "LaTeX PGF macros"
 msgstr "LaTeX PGF macro's"
 
@@ -6461,7 +6520,7 @@ msgstr "gdk-pixbuf gebaseerde bitmap exporteren/importeren"
 msgid "TeX PSTricks export filter"
 msgstr "TeX Pstricks exportfilter"
 
-#: plug-ins/pstricks/render_pstricks.c:1047
+#: plug-ins/pstricks/render_pstricks.c:1069
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks macro's"
 
@@ -6470,7 +6529,7 @@ msgstr "TeX PSTricks macro's"
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Kon '%s' niet openen voor schrijven.\n"
 
-#: plug-ins/python/python.c:103
+#: plug-ins/python/python.c:102
 msgid "Python scripting support"
 msgstr "Python scripten ondersteuning"
 
@@ -6683,19 +6742,23 @@ msgstr "Afbeeldingen uit regels halen"
 msgid "Dia shape export filter"
 msgstr "Dia vorm exportfilter"
 
-#: plug-ins/shape/shape-export.c:624
+#: plug-ins/shape/shape-export.c:296
+msgid "Shape Export"
+msgstr "Vorm exporteren"
+
+#: plug-ins/shape/shape-export.c:616
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr "Vormbestanden moeten eindigen op .shape, of zij kunnen niet worden geladen door Dia"
 
-#: plug-ins/shape/shape-export.c:634
+#: plug-ins/shape/shape-export.c:626
 msgid "Can't export PNG icon without export plugin!"
 msgstr "Kan geen pictogram van PNG  exporteren zonder plug-in voor exporteren!"
 
-#: plug-ins/shape/shape-export.c:667
+#: plug-ins/shape/shape-export.c:659
 msgid "Dia Shape File"
 msgstr "Dia vormbestand"
 
-#: plug-ins/svg/render_svg.c:701 plug-ins/svg/svg-import.c:2277
+#: plug-ins/svg/render_svg.c:700 plug-ins/svg/svg-import.c:2280
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -6715,16 +6778,16 @@ msgid ""
 msgstr "Ongeldige padgegevens.\n"
 "svg:padgegevens moeten beginnen met moveto."
 
-#: plug-ins/svg/svg-import.c:2043
+#: plug-ins/svg/svg-import.c:2047
 msgid "'Shape Design' shapes missing."
 msgstr "'Shape Design'-vormen ontbreken."
 
-#: plug-ins/svg/svg-import.c:2077
+#: plug-ins/svg/svg-import.c:2081
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Maken van object '%s' mislukt"
 
-#: plug-ins/svg/svg-import.c:2106
+#: plug-ins/svg/svg-import.c:2110
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6732,28 +6795,11 @@ msgid ""
 msgstr "Fout bij parsen voor geheugenblok.\n"
 "%s"
 
-#: plug-ins/svg/svg-import.c:2124
-#, c-format
-msgid ""
-"SVG parser error for %s\n"
-"%s"
-msgstr "SVG fout bij parsen voor %s\n"
-"%s"
-
-#. just a warning
-#: plug-ins/svg/svg-import.c:2130
-#, c-format
-msgid ""
-"SVG parser warning for %s\n"
-"%s"
-msgstr "SVG waarschuwing parser voor %s\n"
-"%s"
-
-#: plug-ins/svg/svg-import.c:2163
+#: plug-ins/svg/svg-import.c:2166
 msgid "Expected SVG name-space not found in file"
 msgstr "Verwachte SVG naamruimte niet gevonden in bestand"
 
-#: plug-ins/svg/svg-import.c:2183
+#: plug-ins/svg/svg-import.c:2186
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "hoofdelement was '%s' -- verwacht 'svg'."
@@ -6781,50 +6827,47 @@ msgstr "Kon kleur niet lezen: %s"
 msgid "Couldn't find shape %d"
 msgstr "Kon vorm niet vinden %d"
 
-#: plug-ins/vdx/vdx-import.c:1071
+#: plug-ins/vdx/vdx-import.c:1072
 #, c-format
 msgid "Unexpected Ellipse object: %s"
 msgstr "Onverwacht object Ellips: %s"
 
-#: plug-ins/vdx/vdx-import.c:1085
+#: plug-ins/vdx/vdx-import.c:1086
 msgid "Can't rotate ellipse"
 msgstr "Kan ellips niet draaien"
 
-#: plug-ins/vdx/vdx-import.c:1416
+#: plug-ins/vdx/vdx-import.c:1417
 msgid "MoveTo not at start of Bezier"
 msgstr "MoveTo niet aan begin van Kromme"
 
-#: plug-ins/vdx/vdx-import.c:1766
+#: plug-ins/vdx/vdx-import.c:1767
 msgid "Invalid NURBS formula"
 msgstr "Ongeldige formule NURBS"
 
-#: plug-ins/vdx/vdx-import.c:2025
+#: plug-ins/vdx/vdx-import.c:2027
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Kon vreemde objecttype %s niet afhandelen"
 
-#: plug-ins/vdx/vdx-import.c:2960
+#: plug-ins/vdx/vdx-import.c:2966
 #, c-format
-msgid ""
-"VDX parser error for %s\n"
-"%s"
-msgstr "VDX fout bij parsen voor %s\n"
-"%s"
+msgid "VDX parser error for %s"
+msgstr "VDX parserfout voor %s"
 
-#: plug-ins/vdx/vdx-import.c:2972
+#: plug-ins/vdx/vdx-import.c:2979
 msgid "Nothing in document!"
 msgstr "Niets in document!"
 
-#: plug-ins/vdx/vdx-import.c:2977
+#: plug-ins/vdx/vdx-import.c:2984
 #, c-format
 msgid "Expecting VisioDocument, got %s"
 msgstr "Verwachtte VisioDocument, kreeg %s"
 
-#: plug-ins/vdx/vdx-import.c:3061
+#: plug-ins/vdx/vdx-import.c:3068
 msgid "Visio XML File Format"
 msgstr "Visio XML-bestandsindeling"
 
-#: plug-ins/vdx/vdx-xml.c:3345
+#: plug-ins/vdx/vdx-xml.c:3344
 #, c-format
 msgid "Can't decode object %s"
 msgstr "Kan object %s niet decoderen"
@@ -6972,131 +7015,131 @@ msgstr "Straal negatieve hoek; negatief maken"
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Onbekend polylijn subtype: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:749 plug-ins/xfig/xfig-import.c:781
+#: plug-ins/xfig/xfig-import.c:750 plug-ins/xfig/xfig-import.c:782
 msgid "Couldn't read spline info."
 msgstr "Kon informatie van spline niet lezen."
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:768 plug-ins/xfig/xfig-import.c:785
+#: plug-ins/xfig/xfig-import.c:769 plug-ins/xfig/xfig-import.c:786
 msgid "Cannot convert approximated spline yet."
 msgstr "Kan benaderde spline nog niet converteren."
 
-#: plug-ins/xfig/xfig-import.c:823
+#: plug-ins/xfig/xfig-import.c:825
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Onbekend spline subtype: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:888
+#: plug-ins/xfig/xfig-import.c:890
 msgid "Couldn't read arc info."
 msgstr "Kon informatie van boog niet lezen."
 
 #. set new fill property on arc?
-#: plug-ins/xfig/xfig-import.c:916
+#: plug-ins/xfig/xfig-import.c:918
 msgid "Filled arc treated as unfilled"
 msgstr "Opgevulde boog behandeld als niet gevuld"
 
-#: plug-ins/xfig/xfig-import.c:920
+#: plug-ins/xfig/xfig-import.c:922
 #, c-format
 msgid "Unknown polyline arc: %d\n"
 msgstr "Onbekende boog polylijn: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:985
+#: plug-ins/xfig/xfig-import.c:987
 msgid "Couldn't read text info."
 msgstr "Kon informatie van tekst niet lezen."
 
-#: plug-ins/xfig/xfig-import.c:1013
+#: plug-ins/xfig/xfig-import.c:1015
 #, c-format
 msgid "Can't find LaTeX font nr. %d, using sans"
 msgstr "Kan LaTeX lettertype nr. %d  niet vinden, sans wordt gebruikt"
 
-#: plug-ins/xfig/xfig-import.c:1021
+#: plug-ins/xfig/xfig-import.c:1023
 #, c-format
 msgid "Can't find PostScript font nr. %d, using sans"
 msgstr "Kan PostScript lettertype nr. %d  niet vinden, sans wordt gebruikt"
 
-#: plug-ins/xfig/xfig-import.c:1050
+#: plug-ins/xfig/xfig-import.c:1052
 msgid "Couldn't identify Fig object."
 msgstr "Kon object van Fig niet identificeren."
 
-#: plug-ins/xfig/xfig-import.c:1058
+#: plug-ins/xfig/xfig-import.c:1060
 msgid "Compound end outside compound\n"
 msgstr "Einde samenstelling buiten samenstelling\n"
 
-#: plug-ins/xfig/xfig-import.c:1080
+#: plug-ins/xfig/xfig-import.c:1082
 msgid "Couldn't read color\n"
 msgstr "Kon kleur niet lezen\n"
 
-#: plug-ins/xfig/xfig-import.c:1085
+#: plug-ins/xfig/xfig-import.c:1087
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "Kleurnummer %d buiten bereik van 0..%d.  Kleur wordt genegeerd.\n"
 
-#: plug-ins/xfig/xfig-import.c:1132
+#: plug-ins/xfig/xfig-import.c:1134
 msgid "Couldn't read group extent."
 msgstr "Kon bereik groep niet lezen."
 
-#: plug-ins/xfig/xfig-import.c:1143
+#: plug-ins/xfig/xfig-import.c:1145
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Onbekend object type %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1170
+#: plug-ins/xfig/xfig-import.c:1172
 #, c-format
 msgid "“%s” is not one of “%s” or “%s”\n"
 msgstr "“%s” is niet een van “%s” of “%s”\n"
 
-#: plug-ins/xfig/xfig-import.c:1185
+#: plug-ins/xfig/xfig-import.c:1187
 msgid "Error reading paper size."
 msgstr "Fout bij lezen papiergrootte."
 
-#: plug-ins/xfig/xfig-import.c:1197
+#: plug-ins/xfig/xfig-import.c:1199
 #, c-format
 msgid "Unknown paper size “%s”, using default\n"
 msgstr "Onbekende papiergrootte “%s”, standaard wordt gebruikt\n"
 
-#: plug-ins/xfig/xfig-import.c:1213
+#: plug-ins/xfig/xfig-import.c:1215
 msgid "Error reading paper orientation."
 msgstr "Fout bij lezen oriëntatie van papier."
 
-#: plug-ins/xfig/xfig-import.c:1223
+#: plug-ins/xfig/xfig-import.c:1225
 msgid "Error reading justification."
 msgstr "Fout bij lezen van reading verantwoording."
 
-#: plug-ins/xfig/xfig-import.c:1233
+#: plug-ins/xfig/xfig-import.c:1235
 msgid "Error reading units."
 msgstr "Fout bij lezen van eenheden."
 
-#: plug-ins/xfig/xfig-import.c:1249
+#: plug-ins/xfig/xfig-import.c:1251
 msgid "Error reading magnification."
 msgstr "Fout bij lezen van vergroting."
 
-#: plug-ins/xfig/xfig-import.c:1262
+#: plug-ins/xfig/xfig-import.c:1264
 msgid "Error reading multipage indicator."
 msgstr "Fout bij lezen van indicatie voor meerdere pagina's."
 
-#: plug-ins/xfig/xfig-import.c:1273
+#: plug-ins/xfig/xfig-import.c:1275
 msgid "Error reading transparent color."
 msgstr "Fout bij lezen van kleur voor transparantie."
 
-#: plug-ins/xfig/xfig-import.c:1282 plug-ins/xfig/xfig-import.c:1343
-#: plug-ins/xfig/xfig-import.c:1363
+#: plug-ins/xfig/xfig-import.c:1284 plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:1365
 msgid "Error reading Fig file."
 msgstr "Fout bij lezen van bestand van Fig."
 
-#: plug-ins/xfig/xfig-import.c:1284
+#: plug-ins/xfig/xfig-import.c:1286
 msgid "Premature end of Fig file\n"
 msgstr "Voortijdig einde van bestand van Fig\n"
 
-#: plug-ins/xfig/xfig-import.c:1293
+#: plug-ins/xfig/xfig-import.c:1295
 msgid "Error reading resolution."
 msgstr "Fout bij lezen van resolutie."
 
-#: plug-ins/xfig/xfig-import.c:1329
+#: plug-ins/xfig/xfig-import.c:1331
 msgid "Doesn't look like a Fig file"
 msgstr "Lijkt niet op een bestand van Fig"
 
-#: plug-ins/xfig/xfig-import.c:1335
+#: plug-ins/xfig/xfig-import.c:1337
 #, c-format
 msgid ""
 "This is a Fig version %d.%d file.\n"
@@ -7104,71 +7147,105 @@ msgid ""
 msgstr "Dit is een bestand van Fig versie %d.%d.\n"
 " Het zou niet geïmporteerd kunnen worden."
 
-#: plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:1347
 msgid "Premature end of Fig file"
 msgstr "Voortijdig einde van bestand van Fig"
 
-#: plug-ins/xfig/xfig-import.c:1390
+#: plug-ins/xfig/xfig-import.c:1392
 msgid "Xfig File Format"
 msgstr "Xfig bestandsindeling"
 
-#: plug-ins/xslt/xslt.c:109
-#, c-format
-msgid "Can't open output file %s: %s\n"
-msgstr "Kan uitvoerbestand %s niet openen: %s\n"
-
-#: plug-ins/xslt/xslt.c:118
-#, c-format
-msgid ""
-"Error while parsing %s\n"
-"%s"
-msgstr "Fout bij parsen %s\n"
-"%s"
-
-#: plug-ins/xslt/xslt.c:128
-#, c-format
-msgid "Error while parsing stylesheet %s\n"
-msgstr "Fout tijdens parsen stylesheet %s\n"
-
-#: plug-ins/xslt/xslt.c:135
-#, c-format
-msgid "Error while applying stylesheet %s\n"
-msgstr "Fout tijdens toepassen stylesheet %s\n"
-
-#: plug-ins/xslt/xslt.c:144
-#, c-format
-msgid "Error while parsing stylesheet: %s\n"
-msgstr "Fout tijdens parsen stylesheet: %s\n"
-
-#: plug-ins/xslt/xslt.c:153
-#, c-format
-msgid "Error while applying stylesheet: %s\n"
-msgstr "Fout tijdens toepassen stylesheet: %s\n"
-
-#: plug-ins/xslt/xslt.c:161
-#, c-format
-msgid "Error while saving result: %s\n"
-msgstr "Fout bij opslaan resultaat: %s\n"
-
-#: plug-ins/xslt/xslt.c:332
-msgid "XSL Transformation filter"
-msgstr "XSL transformatiefilter"
-
-#: plug-ins/xslt/xslt.c:357
-msgid "No valid configuration files found for the XSLT plugin; not loading."
-msgstr "Geen geldige configuratiebestanden gevonden voor de plug-in XSLT; niet geladen."
-
-#: plug-ins/xslt/xsltdialog.c:85
+#: plug-ins/xslt/dia-xslt-dialogue.ui:4
 msgid "Export through XSLT"
 msgstr "Exporteren met XSLT"
 
-#: plug-ins/xslt/xsltdialog.c:99
-msgid "From:"
-msgstr "Van:"
+#: plug-ins/xslt/dia-xslt-dialogue.ui:14
+msgid "_From"
+msgstr "_Van"
 
-#: plug-ins/xslt/xsltdialog.c:129
-msgid "To:"
-msgstr "Naar:"
+#: plug-ins/xslt/dia-xslt-dialogue.ui:42
+msgid "_To"
+msgstr "_Aan"
+
+#: plug-ins/xslt/dia-xslt.c:214 plug-ins/xslt/dia-xslt.c:225
+#, c-format
+msgid ""
+"Name and stylesheet attributes are required for the implementation element "
+"%s in XSLT plugin configuration file"
+msgstr "Naam- en stylesheet-attributen zijn vereist voor de implementatie van het element %s in XSLT plug-in configuratiebestand"
+
+#: plug-ins/xslt/dia-xslt.c:260
+#, c-format
+msgid "Couldn't parse XSLT plugin's configuration file %s"
+msgstr "Kon XSLT plug-in configuratiebestand %s niet parsen"
+
+#: plug-ins/xslt/dia-xslt.c:269
+#, c-format
+msgid "XSLT plugin's configuration file %s is empty"
+msgstr "XSLT plug-in configuratiebestand %s is leeg"
+
+#: plug-ins/xslt/dia-xslt.c:290 plug-ins/xslt/dia-xslt.c:301
+#, c-format
+msgid ""
+"'name' and 'stylesheet' attributes are required for the language element %s "
+"in XSLT plugin configuration file"
+msgstr "attributen 'name' en 'stylesheet' zijn vereist voor het taalelement %s in XSLT plug-in configuratiebestand"
+
+#: plug-ins/xslt/dia-xslt.c:318
+#, c-format
+msgid ""
+"No implementation stylesheet for language %s in XSLT plugin configuration "
+"file"
+msgstr "Geen implementatie stylesheet voor taal %s in XSLT plug-in configuratiebestand"
+
+#: plug-ins/xslt/dia-xslt.c:330
+#, c-format
+msgid ""
+"Wrong node name %s in XSLT plugin configuration file, 'language' expected"
+msgstr "Verkeerde naam node %s in XSLT plug-in configuratiebestand, 'taal' verwacht"
+
+#: plug-ins/xslt/dia-xslt.c:375
+msgid "No valid configuration files found for the XSLT plugin; not loading."
+msgstr "Geen geldige configuratiebestanden gevonden voor de plug-in XSLT; niet geladen."
+
+#: plug-ins/xslt/dia-xslt.c:422 plug-ins/xslt/dia-xslt.c:568
+#: plug-ins/xslt/dia-xslt.c:578
+#, c-format
+msgid "Error while saving %s: %s"
+msgstr "Fout bij opslaan %s: %s"
+
+#: plug-ins/xslt/dia-xslt.c:472
+#, c-format
+msgid "Can't open output file %s: %s"
+msgstr "Kan uitvoerbestand %s niet openen: %s"
+
+#: plug-ins/xslt/dia-xslt.c:487
+#, c-format
+msgid "Error while parsing: %s"
+msgstr "Fout tijdens parsen: %s"
+
+#: plug-ins/xslt/dia-xslt.c:500 plug-ins/xslt/dia-xslt.c:520
+#, c-format
+msgid "Error while parsing stylesheet: %s"
+msgstr "Fout tijdens parsen stylesheet: %s"
+
+#: plug-ins/xslt/dia-xslt.c:509 plug-ins/xslt/dia-xslt.c:531
+#, c-format
+msgid "Error while applying stylesheet: %s"
+msgstr "Fout tijdens toepassen stylesheet: %s"
+
+#: plug-ins/xslt/dia-xslt.c:542 plug-ins/xslt/dia-xslt.c:550
+#, c-format
+msgid "Error while saving result: %s"
+msgstr "Fout bij opslaan resultaat: %s"
+
+#: plug-ins/xslt/dia-xslt.c:669
+msgid "XSLT Plugin"
+msgstr "XSLT plug-in"
+
+#: plug-ins/xslt/dia-xslt.c:676
+msgid "XSL Transformation filter"
+msgstr "XSL transformatiefilter"
 
 #: sheets/AADL.sheet:3
 msgid "AADL"
@@ -11054,6 +11131,60 @@ msgstr "Activiteit"
 msgid "Fork/Union"
 msgstr "Afsplitsing/Verenigen"
 
+#~ msgid "You must specify a file, not a directory."
+#~ msgstr "U moet een bestand specificeren, niet een map."
+
+#, c-format
+#~ msgid "Not allowed to write to output file %s\n"
+#~ msgstr "Niet toegestaan om te schrijven naar uitvoerbestand %s\n"
+
+#, c-format
+#~ msgid "Not allowed to write temporary files in %s\n"
+#~ msgstr "Niet toegestaan om tijdelijke bestanden te schrijven in %s\n"
+
+#, c-format
+#~ msgid "Can't rename %s to final output file %s"
+#~ msgstr "Kan %s niet hernoemen naar uiteindelijk uitvoerbestand %s"
+
+#, c-format
+#~ msgid "Couldn't open: '%s' for writing"
+#~ msgstr "Kon '%s' niet openen voor schrijven"
+
+#, c-format
+#~ msgid ""
+#~ "The file %s has no encoding specification;\n"
+#~ "assuming it is encoded in %s"
+#~ msgstr ""
+#~ "Het bestand %s heeft geen specificatie voor de codering;\n"
+#~ "aangenomen wordt dat het gecodeerd is in %s"
+
+#, c-format
+#~ msgid ""
+#~ "SVG parser error for %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "SVG fout bij parsen voor %s\n"
+#~ "%s"
+
+#, c-format
+#~ msgid ""
+#~ "SVG parser warning for %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "SVG waarschuwing parser voor %s\n"
+#~ "%s"
+
+#, c-format
+#~ msgid "Error while parsing stylesheet %s\n"
+#~ msgstr "Fout tijdens parsen stylesheet %s\n"
+
+#, c-format
+#~ msgid "Error while applying stylesheet %s\n"
+#~ msgstr "Fout tijdens toepassen stylesheet %s\n"
+
+#~ msgid "To:"
+#~ msgstr "Naar:"
+
 #~ msgid "Show this help message"
 #~ msgstr "Laat dit help bericht zien"
 
@@ -11510,10 +11641,6 @@ msgstr "Afsplitsing/Verenigen"
 #~ msgstr ""
 #~ "Kan plugin '%s' niet laden\n"
 #~ "%s"
-
-#, c-format
-#~ msgid "Could not find plugin init function in `%s'"
-#~ msgstr "Kon geen plugin init functie vinden in `%s'"
 
 #, c-format
 #~ msgid "%s Plugin could not be unloaded"
@@ -12096,9 +12223,6 @@ msgstr "Afsplitsing/Verenigen"
 
 #~ msgid "Courier"
 #~ msgstr "Courier"
-
-#~ msgid "Could not find SVG namespace."
-#~ msgstr "Kan SVG namespace niet vinden."
 
 #~ msgid "Export to file format and exit.  Supported formats are: %s"
 #~ msgstr ""
