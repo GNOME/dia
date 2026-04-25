@@ -4,17 +4,18 @@
 
 ### General
 
-Dia is currently built using [meson](https://github.com/mesonbuild/meson).  Meson can be installed either via a package manager or run directly from source code.  Please take 2 minutes to read their [Quick Guide](https://mesonbuild.com/Quick-guide.html).  It provides all the needed information to obtain meson and run it.
+Dia is built using [meson](https://github.com/mesonbuild/meson), take a look
+at their [Quick Guide](https://mesonbuild.com/Quick-guide.html) for help
+getting started with meson.
 
-Build requirements are documented in the root [meson.build](/meson.build) file.  Meson is designed to be readable so please have a skim through the file.  Some dependencies are required, while others are optional.
+We have a number of direct dependencies, check the `dependency()` calls in
+the root [meson.build](/meson.build) file for the definitive list. Note some
+dependencies are only needed when building certain plug-ins.
 
-As can be seen from `meson.build`, the main requirements are **GTK3** 3.24, **graphene**, **libxml2** and **zlib**.
+Our key dependencies are Gtk 3, GLib/GIO, libxml2, cairo, and graphene.
 
-For reference, a number of other libraries are recommended for extra features.  However, not all these have been moved to meson.  It is recommended you run `meson build` (to configure the build directory) and then check which optional dependencies are not found:
-
-- Libxslt allows export through XSLT translation schemas:
-  - ftp://ftp.gnome.org/pub/GNOME/sources/libxslt/
-- **Python scripting is also possible** by installing Python 3 and PyGObject.
+Some optional dependencies include libxslt, for the XSLT translation plug-in,
+and python3/PyGObject for python scripting.
 
 ### Windows
 

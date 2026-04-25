@@ -1,9 +1,8 @@
 # Coding on Dia
 
-Feel free to hack away at dia, but you're advised to contact
-the dia maintainers and/or the mailing list if you do any
-larger work --- this is in everyone's interest so that work is
-not duplicated.
+Feel free to hack away at dia, but you're advised to contact the dia
+maintainers if you do any larger work --- this is in everyone's interest so
+that work is not duplicated.
 
 For more information on the authors, maintainers, etc., of dia,
 please see the file AUTHORS and the git history, after 20 years a lot of people have worked on Dia
@@ -15,6 +14,10 @@ dia-related things.
 If you need to alter the list of contributors, documentors,
 etc., the main list is in app/authors.h.
 
+## So-called ‘AI’
+
+All hallucinations in Dia are purely organic in origin, check the policy
+in [README.md](./README.md) for more information.
 
 ## Some comments about the source
 Everything on the screen 'inherits' from the structure Object
