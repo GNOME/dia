@@ -35,11 +35,11 @@
 #include "autoroute.h"
 
 #define MAX_BADNESS 10000.0
-/** Add badness if a line is shorter than this distance. */
+/* Add badness if a line is shorter than this distance. */
 #define MIN_DIST 1.0
-/** The maximum badness that can be given for a line being too short. */
+/* The maximum badness that can be given for a line being too short. */
 #define MAX_SMALL_BADNESS 10.0
-/** The badness given for having extra segments. */
+/* The badness given for having extra segments. */
 #define EXTRA_SEGMENT_BADNESS 10.0
 
 static real calculate_badness(Point *ps, guint num_points);

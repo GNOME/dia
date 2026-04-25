@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** \file geometry.h -- basic geometry classes and functions operationg on them */
-#ifndef GEOMETRY_H
-#define GEOMETRY_H
+#pragma once
 
 #include <config.h>
 
@@ -325,5 +323,3 @@ real dia_asin (real x);
 real dia_acos (real x);
 
 G_END_DECLS
-
-#endif /* GEOMETRY_H */

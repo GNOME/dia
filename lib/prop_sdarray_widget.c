@@ -63,7 +63,8 @@
 #include "diacellrendererenum.h"
 #include "prop_sdarray_widget.h"
 
-/** A small wrapper to connect to the model */
+
+/* A small wrapper to connect to the model */
 static GtkCellRenderer *
 _cell_renderer_enum_new (const Property *p, GtkTreeView *tree_view)
 {
@@ -80,7 +81,8 @@ _cell_renderer_spin_new (const Property *p, GtkTreeView *tree_view)
   return gtk_cell_renderer_spin_new ();
 }
 
-/** Wrapper to setup ranges */
+
+/* Wrapper to setup ranges */
 static GtkCellRenderer *
 _cell_renderer_real_new (const Property *p, GtkTreeView *tree_view)
 {
@@ -99,7 +101,9 @@ _cell_renderer_real_new (const Property *p, GtkTreeView *tree_view)
 
   return cren;
 }
-/** Make it editable, connect signals */
+
+
+/* Make it editable, connect signals */
 static void
 _toggle_callback (GtkCellRendererToggle *renderer,
                   gchar                 *path_string,

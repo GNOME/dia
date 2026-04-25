@@ -44,7 +44,7 @@ G_DECLARE_FINAL_TYPE (DiaBezierConnCornerObjectChange, dia_bezier_conn_corner_ob
  * \extends _DiaObject
  */
 struct _BezierConn {
-  DiaObject object; /**< inheritance */
+  DiaObject object;
 
   /*! Common bezier object stuff */
   BezierCommon bezier;

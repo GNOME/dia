@@ -39,7 +39,7 @@
 #include "focus.h"
 
 
-/** Returns the list of foci for the given diagram */
+/* Returns the list of foci for the given diagram */
 static GList *
 get_text_foci(DiagramData *dia)
 {

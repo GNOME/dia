@@ -16,8 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** @file diatypes.h -- All externally visible structures should be defined here */
-
 /* THIS HEADER MUST NOT INCLUDE ANY OTHER HEADER! */
 
 #pragma once
@@ -168,7 +166,7 @@ typedef struct _TextLine TextLine;
 /* In textattr.h: */
 typedef struct _TextAttributes TextAttributes;
 
-/** A standard definition of a function that takes a DiaObject */
+/* A standard definition of a function that takes a DiaObject */
 typedef void (*DiaObjectFunc) (const DiaObject *obj);
 
 typedef enum {

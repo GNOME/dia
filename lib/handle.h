@@ -112,7 +112,7 @@ typedef enum {
  * HandleConnectType:
  * @HANDLE_NONCONNECTABLE: Not connectable
  * @HANDLE_CONNECTABLE: Connectable
- * @HANDLE_CONNECTABLE_NOBREAK: (unused) Don't break connection on object move
+ * @HANDLE_CONNECTABLE_NOBREAK: Don't break connection on object move (unused!)
  *
  * If the handle is connectable or not
  */

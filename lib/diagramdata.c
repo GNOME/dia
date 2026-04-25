@@ -290,7 +290,7 @@ dia_diagram_data_class_init (DiagramDataClass *klass)
   klass->selection_changed = _diagram_data_selection_changed;
 
   /**
-   * DiagramData:active-layer:
+   * DiaDiagramData:active-layer:
    *
    * Since: 0.98
    */

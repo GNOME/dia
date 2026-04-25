@@ -73,7 +73,7 @@ dia_toggle_button_destroy (GtkWidget *widget, gpointer data)
 }
 
 
-/** Create a toggle button given two image widgets for on and off */
+/* Create a toggle button given two image widgets for on and off */
 static GtkWidget *
 dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
 {

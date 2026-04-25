@@ -73,10 +73,10 @@ typedef struct _StdPath StdPath;
  * \ingroup StandardObjects
  */
 struct _StdPath {
-  DiaObject object; /**< inheritance */
+  DiaObject object;
 
-  int num_points; /**< >= 2 */
-  BezPoint *points; /**< point data */
+  int num_points; /* >= 2 */
+  BezPoint *points; /* point data */
 
   int stroke_or_fill;
 

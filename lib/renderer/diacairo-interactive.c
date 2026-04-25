@@ -53,7 +53,7 @@ struct _DiaCairoInteractiveRenderer {
   double selection_width;
   double selection_height;
 
-  /** If non-NULL, this rendering is a highlighting with the given color. */
+  /* If non-NULL, this rendering is a highlighting with the given color. */
   Color *highlight_color;
 };
 
@@ -524,7 +524,7 @@ dia_cairo_interactive_renderer_set_size (DiaInteractiveRenderer *object,
   g_clear_pointer (&base_renderer->surface, cairo_surface_destroy);
 }
 
-/** Used as background? for text editing */
+/* Used as background? for text editing */
 static Color text_edit_color = {1.0, 1.0, 0.7 };
 
 static void

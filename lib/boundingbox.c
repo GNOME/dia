@@ -29,7 +29,6 @@
 
 /**
  * bernstein_develop:
- *
  * @p: x- or y-part of the four points
  * @A:
  * @B:

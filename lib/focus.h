@@ -50,7 +50,7 @@ gboolean remove_focus_object(DiaObject *obj);
 void reset_foci_on_diagram(DiagramData *dia);
 DiaObject* focus_get_object(Focus *focus);
 
-/** Exposing this is a hack, but currently GTK still captures the key
+/* Exposing this is a hack, but currently GTK still captures the key
  * events of insensitive clods^H^H^H^H^Hmenu items. LC 21/10 2007*/
 gboolean text_delete_key_handler(Focus *focus, DiaObjectChange **change);
 

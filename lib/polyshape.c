@@ -284,7 +284,7 @@ polyshape_remove_point (PolyShape *poly, int pos)
 }
 
 
-/** Returns the first clockwise direction in dirs
+/* Returns the first clockwise direction in dirs
  * (as returned from find_slope_directions) */
 static gint
 first_direction(gint dirs) {
@@ -297,7 +297,8 @@ first_direction(gint dirs) {
   }
 }
 
-/** Returns the last clockwise direction in dirs
+
+/* Returns the last clockwise direction in dirs
  * (as returned from find_slope_directions) */
 static gint
 last_direction(gint dirs) {
@@ -310,7 +311,8 @@ last_direction(gint dirs) {
   }
 }
 
-/** Returns the available directions for a corner */
+
+/* Returns the available directions for a corner */
 static gint
 find_tip_directions(Point prev, Point this, Point next)
 {

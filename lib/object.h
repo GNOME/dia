@@ -231,8 +231,10 @@ typedef gboolean (*TransformFunc) (DiaObject *obj, const DiaMatrix *m);
  *************************************/
 
 void object_init(DiaObject *obj, int num_handles, int num_connections);
+#ifndef __GI_SCANNER__
 void object_destroy(DiaObject *obj); /* Unconnects handles, so don't
 					    free handles before calling. */
+#endif
 void object_copy(DiaObject *from, DiaObject *to);
 
 void object_save(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
@@ -248,7 +250,9 @@ DiaObjectChange *object_substitute        (DiaObject *obj,
                                            DiaObject *subst);
 
 void destroy_object_list (GList *list_to_be_destroyed);
+#ifndef __GI_SCANNER__
 void object_add_handle(DiaObject *obj, Handle *handle);
+#endif
 void object_add_handle_at(DiaObject *obj, Handle *handle, int pos);
 void object_remove_handle(DiaObject *obj, Handle *handle);
 void object_add_connectionpoint(DiaObject *obj, ConnectionPoint *conpoint);
@@ -553,7 +557,7 @@ gboolean         dia_object_is_selectable(DiaObject *obj);
 /* The below is for debugging purposes only. */
 gboolean   dia_object_sanity_check(const DiaObject *obj, const gchar *msg);
 
-/** convenience functions for meta info */
+/* convenience functions for meta info */
 void   dia_object_set_meta (DiaObject *obj, const gchar *key, const gchar *value);
 gchar *dia_object_get_meta (DiaObject *obj, const gchar *key);
 

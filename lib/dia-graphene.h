@@ -76,12 +76,14 @@ static inline void
 dia_rectangle_to_graphene (const DiaRectangle *rect,
                            graphene_rect_t    *graphene)
 {
+#ifndef __GI_SCANNER__
   graphene_rect_t tmp;
   graphene_point_t bottom_right =
     GRAPHENE_POINT_INIT (rect->right, rect->bottom);
 
   graphene_rect_init (&tmp, rect->left, rect->top, 0.0, 0.0);
   graphene_rect_expand (&tmp, &bottom_right, graphene);
+#endif
 }
 
 G_END_DECLS

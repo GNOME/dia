@@ -904,7 +904,7 @@ new_handles_and_connections (BezierShape *bezier, int num_points)
     obj->connections[2 * i + 1]->flags = 0;
   }
 
-  /** Main point */
+  /* Main point */
   obj->connections[obj->num_connections - 1] = g_new0 (ConnectionPoint, 1);
   obj->connections[obj->num_connections - 1]->object = obj;
   obj->connections[obj->num_connections - 1]->flags = CP_FLAGS_MAIN;

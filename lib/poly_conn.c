@@ -382,7 +382,8 @@ polyconn_init(PolyConn *poly, int num_points)
   polyconn_update_data(poly);
 }
 
-/** This function does *not* set up handles */
+
+/* This function does *not* set up handles */
 void
 polyconn_set_points(PolyConn *poly, int num_points, Point *points)
 {

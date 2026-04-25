@@ -60,7 +60,7 @@ struct _TextLine {
   DiaFont *font_cache;
   double height_cache;
 
-  /** Offsets of the individual glyphs in the string.  */
+  /* Offsets of the individual glyphs in the string.  */
   double *offsets;
   PangoLayoutLine *layout_offsets;
 };

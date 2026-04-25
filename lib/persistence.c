@@ -110,7 +110,8 @@ persistence_load_window(gchar *role, xmlNodePtr node, DiaContext *ctx)
   g_hash_table_insert(persistent_windows, role, wininfo);
 }
 
-/** Load a persistent string into the strings hashtable */
+
+/* Load a persistent string into the strings hashtable */
 static void
 persistence_load_entrystring(gchar *role, xmlNodePtr node, DiaContext *ctx)
 {

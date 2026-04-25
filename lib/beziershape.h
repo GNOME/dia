@@ -19,8 +19,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** \file beziershape.h Allows to construct closed objects consisting of bezier lines */
-
 #pragma once
 
 #include "diatypes.h"

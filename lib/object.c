@@ -1253,12 +1253,19 @@ dia_object_get_meta (DiaObject *obj, const gchar *key)
   return g_strdup (val);
 }
 
-/* The below are for debugging purposes only. */
 
-/** Check that a DiaObject maintains its invariants and constrains.
- * @param obj An object to check
- * @param msg Comment on the sanity
- * @return TRUE if the object is OK. */
+/**
+ * dia_object_sanity_check:
+ * @obj: An object to check
+ * @msg: Comment on the sanity
+ *
+ * Check that a [type@Dia.Object] maintains its invariants and constrains.
+ *
+ * ::: note
+ *     For debugging purposes only.
+ *
+ * Returns: %TRUE if the object is OK.
+ */
 gboolean
 dia_object_sanity_check(const DiaObject *obj, const gchar *msg) {
   int i;
