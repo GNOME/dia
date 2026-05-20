@@ -76,8 +76,6 @@ struct _DiaXfigRenderer {
   DiaLineStyle stylemode;
   double dashlength;
   DiaFillStyle fillmode;
-  DiaFont *font;
-  double fontheight;
 
   gboolean color_pass;
   Color user_colors[512];
@@ -88,88 +86,12 @@ struct _DiaXfigRenderer {
 
 G_DEFINE_TYPE (DiaXfigRenderer, dia_xfig_renderer, DIA_TYPE_RENDERER)
 
-enum {
-  PROP_0,
-  PROP_FONT,
-  PROP_FONT_HEIGHT,
-  LAST_PROP
-};
-
 
 /* check whether there exists an arrow head */
 static int
 hasArrow (Arrow *arrow)
 {
   return (!arrow || ARROW_NONE == arrow->type) ? 0 : 1;
-}
-
-
-static void
-dia_xfig_renderer_finalize (GObject *object)
-{
-  DiaXfigRenderer *self = DIA_XFIG_RENDERER (object);
-
-  g_clear_object (&self->font);
-
-  G_OBJECT_CLASS (dia_xfig_renderer_parent_class)->finalize (object);
-}
-
-
-static void
-dia_xfig_renderer_set_font (DiaXfigRenderer *self,
-                            DiaFont         *font,
-                            double           height)
-{
-  g_set_object (&self->font, font);
-  self->fontheight = height;
-}
-
-
-static void
-dia_xfig_renderer_set_property (GObject      *object,
-                                guint         property_id,
-                                const GValue *value,
-                                GParamSpec   *pspec)
-{
-  DiaXfigRenderer *self = DIA_XFIG_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      dia_xfig_renderer_set_font (self,
-                                  g_value_get_object (value),
-                                  self->fontheight);
-      break;
-    case PROP_FONT_HEIGHT:
-      dia_xfig_renderer_set_font (self,
-                                  self->font,
-                                  g_value_get_double (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-
-static void
-dia_xfig_renderer_get_property (GObject    *object,
-                                guint       property_id,
-                                GValue     *value,
-                                GParamSpec *pspec)
-{
-  DiaXfigRenderer *self = DIA_XFIG_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      g_value_set_object (value, self->font);
-      break;
-    case PROP_FONT_HEIGHT:
-      g_value_set_double (value, self->fontheight);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
 }
 
 
@@ -327,13 +249,14 @@ figAlignment (DiaXfigRenderer *renderer, int alignment)
 
 
 static int
-figFont (DiaXfigRenderer *renderer)
+figFont (DiaXfigRenderer *self)
 {
+  DiaFont *font = dia_renderer_get_font (DIA_RENDERER (self), NULL);
   int i;
   const char *legacy_name;
 
   /* FIXME: this is broken */
-  legacy_name = dia_font_get_legacy_name (renderer->font);
+  legacy_name = dia_font_get_legacy_name (font);
   for (i = 0; fig_fonts[i] != NULL; i++) {
     if (!g_strcmp0 (legacy_name, fig_fonts[i])) {
       return i;
@@ -345,9 +268,13 @@ figFont (DiaXfigRenderer *renderer)
 
 
 static double
-figFontSize (DiaXfigRenderer *renderer)
+figFontSize (DiaXfigRenderer *self)
 {
-  return (renderer->fontheight / 2.54) * 72.27;
+  double height;
+
+  dia_renderer_get_font (DIA_RENDERER (self), &height);
+
+  return (height / 2.54) * 72.27;
 }
 
 
@@ -475,8 +402,6 @@ begin_render (DiaRenderer *self, const DiaRectangle *update)
   renderer->stylemode = 0;
   renderer->dashlength = 0;
   renderer->fillmode = 0;
-  renderer->font = NULL;
-  renderer->fontheight = 1;
 }
 
 
@@ -1206,12 +1131,7 @@ draw_object (DiaRenderer *self,
 static void
 dia_xfig_renderer_class_init (DiaXfigRendererClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
-
-  object_class->finalize = dia_xfig_renderer_finalize;
-  object_class->set_property = dia_xfig_renderer_set_property;
-  object_class->get_property = dia_xfig_renderer_get_property;
 
   renderer_class->begin_render = begin_render;
   renderer_class->end_render = end_render;
@@ -1245,9 +1165,6 @@ dia_xfig_renderer_class_init (DiaXfigRendererClass *klass)
   renderer_class->draw_arc_with_arrows = draw_arc_with_arrows;
   renderer_class->draw_bezier_with_arrows = draw_bezier_with_arrows;
   renderer_class->draw_object = draw_object;
-
-  g_object_class_override_property (object_class, PROP_FONT, "font");
-  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
 

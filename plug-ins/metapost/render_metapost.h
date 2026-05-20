@@ -63,9 +63,6 @@ struct _MetapostRenderer {
   char *mp_slant;
   real mp_font_height;
 
-  DiaFont *font;
-  double font_height;
-
   DiaContext *ctx;
 };
 

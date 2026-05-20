@@ -76,14 +76,6 @@ G_BEGIN_DECLS
 #define WPG_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), WPG_TYPE_RENDERER, WpgRendererClass))
 
 
-enum {
-  PROP_0,
-  PROP_FONT,
-  PROP_FONT_HEIGHT,
-  LAST_PROP
-};
-
-
 GType wpg_renderer_get_type (void) G_GNUC_CONST;
 
 typedef struct _WpgRenderer WpgRenderer;
@@ -103,11 +95,7 @@ struct _WpgRenderer
   WPGLineAttr  LineAttr;
   WPGTextStyle TextStyle;
 
-
   DiaContext* ctx;
-
-  DiaFont *font;
-  double font_height;
 };
 
 struct _WpgRendererClass
@@ -440,19 +428,17 @@ set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 
 
 static void
-wpg_renderer_set_font (DiaRenderer *self, DiaFont *font, double height)
+dia_wpg_renderer_font_changed (DiaRenderer *self,
+                               DiaFont     *font,
+                               double       font_height)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
 
   /* FIXME PANGO: this is a little broken. Use better matching. */
 
   const char *family_name;
-  DIAG_NOTE(g_message("set_font %f %s", height, font->name));
-  renderer->TextStyle.Height = SC (height);
-
-  g_print ("f: %p h: %f\n", font, height);
-
-  g_set_object (&renderer->font, font);
+  DIAG_NOTE (g_message ("set_font %f %s", font_height, font->name));
+  renderer->TextStyle.Height = SC (font_height);
 
   family_name = dia_font_get_family (font);
 
@@ -1028,65 +1014,18 @@ wpg_renderer_get_type (void)
 
 
 static void
-wpg_renderer_set_property (GObject      *object,
-                           guint         property_id,
-                           const GValue *value,
-                           GParamSpec   *pspec)
-{
-  WpgRenderer *self = WPG_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      wpg_renderer_set_font (DIA_RENDERER (self),
-                             DIA_FONT (g_value_get_object (value)),
-                             self->font_height);
-      break;
-    case PROP_FONT_HEIGHT:
-      wpg_renderer_set_font (DIA_RENDERER (self),
-                             self->font,
-                             g_value_get_double (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-
-static void
-wpg_renderer_get_property (GObject    *object,
-                           guint       property_id,
-                           GValue     *value,
-                           GParamSpec *pspec)
-{
-  WpgRenderer *self = WPG_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      g_value_set_object (value, self->font);
-      break;
-    case PROP_FONT_HEIGHT:
-      g_value_set_double (value, self->font_height);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-static void
 wpg_renderer_finalize (GObject *object)
 {
   WpgRenderer *wpg_renderer = WPG_RENDERER (object);
 
-  g_clear_object (&wpg_renderer->font);
-
-  if (wpg_renderer->file)
-    fclose(wpg_renderer->file);
+  if (wpg_renderer->file) {
+    fclose (wpg_renderer->file);
+  }
   wpg_renderer->file = NULL;
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
+
 
 static void
 wpg_renderer_class_init (WpgRendererClass *klass)
@@ -1096,8 +1035,6 @@ wpg_renderer_class_init (WpgRendererClass *klass)
 
   parent_class = g_type_class_peek_parent (klass);
 
-  object_class->set_property = wpg_renderer_set_property;
-  object_class->get_property = wpg_renderer_get_property;
   object_class->finalize = wpg_renderer_finalize;
 
   /* renderer members */
@@ -1109,6 +1046,7 @@ wpg_renderer_class_init (WpgRendererClass *klass)
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
   renderer_class->set_fillstyle  = set_fillstyle;
+  renderer_class->font_changed = dia_wpg_renderer_font_changed;
 
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_polygon = draw_polygon;
@@ -1125,10 +1063,8 @@ wpg_renderer_class_init (WpgRendererClass *klass)
 
   renderer_class->draw_bezier   = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;
-
-  g_object_class_override_property (object_class, PROP_FONT, "font");
-  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
+
 
 /* dia export funtion */
 static gboolean

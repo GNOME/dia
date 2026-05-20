@@ -404,12 +404,12 @@ stdpath_draw (StdPath *stdpath, DiaRenderer *renderer)
   dia_renderer_set_linejoin (renderer, stdpath->line_join);
   dia_renderer_set_linecaps (renderer, stdpath->line_caps);
 
-  if (dia_renderer_is_capable_of (renderer, RENDER_HOLES)) {
+  if (dia_renderer_is_capable_of (renderer, DIA_RENDER_HOLES)) {
     if (stdpath->stroke_or_fill & PDO_FILL) {
       Color fill = stdpath->fill_color;
       if (stdpath->pattern) {
         dia_pattern_get_fallback_color (stdpath->pattern, &fill);
-        if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+        if (dia_renderer_is_capable_of (renderer, DIA_RENDER_PATTERN)) {
           dia_renderer_set_pattern (renderer, stdpath->pattern);
         }
       }
@@ -426,7 +426,8 @@ stdpath_draw (StdPath *stdpath, DiaRenderer *renderer)
                                      &fill,
                                      NULL);
       }
-      if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+
+      if (dia_renderer_is_capable_of (renderer, DIA_RENDER_PATTERN)) {
         dia_renderer_set_pattern (renderer, NULL);
       }
     }

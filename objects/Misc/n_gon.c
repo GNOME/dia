@@ -237,7 +237,7 @@ _ngon_draw (Ngon *ng, DiaRenderer *renderer)
 {
   gboolean pattern_fill = ng->show_background
               && ng->pattern != NULL
-              && dia_renderer_is_capable_of (renderer, RENDER_PATTERN);
+              && dia_renderer_is_capable_of (renderer, DIA_RENDER_PATTERN);
   Color fill;
 
   g_return_if_fail (ng->points->len);

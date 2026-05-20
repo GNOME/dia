@@ -134,8 +134,10 @@ libdia_sources = stdprop_sources + [
     'boundingbox.h',
     'dynamic_obj.c',
     'create.c',
+    'diatypes.h',
     'diatransform.c',
     'diarenderer.c',
+    'diarenderer.h',
     'diaimportrenderer.c',
     'diainteractiverenderer.c',
     'diainteractiverenderer.h',
@@ -209,6 +211,7 @@ dia_lib_enums = gnome.mkenums_simple(
   'dia-lib-enums',
   sources: [
     'dia-enums.h',
+    'diarenderer.h',
     'font.h',
     'units.h',
   ],
@@ -267,3 +270,13 @@ libdia_dep = declare_dependency(
   dependencies: libdia_deps,
   sources: libdia_generated_headers,
 )
+
+# gnome.generate_gir(libdia_lib,
+# dependencies: [libdia_dep],
+# doc_format: 'gi-docgen',
+# sources:libdia_sources,
+# nsversion: '2',
+# namespace: 'Dia',
+# identifier_prefix: 'Dia',
+# includes: ['GObject-2.0', 'Gtk-3.0'],
+# extra_args: ['--accept-unprefixed'])

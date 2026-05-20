@@ -51,13 +51,6 @@
 #define CGM_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CGM_TYPE_RENDERER))
 #define CGM_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), CGM_TYPE_RENDERER, CgmRendererClass))
 
-enum {
-  PROP_0,
-  PROP_FONT,
-  PROP_FONT_HEIGHT,
-  LAST_PROP
-};
-
 
 /* Noise reduction for
  * return value of 'fwrite', declared with attribute warn_unused_result
@@ -165,8 +158,8 @@ write_elhead(FILE *fp, CgmElementClass el_class, int el_id, int nparams)
 
 /* --- font stuff --- */
 
-static gchar *fontlist;
-static gint fontlistlen;
+static char *fontlist;
+static int fontlistlen;
 static GHashTable *fonthash;
 #define FONT_NUM(font) GPOINTER_TO_INT(g_hash_table_lookup(fonthash, \
      dia_font_get_family(font)))
@@ -262,6 +255,18 @@ struct _CgmRenderer
 
     DiaContext *ctx;
 };
+
+
+static void
+dia_cgm_renderer_dispose (GObject *object)
+{
+  CgmRenderer *self = CGM_RENDERER (object);
+
+  g_clear_object (&self->font);
+
+  G_OBJECT_CLASS (g_type_class_peek_parent (g_type_class_peek (CGM_TYPE_RENDERER)))->dispose (object);
+}
+
 
 static void
 init_attributes( CgmRenderer *renderer )
@@ -684,14 +689,14 @@ set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 
 
 static void
-wpg_renderer_set_font (DiaRenderer *self, DiaFont *font, double height)
+dia_cgm_renderer_font_changed (DiaRenderer *renderer,
+                               DiaFont     *font,
+                               double       font_height)
 {
-  CgmRenderer *renderer = CGM_RENDERER(self);
+  CgmRenderer *self = CGM_RENDERER (renderer);
 
-  g_set_object (&renderer->font, font);
-
-  renderer->tcurrent.font_num = FONT_NUM (font);
-  renderer->tcurrent.font_height = height;
+  self->tcurrent.font_num = FONT_NUM (font);
+  self->tcurrent.font_height = font_height;
 }
 
 
@@ -1227,7 +1232,6 @@ export_cgm(DiagramData *data, DiaContext *ctx,
 /* GObject stuff */
 static void cgm_renderer_class_init (CgmRendererClass *klass);
 
-static gpointer parent_class = NULL;
 
 GType
 cgm_renderer_get_type (void)
@@ -1257,61 +1261,6 @@ cgm_renderer_get_type (void)
   return object_type;
 }
 
-static void
-cgm_renderer_set_property (GObject      *object,
-                           guint         property_id,
-                           const GValue *value,
-                           GParamSpec   *pspec)
-{
-  CgmRenderer *self = CGM_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      wpg_renderer_set_font (DIA_RENDERER (self),
-                             g_value_get_object (value),
-                             self->tcurrent.font_height);
-      break;
-    case PROP_FONT_HEIGHT:
-      wpg_renderer_set_font (DIA_RENDERER (self),
-                             self->font,
-                             g_value_get_double (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-static void
-cgm_renderer_get_property (GObject    *object,
-                           guint       property_id,
-                           GValue     *value,
-                           GParamSpec *pspec)
-{
-  CgmRenderer *self = CGM_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      g_value_set_object (value, self->font);
-      break;
-    case PROP_FONT_HEIGHT:
-      g_value_set_double (value, self->tcurrent.font_height);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-static void
-cgm_renderer_finalize (GObject *object)
-{
-  CgmRenderer *self = CGM_RENDERER (object);
-
-  g_clear_object (&self->font);
-
-  G_OBJECT_CLASS (parent_class)->finalize (object);
-}
 
 static void
 cgm_renderer_class_init (CgmRendererClass *klass)
@@ -1319,11 +1268,7 @@ cgm_renderer_class_init (CgmRendererClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->set_property = cgm_renderer_set_property;
-  object_class->get_property = cgm_renderer_get_property;
-  object_class->finalize = cgm_renderer_finalize;
+  object_class->dispose = dia_cgm_renderer_dispose;
 
   renderer_class->begin_render = begin_render;
   renderer_class->end_render = end_render;
@@ -1333,6 +1278,7 @@ cgm_renderer_class_init (CgmRendererClass *klass)
   renderer_class->set_linejoin = set_linejoin;
   renderer_class->set_linestyle = set_linestyle;
   renderer_class->set_fillstyle = set_fillstyle;
+  renderer_class->font_changed = dia_cgm_renderer_font_changed;
 
   renderer_class->draw_line = draw_line;
   renderer_class->draw_polyline = draw_polyline;
@@ -1351,9 +1297,6 @@ cgm_renderer_class_init (CgmRendererClass *klass)
   renderer_class->draw_string = draw_string;
 
   renderer_class->draw_image = draw_image;
-
-  g_object_class_override_property (object_class, PROP_FONT, "font");
-  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
 

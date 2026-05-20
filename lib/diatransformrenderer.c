@@ -117,26 +117,33 @@ static void
 end_render(DiaRenderer *self)
 {
 }
-/*!
- * \brief Advertise the renderers capabilities
- * The DiaTransformRenderer can extend every DiaRenderer with affine
- * transformations. Other capabilities are just pass through of the
- * wrapped renderer.
- * \memberof _DiaTransformRenderer
- */
+
+
 static gboolean
-is_capable_to (DiaRenderer *self, RenderCapability cap)
+dia_transform_tenderer_is_capable_of (DiaRenderer         *self,
+                                      DiaRenderCapability  capabilities)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
+  DiaRenderCapability without_affine;
 
-  if (RENDER_AFFINE == cap) {
+  /*
+   * The DiaTransformRenderer can extend every DiaRenderer with affine
+   * transformations. Other capabilities are just pass through of the
+   * wrapped renderer.
+   */
+
+  /* If *only* affine is requestion, that's easy, we do that */
+  if (capabilities == DIA_RENDER_AFFINE) {
     return TRUE; /* reason for existence */
   }
 
   g_return_val_if_fail (renderer->worker != NULL, FALSE);
 
-  return dia_renderer_is_capable_of (renderer->worker, cap);
+  without_affine = capabilities & (~DIA_RENDER_AFFINE);
+
+  return dia_renderer_is_capable_of (renderer->worker, without_affine);
 }
+
 
 /*!
  * \brief Transform line-width and pass through
@@ -631,9 +638,11 @@ dia_transform_renderer_class_init (DiaTransformRendererClass *klass)
   renderer_class->draw_beziergon = draw_beziergon;
   renderer_class->draw_text     = draw_text;
   renderer_class->draw_rotated_text = draw_rotated_text;
+
   /* other */
-  renderer_class->is_capable_to = is_capable_to;
+  renderer_class->is_capable_of = dia_transform_tenderer_is_capable_of;
 }
+
 
 /*!
  * \brief Factory function to construct a transform renderer

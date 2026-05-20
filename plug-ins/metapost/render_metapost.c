@@ -146,13 +146,6 @@ static _slant_lookup_entry SLANT_LOOKUP_TABLE[] =
         /* Terminator */
 };
 
-enum {
-  PROP_0,
-  PROP_FONT,
-  PROP_FONT_HEIGHT,
-  LAST_PROP
-};
-
 
 static void draw_with_linestyle (MetapostRenderer *renderer);
 
@@ -212,30 +205,16 @@ end_render(DiaRenderer *self)
     fclose(renderer->file);
 }
 
-/*!
- * \brief Advertise special capabilities
- *
- * Some objects drawing adapts to capabilities advertised by the respective
- * renderer. Usually there is a fallback, but generally the real thing should
- * be better.
- *
- * Holes tested with http://www.tlhiv.org/mppreview/ and render-test as well as
- * convert-to-path: apparently Metapost is not capable to render holes or
- * draw_beziergon is doing something wrong.
- *
- * \memberof _MetapostRenderer
- */
+
 static gboolean
-is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+dia_metapost_renderer_is_capable_of (DiaRenderer         *renderer,
+                                     DiaRenderCapability  capabilities)
 {
-  if (RENDER_HOLES == cap)
-    return FALSE; /* maybe with unfill? */
-  else if (RENDER_ALPHA == cap)
-    return FALSE; /* not now */
-  else if (RENDER_AFFINE == cap)
-    return FALSE; /* not now */
-  else if (RENDER_PATTERN == cap)
-    return FALSE; /* might be possible, too */
+  /* Holes tested with http://www.tlhiv.org/mppreview/ and render-test as well as
+   * convert-to-path: apparently Metapost is not capable to render holes or
+   * draw_beziergon is doing something wrong.
+   */
+
   return FALSE;
 }
 
@@ -395,16 +374,18 @@ set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 
 
 static void
-set_font(DiaRenderer *self, DiaFont *font, real height)
+dia_metapost_renderer_font_changed (DiaRenderer *self,
+                                    DiaFont     *font,
+                                    double       font_height)
 {
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    int i = -1;
+  MetapostRenderer *renderer = METAPOST_RENDERER (self);
+  int i = -1;
 
     /* Determine what font Dia is using, so we can convert to the closest
      * matching MetaPost font. */
     char *dia_font_name = (char*)dia_font_get_family(font);
     const DiaFontStyle dia_font_style = dia_font_get_style(font);
-    const real dia_font_height = height;
+  const double dia_font_height = font_height;
 
     /* Catch default Dia fonts. */
     if (DIA_FONT_STYLE_GET_FAMILY(dia_font_style) == DIA_FONT_SANS) {
@@ -857,7 +838,9 @@ draw_text (DiaRenderer *self,
   dia_text_get_position (text, &pos);
   dia_text_get_colour (text, &text_colour);
 
-  set_font (self, dia_text_get_font (text), dia_text_get_height (text));
+  dia_renderer_set_font (self,
+                         dia_text_get_font (text),
+                         dia_text_get_height (text));
 
   for (size_t i = 0; i < n_lines; i++) {
     draw_string (self,
@@ -994,82 +977,23 @@ metapost_renderer_get_type (void)
   return object_type;
 }
 
-static void
-metapost_renderer_set_property (GObject      *object,
-                                guint         property_id,
-                                const GValue *value,
-                                GParamSpec   *pspec)
-{
-  MetapostRenderer *self = METAPOST_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      set_font (DIA_RENDERER (self),
-                DIA_FONT (g_value_get_object (value)),
-                self->font_height);
-      break;
-    case PROP_FONT_HEIGHT:
-      set_font (DIA_RENDERER (self),
-                self->font,
-                g_value_get_double (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-static void
-metapost_renderer_get_property (GObject    *object,
-                                guint       property_id,
-                                GValue     *value,
-                                GParamSpec *pspec)
-{
-  MetapostRenderer *self = METAPOST_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      g_value_set_object (value, self->font);
-      break;
-    case PROP_FONT_HEIGHT:
-      g_value_set_double (value, self->font_height);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-static void
-metapost_renderer_finalize (GObject *object)
-{
-  MetapostRenderer *metapost_renderer = METAPOST_RENDERER (object);
-
-  g_clear_object (&metapost_renderer->font);
-
-  G_OBJECT_CLASS (parent_class)->finalize (object);
-}
 
 static void
 metapost_renderer_class_init (MetapostRendererClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
   parent_class = g_type_class_peek_parent (klass);
 
-  object_class->get_property = metapost_renderer_get_property;
-  object_class->set_property = metapost_renderer_set_property;
-  object_class->finalize = metapost_renderer_finalize;
-
   renderer_class->begin_render = begin_render;
   renderer_class->end_render = end_render;
-  renderer_class->is_capable_to = is_capable_to;
+  renderer_class->is_capable_of = dia_metapost_renderer_is_capable_of;
   renderer_class->set_linewidth = set_linewidth;
   renderer_class->set_linecaps = set_linecaps;
   renderer_class->set_linejoin = set_linejoin;
   renderer_class->set_linestyle = set_linestyle;
   renderer_class->set_fillstyle = set_fillstyle;
+  renderer_class->font_changed = dia_metapost_renderer_font_changed;
 
   renderer_class->draw_line = draw_line;
   renderer_class->draw_polyline = draw_polyline;
@@ -1088,10 +1012,8 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
   renderer_class->draw_text = draw_text;
 
   renderer_class->draw_image = draw_image;
-
-  g_object_class_override_property (object_class, PROP_FONT, "font");
-  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
+
 
 /* --- export filter interface --- */
 static gboolean

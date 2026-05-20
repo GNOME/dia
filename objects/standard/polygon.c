@@ -235,23 +235,27 @@ polygon_draw (Polygon *polygon, DiaRenderer *renderer)
 
   if (polygon->show_background) {
     fill = polygon->inner_color;
+
     if (polygon->pattern) {
       dia_pattern_get_fallback_color (polygon->pattern, &fill);
-      if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+      if (dia_renderer_is_capable_of (renderer, DIA_RENDER_PATTERN)) {
         dia_renderer_set_pattern (renderer, polygon->pattern);
       }
     }
   }
+
   dia_renderer_draw_polygon (renderer,
                              points,
                              n,
                              (polygon->show_background) ? &fill : NULL,
                              &polygon->line_color);
+
   if (polygon->show_background && polygon->pattern &&
-      dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+      dia_renderer_is_capable_of (renderer, DIA_RENDER_PATTERN)) {
     dia_renderer_set_pattern (renderer, NULL); /* reset*/
   }
 }
+
 
 static DiaObject *
 polygon_create(Point *startpoint,

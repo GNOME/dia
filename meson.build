@@ -14,8 +14,12 @@ cc = meson.get_compiler('c')
 conf = configuration_data()
 conf.set_quoted('DIA_APPLICATION_PATH', '/org/gnome/Dia/')
 
-libglib_dep = dependency('glib-2.0',   version: '>= 2.80')
-gio_dep = dependency('gio-2.0',   version: '>= 2.80')
+# GLib Requirement
+glib_min_ver = '2.88'
+glib_sym_ver = 'GLIB_VERSION_@0@'.format(glib_min_ver.replace('.', '_'))
+
+libglib_dep = dependency('glib-2.0', version: '>= @0@'.format(glib_min_ver))
+gio_dep = dependency('gio-2.0', version: '>= @0@'.format(glib_min_ver))
 libgtk_dep  = dependency('gtk+-3.0',   version: '>= 3.24')
 libxml_dep  = dependency('libxml-2.0', version: '>= 2.14.0')
 #TODO: what are the minimum versions?
@@ -79,7 +83,6 @@ foreach h : ['unistd.h', 'utime.h']
     conf.set10('HAVE_' + h.underscorify().to_upper(), cc.has_header(h))
 endforeach
 
-config_inc = include_directories('.')
 config_h = configure_file(output: 'config.h', configuration: conf)
 config_inc = include_directories('.')
 config_dep = declare_dependency(
@@ -88,12 +91,12 @@ config_dep = declare_dependency(
 )
 
 gtk_ver = 'GDK_VERSION_3_8'
-glib_ver = 'GLIB_VERSION_2_80'
+
 add_project_arguments([
   '-DGDK_VERSION_MIN_REQUIRED=@0@'.format(gtk_ver),
 #  '-DGDK_VERSION_MAX_ALLOWED=@0@'.format(gtk_ver),
-  '-DGLIB_VERSION_MIN_REQUIRED=@0@'.format(glib_ver),
-  '-DGLIB_VERSION_MAX_ALLOWED=@0@'.format(glib_ver),
+  '-DGLIB_VERSION_MIN_REQUIRED=@0@'.format(glib_sym_ver),
+  '-DGLIB_VERSION_MAX_ALLOWED=@0@'.format(glib_sym_ver),
   '-DGSEAL_ENABLE',
 #  '-DGTK_DISABLE_DEPRECATED',
 ], language: ['c', 'cpp'])

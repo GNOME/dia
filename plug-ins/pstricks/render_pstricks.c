@@ -67,13 +67,6 @@ NOT WORKING (exporting macros):
 #define pstricks_dtostr(buf,d) \
 	g_ascii_formatd(buf,sizeof(buf),"%f",d)
 
-enum {
-  PROP_0,
-  PROP_FONT,
-  PROP_FONT_HEIGHT,
-  LAST_PROP
-};
-
 
 static void begin_render(DiaRenderer *self, const DiaRectangle *update);
 static void end_render(DiaRenderer *self);
@@ -82,7 +75,6 @@ static void set_linecaps (DiaRenderer *self, DiaLineCaps  mode);
 static void set_linejoin (DiaRenderer *self, DiaLineJoin  mode);
 static void set_linestyle(DiaRenderer *self, DiaLineStyle mode, double dash_length);
 static void set_fillstyle(DiaRenderer *self, DiaFillStyle mode);
-static void set_font(DiaRenderer *self, DiaFont *font, real height);
 static void draw_line(DiaRenderer *self,
 		      Point *start, Point *end,
 		      Color *line_color);
@@ -125,28 +117,15 @@ static void draw_image(DiaRenderer *self,
 		       real width, real height,
 		       DiaImage *image);
 
-/*!
- * \brief Advertize special capabilities
- *
- * Some objects drawing adapts to capabilities advertized by the respective
- * renderer. Usually there is a fallback, but generally the real thing should
- * be better.
- *
- * \memberof _PstricksRenderer
- */
+
 static gboolean
-is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+dia_pstricks_renderer_is_capable_of (DiaRenderer         *renderer,
+                                     DiaRenderCapability  capabilities)
 {
-  if (RENDER_HOLES == cap)
-    return TRUE; /* ... with under-documented fillstyle=eofill */
-  else if (RENDER_ALPHA == cap)
-    return FALSE; /* simulate with hatchwidth? */
-  else if (RENDER_AFFINE == cap)
-    return FALSE; /* maybe by: \translate, \scale, \rotate */
-  else if (RENDER_PATTERN == cap)
-    return FALSE; /* nope */
-  return FALSE;
+  /* ... with under-documented fillstyle=eofill */
+  return (DIA_RENDER_HOLES & capabilities) == capabilities;
 }
+
 
 /* GObject stuff */
 static void pstricks_renderer_class_init (PstricksRendererClass *klass);
@@ -181,83 +160,39 @@ pstricks_renderer_get_type (void)
   return object_type;
 }
 
-static void
-pstricks_renderer_set_property (GObject      *object,
-                                guint         property_id,
-                                const GValue *value,
-                                GParamSpec   *pspec)
-{
-  PstricksRenderer *self = PSTRICKS_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      set_font (DIA_RENDERER (self),
-                DIA_FONT (g_value_get_object (value)),
-                self->font_height);
-      break;
-    case PROP_FONT_HEIGHT:
-      set_font (DIA_RENDERER (self),
-                self->font,
-                g_value_get_double (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
 
 static void
-pstricks_renderer_get_property (GObject    *object,
-                                guint       property_id,
-                                GValue     *value,
-                                GParamSpec *pspec)
+dia_pstricks_renderer_font_changed (DiaRenderer *self,
+                                    DiaFont     *font,
+                                    double       font_height)
 {
-  PstricksRenderer *self = PSTRICKS_RENDERER (object);
+  PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+  char d_buf[DTOSTR_BUF_SIZE];
 
-  switch (property_id) {
-    case PROP_FONT:
-      g_value_set_object (value, self->font);
-      break;
-    case PROP_FONT_HEIGHT:
-      g_value_set_double (value, self->font_height);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
+  fprintf (renderer->file,
+           "\\setfont{%s}{%s}\n",
+           dia_font_get_psfontname (font),
+           pstricks_dtostr (d_buf, font_height));
 }
 
-static void
-pstricks_renderer_finalize (GObject *object)
-{
-  PstricksRenderer *self = PSTRICKS_RENDERER (object);
-
-  g_clear_object (&self->font);
-
-  G_OBJECT_CLASS (parent_class)->finalize (object);
-}
 
 static void
 pstricks_renderer_class_init (PstricksRendererClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
   parent_class = g_type_class_peek_parent (klass);
 
-  object_class->set_property = pstricks_renderer_set_property;
-  object_class->get_property = pstricks_renderer_get_property;
-  object_class->finalize = pstricks_renderer_finalize;
-
   renderer_class->begin_render = begin_render;
   renderer_class->end_render = end_render;
-  renderer_class->is_capable_to = is_capable_to;
+  renderer_class->is_capable_of = dia_pstricks_renderer_is_capable_of;
 
   renderer_class->set_linewidth = set_linewidth;
   renderer_class->set_linecaps = set_linecaps;
   renderer_class->set_linejoin = set_linejoin;
   renderer_class->set_linestyle = set_linestyle;
   renderer_class->set_fillstyle = set_fillstyle;
+  renderer_class->font_changed = dia_pstricks_renderer_font_changed;
 
   renderer_class->draw_line = draw_line;
   renderer_class->draw_polyline = draw_polyline;
@@ -275,9 +210,6 @@ pstricks_renderer_class_init (PstricksRendererClass *klass)
   renderer_class->draw_string = draw_string;
 
   renderer_class->draw_image = draw_image;
-
-  g_object_class_override_property (object_class, PROP_FONT, "font");
-  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
 
@@ -451,22 +383,6 @@ set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
   }
 }
 
-
-static void
-set_font (DiaRenderer *self, DiaFont *font, real height)
-{
-  PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-  gchar d_buf[DTOSTR_BUF_SIZE];
-
-  g_clear_object (&renderer->font);
-  renderer->font = g_object_ref (font);
-  renderer->font_height = height;
-
-  fprintf (renderer->file,
-           "\\setfont{%s}{%s}\n",
-           dia_font_get_psfontname (font),
-           pstricks_dtostr (d_buf, (gdouble) height) );
-}
 
 static void
 draw_line(DiaRenderer *self,

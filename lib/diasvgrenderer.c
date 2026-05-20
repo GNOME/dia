@@ -214,23 +214,15 @@ end_render (DiaRenderer *self)
 }
 
 
-/*!
- * \brief Only basic capabilities for the base class
- * \memberof _DiaSvgRenderer
- */
 static gboolean
-is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+dia_svg_renderer_is_capable_of (DiaRenderer         *renderer,
+                                DiaRenderCapability  capabilities)
 {
-  if (RENDER_HOLES == cap)
-    return FALSE; /* not wanted for shapes */
-  else if (RENDER_ALPHA == cap)
-    return TRUE; /* also for shapes */
-  else if (RENDER_AFFINE == cap)
-    return FALSE; /* not for shape renderer */
-  else if (RENDER_PATTERN == cap)
-    return FALSE; /* some support form derived class needed */
-  return FALSE;
+  static DiaRenderCapability supported = DIA_RENDER_ALPHA;
+
+  return (supported & capabilities) == capabilities;
 }
+
 
 /*!
  * \brief Set line width
@@ -728,7 +720,7 @@ _bezier(DiaRenderer *self,
   for (i = 1; i < numpoints; i++) {
     switch (points[i].type) {
       case BEZ_MOVE_TO:
-        if (!dia_renderer_is_capable_of (self, RENDER_HOLES)) {
+        if (!dia_renderer_is_capable_of (self, DIA_RENDER_HOLES)) {
           g_warning("only first BezPoint should be a BEZ_MOVE_TO");
           g_string_printf (str, "M %s %s",
                           dia_svg_dtostr (p1x_buf, (gdouble) points[i].p1.x),
@@ -998,7 +990,7 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
   renderer_class->begin_render = begin_render;
   renderer_class->end_render   = end_render;
 
-  renderer_class->is_capable_to = is_capable_to;
+  renderer_class->is_capable_of = dia_svg_renderer_is_capable_of;
 
   renderer_class->set_linewidth  = set_linewidth;
   renderer_class->set_linecaps   = set_linecaps;

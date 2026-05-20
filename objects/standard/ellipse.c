@@ -381,7 +381,7 @@ ellipse_draw (Ellipse *ellipse, DiaRenderer *renderer)
     if (ellipse->pattern) {
       dia_pattern_get_fallback_color (ellipse->pattern, &fill);
 
-      if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+      if (dia_renderer_is_capable_of (renderer, DIA_RENDER_PATTERN)) {
         dia_renderer_set_pattern (renderer, ellipse->pattern);
       }
     }
@@ -400,7 +400,7 @@ ellipse_draw (Ellipse *ellipse, DiaRenderer *renderer)
                                    &fill, &ellipse->border_color);
     }
 
-    if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+    if (dia_renderer_is_capable_of (renderer, DIA_RENDER_PATTERN)) {
       dia_renderer_set_pattern (renderer, NULL);
     }
   } else {

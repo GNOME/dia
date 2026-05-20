@@ -42,110 +42,20 @@
 #include "diatransformrenderer.h"
 #include "group.h"
 
-G_DEFINE_TYPE (DrsRenderer, drs_renderer, DIA_TYPE_RENDERER);
 
-enum {
-  PROP_0,
-  PROP_FONT,
-  PROP_FONT_HEIGHT,
-  LAST_PROP
-};
+G_DEFINE_FINAL_TYPE (DrsRenderer, drs_renderer, DIA_TYPE_RENDERER);
 
 
 static void
-_node_set_real (xmlNodePtr node, const char *name, real v)
-{
-  gchar value[G_ASCII_DTOSTR_BUF_SIZE];
-
-  g_ascii_formatd (value, sizeof (value), "%g", v);
-  xmlSetProp (node, (const xmlChar *) name, (xmlChar *) value);
-}
-
-
-static void
-drs_renderer_set_font (DiaRenderer *self, DiaFont *font, double height)
-{
-  DrsRenderer *renderer = DRS_RENDERER (self);
-  xmlNodePtr node;
-  const PangoFontDescription *pfd = dia_font_get_description (font);
-  char *desc = pango_font_description_to_string (pfd);
-
-  g_set_object (&renderer->font, font);
-  renderer->font_height = height;
-
-  node =  xmlNewChild (renderer->root, NULL, (const xmlChar *) "set-font", NULL);
-  xmlSetProp (node, (const xmlChar *) "description", (xmlChar *) desc);
-
-  xmlSetProp (node, (const xmlChar *) "family", (xmlChar *) dia_font_get_family (font));
-  xmlSetProp (node, (const xmlChar *) "weight", (xmlChar *) dia_font_get_weight_string (font));
-  xmlSetProp (node, (const xmlChar *) "slant", (xmlChar *) dia_font_get_slant_string (font));
-  _node_set_real (node, "size", dia_font_get_size (font));
-  _node_set_real (node, "height", height);
-
-  g_clear_pointer (&desc, g_free);
-}
-
-
-static void
-drs_renderer_set_property (GObject      *object,
-                           guint         property_id,
-                           const GValue *value,
-                           GParamSpec   *pspec)
-{
-  DrsRenderer *self = DRS_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      drs_renderer_set_font (DIA_RENDERER (self),
-                             DIA_FONT (g_value_get_object (value)),
-                             self->font_height);
-      break;
-    case PROP_FONT_HEIGHT:
-      drs_renderer_set_font (DIA_RENDERER (self),
-                             self->font,
-                             g_value_get_double (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-static void
-drs_renderer_get_property (GObject    *object,
-                           guint       property_id,
-                           GValue     *value,
-                           GParamSpec *pspec)
-{
-  DrsRenderer *self = DRS_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      g_value_set_object (value, self->font);
-      break;
-    case PROP_FONT_HEIGHT:
-      g_value_set_double (value, self->font_height);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-
-/* destructor */
-static void
-drs_renderer_finalize (GObject *object)
+dia_rs_renderer_dispose (GObject *object)
 {
   DrsRenderer *renderer = DRS_RENDERER (object);
 
-  g_clear_object (&renderer->font);
-
-  g_queue_free (renderer->parents);
-  g_queue_free (renderer->matrices);
+  g_clear_pointer (&renderer->parents, g_queue_free);
+  g_clear_pointer (&renderer->matrices, g_queue_free);
   g_clear_object (&renderer->ctx);
 
-  G_OBJECT_CLASS (drs_renderer_parent_class)->finalize (object);
+  G_OBJECT_CLASS (drs_renderer_parent_class)->dispose (object);
 }
 
 
@@ -265,14 +175,19 @@ end_render(DiaRenderer *self)
 
   renderer->root = g_queue_pop_tail (renderer->parents);
 }
+
+
 static gboolean
-is_capable_to (DiaRenderer *self, RenderCapability cap)
+dia_rs_renderer_is_capable_of (DiaRenderer         *self,
+                               DiaRenderCapability  capabilities)
 {
-  if (RENDER_ALPHA == cap)
+  if (capabilities == DIA_RENDER_ALPHA) {
     return TRUE;
+  }
 
   return FALSE;
 }
+
 
 static void
 _node_set_color (xmlNodePtr node, const char *name, const Color *color)
@@ -373,6 +288,16 @@ _node_set_bezpoints (xmlNodePtr node, BezPoint *points, int num_points)
   xmlSetProp (node, (const xmlChar *) "bezpoints", (xmlChar *) str->str);
 
   g_string_free (str, TRUE);
+}
+
+
+static void
+_node_set_real (xmlNodePtr node, const char *name, double v)
+{
+  char value[G_ASCII_DTOSTR_BUF_SIZE];
+
+  g_ascii_formatd (value, sizeof (value), "%g", v);
+  xmlSetProp (node, (const xmlChar *) name, (xmlChar *) value);
 }
 
 
@@ -502,6 +427,38 @@ set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
                       (const xmlChar *) "set-fillstyle", NULL);
   xmlSetProp (node, (const xmlChar *) "mode",
               value ? (xmlChar *) value : (xmlChar *) "?");
+}
+
+
+static void
+dia_rs_renderer_font_changed (DiaRenderer *renderer,
+                              DiaFont     *font,
+                              double       font_height)
+{
+  DrsRenderer *self = DRS_RENDERER (renderer);
+  xmlNodePtr node;
+  const PangoFontDescription *pfd = dia_font_get_description (font);
+  char *desc = pango_font_description_to_string (pfd);
+
+  node =  xmlNewChild (self->root,
+                       NULL,
+                       (const xmlChar *) "set-font",
+                       NULL);
+  xmlSetProp (node, (const xmlChar *) "description", (xmlChar *) desc);
+
+  xmlSetProp (node,
+              (const xmlChar *) "family",
+              (xmlChar *) dia_font_get_family (font));
+  xmlSetProp (node,
+              (const xmlChar *) "weight",
+              (xmlChar *) dia_font_get_weight_string (font));
+  xmlSetProp (node,
+              (const xmlChar *) "slant",
+              (xmlChar *) dia_font_get_slant_string (font));
+  _node_set_real (node, "size", dia_font_get_size (font));
+  _node_set_real (node, "height", font_height);
+
+  g_clear_pointer (&desc, g_free);
 }
 
 
@@ -772,11 +729,7 @@ drs_renderer_class_init (DrsRendererClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
-  drs_renderer_parent_class = g_type_class_peek_parent (klass);
-
-  object_class->set_property = drs_renderer_set_property;
-  object_class->get_property = drs_renderer_get_property;
-  object_class->finalize = drs_renderer_finalize;
+  object_class->dispose = dia_rs_renderer_dispose;
 
   /* renderer members */
   renderer_class->begin_render = begin_render;
@@ -789,6 +742,7 @@ drs_renderer_class_init (DrsRendererClass *klass)
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
   renderer_class->set_fillstyle  = set_fillstyle;
+  renderer_class->font_changed = dia_rs_renderer_font_changed;
 
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_polygon = draw_polygon;
@@ -815,11 +769,9 @@ drs_renderer_class_init (DrsRendererClass *klass)
   /* TODO: more to come ... */
 #endif
   /* other */
-  renderer_class->is_capable_to = is_capable_to;
-
-  g_object_class_override_property (object_class, PROP_FONT, "font");
-  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
+  renderer_class->is_capable_of = dia_rs_renderer_is_capable_of;
 }
+
 
 /* constructor */
 static void

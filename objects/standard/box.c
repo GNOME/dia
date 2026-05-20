@@ -388,7 +388,7 @@ box_draw (Box *box, DiaRenderer *renderer)
     dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
     if (box->pattern) {
       dia_pattern_get_fallback_color (box->pattern, &fill);
-      if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+      if (dia_renderer_is_capable_of (renderer, DIA_RENDER_PATTERN)) {
         dia_renderer_set_pattern (renderer, box->pattern);
       }
     }
@@ -404,7 +404,8 @@ box_draw (Box *box, DiaRenderer *renderer)
       _box_get_poly (box, poly);
       dia_renderer_draw_polygon (renderer, poly, 4, &fill, &box->border_color);
     }
-    if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+
+    if (dia_renderer_is_capable_of (renderer, DIA_RENDER_PATTERN)) {
       dia_renderer_set_pattern (renderer, NULL);
     }
   } else {

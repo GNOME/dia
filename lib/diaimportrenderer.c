@@ -131,8 +131,6 @@ static void draw_bezier_with_arrows (DiaRenderer *renderer,
 				     Arrow *start_arrow,
 				     Arrow *end_arrow);
 
-static gboolean is_capable_to (DiaRenderer *renderer, RenderCapability cap);
-
 static void set_pattern (DiaRenderer *renderer, DiaPattern *pat);
 
 static gpointer parent_class = NULL;
@@ -154,6 +152,15 @@ renderer_finalize (GObject *object)
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
+
+
+static gboolean
+dia_import_renderer_is_capable_of (DiaRenderer         *renderer,
+                                   DiaRenderCapability  cap)
+{
+  return TRUE;
+}
+
 
 static void
 dia_import_renderer_class_init (DiaImportRendererClass *klass)
@@ -198,7 +205,7 @@ dia_import_renderer_class_init (DiaImportRendererClass *klass)
   renderer_class->draw_bezier_with_arrows = draw_bezier_with_arrows;
 
   /* other */
-  renderer_class->is_capable_to = is_capable_to;
+  renderer_class->is_capable_of = dia_import_renderer_is_capable_of;
   renderer_class->set_pattern = set_pattern;
 }
 
@@ -722,18 +729,6 @@ draw_bezier_with_arrows(DiaRenderer *renderer,
 						 start_arrow, end_arrow);
   _apply_style (self, object, NULL, color, 0.0);
   _push_object (self, object);
-}
-
-/*!
- * \brief Advertize renderer capabilities.
- * Everything has to be possible with DiaObject, but there might be some
- * limitation with this renderer's implementation.
- * \memberof _DiaImportRenderer
- */
-static gboolean
-is_capable_to (DiaRenderer *renderer, RenderCapability cap)
-{
-  return TRUE;
 }
 
 

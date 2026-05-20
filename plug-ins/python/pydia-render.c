@@ -382,21 +382,21 @@ set_fillstyle (DiaRenderer *renderer, DiaFillStyle mode)
 
 static gpointer parent_class = NULL;
 
-/*!
- * \brief Advertise the renderer's capabilities
- * \memberof _DiaTransformRenderer
- */
+
 static gboolean
-is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+dia_py_renderer_is_capable_of (DiaRenderer         *renderer,
+                               DiaRenderCapability  capabilities)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
   gboolean bRet = FALSE;
+
+  /* TODO: This will eventually want cleaning up */
 
   func = PyObject_GetAttrString (self, "is_capable_to");
   if (func && PyCallable_Check (func)) {
     Py_INCREF (self);
     Py_INCREF (func);
-    arg = Py_BuildValue ("(i)", cap);
+    arg = Py_BuildValue ("(i)", capabilities);
     if (arg) {
       res = PyObject_CallObject (func, arg);
       if (res && PyLong_Check (res)) {
@@ -411,8 +411,10 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
     Py_DECREF (self);
   } else {
     PyErr_Clear (); /* member optional */
-    return DIA_RENDERER_CLASS (parent_class)->is_capable_to (renderer, cap);
+    return DIA_RENDERER_CLASS (parent_class)->is_capable_of (renderer,
+                                                             capabilities);
   }
+
   return bRet;
 }
 
@@ -1314,6 +1316,5 @@ dia_py_renderer_class_init (DiaPyRendererClass *klass)
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   /* other */
-  renderer_class->is_capable_to = is_capable_to;
+  renderer_class->is_capable_of = dia_py_renderer_is_capable_of;
 }
-

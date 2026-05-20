@@ -60,13 +60,6 @@
 #define HPGL_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HPGL_TYPE_RENDERER))
 #define HPGL_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), HPGL_TYPE_RENDERER, HpglRendererClass))
 
-enum {
-  PROP_0,
-  PROP_FONT,
-  PROP_FONT_HEIGHT,
-  LAST_PROP
-};
-
 
 GType hpgl_renderer_get_type (void) G_GNUC_CONST;
 
@@ -88,9 +81,6 @@ struct _HpglRenderer
     int   has_it;
   } pen[HPGL_MAX_PENS];
   int last_pen;
-
-  DiaFont *font;
-  real font_height;
 
   Point size;  /* extent size */
   real scale;
@@ -296,18 +286,6 @@ set_fillstyle (DiaRenderer *object, DiaFillStyle mode)
     }
 }
 
-
-static void
-set_font (DiaRenderer *object, DiaFont *font, real height)
-{
-  HpglRenderer *renderer = HPGL_RENDERER (object);
-
-  DIAG_NOTE (g_message ("set_font %f", height));
-
-  g_clear_object (&renderer->font);
-  renderer->font = g_object_ref (font);
-  renderer->font_height = height;
-}
 
 /* Need to translate coord system:
  *
@@ -537,7 +515,10 @@ draw_string (DiaRenderer  *object,
              Color        *colour)
 {
   HpglRenderer *renderer = HPGL_RENDERER (object);
-  real width, height;
+  double font_height;
+  double width, height;
+
+  dia_renderer_get_font (object, &font_height);
 
   DIAG_NOTE (g_message ("draw_string %f,%f %s",
                         pos->x, pos->y, text));
@@ -568,7 +549,7 @@ draw_string (DiaRenderer  *object,
      *    set the capital letter box width and height as a percentage of
      *    P2X-P1X  and P2Y-P1Y
      */
-    height = (127.999 * renderer->font_height * renderer->scale) / renderer->size.y;
+    height = (127.999 * font_height * renderer->scale) / renderer->size.y;
     width  = 0.75 * height; /* FIXME: */
     fprintf(renderer->file, "SR%d.%03d,%d.%03d;",
             (int)width, (int)((width * 1000) % 1000),
@@ -578,8 +559,8 @@ draw_string (DiaRenderer  *object,
      * SI - character size absolute
      *    size needed in centimeters
      */
-    width = renderer->font_height * renderer->scale * 0.75 * 0.0025;
-    height = renderer->font_height * renderer->scale * 0.0025;
+    width = font_height * renderer->scale * 0.75 * 0.0025;
+    height = font_height * renderer->scale * 0.0025;
     fprintf(renderer->file, "SI%d.%03d,%d.%03d;",
             (int)width, ((int)(width * 1000) % 1000),
             (int)height, ((int)(height * 1000) % 1000));
@@ -587,6 +568,7 @@ draw_string (DiaRenderer  *object,
     fprintf(renderer->file, "DT\003;" /* Terminator */
             "LB%s\003;\n", text);
 }
+
 
 static void
 draw_image(DiaRenderer *object,
@@ -632,73 +614,13 @@ hpgl_renderer_get_type (void)
   return object_type;
 }
 
-static void
-hpgl_renderer_set_property (GObject      *object,
-                            guint         property_id,
-                            const GValue *value,
-                            GParamSpec   *pspec)
-{
-  HpglRenderer *self = HPGL_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      set_font (DIA_RENDERER (self),
-                DIA_FONT (g_value_get_object (value)),
-                self->font_height);
-      break;
-    case PROP_FONT_HEIGHT:
-      set_font (DIA_RENDERER (self),
-                self->font,
-                g_value_get_double (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-static void
-hpgl_renderer_get_property (GObject    *object,
-                            guint       property_id,
-                            GValue     *value,
-                            GParamSpec *pspec)
-{
-  HpglRenderer *self = HPGL_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      g_value_set_object (value, self->font);
-      break;
-    case PROP_FONT_HEIGHT:
-      g_value_set_double (value, self->font_height);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-static void
-hpgl_renderer_finalize (GObject *object)
-{
-  HpglRenderer *self = HPGL_RENDERER (object);
-
-  g_clear_object (&self->font);
-
-  G_OBJECT_CLASS (parent_class)->finalize (object);
-}
 
 static void
 hpgl_renderer_class_init (HpglRendererClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
   parent_class = g_type_class_peek_parent (klass);
-
-  object_class->get_property = hpgl_renderer_get_property;
-  object_class->set_property = hpgl_renderer_set_property;
-  object_class->finalize = hpgl_renderer_finalize;
 
   /* renderer members */
   renderer_class->begin_render = begin_render;
@@ -722,10 +644,8 @@ hpgl_renderer_class_init (HpglRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
-
-  g_object_class_override_property (object_class, PROP_FONT, "font");
-  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
+
 
 /* plug-in interface : export function */
 static gboolean

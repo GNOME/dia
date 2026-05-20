@@ -235,19 +235,22 @@ beziergon_draw (Beziergon *beziergon, DiaRenderer *renderer)
 
   if (beziergon->show_background) {
     Color fill = beziergon->inner_color;
+
     if (beziergon->pattern) {
       dia_pattern_get_fallback_color (beziergon->pattern, &fill);
-      if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+      if (dia_renderer_is_capable_of (renderer, DIA_RENDER_PATTERN)) {
         dia_renderer_set_pattern (renderer, beziergon->pattern);
       }
     }
+
     dia_renderer_draw_beziergon (renderer, points, n, &fill, &beziergon->line_color);
-    if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+    if (dia_renderer_is_capable_of (renderer, DIA_RENDER_PATTERN)) {
       dia_renderer_set_pattern (renderer, NULL);
     }
   } else { /* still to be closed */
     dia_renderer_draw_beziergon (renderer, points, n, NULL, &beziergon->line_color);
   }
+
   /* these lines should only be displayed when object is selected.
    * Unfortunately the draw function is not aware of the selected
    * state.  This is a compromise until I fix this properly. */

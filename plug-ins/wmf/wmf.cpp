@@ -103,25 +103,14 @@ G_BEGIN_DECLS
 #define WMF_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), WMF_TYPE_RENDERER))
 #define WMF_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), WMF_TYPE_RENDERER, WmfRendererClass))
 
-enum {
-  PROP_0,
-  PROP_FONT,
-  PROP_FONT_HEIGHT,
-  LAST_PROP
-};
-
 
 GType wmf_renderer_get_type (void) G_GNUC_CONST;
 
 typedef struct _WmfRenderer WmfRenderer;
 typedef struct _WmfRendererClass WmfRendererClass;
 
-struct _WmfRenderer
-{
+struct _WmfRenderer {
   DiaRenderer parent_instance;
-
-  DiaFont *font;
-  double font_height;
 
   W32::HDC  hFileDC;
   gchar*    sFileName;
@@ -155,6 +144,22 @@ struct _WmfRendererClass
 };
 
 G_END_DECLS
+
+
+static gpointer parent_class = NULL;
+
+
+static void
+dia_wmf_renderer_dispose (GObject *object)
+{
+  WmfRenderer *self = WMF_RENDERER (object);
+
+  g_clear_pointer (&self->hFont, W32::DeleteObject);
+  g_clear_object (&self->pango_context);
+
+  G_OBJECT_CLASS (parent_class)->dispose (object);
+}
+
 
 /*
  * helper macros
@@ -347,19 +352,17 @@ end_render(DiaRenderer *self)
 	W32::DeleteEnhMetaFile(hEmf);
 }
 
+
 static gboolean
-is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+dia_wmf_renderer_is_capable_of (DiaRenderer         *renderer,
+                                DiaRenderCapability  capabilities)
 {
-  if (RENDER_HOLES == cap)
-    return TRUE;
-  else if (RENDER_ALPHA == cap)
-    return TRUE;
-  else if (RENDER_AFFINE == cap)
-    return TRUE;
-  return FALSE;
+  static int supported =
+    DIA_RENDER_HOLES | DIA_RENDER_ALPHA | DIA_RENDER_AFFINE;
+
+  return (supported & capabilities) == capabilities;
 }
 
-static gpointer parent_class = NULL;
 
 #if defined(G_OS_WIN32)
 static void
@@ -539,7 +542,9 @@ set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 
 
 static void
-set_font (DiaRenderer *self, DiaFont *font, real height)
+dia_wmf_renderer_font_changed (DiaRenderer *self,
+                               DiaFont     *font,
+                               double       height)
 {
   WmfRenderer *renderer = WMF_RENDERER (self);
 
@@ -547,11 +552,8 @@ set_font (DiaRenderer *self, DiaFont *font, real height)
   W32::DWORD dwItalic = 0;
   W32::DWORD dwWeight = FW_DONTCARE;
   DiaFontStyle style = dia_font_get_style (font);
-  real font_size = dia_font_get_size (font) * (height / dia_font_get_height (font));
-
-  g_clear_object (&renderer->font);
-  renderer->font = DIA_FONT (g_object_ref (font));
-  renderer->font_height = height;
+  double font_size = dia_font_get_size (font) *
+    (height / dia_font_get_height (font));
 
   DIAG_NOTE (renderer, "set_font %s %f\n",
              dia_font_get_family (font), height);
@@ -1264,66 +1266,6 @@ wmf_renderer_get_type (void)
   return object_type;
 }
 
-static void
-wmf_renderer_set_property (GObject      *object,
-                           guint         property_id,
-                           const GValue *value,
-                           GParamSpec   *pspec)
-{
-  WmfRenderer *self = WMF_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      set_font (DIA_RENDERER (self),
-                DIA_FONT (g_value_get_object (value)),
-                self->font_height);
-      break;
-    case PROP_FONT_HEIGHT:
-      set_font (DIA_RENDERER (self),
-                self->font,
-                g_value_get_double (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-static void
-wmf_renderer_get_property (GObject    *object,
-                           guint       property_id,
-                           GValue     *value,
-                           GParamSpec *pspec)
-{
-  WmfRenderer *self = WMF_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      g_value_set_object (value, self->font);
-      break;
-    case PROP_FONT_HEIGHT:
-      g_value_set_double (value, self->font_height);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-static void
-wmf_renderer_finalize (GObject *object)
-{
-  WmfRenderer *renderer = WMF_RENDERER (object);
-
-  g_clear_object (&renderer->font);
-
-  if (renderer->hFont)
-    W32::DeleteObject(renderer->hFont);
-  if (renderer->pango_context)
-    g_object_unref (renderer->pango_context);
-
-  G_OBJECT_CLASS (parent_class)->finalize (object);
-}
 
 static void
 wmf_renderer_class_init (WmfRendererClass *klass)
@@ -1333,9 +1275,7 @@ wmf_renderer_class_init (WmfRendererClass *klass)
 
   parent_class = g_type_class_peek_parent (klass);
 
-  object_class->set_property = wmf_renderer_set_property;
-  object_class->get_property = wmf_renderer_get_property;
-  object_class->finalize = wmf_renderer_finalize;
+  object_class->dispose = dia_wmf_renderer_dispose;
 
   /* renderer members */
   renderer_class->begin_render = begin_render;
@@ -1349,6 +1289,7 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
   renderer_class->set_fillstyle  = set_fillstyle;
+  renderer_class->font_changed = dia_wmf_renderer_font_changed;
 
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_polygon = draw_polygon;
@@ -1374,11 +1315,9 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->draw_rounded_rect = draw_rounded_rect;
 #endif
   /* other */
-  renderer_class->is_capable_to = is_capable_to;
-
-  g_object_class_override_property (object_class, PROP_FONT, "font");
-  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
+  renderer_class->is_capable_of = dia_wmf_renderer_is_capable_of;
 }
+
 
 /* plug-in export api */
 static gboolean

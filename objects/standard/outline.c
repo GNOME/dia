@@ -398,7 +398,7 @@ outline_draw (Outline *outline, DiaRenderer *renderer)
   if (pts[n-1].type == BEZ_MOVE_TO)
     --total; /* remove a potential last move which would otherwise be rendered as a dot */
 
-  if (dia_renderer_is_capable_of (renderer, RENDER_HOLES)) {
+  if (dia_renderer_is_capable_of (renderer, DIA_RENDER_HOLES)) {
     dia_renderer_draw_beziergon (renderer,
                                  pts,
                                  total,

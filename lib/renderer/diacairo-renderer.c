@@ -59,12 +59,19 @@
 
 G_DEFINE_TYPE (DiaCairoRenderer, dia_cairo_renderer, DIA_TYPE_RENDERER)
 
-enum {
-  PROP_0,
-  PROP_FONT,
-  PROP_FONT_HEIGHT,
-  LAST_PROP
-};
+
+static void
+dia_cairo_renderer_dispose (GObject *object)
+{
+  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
+
+  g_clear_pointer (&renderer->cr, cairo_destroy);
+  g_clear_pointer (&renderer->surface, cairo_surface_destroy);
+
+  g_clear_object (&renderer->layout);
+
+  G_OBJECT_CLASS (dia_cairo_renderer_parent_class)->finalize (object);
+}
 
 
 static void ensure_minimum_one_device_unit (DiaCairoRenderer *renderer,
@@ -195,36 +202,26 @@ dia_cairo_renderer_end_render (DiaRenderer *self)
   DIAG_STATE (renderer->cr)
 }
 
-/*!
- * \brief Advertize renderers capabilities
- *
- * Especially with cairo this should be 'all' so this function
- * is complaining if it will return FALSE
- * \memberof _DiaCairoRenderer
- */
+
 static gboolean
-dia_cairo_renderer_is_capable_to (DiaRenderer      *renderer,
-                                  RenderCapability  cap)
+dia_cairo_renderer_is_capable_of (DiaRenderer         *renderer,
+                                  DiaRenderCapability  capabilities)
 {
-  static RenderCapability warned = RENDER_HOLES;
+  static DiaRenderCapability supported =
+    DIA_RENDER_HOLES | DIA_RENDER_ALPHA | DIA_RENDER_AFFINE | DIA_RENDER_PATTERN;
+  gboolean result = (supported & capabilities) == capabilities;
 
-  if (RENDER_HOLES == cap) {
-    return TRUE;
-  } else if (RENDER_ALPHA == cap) {
-    return TRUE;
-  } else if (RENDER_AFFINE == cap) {
-    return TRUE;
-  } else if (RENDER_PATTERN == cap) {
-    return TRUE;
+  /* With cairo this should be 'all' so we complain if it will return FALSE */
+  if (G_UNLIKELY (!result)) {
+    char *str =
+      g_flags_to_string (DIA_TYPE_RENDER_CAPABILITY, supported);
+
+    g_warning ("New capability not supported by cairo??: %s", str);
+
+    g_clear_pointer (&str, g_free);
   }
 
-  if (cap != warned) {
-    g_warning ("New capability not supported by cairo??");
-  }
-
-  warned = cap;
-
-  return FALSE;
+  return result;
 }
 
 
@@ -549,11 +546,14 @@ dia_cairo_renderer_set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 #define FONT_SIZE_TWEAK (72.0)
 
 static void
-dia_cairo_renderer_set_font (DiaRenderer *self, DiaFont *font, real height)
+dia_cairo_renderer_font_changed (DiaRenderer *self,
+                                 DiaFont     *font,
+                                 double       font_height)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   /* pango/cairo wants the font size, not the (line-) height */
-  real size = dia_font_get_size (font) * (height / dia_font_get_height (font));
+  double size = dia_font_get_size (font) *
+    (font_height / dia_font_get_height (font));
 
   PangoFontDescription *pfd = pango_font_description_copy (dia_font_get_description (font));
 
@@ -564,13 +564,8 @@ dia_cairo_renderer_set_font (DiaRenderer *self, DiaFont *font, real height)
                                             (int) (size * FONT_SIZE_TWEAK * PANGO_SCALE));
   pango_layout_set_font_description (renderer->layout, pfd);
   pango_font_description_free (pfd);
-
-  g_object_ref (font);
-  g_clear_object (&renderer->font);
-
-  renderer->font = font;
-  renderer->font_height = height;
 }
+
 
 static void
 dia_cairo_renderer_draw_line (DiaRenderer *self,
@@ -1197,73 +1192,6 @@ dia_cairo_renderer_draw_rounded_polyline (DiaRenderer *self,
   DIAG_STATE (renderer->cr)
 }
 
-static void
-dia_cairo_renderer_init (DiaCairoRenderer *renderer)
-{
-  renderer->scale = 1.0;
-}
-
-static void
-dia_cairo_renderer_set_property (GObject      *object,
-                                 guint         property_id,
-                                 const GValue *value,
-                                 GParamSpec   *pspec)
-{
-  DiaCairoRenderer *self = DIA_CAIRO_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      dia_cairo_renderer_set_font (DIA_RENDERER (self),
-                                   g_value_get_object (value),
-                                   self->font_height);
-      break;
-    case PROP_FONT_HEIGHT:
-      dia_cairo_renderer_set_font (DIA_RENDERER (self),
-                                   self->font,
-                                   g_value_get_double (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-static void
-dia_cairo_renderer_get_property (GObject    *object,
-                                 guint       property_id,
-                                 GValue     *value,
-                                 GParamSpec *pspec)
-{
-  DiaCairoRenderer *self = DIA_CAIRO_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      g_value_set_object (value, self->font);
-      break;
-    case PROP_FONT_HEIGHT:
-      g_value_set_double (value, self->font_height);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-
-static void
-dia_cairo_renderer_finalize (GObject *object)
-{
-  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
-
-  g_clear_pointer (&renderer->cr, cairo_destroy);
-  g_clear_pointer (&renderer->surface, cairo_surface_destroy);
-
-  g_clear_object (&renderer->layout);
-  g_clear_object (&renderer->font);
-
-  G_OBJECT_CLASS (dia_cairo_renderer_parent_class)->finalize (object);
-}
-
 
 static void
 dia_cairo_renderer_class_init (DiaCairoRendererClass *klass)
@@ -1271,9 +1199,7 @@ dia_cairo_renderer_class_init (DiaCairoRendererClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
-  object_class->set_property = dia_cairo_renderer_set_property;
-  object_class->get_property = dia_cairo_renderer_get_property;
-  object_class->finalize = dia_cairo_renderer_finalize;
+  object_class->dispose = dia_cairo_renderer_dispose;
 
   /* renderer members */
   renderer_class->begin_render = dia_cairo_renderer_begin_render;
@@ -1285,6 +1211,7 @@ dia_cairo_renderer_class_init (DiaCairoRendererClass *klass)
   renderer_class->set_linejoin   = dia_cairo_renderer_set_linejoin;
   renderer_class->set_linestyle  = dia_cairo_renderer_set_linestyle;
   renderer_class->set_fillstyle  = dia_cairo_renderer_set_fillstyle;
+  renderer_class->font_changed = dia_cairo_renderer_font_changed;
 
   renderer_class->draw_line    = dia_cairo_renderer_draw_line;
   renderer_class->draw_polygon = dia_cairo_renderer_draw_polygon;
@@ -1308,9 +1235,13 @@ dia_cairo_renderer_class_init (DiaCairoRendererClass *klass)
   renderer_class->draw_rotated_image    = dia_cairo_renderer_draw_rotated_image;
 
   /* other */
-  renderer_class->is_capable_to = dia_cairo_renderer_is_capable_to;
+  renderer_class->is_capable_of = dia_cairo_renderer_is_capable_of;
   renderer_class->set_pattern   = dia_cairo_renderer_set_pattern;
+}
 
-  g_object_class_override_property (object_class, PROP_FONT, "font");
-  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
+
+static void
+dia_cairo_renderer_init (DiaCairoRenderer *renderer)
+{
+  renderer->scale = 1.0;
 }

@@ -199,15 +199,18 @@ static void
 end_render(DiaRenderer *self)
 {
 }
+
+
 static gboolean
-is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+dia_path_renderer_is_capable_of (DiaRenderer         *renderer,
+                                 DiaRenderCapability  capabilities)
 {
-  if (RENDER_HOLES == cap)
-    return TRUE;
-  else if (RENDER_ALPHA == cap)
-    return TRUE;
-  return FALSE;
+  static DiaRenderCapability supported = DIA_RENDER_HOLES | DIA_RENDER_ALPHA;
+
+  return (supported & capabilities) == capabilities;
 }
+
+
 static void
 set_linewidth(DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
@@ -794,8 +797,9 @@ dia_path_renderer_class_init (DiaPathRendererClass *klass)
   /* highest level function */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   /* other */
-  renderer_class->is_capable_to = is_capable_to;
+  renderer_class->is_capable_of = dia_path_renderer_is_capable_of;
 }
+
 
 #include "object.h"
 #include "create.h"

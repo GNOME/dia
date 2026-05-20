@@ -186,29 +186,17 @@ end_render (DiaRenderer *self)
   DIA_RENDERER_CLASS (parent_class)->end_render (DIA_RENDERER (self));
 }
 
-/*!
- * \brief Advertise special capabilities
- *
- * Some objects drawing adapts to capabilities advertised by the respective
- * renderer. Usually there is a fallback, but generally the real thing should
- * be better. The SVG renderer preserves holes, transparency, handles affine
- * transformation and also gradients.
- *
- * \memberof _SvgRenderer
- */
+
 static gboolean
-is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+dia_svg_renderer_is_capable_of (DiaRenderer         *renderer,
+                                DiaRenderCapability  capabilities)
 {
-  if (RENDER_HOLES == cap)
-    return TRUE;
-  else if (RENDER_ALPHA == cap)
-    return TRUE;
-  else if (RENDER_AFFINE == cap)
-    return TRUE;
-  else if (RENDER_PATTERN == cap)
-    return TRUE;
-  return FALSE;
+  static DiaRenderCapability supported =
+    DIA_RENDER_HOLES | DIA_RENDER_ALPHA | DIA_RENDER_AFFINE | DIA_RENDER_PATTERN;
+
+  return (supported & capabilities) == capabilities;
 }
+
 
 /* destructor */
 static void
@@ -240,8 +228,9 @@ svg_renderer_class_init (SvgRendererClass *klass)
   renderer_class->draw_text_line  = draw_text_line;
   renderer_class->draw_rotated_text  = draw_rotated_text;
   renderer_class->draw_rotated_image  = draw_rotated_image;
-  renderer_class->is_capable_to = is_capable_to;
+  renderer_class->is_capable_of = dia_svg_renderer_is_capable_of;
 }
+
 
 /*!
  * \brief Creation and initialization of the SvgRenderer

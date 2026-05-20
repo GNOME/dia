@@ -60,14 +60,6 @@
 #define VDX_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), VDX_TYPE_RENDERER, VDXRendererClass))
 
 
-enum {
-  PROP_0,
-  PROP_FONT,
-  PROP_FONT_HEIGHT,
-  LAST_PROP
-};
-
-
 GType vdx_renderer_get_type (void) G_GNUC_CONST;
 
 typedef struct _VDXRenderer VDXRenderer;
@@ -92,8 +84,6 @@ struct _VDXRenderer
     DiaLineStyle stylemode;
     double dashlength;
     DiaFillStyle fillmode;
-    DiaFont *font;
-    double fontheight;
 
     /* Additions for VDX */
 
@@ -152,81 +142,7 @@ vdx_renderer_get_type (void)
   return object_type;
 }
 
-/** Set font
- * @param self a renderer
- * @param font new font
- * @param height new font height
- */
 
-static void
-set_font (DiaRenderer *self, DiaFont *font, real height)
-{
-  VDXRenderer *renderer = VDX_RENDERER(self);
-
-  g_clear_object (&renderer->font);
-  renderer->font = g_object_ref (font);
-  renderer->fontheight = height;
-}
-
-static void
-vdx_renderer_set_property (GObject      *object,
-                           guint         property_id,
-                           const GValue *value,
-                           GParamSpec   *pspec)
-{
-  VDXRenderer *self = VDX_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      set_font (DIA_RENDERER (self),
-                DIA_FONT (g_value_get_object (value)),
-                self->fontheight);
-      break;
-    case PROP_FONT_HEIGHT:
-      set_font (DIA_RENDERER (self),
-                self->font,
-                g_value_get_double (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-static void
-vdx_renderer_get_property (GObject    *object,
-                           guint       property_id,
-                           GValue     *value,
-                           GParamSpec *pspec)
-{
-  VDXRenderer *self = VDX_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      g_value_set_object (value, self->font);
-      break;
-    case PROP_FONT_HEIGHT:
-      g_value_set_double (value, self->fontheight);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-/** Finalise a renderer
- * @param object a renderer
- */
-
-static void
-vdx_renderer_finalize (GObject *object)
-{
-  VDXRenderer *self = VDX_RENDERER (object);
-
-  g_clear_object (&self->font);
-
-  G_OBJECT_CLASS (parent_class)->finalize (object);
-}
 
 /** Initialises VDXrenderer
  * @param self a renderer
@@ -246,8 +162,6 @@ begin_render(DiaRenderer *self, const DiaRectangle *update)
     renderer->stylemode = 0;
     renderer->dashlength = 0;
     renderer->fillmode = 0;
-    renderer->font = NULL;
-    renderer->fontheight = 1;
 
     /* Specific to VDX */
 
@@ -394,27 +308,30 @@ vdxCheckColor (VDXRenderer *renderer, DiaColour *color)
 }
 
 
-/** Get font number from font table
- * @param renderer a renderer
- * @returns a font index (from 0)
+/*
+ * Get font number from font table
+ *
+ * Returns: a font index (from 0)
  */
-
 static int
-vdxCheckFont(VDXRenderer *renderer)
+vdxCheckFont (VDXRenderer *renderer)
 {
-    int i;
+  DiaFont *font = dia_renderer_get_font (DIA_RENDERER (renderer), NULL);
+  const char *cmp_font;
+  const char *font_family = dia_font_get_family (font);
 
-    const char *cmp_font;
-    const char *font = dia_font_get_family(renderer->font);
-    for (i = 0; i < renderer->Fonts->len; i++)
-    {
-        cmp_font = g_array_index(renderer->Fonts, char *, i);
-        if (!strcmp(cmp_font, font))
-	  return i;
+  for (int i = 0; i < renderer->Fonts->len; i++) {
+    cmp_font = g_array_index (renderer->Fonts, char *, i);
+
+    if (!strcmp (cmp_font, font_family)) {
+      return i;
     }
-    /* Grow table */
-    g_array_append_val(renderer->Fonts, font);
-    return renderer->Fonts->len - 1;
+  }
+
+  /* Grow table */
+  g_array_append_val (renderer->Fonts, font);
+
+  return renderer->Fonts->len - 1;
 }
 
 
@@ -1263,9 +1180,12 @@ draw_string (DiaRenderer  *self,
              const char   *text,
              Point        *pos,
              DiaAlignment  alignment,
-             Color        *color)
+             DiaColour    *color)
 {
-    VDXRenderer *renderer = VDX_RENDERER (self);
+  VDXRenderer *renderer = VDX_RENDERER (self);
+  double font_height;
+  DiaFont *font = dia_renderer_get_font (DIA_RENDERER (renderer),
+                                         &font_height);
     Point a;
     struct vdx_Shape Shape;
     struct vdx_XForm XForm;
@@ -1304,14 +1224,14 @@ draw_string (DiaRenderer  *self,
     XForm.any.type = vdx_types_XForm;
     /* Align by math until we find the right tags */
     a = *pos;
-    text_width = dia_font_string_width(text, renderer->font, renderer->fontheight);
+  text_width = dia_font_string_width (text, font, font_height);
     /* apparently text_width is not useable to scale the text, tried with
      * TextXForm.TxtWidth. But is needed to place the text box. If the text
      * happens to overflow the box width a new line gets created. Ensure the
      * text fits and the box is properly aligned, too.
      */
     text_width *= 1.2;
-    a.y += dia_font_descent(text, renderer->font, renderer->fontheight);
+  a.y += dia_font_descent (text, font, font_height);
     switch (alignment) {
       case DIA_ALIGN_LEFT:
         /* nothing to do this appears to be default */
@@ -1330,7 +1250,7 @@ draw_string (DiaRenderer  *self,
     XForm.PinY = a.y;
     XForm.Angle = 0;
     /* Hack to give it an approximate bounding box */
-    XForm.Height = renderer->fontheight/vdx_Font_Size_Conversion;
+  XForm.Height = font_height / vdx_Font_Size_Conversion;
     /* some arbitrary resizing of the paragraph box to make the text always fit */
     XForm.Width = visio_length(text_width);
 
@@ -1340,9 +1260,9 @@ draw_string (DiaRenderer  *self,
     Char.Font = vdxCheckFont(renderer);
     Char.Color = *color;
     Char.FontScale = 1;
-    Char.Size = renderer->fontheight/vdx_Font_Size_Conversion;
+  Char.Size = font_height / vdx_Font_Size_Conversion;
     /* Fontstyle: bold=1, italic=2, ... */
-    font_style = dia_font_get_style(renderer->font);
+  font_style = dia_font_get_style (font);
     Char.Style = DIA_FONT_STYLE_GET_WEIGHT(font_style) >= DIA_FONT_MEDIUM ? 1 : 0 +
                  DIA_FONT_STYLE_GET_SLANT(font_style) ? 2 : 0;
     /* ... reference the above */
@@ -2128,14 +2048,9 @@ draw_object (DiaRenderer *self,
 static void
 vdx_renderer_class_init (VDXRendererClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
   parent_class = g_type_class_peek_parent (klass);
-
-  object_class->set_property = vdx_renderer_set_property;
-  object_class->get_property = vdx_renderer_get_property;
-  object_class->finalize = vdx_renderer_finalize;
 
   renderer_class->begin_render = begin_render;
   renderer_class->end_render = end_render;
@@ -2167,7 +2082,4 @@ vdx_renderer_class_init (VDXRendererClass *klass)
 
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   /* Further high level methods not required (or desired?) */
-
-  g_object_class_override_property (object_class, PROP_FONT, "font");
-  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }

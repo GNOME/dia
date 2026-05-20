@@ -81,8 +81,6 @@ struct _DiaDxfRenderer {
 
   FILE *file;
 
-  DiaFont *font;
-
   double y0, y1;
 
   LineAttrdxf  lcurrent, linfile;
@@ -96,81 +94,6 @@ struct _DiaDxfRenderer {
 
 
 G_DEFINE_FINAL_TYPE (DiaDxfRenderer, dia_dxf_renderer, DIA_TYPE_RENDERER)
-
-
-enum {
-  PROP_0,
-  PROP_FONT,
-  PROP_FONT_HEIGHT,
-  LAST_PROP
-};
-
-
-static inline void
-set_font (DiaDxfRenderer *self, DiaFont *font, double height)
-{
-  g_set_object (&self->font, font);
-  self->tcurrent.font_height = height;
-}
-
-
-static void
-dia_dxf_renderer_set_property (GObject      *object,
-                               guint         property_id,
-                               const GValue *value,
-                               GParamSpec   *pspec)
-{
-  DiaDxfRenderer *self = DIA_DXF_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      set_font (self,
-                DIA_FONT (g_value_get_object (value)),
-                self->tcurrent.font_height);
-      break;
-    case PROP_FONT_HEIGHT:
-      set_font (self,
-                self->font,
-                g_value_get_double (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-
-static void
-dia_dxf_renderer_get_property (GObject    *object,
-                               guint       property_id,
-                               GValue     *value,
-                               GParamSpec *pspec)
-{
-  DiaDxfRenderer *self = DIA_DXF_RENDERER (object);
-
-  switch (property_id) {
-    case PROP_FONT:
-      g_value_set_object (value, self->font);
-      break;
-    case PROP_FONT_HEIGHT:
-      g_value_set_double (value, self->tcurrent.font_height);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-      break;
-  }
-}
-
-
-static void
-dia_dxf_renderer_dispose (GObject *object)
-{
-  DiaDxfRenderer *self = DIA_DXF_RENDERER (object);
-
-  g_clear_object (&self->font);
-
-  G_OBJECT_CLASS (dia_dxf_renderer_parent_class)->dispose (object);
-}
 
 
 static void
@@ -245,6 +168,17 @@ dia_dxf_renderer_set_linestyle (DiaRenderer  *self,
 static void
 dia_dxf_renderer_set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 {
+}
+
+
+static inline void
+dia_dxf_renderer_font_changed (DiaRenderer *renderer,
+                               DiaFont     *font,
+                               double       font_height)
+{
+  DiaDxfRenderer *self = DIA_DXF_RENDERER (renderer);
+
+  self->tcurrent.font_height = font_height;
 }
 
 
@@ -528,12 +462,7 @@ dia_dxf_renderer_draw_image (DiaRenderer *self,
 static void
 dia_dxf_renderer_class_init (DiaDxfRendererClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
-
-  object_class->set_property = dia_dxf_renderer_set_property;
-  object_class->get_property = dia_dxf_renderer_get_property;
-  object_class->dispose = dia_dxf_renderer_dispose;
 
   renderer_class->begin_render = dia_dxf_renderer_begin_render;
   renderer_class->end_render = dia_dxf_renderer_end_render;
@@ -543,6 +472,7 @@ dia_dxf_renderer_class_init (DiaDxfRendererClass *klass)
   renderer_class->set_linejoin = dia_dxf_renderer_set_linejoin;
   renderer_class->set_linestyle = dia_dxf_renderer_set_linestyle;
   renderer_class->set_fillstyle = dia_dxf_renderer_set_fillstyle;
+  renderer_class->font_changed = dia_dxf_renderer_font_changed;
 
   renderer_class->draw_line = dia_dxf_renderer_draw_line;
   renderer_class->draw_polyline = dia_dxf_renderer_draw_polyline;
@@ -556,9 +486,6 @@ dia_dxf_renderer_class_init (DiaDxfRendererClass *klass)
   renderer_class->draw_string = dia_dxf_renderer_draw_string;
 
   renderer_class->draw_image = dia_dxf_renderer_draw_image;
-
-  g_object_class_override_property (object_class, PROP_FONT, "font");
-  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
 
