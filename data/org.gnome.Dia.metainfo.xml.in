@@ -25,7 +25,7 @@
     </screenshot>
   </screenshots>
   <url type="homepage">https://gitlab.gnome.org/GNOME/dia/</url>
-  <url type="bugtracker">https://gitlab.gnome.org/GNOME/dia/issues</url>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/dia/-/work_items</url>
   <url type="donation">https://www.gnome.org/donate/</url>
   <url type="translate">https://l10n.gnome.org/module/dia/</url>
   <content_rating type="oars-1.0" />
